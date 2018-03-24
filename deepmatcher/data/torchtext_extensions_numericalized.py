@@ -14,7 +14,7 @@ class MatchingField(data.Field):
 
     def __init__(self, tokenize='spacy', *args, **kwargs):
         self.tokenizer_arg = tokenize
-        super(MatchingDataset, self).__init__(*args, **kwargs)
+        super(MatchingField, self).__init__(*args, **kwargs)
 
     def numericalize_args(self):
         attrs = [
@@ -60,12 +60,12 @@ class MatchingDataset(data.TabularDataset):
     class CacheStaleException(Exception):
         pass
 
-    def __init__(self, fields, *args, numericalized_exs=None, **kwargs):
-        if numericalized_exs is None:
-            super(MatchingDataset, self).__init__(*args, **kwargs)
+    def __init__(self, path, format, fields, examples=None, **kwargs):
+        if examples is None:
+            super(MatchingDataset, self).__init__(path, format, fields, **kwargs)
         else:
             self.fields = MatchingDataset._make_fields_dict(fields)
-            self.numericalized_exs = numericalized_exs
+            self.examples = examples
 
     @staticmethod
     def _make_fields_dict(fields):
@@ -80,7 +80,7 @@ class MatchingDataset(data.TabularDataset):
 
     @staticmethod
     def save_cache(datasets, fields, datafiles, cachefile):
-        numericalized_exs = [dataset.numericalized_exs for dataset in datasets]
+        examples = [dataset.examples for dataset in datasets]
         datafiles_modified = [os.path.getmtime(datafiles[d]) for d in datafiles]
         vocabs = {}
         field_args = {}
@@ -97,7 +97,7 @@ class MatchingDataset(data.TabularDataset):
                 field_args[name] = numericalize_args
 
         data = {
-            'numericalized_exs': numericalized_exs,
+            'examples': examples,
             'vocabs': vocabs,
             'datafiles_modified': datafiles_modified,
             'field_args': field_args
@@ -128,7 +128,7 @@ class MatchingDataset(data.TabularDataset):
     @staticmethod
     def restore_data(fields, cached_data):
         datasets = [
-            MatchingDataset(numericalized_exs=cached_data['numericalized_exs'][d])
+            MatchingDataset(examples=cached_data['examples'][d])
             for d in range(len(cached_data['datafiles']))
         ]
 
@@ -209,7 +209,7 @@ class MatchingDataset(data.TabularDataset):
             MatchingDataset.save_cache(datasets, fields_dict, datafiles, cachefile)
 
     def numericalize(self):
-        self.numericalized_exs = []
+        numericalized_exs = []
 
         for ex in self.examples:
             numericalized_ex = []
@@ -220,4 +220,8 @@ class MatchingDataset(data.TabularDataset):
                     numericalized_ex.append((name,
                                              field.numericalize_example(field_value)))
 
-            self.numericalized_exs.append(numericalized_ex)
+            numericalized_exs.append(numericalized_ex)
+
+        self.examples = numericalized_exs
+
+class MatchingIterator(data.BucketIterator):

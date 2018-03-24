@@ -1,0 +1,113 @@
+import pdb
+
+import six
+
+import deepmatcher as dm
+import torch
+import torch.nn as nn
+from torch.autograd import Variable
+
+from . import _utils
+from ..data import AttrTensor
+
+
+class Attention(dm.WordComparator):
+
+    def _init(self,
+              heads=1,
+              hidden_size=None,
+              raw_alignment=False,
+              input_dropout=0,
+              alignment_network='decomposable',
+              scale=False,
+              score_dropout=0,
+              input_transform_network=None,
+              value_transform_network=None,
+              value_merge='concat',
+              transform_dropout=0,
+              comparison_merge='concat',
+              comparison_network=None,
+              input_size=None):
+        hidden_size = hidden_size if hidden_size is not None else input_size[0]
+
+        self.alignment_network = dm.modules._alignment_module(
+            alignment_network, hidden_size=hidden_size)
+
+        if value_transform_network is None and heads > 1:
+            value_transform_network = 'linear'
+        self.value_transform_network = dm.modules._transform_module(
+            value_transform_network, hidden_size=hidden_size // heads)
+
+        if input_transform_network is None:
+            self.input_transform_network = self.value_transform_network
+        else:
+            self.input_transform_network = dm.modules._transform_module(
+                input_transform_network, hidden_size=hidden_size // heads)
+
+        self.value_merge = dm.modules._merge_module(value_merge)
+        self.comparison_merge = dm.modules._merge_module(comparison_merge)
+
+        if comparison_network is None:
+            self.comparison_network = dm.modules.MultiLayerTransform(
+                hidden_size=hidden_size)
+        else:
+            self.comparison_network = _utils.make_module(comparison_network)
+        self.comparison_merge.expect_signature('[AxB] -> [AxC]')
+
+        self.input_dropout = dm.modules.Dropout(input_dropout)
+        self.transform_dropout = dm.modules.Dropout(transform_dropout)
+        self.softmax = dm.modules.Softmax(dim=2)
+
+        self.raw_alignment = raw_alignment
+        self.heads = heads
+        self.scale = scale
+
+    def _forward(self,
+                 input_with_meta,
+                 context_with_meta,
+                 raw_input=None,
+                 raw_context=None):
+        input = self.input_dropout(input_with_meta.data)
+        context = self.input_dropout(context_with_meta.data)
+
+        queries = input
+        keys = context
+        values = context
+        if self.raw_alignment:
+            queries = raw_input
+            keys = raw_context
+
+        inputs_transformed = []
+        values_aligned = []
+        for _ in range(self.heads):
+            # Dims: batch x len1 x len2
+            alignment_scores = self.score_dropout(self.alignment_network(queries, keys))
+            if self.scale:
+                alignment_scores = alignment_scores / torch.sqrt(queries.size(2))
+
+            if context_with_meta.lengths is not None:
+                mask = Variable(_utils.sequence_mask(context_with_meta.lengths))
+                mask = mask.unsqueeze(1)  # Make it broadcastable.
+                alignment_scores.masked_fill_(1 - mask, -float('inf'))
+
+            normalized_scores = self.softmax(alignment_scores)
+
+            if self.input_transform_network is not None:
+                inputs_transformed.append(
+                    self.transform_dropout(self.input_transform_network(input)))
+            if self.value_transform_network is not None:
+                values_transformed = self.transform_dropout(
+                    self.value_transform_network(values))
+
+            # Dims: batch x len1 x channels
+            values_aligned.append(torch.bmm(normalized_scores, values_transformed))
+
+        inputs_merged = input
+        if inputs_transformed:
+            inputs_merged = self.value_merge(*inputs_transformed)
+        values_merged = self.value_merge(*values_aligned)
+
+        comparison_merged = self.comparison_merge([inputs_merged, values_merged])
+        comparison = self.comparison_network(comparison_merged)
+
+        return AttrTensor.from_old_metadata(comparison, input_with_meta)
