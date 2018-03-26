@@ -5,6 +5,7 @@ import pdb
 import random
 import tarfile
 import zipfile
+from collections import namedtuple
 from itertools import islice
 from timeit import default_timer as timer
 
@@ -234,9 +235,12 @@ def interleave_keys(keys):
     values for the key defined by this function. Useful for tasks with two
     text fields like machine translation or natural language inference.
     """
+
     def interleave(args):
         return ''.join([x for t in zip(*args) for x in t])
+
     return int(''.join(interleave(format(x, '016b') for x in keys)), base=2)
+
 
 class MatchingDataset(data.TabularDataset):
 
@@ -288,6 +292,7 @@ class MatchingDataset(data.TabularDataset):
 
         self.all_text_fields = self.all_left_fields + self.all_right_fields
         self.label_field = self.column_naming['label']
+        self.id_field = self.column_naming['id']
 
     def _compute_metadata(self):
         self.metadata = {}
@@ -356,14 +361,14 @@ class MatchingDataset(data.TabularDataset):
         cache_stale_cause = []
 
         if datafiles != cached_data['datafiles']:
-            cache_stale_cause += 'Data file list has changed.'
+            cache_stale_cause.append('Data file list has changed.')
 
         datafiles_modified = [os.path.getmtime(datafile) for datafile in datafiles]
         if datafiles_modified != cached_data['datafiles_modified']:
-            cache_stale_cause += 'One or more data files have been modified.'
+            cache_stale_cause.append('One or more data files have been modified.')
 
         if set(fields.keys()) != set(cached_data['field_args'].keys()):
-            cache_stale_cause += 'Fields have changed.'
+            cache_stale_cause.append('Fields have changed.')
 
         # for name, field_args in six.iteritems(cached_data['field_args']):
         #     if fields[name].preprocess_args() != field_args:
@@ -375,10 +380,10 @@ class MatchingDataset(data.TabularDataset):
             if field is not None and cached_data['field_args'][name] is not None:
                 args_mismatch = field.preprocess_args() != cached_data['field_args'][name]
             if none_mismatch or args_mismatch:
-                cache_stale_cause += 'Field arguments have changed.'
+                cache_stale_cause.append('Field arguments have changed.')
 
         if column_naming != cached_data['column_naming']:
-            cache_stale_cause += 'Other arguments have changed.'
+            cache_stale_cause.append('Other arguments have changed.')
 
         return cached_data, cache_stale_cause
 
@@ -461,6 +466,7 @@ class MatchingDataset(data.TabularDataset):
                     fields_dict, datafiles, cachefile, column_naming)
 
                 if check_cached_data and cache_stale_cause and not auto_rebuild_cache:
+                    pdb.set_trace()
                     raise MatchingDataset.CacheStaleException(cache_stale_cause)
 
                 if not check_cached_data or not cache_stale_cause:
@@ -473,21 +479,19 @@ class MatchingDataset(data.TabularDataset):
             begin = timer()
             if not unlabeled:
                 datasets = super(MatchingDataset, cls).splits(
-                        path,
-                        train=train,
-                        validation=validation,
-                        test=test,
-                        fields=fields,
-                        column_naming=column_naming,
-                        **kwargs)
+                    path,
+                    train=train,
+                    validation=validation,
+                    test=test,
+                    fields=fields,
+                    column_naming=column_naming,
+                    **kwargs)
             else:
-                datasets = (
-                    MatchingDataset(
-                        os.path.join(path, unlabeled),
-                        fields=fields,
-                        column_naming=column_naming,
-                        **kwargs),
-                )
+                datasets = (MatchingDataset(
+                    os.path.join(path, unlabeled),
+                    fields=fields,
+                    column_naming=column_naming,
+                    **kwargs),)
 
             after_load = timer()
             print('Load time:', after_load - begin)
@@ -545,39 +549,60 @@ class MatchingDataset(data.TabularDataset):
     #     self.examples = numericalized_exs
 
 
-class AttrTensor(object):
+AttrTensor_ = namedtuple('AttrTensor', ['data', 'lengths', 'tok_freqs', 'pc'])
 
-    def __init__(self, name, attr, train_dataset):
-        self.name = name
-        if isinstance(attr, tuple):
-            self.data = attr[0]
-            self.lengths = attr[1]
+
+class AttrTensor(AttrTensor_):
+
+    @staticmethod
+    def __new__(cls, *args, **kwargs):
+        if len(kwargs) == 0:
+            return super(AttrTensor, cls).__new__(cls, *args)
         else:
-            self.data = attr
-            self.lengths = None
-        if 'tok_freqs' in train_dataset.metadata:
-            self.tok_freqs = train_dataset.metadata['tok_freqs'][name]
-        if 'pc' in train_dataset.metadata:
-            self.pc = train_dataset.metadata['pc'][name]
+            name = kwargs['name']
+            attr = kwargs['attr']
+            train_dataset = kwargs['train_dataset']
+            if isinstance(attr, tuple):
+                data = attr[0]
+                lengths = attr[1]
+            else:
+                data = attr
+                lengths = None
+            tok_freqs = None
+            if 'tok_freqs' in train_dataset.metadata:
+                tok_freqs = train_dataset.metadata['tok_freqs'][name]
+            pc = None
+            if 'pc' in train_dataset.metadata:
+                pc = train_dataset.metadata['pc'][name]
+            return AttrTensor(data, lengths, tok_freqs, pc)
 
     @staticmethod
     def from_old_metadata(data, old_attrtensor):
-        new_attrtensor = copy.copy(old_attrtensor)
-        new_attrtensor.data = data
-        return new_attrtensor
+        return AttrTensor(data, *old_attrtensor[1:])
 
 
 class MatchingBatch(object):
 
     def __init__(self, input, train_dataset):
-        for name in train_dataset.all_text_fields:
-            setattr(self, name, AttrTensor(name, getattr(input, name), train_dataset))
+        copy_fields = train_dataset.all_text_fields
+        for name in copy_fields:
+            setattr(self, name, AttrTensor(name=name, attr=getattr(input, name),
+                train_dataset=train_dataset))
+        for name in [train_dataset.label_field, train_dataset.id_field]:
+            setattr(self, name, getattr(input, name))
 
 
 class MatchingIterator(data.BucketIterator):
 
-    def __init__(self, dataset, train_dataset, batch_size, repeat=False, **kwargs):
+    def __init__(self,
+                 dataset,
+                 train_dataset,
+                 batch_size,
+                 repeat=False,
+                 sort_in_buckets=True,
+                 **kwargs):
         self.train_dataset = train_dataset
+        self.sort_in_buckets = sort_in_buckets
         train = dataset == train_dataset
         super(MatchingIterator, self).__init__(
             dataset, batch_size, train=train, repeat=repeat, **kwargs)
@@ -608,6 +633,12 @@ class MatchingIterator(data.BucketIterator):
     def __iter__(self):
         for batch in super(MatchingIterator, self).__iter__():
             yield MatchingBatch(batch, self.train_dataset)
+
+    def create_batches(self):
+        if self.sort_in_buckets:
+            return data.BucketIterator.create_batches(self)
+        else:
+            return data.Iterator.create_batches(self)
 
 
 # class _BucketBatchSampler(object):

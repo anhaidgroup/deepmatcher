@@ -48,7 +48,7 @@ class Optimizer(object):
                  lr_decay_method=None,
                  warmup_steps=4000,
                  model_size=None):
-        self.last_error = None
+        self.last_acc = None
         self.lr = lr
         self.original_lr = lr
         self.max_grad_norm = max_grad_norm
@@ -62,29 +62,43 @@ class Optimizer(object):
         self.lr_decay_method = lr_decay_method
         self.warmup_steps = warmup_steps
         self.model_size = model_size
+        self.params = None
 
     def set_parameters(self, params):
-        self.params = [p for p in params if p.requires_grad]
+        self.params = []
+        self.sparse_params = []
+        for k, p in params:
+            if p.requires_grad:
+                if self.method != 'sparseadam' or "embed" not in k:
+                    self.params.append(p)
+                else:
+                    self.sparse_params.append(p)
         if self.method == 'sgd':
-            self.optimizer = optim.SGD(self.params, lr=self.lr)
+            self.base_optimizer = optim.SGD(self.params, lr=self.lr)
         elif self.method == 'adagrad':
-            self.optimizer = optim.Adagrad(self.params, lr=self.lr)
-            for group in self.optimizer.param_groups:
+            self.base_optimizer = optim.Adagrad(self.params, lr=self.lr)
+            for group in self.base_optimizer.param_groups:
                 for p in group['params']:
-                    self.optimizer.state[p]['sum'] = self.optimizer\
+                    self.base_optimizer.state[p]['sum'] = self.base_optimizer\
                         .state[p]['sum'].fill_(self.adagrad_accum)
         elif self.method == 'adadelta':
-            self.optimizer = optim.Adadelta(self.params, lr=self.lr)
+            self.base_optimizer = optim.Adadelta(self.params, lr=self.lr)
         elif self.method == 'adam':
-            self.optimizer = optim.Adam(
-                self.params, lr=self.lr, betas=self.betas, eps=1e-9)
+            self.base_optimizer = optim.Adam(self.params, lr=self.lr,
+                                        betas=self.betas, eps=1e-9)
+        elif self.method == 'sparseadam':
+            self.base_optimizer = MultipleOptimizer(
+                [optim.Adam(self.params, lr=self.lr,
+                            betas=self.betas, eps=1e-8),
+                 optim.SparseAdam(self.sparse_params, lr=self.lr,
+                                  betas=self.betas, eps=1e-8)])
         else:
             raise RuntimeError("Invalid optim method: " + self.method)
 
     def _set_rate(self, lr):
         self.lr = lr
         pdb.set_trace()
-        self.optimizer.param_groups[0]['lr'] = self.lr
+        self.base_optimizer.param_groups[0]['lr'] = self.lr
 
     def step(self):
         """Update the model parameters based on current gradients.
@@ -103,23 +117,23 @@ class Optimizer(object):
 
         if self.max_grad_norm:
             clip_grad_norm(self.params, self.max_grad_norm)
-        self.optimizer.step()
+        self.base_optimizer.step()
 
-    def update_learning_rate(self, error, epoch):
+    def update_learning_rate(self, acc, epoch):
         """
         Decay learning rate if val perf does not improve
         or we hit the start_decay_at limit.
         """
 
+        self.start_decay = True
         if self.start_decay_at is not None and epoch >= self.start_decay_at:
             self.start_decay = True
-        if self.last_error is not None and error > self.last_error:
+        if self.last_acc is not None and acc < self.last_acc:
             self.start_decay = True
 
         if self.start_decay:
             self.lr = self.lr * self.lr_decay
             print("Decaying learning rate to %g" % self.lr)
 
-        self.last_error = error
-        pdb.set_trace()
-        self.optimizer.param_groups[0]['lr'] = self.lr
+        self.last_acc = acc
+        self.base_optimizer.param_groups[0]['lr'] = self.lr

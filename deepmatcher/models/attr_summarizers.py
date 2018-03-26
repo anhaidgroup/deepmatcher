@@ -11,7 +11,7 @@ class RNN(dm.AttrSummarizer):
         super(RNN, self)._init(
             word_contextualizer='gru',
             word_comparator=None,
-            word_aggregator='birnnlast-pool')
+            word_aggregator='birnn-last-pool')
 
 
 class Attention(dm.AttrSummarizer):
@@ -20,7 +20,7 @@ class Attention(dm.AttrSummarizer):
         super(Attention, self)._init(
             word_contextualizer=None,
             word_comparator='decomposable-attention',
-            word_aggregator='divsqrt')
+            word_aggregator='divsqrt-pool')
 
 
 class Hybrid(dm.AttrSummarizer):

@@ -27,11 +27,12 @@ def _make_fields(header, id_attr, label_attr, ignore_columns, lower, include_len
         lower=lower, init_token='<<<', eos_token='>>>', batch_first=True, include_lengths=include_lengths)
     numeric_field = text.MatchingField(
         sequential=False, preprocessing=lambda x: int(x), use_vocab=False)
+    id_field = text.MatchingField(sequential=False, use_vocab=False)
 
     fields = []
     for attr in header:
         if attr == id_attr:
-            fields.append((attr, None))
+            fields.append((attr, id_field))
         elif attr == label_attr:
             fields.append((attr, numeric_field))
         elif attr in ignore_columns:

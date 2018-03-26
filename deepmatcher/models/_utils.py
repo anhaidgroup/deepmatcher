@@ -7,6 +7,7 @@ import torch
 
 from ..data import AttrTensor
 
+
 # From onmt-py
 def sequence_mask(lengths, max_len=None):
     """
@@ -14,10 +15,8 @@ def sequence_mask(lengths, max_len=None):
     """
     batch_size = lengths.numel()
     max_len = max_len or lengths.max()
-    mask = (torch.arange(0, max_len).type_as(lengths).repeat(batch_size, 1).lt(
+    return (torch.arange(0, max_len).type_as(lengths).repeat(batch_size, 1).lt(
         lengths.unsqueeze(1)))
-    pdb.set_trace()
-    return mask
 
 
 def get_module(cls, op, required=False, op_kwarg=None, **kwargs):

@@ -44,13 +44,15 @@ class Statistics(object):
         return self.loss_sum / self.examples
 
     def f1(self):
-        return 2 * self.precision * self.recall / (self.precision + self.recall)
+        prec = self.precision()
+        recall = self.recall()
+        return 2 * prec * recall / max(prec + recall, 1)
 
     def precision(self):
-        return 100 * self.tps / (self.tps + self.fps)
+        return 100 * self.tps / max(self.tps + self.fps, 1)
 
     def recall(self):
-        return 100 * self.tps / (self.tps + self.fns)
+        return 100 * self.tps / max(self.tps + self.fns, 1)
 
     def accuracy(self):
         return 100 * (self.tps + self.tns) / self.examples
@@ -65,13 +67,15 @@ class Runner(object):
     def print_stats(name, epoch, batch, n_batches, stats, cum_stats):
         """Write out statistics to stdout.
         """
-        print((' | {name} | [{epoch}][{batch}/{n_batches}] || F1: {f1} | Prec: {prec} |'
-               ' Rec: {rec} || Cum. F1: {cf1} | Cum. Prec: {cprec} | Cum. Rec: {crec} ||'
-               ' Ex/s: {bps}').format(
+        print((' | {name} | [{epoch}][{batch:4d}/{n_batches}] || Loss: {loss:7.4f} |'
+               ' F1: {f1:7.2f} | Prec: {prec:7.2f} | Rec: {rec:7.2f} ||'
+               ' Cum. F1: {cf1:7.2f} | Cum. Prec: {cprec:7.2f} | Cum. Rec: {crec:7.2f} ||'
+               ' Ex/s: {eps:6.1f}').format(
                    name=name,
                    epoch=epoch,
                    batch=batch,
                    n_batches=n_batches,
+                   loss=stats.loss(),
                    f1=stats.f1(),
                    prec=stats.precision(),
                    rec=stats.recall(),
@@ -84,8 +88,9 @@ class Runner(object):
     def print_final_stats(epoch, runtime, datatime, stats):
         """Write out statistics to stdout.
         """
-        print(('Finished Epoch {epoch} || Run Time: {runtime} | Load Time: {datatime} | '
-               'F1: {f1} | Prec: {prec} |  Rec: {rec} || Ex/s: {bps}\n').format(
+        print(('Finished Epoch {epoch} || Run Time: {runtime:7f} | '
+               'Load Time: {datatime:7f} | F1: {f1:7.2f} | Prec: {prec:7.2f} | '
+               'Rec: {rec:7.2f} || Ex/s: {eps:6.1f}\n').format(
                    epoch=epoch,
                    runtime=runtime,
                    datatime=datatime,
@@ -97,10 +102,10 @@ class Runner(object):
     @staticmethod
     def compute_scores(output, target):
         predictions = output.max(1)[1].data
-        correct = predictions == target.data
-        incorrect = 1 - correct
-        positives = target.data == 1
-        negatives = target.data == 0
+        correct = (predictions == target.data).float()
+        incorrect = (1 - correct).float()
+        positives = (target.data == 1).float()
+        negatives = (target.data == 0).float()
 
         tp = torch.dot(correct, positives)
         tn = torch.dot(correct, negatives)
@@ -110,13 +115,17 @@ class Runner(object):
         return tp, tn, fp, fn
 
     @staticmethod
+    def tally_parameters(model):
+        n_params = sum([p.nelement() for p in model.parameters() if p.requires_grad])
+        print('* Number of trainable parameters:', n_params)
+
+    @staticmethod
     def _run(run_type,
              model,
              dataset,
-             criterion,
-             optimizer,
-             train,
-             epoch=None,
+             criterion=None,
+             optimizer=None,
+             train=False,
              retain_predictions=False,
              device=None,
              save_path=None,
@@ -124,31 +133,41 @@ class Runner(object):
              num_data_workers=2,
              batch_callback=None,
              epoch_callback=None,
-             log_freq=1,
+             log_freq=5,
+             sort_in_buckets=None,
              **kwargs):
 
-        train_iter = MatchingIterator(dataset, model.train_dataset, batch_size=batch_size, device=device)
+        sort_in_buckets = train
+        train_iter = MatchingIterator(
+            dataset,
+            model.train_dataset,
+            batch_size=batch_size,
+            device=device,
+            sort_in_buckets=sort_in_buckets)
 
         if device == 'cpu':
             model = model.cpu()
-            criterion = criterion.cpu()
+            if criterion:
+                criterion = criterion.cpu()
         elif torch.cuda.is_available():
             model = model.cuda()
-            criterion = criterion.cuda()
+            if criterion:
+                criterion = criterion.cuda()
         elif device == 'gpu':
             raise ValueError('No GPU available.')
 
         if train:
-            model.train_mode()
+            model.train()
         else:
-            model.eval_mode()
+            model.eval()
 
+        epoch = model.epoch
         datatime = 0
         runtime = 0
         cum_stats = Statistics()
         stats = Statistics()
 
-        epoch_str = 'epoch ' + str(epoch) + ' :' if epoch else ':'
+        epoch_str = 'epoch ' + str(epoch + 1) + ' :'
         print('=> ', run_type, epoch_str)
         batch_end = time.time()
         for batch_idx, batch in enumerate(train_iter):
@@ -156,17 +175,19 @@ class Runner(object):
             datatime += batch_start - batch_end
 
             output = model(batch)
+            if epoch == 0 and batch_idx == 0 and train:
+                Runner.tally_parameters(model)
 
             loss = float('NaN')
             if criterion:
                 loss = criterion(output, batch.label)
 
             scores = Runner.compute_scores(output, batch.label)
-            cum_stats.update(loss, *scores)
-            stats.update(loss, *scores)
+            cum_stats.update(float(loss), *scores)
+            stats.update(float(loss), *scores)
 
             if (batch_idx + 1) % log_freq == 0:
-                Runner.print_stats(run_type, epoch, batch, len(train_iter), stats,
+                Runner.print_stats(run_type, epoch + 1, batch_idx + 1, len(train_iter), stats,
                                    cum_stats)
                 stats = Statistics()
 
@@ -181,8 +202,8 @@ class Runner(object):
             batch_end = time.time()
             runtime += batch_end - batch_start
 
-        Runner.print_final_stats(epoch, runtime, datatime, cum_stats)
-        return cum_stats.f1
+        Runner.print_final_stats(epoch + 1, runtime, datatime, cum_stats)
+        return cum_stats.f1()
 
     @staticmethod
     def train(model,
@@ -194,7 +215,7 @@ class Runner(object):
               pos_weight=1,
               label_smoothing=False,
               save_prefix=None,
-              save_every=5,
+              save_every=None,
               **kwargs):
         model.initialize(train_dataset)
 
@@ -211,7 +232,7 @@ class Runner(object):
 
         optimizer = optimizer or optim.Optimizer()
         if model.optimizer_state is not None:
-            model.optimizer.load_state_dict(model.optimizer_state)
+            model.optimizer.base_optimizer.load_state_dict(model.optimizer_state)
 
         if model.epoch is None:
             epochs_range = range(epochs)
@@ -219,7 +240,9 @@ class Runner(object):
             epochs_range = range(model.epoch + 1, epochs)
 
         if model.best_score is None:
-            model.best_score or -1
+            model.best_score = -1
+        optimizer.last_acc = model.best_score
+
         for epoch in epochs_range:
             model.epoch = epoch
             Runner._run(
@@ -228,24 +251,29 @@ class Runner(object):
                 train_dataset,
                 criterion,
                 optimizer,
-                epoch=epoch,
                 train=True,
                 **kwargs)
 
-            score = Runner._run(
-                'EVAL', model, validation_dataset, epoch=epoch, train=False, **kwargs)
+            score = Runner._run('EVAL', model, validation_dataset, train=False, **kwargs)
 
-            model.optimizer_state = optimizer.state_dict()
+            optimizer.update_learning_rate(score, epoch)
+            model.optimizer_state = optimizer.base_optimizer.state_dict()
 
-            if save_prefix:
-                if score > model.best_score:
-                    model.best_score = score
-                    save_path = save_prefix + '_best.pth'
-                    model.save_state(save_path)
-                if (epoch + 1) % save_every == 0:
+            new_best_found = False
+            if score > model.best_score:
+                print('* Best F1:', score)
+                model.best_score = score
+                new_best_found = True
+
+            if save_prefix and new_best_found:
+                print('Saving best model...')
+                save_path = save_prefix + '_best.pth'
+                model.save_state(save_path)
+
+                if save_every is not None and (epoch + 1) % save_every == 0:
                     save_path = '{prefix}_ep{epoch}.pth'.format(
                         prefix=save_prefix, epoch=epoch)
                     model.save_state(save_path)
 
-    def evaluate(model, dataset, **kwargs):
-        Runner._run(model, dataset, train=False, **kwargs)
+    def eval(model, dataset, **kwargs):
+        Runner._run('EVAL', model, dataset, train=False, **kwargs)

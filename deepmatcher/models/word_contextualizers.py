@@ -1,3 +1,5 @@
+
+
 import six
 
 import deepmatcher as dm
@@ -78,9 +80,9 @@ class SelfAttention(dm.WordContextualizer):
                 alignment_scores = alignment_scores / torch.sqrt(input.size(2))
 
             if input_with_meta.lengths is not None:
-                mask = Variable(_utils.sequence_mask(input_with_meta.lengths))
+                mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(1)  # Make it broadcastable.
-                alignment_scores.masked_fill_(1 - mask, -float('inf'))
+                alignment_scores.data.masked_fill_(1 - mask, -float('inf'))
 
             normalized_scores = self.softmax(alignment_scores)
 
