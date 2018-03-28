@@ -24,10 +24,14 @@ def _check_header(header, id_attr, left_prefix, right_prefix, label_attr):
 
 def _make_fields(header, id_attr, label_attr, ignore_columns, lower, include_lengths):
     text_field = text.MatchingField(
-        lower=lower, init_token='<<<', eos_token='>>>', batch_first=True, include_lengths=include_lengths)
+        lower=lower,
+        init_token='<<<',
+        eos_token='>>>',
+        batch_first=True,
+        include_lengths=include_lengths)
     numeric_field = text.MatchingField(
         sequential=False, preprocessing=lambda x: int(x), use_vocab=False)
-    id_field = text.MatchingField(sequential=False, use_vocab=False)
+    id_field = text.MatchingField(sequential=False, use_vocab=False, id=True)
 
     fields = []
     for attr in header:
@@ -43,7 +47,7 @@ def _make_fields(header, id_attr, label_attr, ignore_columns, lower, include_len
 
 
 def process(path,
-            train,
+            train=None,
             validation=None,
             test=None,
             unlabeled=None,
@@ -59,21 +63,35 @@ def process(path,
             id_attr='id',
             left_prefix='left_',
             right_prefix='right_',
-            label_attr='label'):
+            label_attr='label',
+            pca=False):
 
-    with io.open(os.path.expanduser(os.path.join(path, train)), encoding="utf8") as f:
+    a_dataset = train or validation or test or unlabeled
+    with io.open(os.path.expanduser(os.path.join(path, a_dataset)), encoding="utf8") as f:
         header = next(unicode_csv_reader(f))
 
     _check_header(header, id_attr, left_prefix, right_prefix, label_attr)
-    fields = _make_fields(header, id_attr, label_attr, ignore_columns, lowercase, include_lengths)
+    fields = _make_fields(header, id_attr, label_attr, ignore_columns, lowercase,
+                          include_lengths)
 
     column_naming = {
         'id': id_attr,
         'left': left_prefix,
         'right': right_prefix,
-        'label': label_attr
+        'label': label_attr if not unlabeled else None
     }
 
-    return text.MatchingDataset.splits(path, train, validation, test, unlabeled, fields,
-                                       embeddings, embeddings_cache_path, column_naming,
-                                       cache, check_cached_data, auto_rebuild_cache)
+    return text.MatchingDataset.splits(
+        path,
+        train,
+        validation,
+        test,
+        unlabeled,
+        fields,
+        embeddings,
+        embeddings_cache_path,
+        column_naming,
+        cache,
+        check_cached_data,
+        auto_rebuild_cache,
+        train_pca=pca)

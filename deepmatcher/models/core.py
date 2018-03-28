@@ -19,7 +19,7 @@ class MatchingModel(nn.Module):
     def __init__(self,
                  attr_summarizer='hybrid',
                  attr_condense_factor='auto',
-                 attr_comparator='concat-abs-diff',
+                 attr_comparator=None,
                  attr_merge='concat',
                  classifier='2-layer-highway',
                  hidden_size=300,
@@ -77,7 +77,7 @@ class MatchingModel(nn.Module):
                 self.attr_summarizers[name] = copy.deepcopy(self.attr_summarizer)
 
         if self.attr_condense_factor == 'auto':
-            self.attr_condense_factor =  min(len(self.canonical_text_fields), 6)
+            self.attr_condense_factor = min(len(self.canonical_text_fields), 6)
             if self.attr_condense_factor == 1:
                 self.attr_condense_factor = None
 
@@ -98,12 +98,15 @@ class MatchingModel(nn.Module):
             assert len(
                 set(self.attr_comparators.keys()) ^ set(self.canonical_text_fields)) == 0
         else:
+            if isinstance(self.attr_summarizer, AttrSummarizer):
+                self.attr_comparator = self.get_attr_comparator(self.attr_comparator, self.attr_summarizer)
             self.attr_comparator = AttrComparator.create(self.attr_comparator)
             for name in self.canonical_text_fields:
                 self.attr_comparators[name] = copy.deepcopy(self.attr_comparator)
 
         self.attr_merge = dm.modules._merge_module(self.attr_merge)
-        self.classifier = Classifier(self.classifier, self.hidden_size)
+        self.classifier = _utils.get_module(Classifier, self.classifier,
+                hidden_size=self.hidden_size)
 
         self.embed = dm.modules.ModuleMap()
         field_embeds = {}
@@ -118,6 +121,19 @@ class MatchingModel(nn.Module):
             self.embed[name] = field_embeds[field]
 
         self._initialized = True
+
+    def get_attr_comparator(self, arg, attr_summarizer):
+        if arg is not None:
+            return arg
+        if isinstance(attr_summarizer, dm.attr_summarizers.SIF):
+            return 'abs-diff'
+        elif isinstance(attr_summarizer, dm.attr_summarizers.RNN):
+            return 'abs-diff'
+        elif isinstance(attr_summarizer, dm.attr_summarizers.Attention):
+            return 'concat'
+        elif isinstance(attr_summarizer, dm.attr_summarizers.Hybrid):
+            return 'concat-abs-diff'
+        raise ValueError('Cannot infer attr comparator, please specify.')
 
     def forward(self, input):
         embeddings = {}
@@ -160,10 +176,13 @@ class MatchingModel(nn.Module):
         self.load_state_dict(state['model'])
 
     def run_train(self, *args, **kwargs):
-        Runner.train(self, *args, **kwargs)
+        return Runner.train(self, *args, **kwargs)
 
     def run_eval(self, *args, **kwargs):
-        Runner.eval(self, *args, **kwargs)
+        return Runner.eval(self, *args, **kwargs)
+
+    def run_prediction(self, *args, **kwargs):
+        return Runner.predict(self, *args, **kwargs)
 
     # def train_mode(self):
     #     super(MatchingModel, self).train()
@@ -179,10 +198,12 @@ class AttrSummarizer(dm.modules.LazyModule):
               word_comparator,
               word_aggregator,
               hidden_size=None):
-        self.word_contextualizer = WordContextualizer.create(word_contextualizer,
-                                                             hidden_size=hidden_size)
-        self.word_comparator = WordComparator.create(word_comparator, hidden_size=hidden_size)
-        self.word_aggregator = WordAggregator.create(word_aggregator, hidden_size=hidden_size)
+        self.word_contextualizer = WordContextualizer.create(
+            word_contextualizer, hidden_size=hidden_size)
+        self.word_comparator = WordComparator.create(
+            word_comparator, hidden_size=hidden_size)
+        self.word_aggregator = WordAggregator.create(
+            word_aggregator, hidden_size=hidden_size)
 
     def _forward(self, left_input, right_input):
         left_contextualized, right_contextualized = left_input, right_input
@@ -284,7 +305,8 @@ class WordAggregator(dm.modules.LazyModule):
                 wa = dm.word_aggregators.Pool(style='-'.join(parts[:-1]))
             elif ('-'.join(parts[-3:]) == 'attention-with-rnn' and
                   dm.modules.AlignmentNetwork.supports_style('-'.join(parts[:-3]))):
-                wa = dm.word_aggregators.AttentionWithRNN(alignment_network='-'.join(parts[:-3]), **kwargs)
+                wa = dm.word_aggregators.AttentionWithRNN(
+                    alignment_network='-'.join(parts[:-3]), **kwargs)
             else:
                 raise ValueError('Unknown Word Aggregator name.')
         else:
@@ -293,11 +315,15 @@ class WordAggregator(dm.modules.LazyModule):
         wa.expect_signature('[AxBxC] -> [AxD]')
         return wa
 
+
 class Classifier(nn.Sequential):
 
     def __init__(self, transform_network, hidden_size=None):
         super(Classifier, self).__init__()
         if transform_network:
-            self.add_module('transform', dm.modules._transform_module(transform_network, hidden_size))
-        self.add_module('softmax_transform', dm.modules.Transform('1-layer', non_linearity=None, output_size=2))
+            self.add_module('transform',
+                            dm.modules._transform_module(transform_network, hidden_size))
+        self.add_module('softmax_transform',
+                        dm.modules.Transform(
+                            '1-layer', non_linearity=None, output_size=2))
         self.add_module('softmax', nn.LogSoftmax(dim=1))

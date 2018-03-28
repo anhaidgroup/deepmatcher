@@ -133,7 +133,6 @@ class Optimizer(object):
 
         if self.start_decay:
             self.lr = self.lr * self.lr_decay
-            print("Decaying learning rate to %g" % self.lr)
 
         self.last_acc = acc
         self.base_optimizer.param_groups[0]['lr'] = self.lr

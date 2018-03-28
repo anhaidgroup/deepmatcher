@@ -1,23 +1,27 @@
-import copy
+from __future__ import division
+
 import logging
 import os
 import pdb
-import random
 import tarfile
 import zipfile
-from collections import namedtuple
-from itertools import islice
+from collections import Counter, defaultdict, namedtuple
 from timeit import default_timer as timer
 
 import six
+from sklearn.decomposition import TruncatedSVD
 
 import fastText
 import torch
-import torch.nn.functional as F
+import torch.nn as nn
 from six.moves.urllib.request import urlretrieve
+from torch.autograd import Variable
 from torchtext import data, vocab
 from torchtext.utils import reporthook
 from tqdm import tqdm
+
+from ..models.modules import Pool, NoMeta
+from ..common import AttrTensor, MatchingBatch
 
 logger = logging.getLogger(__name__)
 
@@ -78,38 +82,12 @@ class FastTextBinary(vocab.Vectors):
         self.dim = len(self['a'])
 
 
-# class MatchingVocab(data.vocab.Vocab):
-#
-#     def extend_vectors(self, tokens, vectors):
-#         tot_dim = sum(v.dim for v in vectors)
-#         prev_len = len(self.itos)
-#
-#         new_tokens = []
-#         for token in tokens:
-#             if token not in self.stoi:
-#                 self.itos.append(token)
-#                 self.stoi[token] = len(self.itos) - 1
-#                 new_tokens.append(token)
-#         self.vectors.resize_(len(self.itos), tot_dim)
-#
-#         for i in range(prev_len, prev_len + len(new_tokens)):
-#             token = self.itos[i]
-#             assert token == new_tokens[i - prev_len]
-#
-#             start_dim = 0
-#             for v in vectors:
-#                 end_dim = start_dim + v.dim
-#                 self.vectors[i][start_dim:end_dim] = v[token.strip()]
-#                 start_dim = end_dim
-#             assert (start_dim == tot_dim)
-
-
 class MatchingField(data.Field):
-    # vocab_cls = MatchingVocab
     _cached_vec_data = {}
 
-    def __init__(self, tokenize='moses', **kwargs):
+    def __init__(self, tokenize='moses', id=False, **kwargs):
         self.tokenizer_arg = tokenize
+        self.is_id = id
         super(MatchingField, self).__init__(tokenize=tokenize, **kwargs)
 
     def preprocess_args(self):
@@ -121,41 +99,7 @@ class MatchingField(data.Field):
         for param, arg in list(six.iteritems(args_dict)):
             if six.callable(arg):
                 del args_dict[param]
-                # logger.warning(
-                #     'Cannot perform cache data checks for argument %s of field '
-                #     '%s since it is callable.' % (param, arg))
         return args_dict
-
-    # def numericalize_example(self, ex):
-    #     """Turn an example that use this field into a Tensor.
-    #
-    #     Arguments:
-    #         ex (...): ...
-    #     """
-    #     if self.use_vocab:
-    #         if self.sequential:
-    #             ex = [self.vocab.stoi[x] for x in ex]
-    #         else:
-    #             ex = self.vocab.stoi[ex]
-    #     else:
-    #         if self.tensor_type not in self.tensor_types:
-    #             raise ValueError(
-    #                 "Specified Field tensor_type {} can not be used with "
-    #                 "use_vocab=False because we do not know how to numericalize it. "
-    #                 "Please raise an issue at "
-    #                 "https://github.com/pytorch/text/issues".format(self.tensor_type))
-    #         numericalization_func = self.tensor_types[self.tensor_type]
-    #         # It doesn't make sense to explictly coerce to a numeric type if
-    #         # the data is sequential, since it's unclear how to coerce padding tokens
-    #         # to a numeric type.
-    #         if not self.sequential:
-    #             ex = numericalization_func(ex) if isinstance(ex, six.string_types) else ex
-    #
-    #     ex = self.tensor_type(ex)
-    #     print('ex_type:', ex.type())
-    #     print('ex_size:', ex.size())
-    #     pdb.set_trace()
-    #     return ex
 
     @classmethod
     def _get_vector_data(cls, vecs, cache):
@@ -179,7 +123,7 @@ class MatchingField(data.Field):
                             vec_data = FastText(
                                 suffix='crawl-300d-2M.vec.zip', cache=cache)
                 if vec_data is None:
-                    vec_data = _pretrained_aliases[vec_name](cache=cache)
+                    vec_data = data.vocab.pretrained_aliases[vec_name](cache=cache)
                 cls._cached_vec_data[vec_name] = vec_data
                 vec_datas.append(vec_data)
             else:
@@ -194,38 +138,10 @@ class MatchingField(data.Field):
             cache = os.path.expanduser(cache)
         super(MatchingField, self).build_vocab(*args, vectors=vectors, **kwargs)
 
-    # def embed(self, tensor):
-    #     return F.embedding(tensor, self.vocab.vectors)
-
-    # def process(self, *args, **kwargs):
-    #     processed = super(MatchingField, self).process(*args, **kwargs)
-    #     tensor = processed[0] if self.include_lengths else processed
-    #     if self.output_vectors:
-    #         tensor = self.embed(tensor)
-    #     if self.include_lengths:
-    #         return tensor, processed[1:]
-    #     return tensor
-
-    # def extend_vocab(self, *args):
-    #     sources = []
-    #     for arg in args:
-    #         if isinstance(arg, data.Dataset):
-    #             sources += [
-    #                 getattr(arg, name)
-    #                 for name, field in arg.fields.items()
-    #                 if field is self
-    #             ]
-    #         else:
-    #             sources.append(arg)
-    #
-    #     tokens = set()
-    #     for source in sources:
-    #         for x in source:
-    #             if not self.sequential:
-    #                 tokens.add(x)
-    #             else:
-    #                 tokens.update(x)
-    #     self.vocab.extend_vectors(tokens, self.vectors)
+    def numericalize(self, arr, *args, **kwargs):
+        if not self.is_id:
+            return super(MatchingField, self).numericalize(arr, *args, **kwargs)
+        return arr
 
 
 def interleave_keys(keys):
@@ -258,7 +174,6 @@ class MatchingDataset(data.TabularDataset):
         if examples is None:
             super(MatchingDataset, self).__init__(
                 path, format, fields, skip_header=True, **kwargs)
-            self._compute_metadata()
         else:
             self.fields = MatchingDataset._make_fields_dict(fields)
             self.examples = examples
@@ -294,8 +209,84 @@ class MatchingDataset(data.TabularDataset):
         self.label_field = self.column_naming['label']
         self.id_field = self.column_naming['id']
 
-    def _compute_metadata(self):
+    def compute_metadata(self, pca=False):
         self.metadata = {}
+
+        train_iter = MatchingIterator(
+            self, self, batch_size=1024, device=-1, sort_in_buckets=False)
+        counter = defaultdict(Counter)
+        for batch in train_iter:
+            for name in self.all_text_fields:
+                attr_input = getattr(batch, name)
+                counter[name].update(attr_input.data.data.view(-1))
+
+        word_probs = {}
+        totals = {}
+        for name in self.all_text_fields:
+            attr_counter = counter[name]
+            total = sum(attr_counter.values())
+            totals[name] = total
+
+            field_word_probs = {}
+            for word, freq in attr_counter.items():
+                field_word_probs[word] = freq / total
+            word_probs[name] = field_word_probs
+        self.metadata['word_probs'] = word_probs
+        self.metadata['totals'] = totals
+
+        field_embed = {}
+        embed = {}
+        inv_freq_pool = Pool('inv-freq-avg')
+        for name in self.all_text_fields:
+            field = self.fields[name]
+            if field not in field_embed:
+                vectors_size = field.vocab.vectors.shape
+                embed_layer = nn.Embedding(vectors_size[0], vectors_size[1])
+                embed_layer.weight.data.copy_(field.vocab.vectors)
+                embed_layer.weight.requires_grad = False
+                field_embed[field] = NoMeta(embed_layer)
+            embed[name] = field_embed[field]
+
+        train_iter = MatchingIterator(
+            self, self, batch_size=1024, device=-1, sort_in_buckets=False)
+        attr_embeddings = defaultdict(list)
+        for batch in train_iter:
+            for name in self.all_text_fields:
+                attr_input = getattr(batch, name)
+                embeddings = inv_freq_pool(embed[name](attr_input))
+                attr_embeddings[name].append(embeddings.data.data)
+
+        pc = {}
+        for name in self.all_text_fields:
+            concatenated = torch.cat(attr_embeddings[name])
+            svd = TruncatedSVD(n_components=1, n_iter=7)
+            svd.fit(concatenated.numpy())
+            pc[name] = svd.components_[0]
+        self.metadata['pc'] = pc
+
+    def finalize_metadata(self):
+
+        for name in self.all_text_fields:
+            self.metadata['word_probs'][name] = defaultdict(
+                    lambda: 1 / self.metadata['totals'][name],
+                    self.metadata['word_probs'][name])
+
+    def get_raw_table(self):
+        rows = []
+        columns = list(name for name, field in six.iteritems(self.fields) if field)
+        for ex in self.examples:
+            row = []
+            for attr in columns:
+                if self.fields[attr]:
+                    val = getattr(ex, attr)
+                    if self.fields[attr].sequential:
+                        val = ' '.join(val)
+                    row.append(val)
+            rows.append(row)
+
+        import pandas as pd
+        return pd.DataFrame(rows, columns=columns)
+
 
     def corresponding_field(self, name):
         if name.startswith(self.column_naming['left']):
@@ -326,9 +317,9 @@ class MatchingDataset(data.TabularDataset):
         return dict(fields)
 
     @staticmethod
-    def save_cache(datasets, fields, datafiles, cachefile, column_naming):
+    def save_cache(datasets, fields, datafiles, cachefile, column_naming, state_args):
         examples = [dataset.examples for dataset in datasets]
-        metadata = [dataset.metadata for dataset in datasets]
+        train_metadata = datasets[0].metadata
         datafiles_modified = [os.path.getmtime(datafile) for datafile in datafiles]
         vocabs = {}
         field_args = {}
@@ -346,17 +337,18 @@ class MatchingDataset(data.TabularDataset):
 
         data = {
             'examples': examples,
-            'metadata': metadata,
+            'train_metadata': train_metadata,
             'vocabs': vocabs,
             'datafiles': datafiles,
             'datafiles_modified': datafiles_modified,
             'field_args': field_args,
+            'state_args': state_args,
             'column_naming': column_naming
         }
         torch.save(data, cachefile)
 
     @staticmethod
-    def load_cache(fields, datafiles, cachefile, column_naming):
+    def load_cache(fields, datafiles, cachefile, column_naming, state_args):
         cached_data = torch.load(cachefile)
         cache_stale_cause = []
 
@@ -370,10 +362,6 @@ class MatchingDataset(data.TabularDataset):
         if set(fields.keys()) != set(cached_data['field_args'].keys()):
             cache_stale_cause.append('Fields have changed.')
 
-        # for name, field_args in six.iteritems(cached_data['field_args']):
-        #     if fields[name].preprocess_args() != field_args:
-        #         cache_stale_cause = 'Field arguments have changed.'
-
         for name, field in six.iteritems(fields):
             none_mismatch = (field is None) != (cached_data['field_args'][name] is None)
             args_mismatch = False
@@ -385,16 +373,28 @@ class MatchingDataset(data.TabularDataset):
         if column_naming != cached_data['column_naming']:
             cache_stale_cause.append('Other arguments have changed.')
 
+        cache_stale_cause.extend(MatchingDataset.state_args_compatibility(state_args, cached_data['state_args']))
+
         return cached_data, cache_stale_cause
+
+    @staticmethod
+    def state_args_compatibility(cur_state, old_state):
+        errors = []
+        if not old_state['train_pca'] and cur_state['train_pca']:
+            errors.append('PCA computation necessary.')
+        return errors
 
     @staticmethod
     def restore_data(fields, cached_data):
         datasets = []
         for d in range(len(cached_data['datafiles'])):
+            metadata = None
+            if d == 0:
+                metadata = cached_data['train_metadata']
             dataset = MatchingDataset(
                 fields=fields,
                 examples=cached_data['examples'][d],
-                metadata=cached_data['metadata'][d],
+                metadata=metadata,
                 column_naming=cached_data['column_naming'])
             datasets.append(dataset)
 
@@ -418,6 +418,7 @@ class MatchingDataset(data.TabularDataset):
                cache=None,
                check_cached_data=True,
                auto_rebuild_cache=False,
+               train_pca=False,
                **kwargs):
         """Create Dataset objects for multiple splits of a dataset.
 
@@ -451,10 +452,7 @@ class MatchingDataset(data.TabularDataset):
         """
 
         fields_dict = MatchingDataset._make_fields_dict(fields)
-
-        # names = 'Train', 'Validation', 'Test'
-        # sets = (train, validation, test)
-        # dataset_names = [pair[0] if pair[1] for pair in zip(names, sets)]
+        state_args = {'train_pca': train_pca}
 
         datasets = None
         if cache and not unlabeled:
@@ -463,10 +461,9 @@ class MatchingDataset(data.TabularDataset):
             cachefile = os.path.expanduser(os.path.join(path, cache))
             try:
                 cached_data, cache_stale_cause = MatchingDataset.load_cache(
-                    fields_dict, datafiles, cachefile, column_naming)
+                    fields_dict, datafiles, cachefile, column_naming, state_args)
 
                 if check_cached_data and cache_stale_cause and not auto_rebuild_cache:
-                    pdb.set_trace()
                     raise MatchingDataset.CacheStaleException(cache_stale_cause)
 
                 if not check_cached_data or not cache_stale_cause:
@@ -504,108 +501,34 @@ class MatchingDataset(data.TabularDataset):
             after_vocab = timer()
             print('Vocab time:', after_vocab - after_load)
 
-            # for d in range(len(datasets)):
-            #     datasets[d].numericalize()
-            # after_numericalize = timer()
-            # print('Numeicalize time:', after_numericalize - after_vocab)
+            if train:
+                datasets[0].compute_metadata(train_pca)
+            after_metadata = timer()
+            print('Metadata time:', after_metadata - after_vocab)
 
             if cache and not unlabeled:
                 MatchingDataset.save_cache(datasets, fields_dict, datafiles, cachefile,
-                                           column_naming)
+                                           column_naming, state_args)
                 after_cache = timer()
                 print('Cache time:', after_cache - after_vocab)
 
-        # if unlabeled is not None:
-        #     unlabeled_dataset = MatchingDataset(
-        #         os.path.join(path, unlabeled),
-        #         fields,
-        #         left_prefix=left_prefix,
-        #         right_prefix=right_prefix,
-        #         **kwargs)
-        #
-        #     for name, field in fields_dict.items():
-        #         field.extend_vocab(unlabeled_dataset)
-        #
-        #     datasets.append(unlabeled_dataset)
+        if train:
+            datasets[0].finalize_metadata()
 
         if len(datasets) == 1:
             return datasets[0]
         return tuple(datasets)
 
-    # def numericalize(self):
-    #     numericalized_exs = []
-    #
-    #     for ex in self.examples:
-    #         numericalized_ex = []
-    #
-    #         for name, field in self.fields.items():
-    #             if field is not None:
-    #                 field_value = getattr(ex, name)
-    #                 numericalized_ex.append((name,
-    #                                          field.numericalize_example(field_value)))
-    #
-    #         numericalized_exs.append(numericalized_ex)
-    #
-    #     self.examples = numericalized_exs
-
-
-AttrTensor_ = namedtuple('AttrTensor', ['data', 'lengths', 'tok_freqs', 'pc'])
-
-
-class AttrTensor(AttrTensor_):
-
-    @staticmethod
-    def __new__(cls, *args, **kwargs):
-        if len(kwargs) == 0:
-            return super(AttrTensor, cls).__new__(cls, *args)
-        else:
-            name = kwargs['name']
-            attr = kwargs['attr']
-            train_dataset = kwargs['train_dataset']
-            if isinstance(attr, tuple):
-                data = attr[0]
-                lengths = attr[1]
-            else:
-                data = attr
-                lengths = None
-            tok_freqs = None
-            if 'tok_freqs' in train_dataset.metadata:
-                tok_freqs = train_dataset.metadata['tok_freqs'][name]
-            pc = None
-            if 'pc' in train_dataset.metadata:
-                pc = train_dataset.metadata['pc'][name]
-            return AttrTensor(data, lengths, tok_freqs, pc)
-
-    @staticmethod
-    def from_old_metadata(data, old_attrtensor):
-        return AttrTensor(data, *old_attrtensor[1:])
-
-
-class MatchingBatch(object):
-
-    def __init__(self, input, train_dataset):
-        copy_fields = train_dataset.all_text_fields
-        for name in copy_fields:
-            setattr(self, name, AttrTensor(name=name, attr=getattr(input, name),
-                train_dataset=train_dataset))
-        for name in [train_dataset.label_field, train_dataset.id_field]:
-            setattr(self, name, getattr(input, name))
-
 
 class MatchingIterator(data.BucketIterator):
 
-    def __init__(self,
-                 dataset,
-                 train_dataset,
-                 batch_size,
-                 repeat=False,
-                 sort_in_buckets=True,
+    def __init__(self, dataset, train_dataset, batch_size, sort_in_buckets=True,
                  **kwargs):
         self.train_dataset = train_dataset
         self.sort_in_buckets = sort_in_buckets
         train = dataset == train_dataset
         super(MatchingIterator, self).__init__(
-            dataset, batch_size, train=train, repeat=repeat, **kwargs)
+            dataset, batch_size, train=train, repeat=False, **kwargs)
 
     @classmethod
     def splits(cls, datasets, batch_sizes=None, **kwargs):
@@ -639,82 +562,3 @@ class MatchingIterator(data.BucketIterator):
             return data.BucketIterator.create_batches(self)
         else:
             return data.Iterator.create_batches(self)
-
-
-# class _BucketBatchSampler(object):
-#
-#     def __init__(self, dataset, batch_size, shuffle=True):
-#         if shuffle:
-#             indices = torch.randperm(len(self.dataset))
-#         else:
-#             indices = range(len(self.dataset))
-#
-#         self.indices = indices
-#         self.batch_size = batch_size
-#         self.sort_key = self.dataset.sort_key
-#
-#     def _grouper(iterable, n):
-#         "Collect data into fixed-length chunks or blocks"
-#         it = iter(iterable)
-#         piece = list(islice(it, n))
-#         while piece:
-#             yield piece
-#             piece = list(islice(it, n))
-#
-#     def __iter__(self):
-#         for p in self._grouper(self.indices, 100):
-#             p_batch = self._grouper(sorted(p, key=self.sort_key), self.batch_size)
-#             shuffled_batches = random.shuffle(list(p_batch))
-#             for b in shuffled_batches:
-#                 yield b
-#
-#     def __len__(self):
-#         return (len(self.dataset) + self.batch_size - 1) // self.batch_size
-
-# class MatchingDataLoader(DataLoader):
-#
-#     def _collate_fn():
-#         pass
-#
-#     def __init__(self,
-#                  dataset,
-#                  batch_size,
-#                  embeddings='fasttext',
-#                  num_workers=2,
-#                  pin_memory=True):
-#         super(MatchingDataLoader, self).__init__(
-#             dataset,
-#             batch_size,
-#             batch_sampler=_BucketBatchSampler(dataset, batch_size),
-#             num_workers=num_workers,
-#             collate_fn= ...,
-#             pin_memory=pin_memory)
-"""Mapping from string name to factory function"""
-_pretrained_aliases = {
-    "charngram.100d":
-    lambda **kwargs: vocab.CharNGram(**kwargs),
-    "fasttext.en.300d":
-    lambda **kwargs: vocab.FastText(language="en", **kwargs),
-    "fasttext.simple.300d":
-    lambda **kwargs: vocab.FastText(language="simple", **kwargs),
-    "glove.42B.300d":
-    lambda **kwargs: vocab.GloVe(name="42B", dim="300", **kwargs),
-    "glove.840B.300d":
-    lambda **kwargs: vocab.GloVe(name="840B", dim="300", **kwargs),
-    "glove.twitter.27B.25d":
-    lambda **kwargs: vocab.GloVe(name="twitter.27B", dim="25", **kwargs),
-    "glove.twitter.27B.50d":
-    lambda **kwargs: vocab.GloVe(name="twitter.27B", dim="50", **kwargs),
-    "glove.twitter.27B.100d":
-    lambda **kwargs: vocab.GloVe(name="twitter.27B", dim="100", **kwargs),
-    "glove.twitter.27B.200d":
-    lambda **kwargs: vocab.GloVe(name="twitter.27B", dim="200", **kwargs),
-    "glove.6B.50d":
-    lambda **kwargs: vocab.GloVe(name="6B", dim="50", **kwargs),
-    "glove.6B.100d":
-    lambda **kwargs: vocab.GloVe(name="6B", dim="100", **kwargs),
-    "glove.6B.200d":
-    lambda **kwargs: vocab.GloVe(name="6B", dim="200", **kwargs),
-    "glove.6B.300d":
-    lambda **kwargs: vocab.GloVe(name="6B", dim="300", **kwargs)
-}

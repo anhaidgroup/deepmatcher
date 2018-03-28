@@ -2,12 +2,22 @@ import logging
 import os
 import pdb
 import time
+import sys
+import math
 
 import torch
 
 from . import optim as optim
 from .data import MatchingIterator
 from .loss import SoftNLLLoss
+from tqdm import tqdm
+from collections import OrderedDict
+
+try:
+    get_ipython
+    from tqdm import tqdm_notebook as tqdm
+except NameError:
+    from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 
@@ -100,6 +110,16 @@ class Runner(object):
                    eps=stats.examples_per_sec()))
 
     @staticmethod
+    def set_pbar_status(pbar, stats, cum_stats):
+        postfix_dict = OrderedDict([
+            ('Loss', '{0:7.4f}'.format(stats.loss())),
+            ('F1', '{0:7.2f}'.format(stats.f1())),
+            ('Cum. F1', '{0:7.2f}'.format(cum_stats.f1())),
+            ('Ex/s', '{0:6.1f}'.format(cum_stats.examples_per_sec())),
+        ])
+        pbar.set_postfix(ordered_dict=postfix_dict)
+
+    @staticmethod
     def compute_scores(output, target):
         predictions = output.max(1)[1].data
         correct = (predictions == target.data).float()
@@ -126,19 +146,20 @@ class Runner(object):
              criterion=None,
              optimizer=None,
              train=False,
-             retain_predictions=False,
              device=None,
              save_path=None,
              batch_size=32,
              num_data_workers=2,
              batch_callback=None,
              epoch_callback=None,
+             progress_style='bar',
              log_freq=5,
              sort_in_buckets=None,
+             return_predictions=False,
              **kwargs):
 
         sort_in_buckets = train
-        train_iter = MatchingIterator(
+        run_iter = MatchingIterator(
             dataset,
             model.train_dataset,
             batch_size=batch_size,
@@ -161,34 +182,63 @@ class Runner(object):
         else:
             model.eval()
 
+        # Init model
+        init_batch = next(run_iter.__iter__())
+        model(init_batch)
+
         epoch = model.epoch
         datatime = 0
         runtime = 0
         cum_stats = Statistics()
         stats = Statistics()
+        predictions = {}
+        id_attr = model.train_dataset.id_field
+        label_attr = model.train_dataset.label_field
+
+        if train and epoch == 0:
+            Runner.tally_parameters(model)
 
         epoch_str = 'epoch ' + str(epoch + 1) + ' :'
         print('=> ', run_type, epoch_str)
         batch_end = time.time()
-        for batch_idx, batch in enumerate(train_iter):
+
+        if progress_style == 'bar':
+            pbar = tqdm(total=len(run_iter) // log_freq, bar_format='{l_bar}{bar}{postfix}', file=sys.stdout)
+
+        for batch_idx, batch in enumerate(run_iter):
             batch_start = time.time()
             datatime += batch_start - batch_end
 
             output = model(batch)
-            if epoch == 0 and batch_idx == 0 and train:
-                Runner.tally_parameters(model)
+
+            # from torchviz import make_dot, make_dot_from_trace
+            # dot = make_dot(output.mean(), params=dict(model.named_parameters()))
+            # pdb.set_trace()
 
             loss = float('NaN')
             if criterion:
-                loss = criterion(output, batch.label)
+                loss = criterion(output, getattr(batch, label_attr))
 
-            scores = Runner.compute_scores(output, batch.label)
+            if label_attr:
+                scores = Runner.compute_scores(output, getattr(batch, label_attr))
+            else:
+                scores = output.data.new([0] * output.shape[0])
+
             cum_stats.update(float(loss), *scores)
             stats.update(float(loss), *scores)
 
+            if return_predictions:
+                predicted = output.max(1)[1].data
+                for idx, id in enumerate(getattr(batch, id_attr)):
+                    predictions[id] = float(output[idx, 1].exp())
+
             if (batch_idx + 1) % log_freq == 0:
-                Runner.print_stats(run_type, epoch + 1, batch_idx + 1, len(train_iter), stats,
-                                   cum_stats)
+                if progress_style == 'log':
+                    Runner.print_stats(run_type, epoch + 1, batch_idx + 1, len(run_iter),
+                                       stats, cum_stats)
+                elif progress_style == 'bar':
+                    pbar.update()
+                    Runner.set_pbar_status(pbar, stats, cum_stats)
                 stats = Statistics()
 
             if train:
@@ -201,9 +251,14 @@ class Runner(object):
 
             batch_end = time.time()
             runtime += batch_end - batch_start
+        pbar.close()
 
         Runner.print_final_stats(epoch + 1, runtime, datatime, cum_stats)
-        return cum_stats.f1()
+
+        if return_predictions:
+            return predictions
+        else:
+            return cum_stats.f1()
 
     @staticmethod
     def train(model,
@@ -214,8 +269,9 @@ class Runner(object):
               optimizer=None,
               pos_weight=1,
               label_smoothing=False,
-              save_prefix=None,
-              save_every=None,
+              best_save_path=None,
+              save_every_prefix=None,
+              save_every_freq=None,
               **kwargs):
         model.initialize(train_dataset)
 
@@ -246,13 +302,7 @@ class Runner(object):
         for epoch in epochs_range:
             model.epoch = epoch
             Runner._run(
-                'TRAIN',
-                model,
-                train_dataset,
-                criterion,
-                optimizer,
-                train=True,
-                **kwargs)
+                'TRAIN', model, train_dataset, criterion, optimizer, train=True, **kwargs)
 
             score = Runner._run('EVAL', model, validation_dataset, train=False, **kwargs)
 
@@ -265,15 +315,17 @@ class Runner(object):
                 model.best_score = score
                 new_best_found = True
 
-            if save_prefix and new_best_found:
-                print('Saving best model...')
-                save_path = save_prefix + '_best.pth'
+                if best_save_path and new_best_found:
+                    print('Saving best model...')
+                    model.save_state(best_save_path)
+
+            if save_every_prefix is not None and (epoch + 1) % save_every_freq == 0:
+                save_path = '{prefix}_ep{epoch}.pth'.format(
+                    prefix=save_every_prefix, epoch=epoch)
                 model.save_state(save_path)
 
-                if save_every is not None and (epoch + 1) % save_every == 0:
-                    save_path = '{prefix}_ep{epoch}.pth'.format(
-                        prefix=save_prefix, epoch=epoch)
-                    model.save_state(save_path)
-
     def eval(model, dataset, **kwargs):
-        Runner._run('EVAL', model, dataset, train=False, **kwargs)
+        return Runner._run('EVAL', model, dataset, train=False, **kwargs)
+
+    def predict(model, dataset, **kwargs):
+        return Runner._run('PREDICT', model, dataset, return_predictions=True, **kwargs)
