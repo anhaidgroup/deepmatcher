@@ -10,7 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from . import _utils
-from ..data import AttrTensor
+from ..batch import AttrTensor
 from ..runner import Runner
 
 

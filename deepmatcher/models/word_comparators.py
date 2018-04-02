@@ -8,7 +8,7 @@ import torch.nn as nn
 from torch.autograd import Variable
 
 from . import _utils
-from ..data import AttrTensor
+from ..batch import AttrTensor
 
 
 class Attention(dm.WordComparator):
