@@ -30,7 +30,8 @@ def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore
 
 
 def _make_fields(header, id_attr, label_attr, ignore_columns, lower, include_lengths):
-    r"""Create fields, i.e., attribute processing specification for each attribute.
+    r"""Create field metadata, i.e., attribute processing specification for each
+    attribute.
 
     This includes fields for label and ID columns.
 
@@ -131,7 +132,7 @@ def process(path,
                 300d vectors.
             * ``glove.twitter.27B.{dims}``: Uses cased Glove trained on Twitter.
                 {dims} is one of (25d, 50d, 100d, or 200d).
-        embeddings_cache (str): Directory to store dowloaded word vector data.
+        embeddings_cache_path (str): Directory to store dowloaded word vector data.
         ignore_columns (list): A list of columns to ignore in the CSV files.
         include_lengths (bool): Whether to provide the model with the lengths of
             each attribute sequence in each batch. If True, length information can be
@@ -148,7 +149,7 @@ def process(path,
         Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in that
             order, if provided, or dataset for unlabeled, if provided.
     """
-
+    # TODO(Sid): check for all datasets to make sure the files exist and have the same schema
     a_dataset = train or validation or test or unlabeled
     with io.open(os.path.expanduser(os.path.join(path, a_dataset)), encoding="utf8") as f:
         header = next(unicode_csv_reader(f))
@@ -161,7 +162,7 @@ def process(path,
         'id': id_attr,
         'left': left_prefix,
         'right': right_prefix,
-        'label': label_attr if not unlabeled else None
+        'label': None if unlabeled else label_attr
     }
 
     return MatchingDataset.splits(
