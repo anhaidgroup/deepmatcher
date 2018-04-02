@@ -91,6 +91,10 @@ def process(path,
         #. Preprocess example. Involves lowercasing and tokenization (unless disabled).
         #. Compute metadata if training data file.
             See :meth:`MatchingDataset.compute_metadata` for details.
+    #. Create vocabulary consisting of all tokens in all attributes in all datasets.
+    #. Download word embedding data if necessary.
+    #. Create mapping from each word in vocabulary to its word embedding.
+    #. Compute training data
 
     Arguments:
         path (str): Common prefix of the splits' file paths.

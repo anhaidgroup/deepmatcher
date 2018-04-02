@@ -480,12 +480,12 @@ class MatchingDataset(data.TabularDataset):
 
         if not datasets:
             begin = timer()
+            dataset_args = {
+                'fields': fields,
+                'column_naming': column_naming,
+                **kwargs
+            }
             if not unlabeled:
-                dataset_args = {
-                    'fields': fields,
-                    'column_naming': column_naming,
-                    **kwargs
-                }
                 train_data = None if train is None else cls(
                     path=os.path.join(path, train), **dataset_args)
                 val_data = None if validation is None else cls(
@@ -496,10 +496,8 @@ class MatchingDataset(data.TabularDataset):
                     d for d in (train_data, val_data, test_data) if d is not None)
             else:
                 datasets = (MatchingDataset(
-                    os.path.join(path, unlabeled),
-                    fields=fields,
-                    column_naming=column_naming,
-                    **kwargs),)
+                    path=os.path.join(path, unlabeled),
+                    **dataset_args),)
 
             after_load = timer()
             print('Load time:', after_load - begin)
