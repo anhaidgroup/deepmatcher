@@ -1,20 +1,27 @@
 import io
 import os
-import pdb
 
-import torchtext
-from torchtext import data
 from torchtext.utils import unicode_csv_reader
 
-from . import torchtext_extensions as text
+from .dataset import MatchingDataset
+from .field import MatchingField
 
 
-def _check_header(header, id_attr, left_prefix, right_prefix, label_attr):
+def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns):
+    r"""Verify CSV file header.
+
+    Checks that:
+    * There is a label column
+    * There is an ID column
+    * All columns except the label and ID columns, and ignored columns start with either
+        the left table attribute prefix or the right table attribute prefix.
+    * The number of left and right table attributes are the same.
+    """
     # assert id_attr in header
     assert label_attr in header
 
     for attr in header:
-        if attr not in (id_attr, label_attr):
+        if attr not in (id_attr, label_attr) and attr not in ignore_columns:
             assert attr.startswith(left_prefix) or attr.startswith(right_prefix)
 
     num_left = sum(attr.startswith(left_prefix) for attr in header)
@@ -23,15 +30,24 @@ def _check_header(header, id_attr, left_prefix, right_prefix, label_attr):
 
 
 def _make_fields(header, id_attr, label_attr, ignore_columns, lower, include_lengths):
-    text_field = text.MatchingField(
+    r"""Create fields, i.e., attribute processing specification for each attribute.
+
+    This includes fields for label and ID columns.
+
+    Returns:
+        list(tuple(str, MatchingField)): A list of tuples containing column name
+            (e.g. "left_address") and corresponding :class:`~data.MatchingField` pairs,
+            in the same order that the columns occur in the CSV file.
+    """
+    text_field = MatchingField(
         lower=lower,
         init_token='<<<',
         eos_token='>>>',
         batch_first=True,
         include_lengths=include_lengths)
-    numeric_field = text.MatchingField(
+    numeric_field = MatchingField(
         sequential=False, preprocessing=lambda x: int(x), use_vocab=False)
-    id_field = text.MatchingField(sequential=False, use_vocab=False, id=True)
+    id_field = MatchingField(sequential=False, use_vocab=False, id=True)
 
     fields = []
     for attr in header:
@@ -54,23 +70,85 @@ def process(path,
             cache='cacheddata.pth',
             check_cached_data=True,
             auto_rebuild_cache=False,
-            shuffle_style='bucket',
             lowercase=True,
             embeddings='fasttext.en.bin',
             embeddings_cache_path='~/.vector_cache',
             ignore_columns=(),
             include_lengths=True,
             id_attr='id',
+            label_attr='label',
             left_prefix='left_',
             right_prefix='right_',
-            label_attr='label',
             pca=False):
+    r"""Creates dataset objects for multiple splits of a dataset.
+
+    This involves the following steps (if data cannot be retrieved from the cache):
+    #. Read CSV header of a data file and verify header is sane.
+    #. Create fields, i.e., column processing specifications (e.g. tokenization, label
+        conversion to integers etc.)
+    #. Load each data file:
+        #. Read each example (tuple pair) in specified CSV file.
+        #. Preprocess example. Involves lowercasing and tokenization (unless disabled).
+        #. Compute metadata if training data file.
+            See :meth:`MatchingDataset.compute_metadata` for details.
+
+    Arguments:
+        path (str): Common prefix of the splits' file paths.
+        train (str): Suffix to add to path for the train set.
+        validation (str): Suffix to add to path for the validation set, or None
+            for no validation set. Default is None.
+        test (str): Suffix to add to path for the test set, or None for no test
+            set. Default is None.
+        unlabeled (str): Suffix to add to path for an unlabeled dataset (e.g. for
+            prediction). Default is None.
+        cache (str): Suffix to add to path for cache file. If `None` disables caching.
+        check_cached_data (bool): Verify that data files haven't changes since the
+            cache was constructed and that relevant field options haven't changed.
+        auto_rebuild_cache (bool): Automatically rebuild the cache if the data files
+            are modified or if the field options change. Defaults to False.
+        lowercase (bool): Whether to lowercase all words in all attributes.
+        embeddings (str or list): One or more of the following strings:
+            * ``fasttext.{lang}.bin``: Uses binary models from "wiki word vectors"
+                released by FastText. {lang} is 'en' or any other 2 letter ISO 639-1
+                Language Code, or 3 letter ISO 639-2 Code, if the language does not
+                have a 2 letter code. 300d vectors. ``fasttext.en.bin`` is the default.
+            * ``fasttext.wiki.vec``: Uses wiki news word vectors released as part of
+                "Advances in Pre-Training Distributed Word Representations" by
+                Mikolov et al. (2018). 300d vectors.
+            * ``fasttext.wiki.vec``: Uses Common Crawl word vectors released as part
+                of "Advances in Pre-Training Distributed Word Representations" by
+                Mikolov et al. (2018). 300d vectors.
+            * ``glove.6B.{dims}``: Uses uncased Glove trained on Wiki + Gigaword.
+                {dims} is one of (50d, 100d, 200d, or 300d).
+            * ``glove.42B.300d``: Uses uncased Glove trained on Common Crawl.
+                300d vectors.
+            * ``glove.840B.300d``: Uses cased Glove trained on Common Crawl.
+                300d vectors.
+            * ``glove.twitter.27B.{dims}``: Uses cased Glove trained on Twitter.
+                {dims} is one of (25d, 50d, 100d, or 200d).
+        embeddings_cache (str): Directory to store dowloaded word vector data.
+        ignore_columns (list): A list of columns to ignore in the CSV files.
+        include_lengths (bool): Whether to provide the model with the lengths of
+            each attribute sequence in each batch. If True, length information can be
+            used by the neural network, e.g. when picking the last RNN output of each
+            attribute sequence.
+        id_attr (str): The name of the tuple pair ID column in the CSV file.
+        label_attr (str): The name of the tuple pair match label column in the CSV file.
+        left_prefix (str): The prefix for attribute names belonging to the left table.
+        right_prefix (str): The prefix for attribute names belonging to the right table.
+        pca (bool): Whether to compute PCA for each attribute (needed for SIF model).
+            Defaults to False.
+
+    Returns:
+        Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in that
+            order, if provided, or dataset for unlabeled, if provided.
+    """
 
     a_dataset = train or validation or test or unlabeled
     with io.open(os.path.expanduser(os.path.join(path, a_dataset)), encoding="utf8") as f:
         header = next(unicode_csv_reader(f))
 
-    _check_header(header, id_attr, left_prefix, right_prefix, label_attr)
+    _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns)
     fields = _make_fields(header, id_attr, label_attr, ignore_columns, lowercase,
                           include_lengths)
 
@@ -81,7 +159,7 @@ def process(path,
         'label': label_attr if not unlabeled else None
     }
 
-    return text.MatchingDataset.splits(
+    return MatchingDataset.splits(
         path,
         train,
         validation,

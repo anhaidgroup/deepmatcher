@@ -5,7 +5,7 @@ import six
 import deepmatcher as dm
 import torch
 
-from ..common import AttrTensor
+from ..batch import AttrTensor
 
 
 # From onmt-py
@@ -42,6 +42,6 @@ def check_nan(*values):
     for value in values:
         if isinstance(value, AttrTensor):
             value = value.data
-        if isinstance(value, torch.Tensor) and (tensor != tensor).any():
+        if isinstance(value, torch.Tensor) and (value != value).any():
             print('NaN detected!!!')
             pdb.set_trace()
