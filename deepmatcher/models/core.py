@@ -117,7 +117,7 @@ class MatchingModel(nn.Module):
                 embed = nn.Embedding(vectors_size[0], vectors_size[1])
                 embed.weight.data.copy_(field.vocab.vectors)
                 embed.weight.requires_grad = self.finetune_embeddings
-                field_embeds[field] = embed
+                field_embeds[field] = dm.modules.NoMeta(embed)
             self.embed[name] = field_embeds[field]
 
         self._initialized = True
@@ -139,8 +139,7 @@ class MatchingModel(nn.Module):
         embeddings = {}
         for name in self.all_text_fields:
             attr_input = getattr(input, name)
-            embedded = self.embed[name](attr_input.data)
-            embeddings[name] = AttrTensor.from_old_metadata(embedded, attr_input)
+            embeddings[name] = self.embed[name](attr_input)
 
         attr_comparisons = []
         for name in self.canonical_text_fields:

@@ -94,7 +94,8 @@ def process(path,
     #. Create vocabulary consisting of all tokens in all attributes in all datasets.
     #. Download word embedding data if necessary.
     #. Create mapping from each word in vocabulary to its word embedding.
-    #. Compute training data
+    #. Compute metadata
+    #. Write to cache
 
     Arguments:
         path (str): Common prefix of the splits' file paths.

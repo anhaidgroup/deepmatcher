@@ -19,6 +19,22 @@ from ..common import AttrTensor
 
 @six.add_metaclass(abc.ABCMeta)
 class LazyModule(nn.Module):
+    r"""A lazily initialized module.
+
+    This module is an extension of `nn.Module` with the following features:
+    * Constructing an instance this module does not immediately initialize it. This means
+        that if the module has paramters, they will not be instantiated immediately after
+        construction.
+    * The module is initialized the first time `forward` is called. This allows automatic
+        input size inference. Refer to description of `_init` for details.
+    * Lazy initialization also means this module can be safely deep copied to create
+        structural clones that do not share parameters. E.g. deep copying a LazyModule
+        consisting of a 2 layer Linear NN will produce another LazyModule with 2 layer
+        Linear NN that 1) do not share parameters and 2) have different weight
+        initializations.
+    * Signature verification is also supported.
+    * NaN checks
+    """
 
     def __init__(self, *args, **kwargs):
         super(LazyModule, self).__init__()
