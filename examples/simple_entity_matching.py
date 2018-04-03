@@ -19,13 +19,13 @@ em_model = dm.MatchingModel(attr_summarizer='sif')
 tmpdir = tempfile.mkdtemp()
 save_path = os.path.join(tmpdir, 'wa')
 
-unlabeled = dm.process(
-    path='~/emdata/structured_data_rm_long_attrs/Amazon-Google/',
-    unlabeled='valid_dm.csv',
-    ignore_columns=('left_id', 'right_id'),
-    include_lengths=True,
-    pca=True)
-raw_table = unlabeled.get_raw_table()
+# unlabeled = dm.process(
+#     path='~/emdata/structured_data_rm_long_attrs/Amazon-Google/',
+#     unlabeled='valid_dm.csv',
+#     ignore_columns=('left_id', 'right_id'),
+#     include_lengths=True,
+#     pca=True)
+# raw_table = unlabeled.get_raw_table()
 
 em_model.run_train(
     train,
@@ -37,7 +37,7 @@ em_model.run_train(
     pos_weight=1.3)
 # em_model.load_state(save_path)
 # em_model.run_eval(test)
-predictions = em_model.run_prediction(validation)
+# predictions = em_model.run_prediction(validation)
 pdb.set_trace()
 
 os.remove(save_prefix + '_best.pth')

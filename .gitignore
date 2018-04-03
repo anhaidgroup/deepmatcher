@@ -1,1 +1,3 @@
 *.pyc
+deepmatcher.egg-info/*
+examples/.ipynb_checkpoints/*
