@@ -304,7 +304,7 @@ class Pool(LazyModule):
     def supports_style(cls, style):
         return style.lower() in cls._supported_styles
 
-    def _init(self, style, alpha=0.0001):
+    def _init(self, style, alpha=0.001):
         assert self.supports_style(style)
         self.style = style.lower()
         self.alpha = alpha
