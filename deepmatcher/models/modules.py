@@ -14,7 +14,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 
 from . import _utils
-from ..common import AttrTensor
+from ..batch import AttrTensor
 
 
 @six.add_metaclass(abc.ABCMeta)
@@ -246,7 +246,8 @@ class AlignmentNetwork(LazyModule):
             self.context_transform = _transform_module(transform_network, hidden_size,
                                                        output_size)
             if style == 'concat_dot':
-                self.output_transform = Transform('1-layer', non_linearity=None, output_size=1)
+                self.output_transform = Transform(
+                    '1-layer', non_linearity=None, output_size=1)
         else:
             raise ValueError('Unknown AlignmentNetwork style')
 
@@ -303,7 +304,7 @@ class Pool(LazyModule):
     def supports_style(cls, style):
         return style.lower() in cls._supported_styles
 
-    def _init(self, style, alpha=0.0001):
+    def _init(self, style, alpha=0.001):
         assert self.supports_style(style)
         self.style = style.lower()
         self.alpha = alpha
@@ -353,13 +354,13 @@ class Pool(LazyModule):
                     self.alpha = input.data.new([self.alpha])
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
                 weighted = input * Variable(inv_probs.unsqueeze(2))
-                output = weighted.sum(1) / lengths
+                output = weighted.sum(1) / lengths.sqrt()
             elif self.style == 'sif':
                 if isinstance(self.alpha, numbers.Real):
                     self.alpha = input.data.new([self.alpha])
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
                 weighted = input * Variable(inv_probs.unsqueeze(2))
-                output = (weighted.sum(1) / lengths) - Variable(input_with_meta.pc)
+                output = (weighted.sum(1) / lengths.sqrt()) - Variable(input_with_meta.pc)
             else:
                 raise NotImplementedError(self.style + ' is not implemented.')
 
