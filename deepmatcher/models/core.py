@@ -15,6 +15,8 @@ from ..runner import Runner
 
 
 class MatchingModel(nn.Module):
+    """
+    """
 
     def __init__(self,
                  attr_summarizer='hybrid',
@@ -99,14 +101,15 @@ class MatchingModel(nn.Module):
                 set(self.attr_comparators.keys()) ^ set(self.canonical_text_fields)) == 0
         else:
             if isinstance(self.attr_summarizer, AttrSummarizer):
-                self.attr_comparator = self.get_attr_comparator(self.attr_comparator, self.attr_summarizer)
+                self.attr_comparator = self.get_attr_comparator(
+                    self.attr_comparator, self.attr_summarizer)
             self.attr_comparator = AttrComparator.create(self.attr_comparator)
             for name in self.canonical_text_fields:
                 self.attr_comparators[name] = copy.deepcopy(self.attr_comparator)
 
         self.attr_merge = dm.modules._merge_module(self.attr_merge)
-        self.classifier = _utils.get_module(Classifier, self.classifier,
-                hidden_size=self.hidden_size)
+        self.classifier = _utils.get_module(
+            Classifier, self.classifier, hidden_size=self.hidden_size)
 
         self.embed = dm.modules.ModuleMap()
         field_embeds = {}
