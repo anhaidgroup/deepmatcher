@@ -12,6 +12,12 @@ from ..batch import AttrTensor
 
 
 class Attention(dm.WordComparator):
+    r"""Attention module with multi-head support.
+
+    This module does the following:
+    * Computes an alignment matrix between the primary input and the context input.
+    *
+    """
 
     def _init(self,
               heads=1,
@@ -88,6 +94,7 @@ class Attention(dm.WordComparator):
                 mask = mask.unsqueeze(1)  # Make it broadcastable.
                 alignment_scores.data.masked_fill_(1 - mask, -float('inf'))
 
+            # Make values along dim 2 sum to 1.
             normalized_scores = self.softmax(alignment_scores)
 
             if self.input_transform_network is not None:

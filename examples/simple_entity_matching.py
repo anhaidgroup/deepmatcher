@@ -14,7 +14,7 @@ train, validation, test = dm.process(
     auto_rebuild_cache=True,
     pca=True)
 
-em_model = dm.MatchingModel(attr_summarizer='sif')
+em_model = dm.MatchingModel(attr_summarizer='hybrid')
 
 tmpdir = tempfile.mkdtemp()
 save_path = os.path.join(tmpdir, 'wa')
