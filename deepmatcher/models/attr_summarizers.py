@@ -58,7 +58,7 @@ class Hybrid(dm.AttrSummarizer):
         word_contextualizer = word_contextualizer or 'gru'
         word_comparator = word_comparator or dm.word_comparators.Attention(
             alignment_network='decomposable', raw_alignment=True)
-        word_aggregator = word_aggregator or 'concat-attention-with-rnn'
+        word_aggregator = word_aggregator or 'attention-with-rnn'
         super(Hybrid, self)._init(
             word_contextualizer=word_contextualizer,
             word_comparator=word_comparator,

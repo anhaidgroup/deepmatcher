@@ -2,8 +2,8 @@ from __future__ import division
 
 import abc
 import math
-import pdb
 import numbers
+import pdb
 
 import six
 
@@ -101,6 +101,14 @@ class LazyModule(nn.Module):
 
 
 class NoMeta(nn.Module):
+    r"""A wrapper module to allow regular modules to take AttrTensors as input.
+
+    Performing a forward pass through this module, will perform the following:
+    * If the module input is an AttrTensor, gets the data from it, and use as input.
+    * Perform forward pass through contained module with the modified input.
+    * Using metadata information from module input (if provided), wrap the result into an
+        AttrTensor and return this instead.
+    """
 
     def __init__(self, module):
         super(NoMeta, self).__init__()
@@ -118,6 +126,9 @@ class NoMeta(nn.Module):
 
 
 class ModuleMap(nn.Module):
+    """Holds submodules in a map.
+
+    Similar to :class:`torch.nn.ModuleList`, but for maps."""
 
     def __getitem__(self, name):
         return getattr(self, name)
@@ -127,6 +138,15 @@ class ModuleMap(nn.Module):
 
     def __delitem__(self, name):
         delattr(self, name)
+
+class MultiSequential(nn.Sequential):
+
+    def forward(self, *inputs):
+        modules = list(self._modules.values())
+        inputs = modules[0](*inputs)
+        for module in modules[1:]:
+            inputs = module(inputs)
+        return inputs
 
 
 class LazyModuleFn(LazyModule):
@@ -224,7 +244,7 @@ class RNN(LazyModule):
 
 
 class AlignmentNetwork(LazyModule):
-    _supported_styles = ['dot', 'bilinear', 'decomposable', 'concat', 'concat_dot']
+    _supported_styles = ['dot', 'bilinear', 'decomposable']
 
     @classmethod
     def supports_style(cls, style):
@@ -239,16 +259,17 @@ class AlignmentNetwork(LazyModule):
             if style == 'bilinear':
                 assert hidden_size is None or hidden_size == input_size
             self.transform = _transform_module(transform_network, hidden_size)
-        elif style in ['concat', 'concat_dot']:
-            output_size = 1 if style == 'concat' else hidden_size
-            self.input_transform = _transform_module(transform_network, hidden_size,
-                                                     output_size)
-            self.context_transform = _transform_module(transform_network, hidden_size,
-                                                       output_size)
-            if style == 'concat_dot':
-                self.output_transform = Transform(
-                    '1-layer', non_linearity=None, output_size=1)
-        else:
+        # elif style in ['concat', 'concat_dot']:
+        #     self.input_transform = nn.ModuleList()
+        #     self.input_transform.append(_transform_module(transform_network, hidden_size))
+        #     if style == 'concat':
+        #         self.input_transform.append(Transform('1-layer', output_size=1))
+        #     self.context_transform = _transform_module(transform_network, hidden_size,
+        #                                                output_size)
+        #     if style == 'concat_dot':
+        #         self.output_transform = Transform(
+        #             '1-layer', non_linearity=None, output_size=1)
+        elif style != 'dot':
             raise ValueError('Unknown AlignmentNetwork style')
 
         self.style = style
@@ -266,22 +287,22 @@ class AlignmentNetwork(LazyModule):
             return torch.bmm(
                 self.transform(input),  # batch x hidden_size x len2
                 self.transform(context).transpose(1, 2))  # batch x hidden_size x len2
-        elif self.style in ['concat', 'concat_dot']:
-            # batch x len1 x 1 x output_size
-            input_transformed = self.input_transform(input).unsqueeze(2)
-
-            # batch x 1 x len2 x output_size
-            context_transformed = self.context_transform(context).unsqueeze(1)
-
-            # batch x len1 x len2 x output_size
-            pairwise_transformed = input_transformed + context_transformed
-
-            if self.style == 'concat':
-                # batch x len1 x len2
-                return pairwise_transformed.squeeze(3)
-
-            # batch x len1 x len2
-            return self.output_transform(pairwise_transformed).squeeze(3)
+        # elif self.style in ['concat', 'concat_dot']:
+        #     # batch x len1 x 1 x output_size
+        #     input_transformed = self.input_transform(input).unsqueeze(2)
+        #
+        #     # batch x 1 x len2 x output_size
+        #     context_transformed = self.context_transform(context).unsqueeze(1)
+        #
+        #     # batch x len1 x len2 x output_size
+        #     pairwise_transformed = input_transformed + context_transformed
+        #
+        #     if self.style == 'concat':
+        #         # batch x len1 x len2
+        #         return pairwise_transformed.squeeze(3)
+        #
+        #     # batch x len1 x len2
+        #     return self.output_transform(pairwise_transformed).squeeze(3)
 
 
 class Lambda(nn.Module):
@@ -411,6 +432,7 @@ class Bypass(LazyModule):
         rsize = raw.shape[-1]
         adjusted_raw = raw
         if tsize < rsize:
+            assert rsize / tsize <= 50
             if rsize % tsize != 0:
                 padded = F.pad(raw, (0, tsize - rsize % tsize))
             else:
@@ -450,7 +472,8 @@ class Transform(LazyModule):
               non_linearity='leaky_relu',
               hidden_size=None,
               input_size=None,
-              output_size=None):
+              output_size=None,
+              force_bypass=False):
         hidden_size = hidden_size or input_size
         output_size = output_size or hidden_size
 
