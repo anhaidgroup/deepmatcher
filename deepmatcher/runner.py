@@ -12,6 +12,7 @@ from .data import MatchingIterator
 from .loss import SoftNLLLoss
 from tqdm import tqdm
 from collections import OrderedDict
+import pyprind
 
 try:
     get_ipython
@@ -98,9 +99,9 @@ class Runner(object):
     def print_final_stats(epoch, runtime, datatime, stats):
         """Write out statistics to stdout.
         """
-        print(('Finished Epoch {epoch} || Run Time: {runtime:7f} | '
-               'Load Time: {datatime:7f} | F1: {f1:7.2f} | Prec: {prec:7.2f} | '
-               'Rec: {rec:7.2f} || Ex/s: {eps:6.1f}\n').format(
+        print(('Finished Epoch {epoch} || Run Time: {runtime:6.1f} | '
+               'Load Time: {datatime:6.1f} || F1: {f1:6.2f} | Prec: {prec:6.2f} | '
+               'Rec: {rec:6.2f} || Ex/s: {eps:6.2f}\n').format(
                    epoch=epoch,
                    runtime=runtime,
                    datatime=datatime,
@@ -198,12 +199,17 @@ class Runner(object):
         if train and epoch == 0:
             Runner.tally_parameters(model)
 
-        epoch_str = 'epoch ' + str(epoch + 1) + ' :'
-        print('=> ', run_type, epoch_str)
+        epoch_str = 'Epoch ' + str(epoch + 1) + ' :'
+        print('===> ', run_type, epoch_str)
         batch_end = time.time()
 
-        if progress_style == 'bar':
+        # The tqdm-bar for Jupyter notebook is under development.
+        if progress_style == 'tqdm-bar':
             pbar = tqdm(total=len(run_iter) // log_freq, bar_format='{l_bar}{bar}{postfix}', file=sys.stdout)
+
+        # Use the pyprind bar as the default progress bar.
+        if progress_style == 'bar':
+            pbar = pyprind.ProgBar(len(run_iter) // log_freq, bar_char='█', width=30)
 
         for batch_idx, batch in enumerate(run_iter):
             batch_start = time.time()
@@ -236,9 +242,11 @@ class Runner(object):
                 if progress_style == 'log':
                     Runner.print_stats(run_type, epoch + 1, batch_idx + 1, len(run_iter),
                                        stats, cum_stats)
-                elif progress_style == 'bar':
+                elif progress_style == 'tqdm-bar':
                     pbar.update()
                     Runner.set_pbar_status(pbar, stats, cum_stats)
+                elif progress_style == 'bar':
+                    pbar.update()
                 stats = Statistics()
 
             if train:
@@ -251,7 +259,11 @@ class Runner(object):
 
             batch_end = time.time()
             runtime += batch_end - batch_start
-        pbar.close()
+
+        if progress_style == 'tqdm-bar':
+            pbar.close()
+        elif progress_style == 'bar':
+            sys.stderr.flush()
 
         Runner.print_final_stats(epoch + 1, runtime, datatime, cum_stats)
 
