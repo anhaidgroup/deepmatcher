@@ -23,7 +23,7 @@ class MatchingIterator(data.BucketIterator):
     def splits(cls, datasets, batch_sizes=None, **kwargs):
         """Create Iterator objects for multiple splits of a dataset.
 
-        Arguments:
+        Args:
             datasets: Tuple of Dataset objects corresponding to the splits. The
                 first such object should be the train set.
             batch_sizes: Tuple of batch sizes to use for the different splits,

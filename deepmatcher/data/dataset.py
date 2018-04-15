@@ -15,6 +15,8 @@ from torchtext import data
 from ..models.modules import NoMeta, Pool
 from .iterator import MatchingIterator
 
+import pdb
+
 logger = logging.getLogger(__name__)
 
 
@@ -208,6 +210,7 @@ class MatchingDataset(data.TabularDataset):
                 attr_input = getattr(batch, name)
                 embeddings = inv_freq_pool(embed[name](attr_input))
                 attr_embeddings[name].append(embeddings.data.data)
+
 
         # Compute the first principal component of weighted sequence embeddings for each
         # attribute.
@@ -424,7 +427,7 @@ class MatchingDataset(data.TabularDataset):
                **kwargs):
         r"""Create Dataset objects for multiple splits of a dataset.
 
-        Arguments:
+        Args:
             path (str): Common prefix of the splits' file paths.
             train (str): Suffix to add to path for the train set.
             validation (str): Suffix to add to path for the validation set, or None
