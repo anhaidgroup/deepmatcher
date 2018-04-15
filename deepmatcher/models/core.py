@@ -153,8 +153,11 @@ class MatchingModel(nn.Module):
         r"""
         Get the attribute comparator.
         Args:
-        arg ():
-            TODO(Sid)
+        arg (string):
+            The attribute comparator to use. Can be one of the supported style arguments
+            for :class:`~dm.modules.Merge`, specifically, 'abs-diff', 'diff', 'concat',
+            'concat-diff', 'concat-abs-diff', or 'mul'. If not specified uses 'abs-diff'
+            for SIF and RNN, 'concat' for Attention, and 'concat-diff' for Hybrid".
         attr_summarizer (:obj:`dm.AttrSummarizer`):
             The attribute summarizer object in :module:`dm.attr_summarizers` (i.e., it
             should be one of "SIF", "RNN", "Attention", and "Hybrid" defined in
@@ -303,8 +306,11 @@ class AttrSummarizer(dm.modules.LazyModule):
             right_compared = self.word_comparator(
                 right_contextualized, left_contextualized, right_input, left_input)
 
-        left_aggregated = self.word_aggregator(left_compared)
-        right_aggregated = self.word_aggregator(right_compared)
+        left_aggregator_context = right_input
+        right_aggregator_context = left_input
+
+        left_aggregated = self.word_aggregator(left_compared, left_aggregator_context)
+        right_aggregated = self.word_aggregator(right_compared, right_aggregator_context)
         return left_aggregated, right_aggregated
 
     @classmethod
@@ -486,11 +492,14 @@ class WordAggregator(dm.modules.LazyModule):
             parts = arg.split('-')
             if (parts[-1] == 'pool' and
                     dm.word_aggregators.Pool.supports_style('-'.join(parts[:-1]))):
-                wa = dm.word_aggregators.Pool(style='-'.join(parts[:-1]))
-            elif ('-'.join(parts[-3:]) == 'attention-with-rnn' and
-                  dm.modules.AlignmentNetwork.supports_style('-'.join(parts[:-3]))):
-                wa = dm.word_aggregators.AttentionWithRNN(
-                    alignment_network='-'.join(parts[:-3]), **kwargs)
+                seq = []
+                seq.append(dm.modules.Lambda(lambda x1, x2: x1))  # Ignore the context.
+                seq.append(dm.word_aggregators.Pool(style='-'.join(parts[:-1])))
+
+                # Make lazy module.
+                wa = dm.modules.LazyModuleFn(lambda: dm.modules.MultiSequential(*seq))
+            elif arg == 'attention-with-rnn':
+                wa = dm.word_aggregators.AttentionWithRNN(**kwargs)
             else:
                 raise ValueError('Unknown Word Aggregator name.')
         else:
