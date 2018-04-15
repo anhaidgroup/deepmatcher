@@ -12,10 +12,54 @@ from ..batch import AttrTensor
 
 
 class Pool(dm.modules.Pool, dm.WordAggregator):
+    r"""
+    The pooling aggregation class.
+    """
     pass
 
 
 class AttentionWithRNN(dm.WordAggregator):
+    r"""
+    The aggregation class using attention with RNN. This class can be used when the
+    aggregation on the primary input also needs the information from the context.
+    Specifically, the hybrid attribute summarizer (:class:`Hybrid` in
+    :module:`dm.word_aggregators`) takes advantange of this aggregation approach.
+
+    Args:
+    hidden_size (int):
+        TODO(Sid)
+    input_dropout (float):
+        The dropout ratio for the input vector sequence. The default value is 0, meaning
+        no dropout used.
+    rnn (string or :obj:`dm.modules.RNN` or callable):
+        The argument for creating the RNN that will be used for attention-based
+        comparison. It could be one of:
+        * a string specifying the RNN to use, which is one of "rnn", "gru", and "lstm".
+        * a :class:`dm.modules.RNN` object.
+        * a callable that returns a :class:`nn.Module`.
+        The default value is 'gru' (using the GRU network).
+    rnn_pool_style (string):
+        The pooling style for the RNN. Please refer to :class:`dm.modules.Pool` for the
+        list of supported pooling style. The default value is 'birnn-last' (using the
+        bi-directional RNN, and concatenating the last hidden output of the forward
+        RNN and the first hidden output of the backward RNN).
+    score_dropout (float):
+        Dropout ratio for the alignment scores after the comparison of the primary input
+        and the context input. The default value is 0 (no dropout used).
+    scale (boolean):
+        Scale the alignment scores
+    input_context_comparison_network ():
+        The comparison network to compare the primary input with the context input after
+        the attention step.
+        TODO(Sid)
+    input_transform_network ():
+        TODO(Sid)
+    transform_dropout (float):
+        Dropout ratio for the transform network of the input. The default value is 0 (no
+        dropout used).
+    input_size (int):
+        TODO(Sid)
+    """
 
     def _init(self,
               hidden_size=None,
@@ -53,6 +97,15 @@ class AttentionWithRNN(dm.WordAggregator):
         self.scale = scale
 
     def _forward(self, input_with_meta, context_with_meta):
+        r"""
+        The forward function of the attention-with-RNN netowrk.
+
+        Args:
+        input_with_meta ():
+            The input sequence with metadata information.
+        context_with_meta ():
+            The context sequence with metadata information.
+        """
         input = self.input_dropout(input_with_meta.data)
         context = self.input_dropout(context_with_meta.data)
 
