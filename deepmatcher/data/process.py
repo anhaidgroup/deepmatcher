@@ -1,11 +1,14 @@
 import io
 import os
+import logging
 
 from torchtext.utils import unicode_csv_reader
 
 from .dataset import MatchingDataset
 from .field import MatchingField
 
+logging.basicConfig()
+logging.getLogger().setLevel(logging.INFO)
 
 def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns):
     r"""Verify CSV file header.
