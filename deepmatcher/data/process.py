@@ -63,6 +63,15 @@ def _make_fields(header, id_attr, label_attr, ignore_columns, lower, include_len
     return fields
 
 
+def _maybe_download_nltk_data():
+    try:
+        from nltk.corpus import perluniprops, nonbreaking_prefixes
+    except:
+        import nltk
+        nltk.download('perluniprops')
+        nltk.download('nonbreaking_prefixes')
+
+
 def process(path,
             train=None,
             validation=None,
@@ -164,6 +173,8 @@ def process(path,
         'right': right_prefix,
         'label': None if unlabeled else label_attr
     }
+
+    _maybe_download_nltk_data()
 
     return MatchingDataset.splits(
         path,

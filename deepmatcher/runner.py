@@ -280,7 +280,7 @@ class Runner(object):
               criterion=None,
               optimizer=None,
               pos_weight=1,
-              label_smoothing=False,
+              label_smoothing=0.05,
               best_save_path=None,
               save_every_prefix=None,
               save_every_freq=None,
