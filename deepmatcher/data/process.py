@@ -163,6 +163,7 @@ def process(path,
     with io.open(os.path.expanduser(os.path.join(path, a_dataset)), encoding="utf8") as f:
         header = next(unicode_csv_reader(f))
 
+    _maybe_download_nltk_data()
     _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns)
     fields = _make_fields(header, id_attr, label_attr, ignore_columns, lowercase,
                           include_lengths)
@@ -174,7 +175,6 @@ def process(path,
         'label': None if unlabeled else label_attr
     }
 
-    _maybe_download_nltk_data()
 
     return MatchingDataset.splits(
         path,
