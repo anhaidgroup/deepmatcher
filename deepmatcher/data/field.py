@@ -112,7 +112,7 @@ class MatchingField(data.Field):
                             vec_data = FastText(
                                 suffix='crawl-300d-2M.vec.zip', cache=cache)
                 if vec_data is None:
-                    vec_data = data.vocab.pretrained_aliases[vec_name](cache=cache)
+                    vec_data = vocab.pretrained_aliases[vec_name](cache=cache)
                 cls._cached_vec_data[vec_name] = vec_data
                 vec_datas.append(vec_data)
             else:
@@ -121,10 +121,10 @@ class MatchingField(data.Field):
         return vec_datas
 
     def build_vocab(self, *args, vectors=None, cache=None, **kwargs):
-        if vectors is not None:
-            vectors = MatchingField._get_vector_data(vectors, cache)
         if cache is not None:
             cache = os.path.expanduser(cache)
+        if vectors is not None:
+            vectors = MatchingField._get_vector_data(vectors, cache)
         super(MatchingField, self).build_vocab(*args, vectors=vectors, **kwargs)
 
     def numericalize(self, arr, *args, **kwargs):
