@@ -83,7 +83,7 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
         vec_data = mf.build_vocab(vectors=vector_file_name, cache=cache_dir)
         self.assertIsNone(vec_data)
 
-    def test__get_vector_data(self):
+    def test_get_vector_data(self):
         vectors_cache_dir = '.cache'
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
