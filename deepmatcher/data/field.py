@@ -9,7 +9,7 @@ import fastText
 import torch
 from six.moves.urllib.request import urlretrieve
 from torchtext import data, vocab
-from torchtext.utils import reporthook
+from torchtext.utils import download_from_url
 from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
@@ -28,17 +28,24 @@ class FastText(vocab.Vectors):
 
 class FastTextBinary(vocab.Vectors):
 
-    url_base = 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki.{}.zip'
     name_base = 'wiki.{}.bin'
+    _direct_en_url = 'https://drive.google.com/uc?export=download&id=1Vih8gAmgBnuYDxfblbT94P6WjB7s1ZSh'
 
-    def __init__(self, language='en', cache=None):
+    def __init__(self, language='en', url_base=None, cache=None):
         """
         Arguments:
            language: Language of fastText pre-trained embedding model
            cache: directory for cached model
          """
         cache = os.path.expanduser(cache)
-        url = FastTextBinary.url_base.format(language)
+        if language == 'en' and url_base is None:
+            url = FastTextBinary._direct_en_url
+            self.destination = os.path.join(cache, 'wiki' + language + '.bin')
+        else:
+            if url_base is None:
+                url_base = 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki.{}.zip'
+            url = url_base.format(language)
+            self.destination = os.path.join(cache, 'wiki' + language + '.zip')
         name = FastTextBinary.name_base.format(language)
 
         self.cache(name, cache, url=url)
@@ -52,17 +59,15 @@ class FastTextBinary(vocab.Vectors):
             logger.info('Downloading vectors from {}'.format(url))
             if not os.path.exists(cache):
                 os.makedirs(cache)
-            dest = os.path.join(cache, os.path.basename(url))
-            if not os.path.isfile(dest):
-                with tqdm(unit='B', unit_scale=True, miniters=1, desc=dest) as t:
-                    urlretrieve(url, dest, reporthook=reporthook(t))
+            if not os.path.isfile(self.destination):
+                download_from_url(url, self.destination)
             logger.info('Extracting vectors into {}'.format(cache))
-            ext = os.path.splitext(dest)[1][1:]
+            ext = os.path.splitext(self.destination)[1][1:]
             if ext == 'zip':
-                with zipfile.ZipFile(dest, "r") as zf:
+                with zipfile.ZipFile(self.destination, "r") as zf:
                     zf.extractall(cache)
             elif ext == 'gz':
-                with tarfile.open(dest, 'r:gz') as tar:
+                with tarfile.open(self.destination, 'r:gz') as tar:
                     tar.extractall(path=cache)
         if not os.path.isfile(path):
             raise RuntimeError('no vectors found at {}'.format(path))
