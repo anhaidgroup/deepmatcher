@@ -80,7 +80,7 @@ def process(path,
             label_attr='label',
             left_prefix='left_',
             right_prefix='right_',
-            pca=False):
+            pca=True):
     r"""Creates dataset objects for multiple splits of a dataset.
 
     This involves the following steps (if data cannot be retrieved from the cache):
