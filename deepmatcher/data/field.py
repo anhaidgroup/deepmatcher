@@ -7,20 +7,19 @@ import six
 
 import fastText
 import torch
-from six.moves.urllib.request import urlretrieve
 from torchtext import data, vocab
 from torchtext.utils import download_from_url
-from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 
 
 class FastText(vocab.Vectors):
 
-    url_base = 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/'
-
-    def __init__(self, suffix='wiki-news-300d-1M.vec.zip', **kwargs):
-        url = self.url_base + suffix
+    def __init__(self,
+                 suffix='wiki-news-300d-1M.vec.zip',
+                 url_base='https://s3-us-west-1.amazonaws.com/fasttext-vectors/',
+                 **kwargs):
+        url = url_base + suffix
         base, ext = os.path.splitext(suffix)
         name = suffix if ext == '.vec' else base
         super(FastText, self).__init__(name, url=url, **kwargs)
@@ -40,12 +39,12 @@ class FastTextBinary(vocab.Vectors):
         cache = os.path.expanduser(cache)
         if language == 'en' and url_base is None:
             url = FastTextBinary._direct_en_url
-            self.destination = os.path.join(cache, 'wiki' + language + '.bin')
+            self.destination = os.path.join(cache, 'wiki.' + language + '.bin')
         else:
             if url_base is None:
                 url_base = 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki.{}.zip'
             url = url_base.format(language)
-            self.destination = os.path.join(cache, 'wiki' + language + '.zip')
+            self.destination = os.path.join(cache, 'wiki.' + language + '.zip')
         name = FastTextBinary.name_base.format(language)
 
         self.cache(name, cache, url=url)
