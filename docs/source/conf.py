@@ -20,6 +20,8 @@
 import os
 import sys
 sys.path.append(os.path.abspath('../../deepmatcher'))
+print(os.path.abspath('../../deepmatcher'))
+os.listdir(os.path.abspath('../../deepmatcher'))
 
 import sphinx_rtd_theme
 import deepmatcher
