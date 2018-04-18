@@ -5,7 +5,6 @@ import shutil
 import torch
 from torchtext.vocab import Vectors
 import unittest
-import urllib
 
 try:
     from urllib.parse import urljoin
@@ -16,11 +15,6 @@ except ImportError:
 
 from deepmatcher.data.field import FastText, MatchingField
 
-class MockFastText(FastText):
-    def __init__(self, url_base, name, **kwargs):
-        self.url_base = url_base
-        super(MockFastText, self).__init__(name, **kwargs)
-
 class ClassFastTextTestCases(unittest.TestCase):
     def test_init_1(self):
         vectors_cache_dir = '.cache'
@@ -30,7 +24,7 @@ class ClassFastTextTestCases(unittest.TestCase):
         pathdir = os.path.abspath(os.path.join('.', 'test_datasets'))
         filename = 'fasttext_sample.vec.zip'
         url_base = urljoin('file:', pathname2url(pathdir)) + os.path.sep
-        mft = MockFastText(url_base, filename, cache=vectors_cache_dir)
+        mft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
         self.assertEqual(mft.dim, 300)
         self.assertEqual(mft.vectors.size(), torch.Size([100, 300]))
 
