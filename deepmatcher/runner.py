@@ -1,18 +1,18 @@
 import logging
+import math
 import os
 import pdb
-import time
 import sys
-import math
+import time
+from collections import OrderedDict
 
+import pyprind
 import torch
+from tqdm import tqdm
 
 from . import optim as optim
 from .data import MatchingIterator
 from .loss import SoftNLLLoss
-from tqdm import tqdm
-from collections import OrderedDict
-import pyprind
 
 try:
     get_ipython
@@ -73,6 +73,8 @@ class Statistics(object):
 
 
 class Runner(object):
+    """
+    """
 
     @staticmethod
     def print_stats(name, epoch, batch, n_batches, stats, cum_stats):
@@ -205,7 +207,10 @@ class Runner(object):
 
         # The tqdm-bar for Jupyter notebook is under development.
         if progress_style == 'tqdm-bar':
-            pbar = tqdm(total=len(run_iter) // log_freq, bar_format='{l_bar}{bar}{postfix}', file=sys.stdout)
+            pbar = tqdm(
+                total=len(run_iter) // log_freq,
+                bar_format='{l_bar}{bar}{postfix}',
+                file=sys.stdout)
 
         # Use the pyprind bar as the default progress bar.
         if progress_style == 'bar':

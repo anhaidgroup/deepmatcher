@@ -15,16 +15,29 @@ from ..runner import Runner
 
 
 class MatchingModel(nn.Module):
+    r"""A neural network model for entity matching.
 
-    r"""
-    Create a template of an entity matching model. Different model wills be instantiated
-    by choosing different combinations of the model components, as listed in the arguments.
+    This network consists of the following components:
+    #. Attribute Summarizers
+    #. Attribute Comparators
+    #. A Classifier
+
+    Creating a MatchingModel instance does not immediately construct the neural network.
+    The network will be constructed just before training based on metadata from the
+    training set:
+    #. For each attribute (e.g., Product Name, Address, etc.), an Attribute Summarizer is
+        constructed using specified `attr_summarizer` template.
+    #. For each attribute, an Attribute Comparator is constructed using specified
+        `attr_summarizer` template.
+    #. A Classifier is constructed based on the `classifier` template.
+
+    For details on how 
 
     Args:
     attr_summarizer (dm.AttrSummarizer):
-        The neural network to summarize an attribute value of a tuple (a sequence of words)
-        into a vector. Defaults to `dm.attr_summarizers.Hybrid()`, which is the hybrid
-        model. Please concult the paper for more information.
+        The neural network to summarize an attribute value of a tuple (a sequence of
+        words) into a vector. Defaults to `dm.attr_summarizers.Hybrid()`, which is the
+        hybrid model. Please concult the paper for more information.
     attr_comparator (dm.AttrComparator):
         The neural network to compare two attribute summary vectors.
         Default is selected based on `attr_summarizer` choice.
@@ -126,14 +139,15 @@ class MatchingModel(nn.Module):
                 set(self.attr_comparators.keys()) ^ set(self.canonical_text_fields)) == 0
         else:
             if isinstance(self.attr_summarizer, AttrSummarizer):
-                self.attr_comparator = self.get_attr_comparator(self.attr_comparator, self.attr_summarizer)
+                self.attr_comparator = self.get_attr_comparator(
+                    self.attr_comparator, self.attr_summarizer)
             self.attr_comparator = AttrComparator.create(self.attr_comparator)
             for name in self.canonical_text_fields:
                 self.attr_comparators[name] = copy.deepcopy(self.attr_comparator)
 
         self.attr_merge = dm.modules._merge_module(self.attr_merge)
-        self.classifier = _utils.get_module(Classifier, self.classifier,
-                hidden_size=self.hidden_size)
+        self.classifier = _utils.get_module(
+            Classifier, self.classifier, hidden_size=self.hidden_size)
 
         self.embed = dm.modules.ModuleMap()
         field_embeds = {}
@@ -350,15 +364,14 @@ class AttrSummarizer(dm.modules.LazyModule):
 
 
 class AttrComparator(dm.modules.LazyModule):
-    r"""
-    The attribute comparator that will compare the two summarizations of the same attribute
-    in a tuple pair and generate a hidden representation of the comparison result.
+    r"""The attribute comparator that will compare the two summarizations of the same
+    attribute in a tuple pair and generate a hidden representation of the comparison
+    result.
     """
 
     @classmethod
     def create(cls, arg):
-        r"""
-        Create an attribute comparator object.
+        r"""Create an attribute comparator object.
 
         Args:
         arg (string):
@@ -373,15 +386,13 @@ class AttrComparator(dm.modules.LazyModule):
 
 
 class WordContextualizer(dm.modules.LazyModule):
-    r"""
-    The neural network to process an input word sequence to consider word
+    r"""The neural network to process an input word sequence to consider word
     sequence into account.
     """
 
     @classmethod
     def create(cls, arg, **kwargs):
-        r"""
-        Create a word contextualizer object.
+        r"""Create a word contextualizer object.
 
         Args:
         arg (string or :module:`dm.word_contextualizers` or callable):
@@ -413,15 +424,13 @@ class WordContextualizer(dm.modules.LazyModule):
 
 
 class WordComparator(dm.modules.LazyModule):
-    r"""
-    The neural network that will be used in the attention step to compare the a word
+    r"""The neural network that will be used in the attention step to compare the a word
     with the corresponding alignment in the other sequence.
     """
 
     @classmethod
     def create(cls, arg, **kwargs):
-        r"""
-        Create a word comparator object.
+        r"""Create a word comparator object.
 
         Args:
         arg (string or :module:`dm.word_comparators` or callable):
