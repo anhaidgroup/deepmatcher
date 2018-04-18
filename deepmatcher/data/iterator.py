@@ -4,7 +4,7 @@ import logging
 
 from torchtext import data
 
-from ..batch import Batch
+from ..batch import MatchingBatch
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +44,7 @@ class MatchingIterator(data.BucketIterator):
 
     def __iter__(self):
         for batch in super(MatchingIterator, self).__iter__():
-            yield Batch(batch, self.train_dataset)
+            yield MatchingBatch(batch, self.train_dataset)
 
     def create_batches(self):
         if self.sort_in_buckets:

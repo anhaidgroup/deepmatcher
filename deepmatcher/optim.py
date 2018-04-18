@@ -1,11 +1,49 @@
 import pdb
 
+import torch
+import torch.nn as nn
+from torch.autograd import Variable
+
 import torch.optim as optim
 from torch.nn.utils import clip_grad_norm
 
-# This file is taken mostly from the ONMT project.
+
+class SoftNLLLoss(nn.NLLLoss):
+
+    def __init__(self, label_smoothing=0, weight=None, num_classes=2, **kwargs):
+        super(SoftNLLLoss, self).__init__(**kwargs)
+        self.label_smoothing = label_smoothing
+        self.confidence = 1 - self.label_smoothing
+        self.num_classes = num_classes
+        self.register_buffer('weight', Variable(weight))
+
+        assert label_smoothing >= 0.0 and label_smoothing <= 1.0
+
+        # if num_classes == 2:
+        self.criterion2 = nn.NLLLoss(weight=weight, **kwargs)
+        # else:
+        # self.criterion1 = nn.KLDivLoss(**kwargs)
+
+    def forward(self, input, target):
+        # if self.num_classes > 2:
+        one_hot = torch.zeros_like(input)
+        one_hot.fill_(self.label_smoothing / (self.num_classes - 1))
+        one_hot.scatter_(1, target.unsqueeze(1).long(), self.confidence)
+
+        if self.weight is not None:
+            one_hot.mul_(self.weight)
+
+        # loss1 = self.criterion1(input, one_hot)
+        # else:
+        loss2 = (self.confidence * self.criterion2(input, target) +
+                 self.label_smoothing * self.criterion2(input, 1 - target))
+
+        # print(loss1 - loss2)
+        # pdb.set_trace()
+        return loss2
 
 
+# This class is taken mostly from the ONMT project.
 class Optimizer(object):
     """
     Controller class for optimization. Mostly a thin
@@ -84,14 +122,14 @@ class Optimizer(object):
         elif self.method == 'adadelta':
             self.base_optimizer = optim.Adadelta(self.params, lr=self.lr)
         elif self.method == 'adam':
-            self.base_optimizer = optim.Adam(self.params, lr=self.lr,
-                                        betas=self.betas, eps=1e-9)
+            self.base_optimizer = optim.Adam(
+                self.params, lr=self.lr, betas=self.betas, eps=1e-9)
         elif self.method == 'sparseadam':
-            self.base_optimizer = MultipleOptimizer(
-                [optim.Adam(self.params, lr=self.lr,
-                            betas=self.betas, eps=1e-8),
-                 optim.SparseAdam(self.sparse_params, lr=self.lr,
-                                  betas=self.betas, eps=1e-8)])
+            self.base_optimizer = MultipleOptimizer([
+                optim.Adam(self.params, lr=self.lr, betas=self.betas, eps=1e-8),
+                optim.SparseAdam(
+                    self.sparse_params, lr=self.lr, betas=self.betas, eps=1e-8)
+            ])
         else:
             raise RuntimeError("Invalid optim method: " + self.method)
 

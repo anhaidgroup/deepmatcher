@@ -22,8 +22,8 @@ class AttentionWithRNN(dm.WordAggregator):
     r"""
     The aggregation class using attention with RNN. This class can be used when the
     aggregation on the primary input also needs the information from the context.
-    Specifically, the hybrid attribute summarizer (:class:`Hybrid` in
-    :module:`dm.word_aggregators`) takes advantange of this aggregation approach.
+    Specifically, the hybrid attribute summarizer  (:class:`attr_summarizers.Hybrid`)
+    takes advantange of this aggregation approach.
 
     Args:
     hidden_size (int):

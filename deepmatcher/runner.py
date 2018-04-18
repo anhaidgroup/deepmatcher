@@ -10,9 +10,8 @@ import pyprind
 import torch
 from tqdm import tqdm
 
-from . import optim as optim
 from .data import MatchingIterator
-from .loss import SoftNLLLoss
+from .optim import Optimizer, SoftNLLLoss
 
 try:
     get_ipython
@@ -303,7 +302,7 @@ class Runner(object):
             criterion = SoftNLLLoss(label_smoothing,
                                     torch.Tensor([neg_weight, pos_weight]))
 
-        optimizer = optimizer or optim.Optimizer()
+        optimizer = optimizer or Optimizer()
         if model.optimizer_state is not None:
             model.optimizer.base_optimizer.load_state_dict(model.optimizer_state)
 

@@ -18,49 +18,52 @@ class MatchingModel(nn.Module):
     r"""A neural network model for entity matching.
 
     This network consists of the following components:
+
     #. Attribute Summarizers
+
     #. Attribute Comparators
+
     #. A Classifier
 
     Creating a MatchingModel instance does not immediately construct the neural network.
     The network will be constructed just before training based on metadata from the
     training set:
+
     #. For each attribute (e.g., Product Name, Address, etc.), an Attribute Summarizer is
-        constructed using specified `attr_summarizer` template.
+       constructed using specified `attr_summarizer` template.
     #. For each attribute, an Attribute Comparator is constructed using specified
-        `attr_summarizer` template.
+       `attr_summarizer` template.
     #. A Classifier is constructed based on the `classifier` template.
 
-    For details on how 
-
     Args:
-    attr_summarizer (dm.AttrSummarizer):
-        The neural network to summarize an attribute value of a tuple (a sequence of
-        words) into a vector. Defaults to `dm.attr_summarizers.Hybrid()`, which is the
-        hybrid model. Please concult the paper for more information.
-    attr_comparator (dm.AttrComparator):
-        The neural network to compare two attribute summary vectors.
-        Default is selected based on `attr_summarizer` choice.
-    attr_condense_factor (string or int):
-        The attribute condensing factor that controls the condensing ratio from the
-        attribute summarization vector to the corresponding classifier input. The purpose
-        of condensing the attribute summarization vector is to reduce the size of input
-        vector to the classifier to reduce the number of parameters. The default value is
-        'auto'. If the default value 'auto' is used, the actual condens factor is the
-        minimal value of the number attributes (excluding id and label columns) or 6.
-    attr_merge (string):
-        The way to merge the attribute summarization vectors to generate the input vector
-        of the classifier. The default value is 'concat', which is to concatenate the
-        condensed vector of each attribute summarization.
-    classifier (dm.Classifier):
-        The neural network to perform match / mismatch classification
-        based on attribute similarity representations.
-        Defaults to `dm.Classifier()`.
-    hidden_size (int):
-        TODO(Sid)
-    finetune_embeddings (boolean):
-        A boolean flag to choose if fine tuning on the word embeddings will be conducted.
-        The default value is False.
+        attr_summarizer (:class:`AttrSummarizer`):
+            The neural network to summarize an attribute value of a tuple (a sequence of
+            words) into a vector. Defaults to :obj:`~deepmatcher.attr_summarizers.Hybrid`,
+            which is the hybrid model. Please consult the paper for more information.
+        attr_comparator (:class:`AttrComparator`):
+            The neural network to compare two attribute summary vectors.
+            Default is selected based on `attr_summarizer` choice.
+        attr_condense_factor (string or int):
+            The attribute condensing factor that controls the condensing ratio from the
+            attribute summarization vector to the corresponding classifier input. The
+            purpose of condensing the attribute summarization vector is to reduce the size
+            of input vector to the classifier to reduce the number of parameters. The
+            default value is 'auto'. If the default value 'auto' is used, the actual
+            condens factor is the minimal value of the number attributes (excluding id and
+            label columns) or 6.
+        attr_merge (string):
+            The way to merge the attribute summarization vectors to generate the input
+            vector of the classifier. The default value is 'concat', which is to
+            concatenate the condensed vector of each attribute summarization.
+        classifier (:class:`Classifier`):
+            The neural network to perform match / mismatch classification
+            based on attribute similarity representations.
+            Defaults to :class:`Classifier`.
+        hidden_size (int):
+            TODO(Sid)
+        finetune_embeddings (boolean):
+            A boolean flag to choose if fine tuning on the word embeddings will be conducted.
+            The default value is False.
     """
 
     def __init__(self,
@@ -90,7 +93,7 @@ class MatchingModel(nn.Module):
         Initialize (not lazily) the matching model given the actual training data.
 
         Args:
-        train_dataset (:class:`MatchingDataset`): the training dataset.
+            train_dataset (:class:`data.MatchingDataset`): the training dataset.
         """
 
         if self._initialized:
@@ -169,13 +172,13 @@ class MatchingModel(nn.Module):
         Args:
         arg (string):
             The attribute comparator to use. Can be one of the supported style arguments
-            for :class:`~dm.modules.Merge`, specifically, 'abs-diff', 'diff', 'concat',
+            for :class:`~modules.Merge`, specifically, 'abs-diff', 'diff', 'concat',
             'concat-diff', 'concat-abs-diff', or 'mul'. If not specified uses 'abs-diff'
             for SIF and RNN, 'concat' for Attention, and 'concat-diff' for Hybrid".
-        attr_summarizer (:obj:`dm.AttrSummarizer`):
-            The attribute summarizer object in :module:`dm.attr_summarizers` (i.e., it
+        attr_summarizer (:obj:`AttrSummarizer`):
+            The attribute summarizer object in :module:`attr_summarizers` (i.e., it
             should be one of "SIF", "RNN", "Attention", and "Hybrid" defined in
-            :module:`dm.attr_summarizers`).
+            :module:`attr_summarizers`).
 
         Returns:
             string: Return the type of attribute comparator.
@@ -271,14 +274,14 @@ class AttrSummarizer(dm.modules.LazyModule):
     The attribute summarizer that will summarize the input sequence of an attribute value.
 
     Args:
-    word_contextualizer (string or :module:`dm.word_contextualizers` or callable):
+    word_contextualizer (string or :module:`word_contextualizers` or callable):
         The word contextualizer to process an input word sequence to consider word
         sequence into account. For details please refer to :class:`WordContextualizer`.
-    word_comparator (string or :module:`dm.word_comparators` or callable):
+    word_comparator (string or :module:`word_comparators` or callable):
         The word comparator that will be used in the attention step to compare the a word
         with the corresponding alignment in the other sequence. For details please refer
         to :class:`WordComparator`.
-    word_aggregator (string or :module:`dm.word_aggregators` or callable):
+    word_aggregator (string or :module:`word_aggregators` or callable):
         The word aggregator to aggregate a sequence of word context / comparison vectors.
         For details please refer to :class:`WordAggregator`.
     hidden_size (int):
@@ -333,7 +336,7 @@ class AttrSummarizer(dm.modules.LazyModule):
         Create an attribute summ object.
 
         Args:
-        arg (string or :module:`dm.attr_summarizers` or callable):
+        arg (string or :module:`attr_summarizers` or callable):
             The argument for creating the attribute summarizer. It can be one of:
             * a string specifying the attribute summarizer to use ("sif", "rnn",
                 "attention", "hybrid").
@@ -342,7 +345,7 @@ class AttrSummarizer(dm.modules.LazyModule):
         **kwargs:
             Keyword arguments to the constructor of the AttrSummarizer sub-class.
             For details on what these can be, please refer to the documentation of the
-            sub-classes in :module:`dm.attr_summarizers`.
+            sub-classes in :module:`attr_summarizers`.
         """
         assert arg is not None
         if isinstance(arg, six.string_types):
@@ -395,7 +398,7 @@ class WordContextualizer(dm.modules.LazyModule):
         r"""Create a word contextualizer object.
 
         Args:
-        arg (string or :module:`dm.word_contextualizers` or callable):
+        arg (string or :module:`word_contextualizers` or callable):
             The argument for creating a word contextualizer object. It can be one of:
             * a string specifying the word contextualizer to use. It can be one of:
                 * RNN-based contextualizer ("rnn", "gru", "lstm").
@@ -405,7 +408,7 @@ class WordContextualizer(dm.modules.LazyModule):
         **kwargs:
             Keyword arguments to the constructor of the WordContextualizer sub-class.
             For details on what these can be, please refer to the documentation of the
-            sub-classes in :module:`dm.word_contextualizers`.
+            sub-classes in :module:`word_contextualizers`.
         """
         if isinstance(arg, six.string_types):
             if dm.word_contextualizers.RNN.supports_style(arg):
@@ -433,7 +436,7 @@ class WordComparator(dm.modules.LazyModule):
         r"""Create a word comparator object.
 
         Args:
-        arg (string or :module:`dm.word_comparators` or callable):
+        arg (string or :module:`word_comparators` or callable):
             The argument for creating a word comparator object. It can be one of:
             * a string specifying the word comparator to use. For now we support
               different types of attention-based comparison ("dot-attention",
@@ -444,7 +447,7 @@ class WordComparator(dm.modules.LazyModule):
         **kwargs:
             Keyword arguments to the constructor of the WordComparator sub-class.
             For details on what these can be, please refer to the documentation of the
-            sub-classes in :module:`dm.word_comparators`.
+            sub-classes in :module:`word_comparators`.
         """
         if isinstance(arg, six.string_types):
             parts = arg.split('-')
@@ -473,7 +476,7 @@ class WordAggregator(dm.modules.LazyModule):
         Create a word aggregator object.
 
         Args:
-        arg (string or :module:`dm.word_aggregators` or callable):
+        arg (string or :module:`word_aggregators` or callable):
             The argument for creating a word aggregator object. It can be one of:
             * a string specifying the word aggregator to use. It can be one of the following:
                 * pool aggregators ("avg-pool", "divsqrt-pool", "inv-freq-avg-pool",
@@ -494,7 +497,7 @@ class WordAggregator(dm.modules.LazyModule):
         **kwargs:
             Keyword arguments to the constructor of the WordAggregator sub-class.
             For details on what these can be, please refer to the documentation of the
-            sub-classes in :module:`dm.word_aggregators`.
+            sub-classes in :module:`word_aggregators`.
         """
         assert arg is not None
         if isinstance(arg, six.string_types):
@@ -524,7 +527,7 @@ class Classifier(nn.Sequential):
     summarizations.
 
     Args:
-    transform_network (string or :class:`~dm.modules.Transform` or callable):
+    transform_network (string or :class:`~modules.Transform` or callable):
         The transformation network to transform the input vector of the classifier to a
         hidden representation with the size of `hidden_size`.
     hidden_size (int):

@@ -139,6 +139,7 @@ class ModuleMap(nn.Module):
     def __delitem__(self, name):
         delattr(self, name)
 
+
 class MultiSequential(nn.Sequential):
 
     def forward(self, *inputs):
@@ -150,6 +151,7 @@ class MultiSequential(nn.Sequential):
 
 
 class LazyModuleFn(LazyModule):
+    """A Lazy Module which simply wraps the module returned by a specified function."""
 
     def _init(self, fn, *args, **kwargs):
         self.module = fn(*args, **kwargs)
@@ -159,6 +161,7 @@ class LazyModuleFn(LazyModule):
 
 
 class RNN(LazyModule):
+    """A multi layered RNN that supports dropout and residual / highway connections."""
     _supported_styles = ['rnn', 'gru', 'lstm']
 
     @classmethod
@@ -244,6 +247,8 @@ class RNN(LazyModule):
 
 
 class AlignmentNetwork(LazyModule):
+    """Neural network to compute alignment between two given sequences."""
+
     _supported_styles = ['dot', 'bilinear', 'decomposable']
 
     @classmethod
@@ -316,6 +321,8 @@ class Lambda(nn.Module):
 
 
 class Pool(LazyModule):
+    """Module that aggregates a given sequence of vectors to produce a single vector."""
+
     _supported_styles = [
         'avg', 'divsqrt', 'inv-freq-avg', 'sif', 'max', 'last', 'last-simple',
         'birnn-last', 'birnn-last-simple'
@@ -389,6 +396,7 @@ class Pool(LazyModule):
 
 
 class Merge(LazyModule):
+    """Module that takes two or more vectors and merges them produce a single vector."""
 
     _style_map = {
         'concat': lambda *args: torch.cat(args, args[0].dim() - 1),
@@ -412,6 +420,10 @@ class Merge(LazyModule):
 
 
 class Bypass(LazyModule):
+    """Module that helps bypass a given transformation of an input.
+
+    Supports residual and highway styles of bypass."""
+
     _supported_styles = ['residual', 'highway']
 
     @classmethod
@@ -457,6 +469,10 @@ class Bypass(LazyModule):
 
 
 class Transform(LazyModule):
+    """A multi layered transformation module.
+
+    Supports various non-linearities and bypass operations"""
+
     _supported_nonlinearities = [
         'sigmoid', 'tanh', 'relu', 'elu', 'selu', 'glu', 'leaky_relu'
     ]
@@ -518,6 +534,7 @@ class Transform(LazyModule):
 
 
 class Identity(LazyModule):
+    """Identity transform module."""
 
     def _forward(self, *args):
         return args

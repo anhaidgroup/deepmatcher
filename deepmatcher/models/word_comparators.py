@@ -15,8 +15,8 @@ class Attention(dm.WordComparator):
     r"""Attention module with multi-head support.
 
     This module does the following:
+
     * Computes an alignment matrix between the primary input and the context input.
-    *
     """
 
     def _init(self,

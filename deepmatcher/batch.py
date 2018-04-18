@@ -40,7 +40,7 @@ class AttrTensor(AttrTensor_):
         return AttrTensor(data, *old_attrtensor[1:])
 
 
-class Batch(object):
+class MatchingBatch(object):
 
     def __init__(self, input, train_dataset):
         copy_fields = train_dataset.all_text_fields
