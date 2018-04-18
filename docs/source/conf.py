@@ -19,7 +19,7 @@
 #
 import os
 import sys
-sys.path.append(os.path.abspath('../deepmatcher'))
+sys.path.append(os.path.abspath('../../deepmatcher'))
 
 import sphinx_rtd_theme
 import deepmatcher
