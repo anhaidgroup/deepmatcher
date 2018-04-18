@@ -24,7 +24,7 @@ print(os.path.abspath('../../deepmatcher'))
 os.listdir(os.path.abspath('../../deepmatcher'))
 
 import sphinx_rtd_theme
-import deepmatcher
+from ... import deepmatcher
 
 # -- General configuration ------------------------------------------------
 
