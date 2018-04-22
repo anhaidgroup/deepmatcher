@@ -10,6 +10,7 @@ from sklearn.decomposition import TruncatedSVD
 
 import torch
 import torch.nn as nn
+import pandas as pd
 from torchtext import data
 
 from ..models.modules import NoMeta, Pool
@@ -19,6 +20,40 @@ import pdb
 
 logger = logging.getLogger(__name__)
 
+
+def split(table, path, train_prefix, validation_prefix, test_prefix,
+    split_ratio=[0.6, 0.2, 0.2], stratified=False, strata_field='label'):
+    """Split a pandas dataframe or CSV file into train / validation / test data sets.
+
+    Args:
+        table (pandas.Dataframe or string): The pandas dataframe or CSV file to split.
+        path (string): The directory to save the train, validation and test CSV files to.
+        train: Suffix to add to `path` to get the training set save path.
+        validation: Suffix to add to `path` to get the validation set save path.
+        test: Suffix to add to `path` to get the test set save path.
+        split_ratio (List of floats): a list of numbers denoting the relative sizes of
+            train, test and valid splits respectively. Default is [0.6, 0.2, 0.2].
+        stratified (bool): whether the sampling should be stratified.
+            Default is False.
+        strata_field (str): name of the examples Field stratified over.
+            Default is 'label' for the conventional label field.
+    """
+    if not isinstance(table, pd.DataFrame):
+        table = pd.read_csv(table)
+    if table.index.name is not None:
+        table = table.reset_index()
+
+    examples = list(table.itertuples(index=False))
+    fields = [(col, None) for col in list(table)]
+    dataset = data.Dataset(examples, fields)
+    train, valid, test = dataset.split(split_ratio, stratified, strata_field)
+
+    pd.DataFrame(train.examples).to_csv(
+        os.path.join(path, train_prefix), index=False)
+    pd.DataFrame(valid.examples).to_csv(
+        os.path.join(path, validation_prefix), index=False)
+    pd.DataFrame(test.examples).to_csv(
+        os.path.join(path, test_prefix), index=False)
 
 class MatchingDataset(data.TabularDataset):
     r"""Represents dataset with associated metadata.
@@ -100,6 +135,7 @@ class MatchingDataset(data.TabularDataset):
             self.examples = examples
             self.metadata = metadata
 
+        self.path = path
         self.column_naming = column_naming
         self._set_attributes()
 
@@ -252,7 +288,6 @@ class MatchingDataset(data.TabularDataset):
                     row.append(val)
             rows.append(row)
 
-        import pandas as pd
         return pd.DataFrame(rows, columns=columns)
 
     def sort_key(self, ex):
@@ -397,6 +432,7 @@ class MatchingDataset(data.TabularDataset):
             if d == 0:
                 metadata = cached_data['train_metadata']
             dataset = MatchingDataset(
+                path=cached_data['datafiles'][d],
                 fields=fields,
                 examples=cached_data['examples'][d],
                 metadata=metadata,

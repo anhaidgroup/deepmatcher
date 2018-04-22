@@ -10,6 +10,7 @@ from .field import MatchingField
 logging.basicConfig()
 logging.getLogger().setLevel(logging.INFO)
 
+
 def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns):
     r"""Verify CSV file header.
 
@@ -21,7 +22,8 @@ def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore
     * The number of left and right table attributes are the same.
     """
     # assert id_attr in header
-    assert label_attr in header
+    if label_attr:
+        assert label_attr in header
 
     for attr in header:
         if attr not in (id_attr, label_attr) and attr not in ignore_columns:
@@ -163,6 +165,8 @@ def process(path,
     with io.open(os.path.expanduser(os.path.join(path, a_dataset)), encoding="utf8") as f:
         header = next(unicode_csv_reader(f))
 
+    label_attr = None if unlabeled else label_attr
+
     _maybe_download_nltk_data()
     _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns)
     fields = _make_fields(header, id_attr, label_attr, ignore_columns, lowercase,
@@ -172,9 +176,8 @@ def process(path,
         'id': id_attr,
         'left': left_prefix,
         'right': right_prefix,
-        'label': None if unlabeled else label_attr
+        'label': label_attr
     }
-
 
     return MatchingDataset.splits(
         path,

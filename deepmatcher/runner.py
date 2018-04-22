@@ -4,6 +4,7 @@ import os
 import pdb
 import sys
 import time
+import pandas as pd
 from collections import OrderedDict
 
 import pyprind
@@ -193,7 +194,7 @@ class Runner(object):
         runtime = 0
         cum_stats = Statistics()
         stats = Statistics()
-        predictions = {}
+        predictions = []
         id_attr = model.train_dataset.id_field
         label_attr = model.train_dataset.label_field
 
@@ -240,7 +241,7 @@ class Runner(object):
             if return_predictions:
                 predicted = output.max(1)[1].data
                 for idx, id in enumerate(getattr(batch, id_attr)):
-                    predictions[id] = float(output[idx, 1].exp())
+                    predictions.append((id, float(output[idx, 1].exp())))
 
             if (batch_idx + 1) % log_freq == 0:
                 if progress_style == 'log':
@@ -280,12 +281,12 @@ class Runner(object):
     def train(model,
               train_dataset,
               validation_dataset,
-              epochs=50,
+              best_save_path,
+              epochs=30,
               criterion=None,
               optimizer=None,
               pos_weight=1,
               label_smoothing=0.05,
-              best_save_path=None,
               save_every_prefix=None,
               save_every_freq=None,
               **kwargs):
@@ -340,8 +341,20 @@ class Runner(object):
                     prefix=save_every_prefix, epoch=epoch)
                 model.save_state(save_path)
 
-    def eval(model, dataset, **kwargs):
-        return Runner._run('EVAL', model, dataset, train=False, **kwargs)
+        print('Loading best model...')
+        model.load_state(best_save_path)
 
-    def predict(model, dataset, **kwargs):
-        return Runner._run('PREDICT', model, dataset, return_predictions=True, **kwargs)
+    def eval(model, dataset, **kwargs):
+        return Runner._run('EVAL', model, dataset, **kwargs)
+
+    def predict(model, dataset, output_attributes=False, **kwargs):
+        predictions = Runner._run('PREDICT', model, dataset, return_predictions=True, **kwargs)
+        pred_table = pd.DataFrame(predictions, columns=(dataset.id_field, 'match_score'))
+        pred_table = pred_table.set_index(dataset.id_field)
+
+        if output_attributes:
+            raw_table = pd.read_csv(dataset.path).set_index(dataset.id_field)
+            raw_table.index = raw_table.index.astype('str')
+            pred_table = pred_table.join(raw_table)
+
+        return pred_table
