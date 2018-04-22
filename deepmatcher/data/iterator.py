@@ -11,11 +11,13 @@ logger = logging.getLogger(__name__)
 
 class MatchingIterator(data.BucketIterator):
 
-    def __init__(self, dataset, train_dataset, batch_size, sort_in_buckets=True,
+    def __init__(self, dataset, train_dataset, batch_size, sort_in_buckets=None,
                  **kwargs):
-        self.train_dataset = train_dataset
-        self.sort_in_buckets = sort_in_buckets
         train = dataset == train_dataset
+        if sort_in_buckets is None:
+            sort_in_buckets = train
+        self.sort_in_buckets = sort_in_buckets
+        self.train_dataset = train_dataset
         super(MatchingIterator, self).__init__(
             dataset, batch_size, train=train, repeat=False, **kwargs)
 

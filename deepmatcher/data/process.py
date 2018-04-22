@@ -34,7 +34,8 @@ def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore
     assert num_left == num_right
 
 
-def _make_fields(header, id_attr, label_attr, ignore_columns, lower, include_lengths):
+def _make_fields(header, id_attr, label_attr, ignore_columns, lower, tokenize,
+        include_lengths):
     r"""Create field metadata, i.e., attribute processing specification for each
     attribute.
 
@@ -47,6 +48,7 @@ def _make_fields(header, id_attr, label_attr, ignore_columns, lower, include_len
     """
     text_field = MatchingField(
         lower=lower,
+        tokenize=tokenize,
         init_token='<<<',
         eos_token='>>>',
         batch_first=True,
@@ -81,7 +83,8 @@ def process(path,
             unlabeled=None,
             cache='cacheddata.pth',
             check_cached_data=True,
-            auto_rebuild_cache=False,
+            auto_rebuild_cache=True,
+            tokenize='moses',
             lowercase=True,
             embeddings='fasttext.en.bin',
             embeddings_cache_path='~/.vector_cache',
@@ -170,7 +173,7 @@ def process(path,
     _maybe_download_nltk_data()
     _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns)
     fields = _make_fields(header, id_attr, label_attr, ignore_columns, lowercase,
-                          include_lengths)
+                          tokenize, include_lengths)
 
     column_naming = {
         'id': id_attr,

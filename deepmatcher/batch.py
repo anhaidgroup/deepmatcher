@@ -50,5 +50,5 @@ class MatchingBatch(object):
                         name=name, attr=getattr(input, name),
                         train_dataset=train_dataset))
         for name in [train_dataset.label_field, train_dataset.id_field]:
-            if name is not None:
+            if name is not None and hasattr(input, name):
                 setattr(self, name, getattr(input, name))

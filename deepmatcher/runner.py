@@ -230,10 +230,10 @@ class Runner(object):
             if criterion:
                 loss = criterion(output, getattr(batch, label_attr))
 
-            if label_attr:
+            if hasattr(batch, label_attr):
                 scores = Runner.compute_scores(output, getattr(batch, label_attr))
             else:
-                scores = output.data.new([0] * output.shape[0])
+                scores = [0] * 4
 
             cum_stats.update(float(loss), *scores)
             stats.update(float(loss), *scores)
