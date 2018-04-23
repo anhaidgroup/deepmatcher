@@ -1,502 +1,540 @@
-id,label,left_id,left_title,left_manufacturer,left_price,right_id,right_title,right_manufacturer,right_price
-0,0,897,adobe creative suite cs3 production premium upsell,adobe,1199.0,75,19600061dm adobe creative suite 3 production premium media tlp download mac world,,20.97
-1,0,827,m-audio pro tools m-powered 7.3 m-audio compatible world-class production software,m-audio,299.99,2333,make finale 2007 software music production software,,429.95
-2,0,600,apple . mac 4.0 online service family pack,apple,179.95,2176,apple iwork '06 family pack software apple & mac software,,99.0
-3,0,1284,punch ! master landscape & home design,punch ! software,99.99,2765,punch software 41100 punch ! home design architectural series 18,punch software,118.99
-4,0,396,quickbooks premier non-profit edition 2005,intuit inc.,499.95,3087,quickbooks ( r ) premier : accountant edition 2007,,399.99
-5,0,248,microsoft windows small business server cal 2003 license pack 20 client addpack device,microsoft software,,3126,microsoft ( r ) windows vista ( tm ) business,,199.99
-6,0,105,instant immersion spanish ( audio book ),topics entertainment,,2313,instant immersion italian platinum ( win 95 98 me nt 2000 xp ),,129.99
-7,0,618,pop-up stopper professional,panicware,29.99,352,adobe cs3 flash professional,,724.99
-8,0,609,quicken 2007 for mac,intuit,69.95,3063,quickbooks pro 2007 3 user,intuit,398.99
-9,0,773,microsoft office mac 2004 english 3pk dsp 731-01163 ),microsoft corporation,,1159,microsoft ( r ) office 2004 for mac standard edition upgrade version,,234.95
-10,0,597,adobe creative suite cs3 design premium [ mac ],adobe,1799.0,1213,adobe creative suite 3 ( cs3 ) design premium upgrade mac,,569.97
-11,0,135,microsoft crm professional cal 3.0 product upgrade license pack user cal,microsoft software,9980.0,1791,c8d-00006 microsoft dynamics crm small business edition v. 3.0 license 20 user c,,9654.16
-12,0,496,microsoft windows vista business 32-bit for system builders,microsoft,179.99,1169,microsoft ( r ) windows vista ( tm ) home premium,,239.99
-13,0,586,quickbooks premier professional services edition 2007,intuit,399.95,1447,i copydvds 2 professional edition,me-too-software,27.9
-14,0,333,adobe after effects 7.0 professional ( mac ),adobe,999.0,68,15510669dm adobe after effects cs3 professional v. 8 media tlp tlp nonprofit d,,18.88
-15,0,607,broderbund print shop 21 deluxe,encore software,49.99,2584,encore software 10032 the print shop 21 essentials by broderbund,,17.97
-16,0,371,microsoft powerpoint 2004 upgrade ( mac ),microsoft,109.99,2165,microsoft microsoft office pro 2004 software suite mac apple & mac software,,498.95
-17,1,685,the sims 2 : open for business expansion pack,aspyr media,34.99,246,sims 2 open for business,,34.99
-18,1,884,checkmark multiledger,checkmark software,399.0,118,channel sources distribution co mlw6 .0 checkmark multiledger for pc/mac,channel sources distribution co,294.58
-19,0,79,ca internet security suite 2007 3 user,computer associates,69.95,2865,mcafee internet security suite 2007 3-user ( pc ),,89.99
-20,0,1349,adobe creative suite cs3 web standard upsell [ mac ],adobe,799.0,242,adobe cs3 design standard academic,,385.99
-21,0,517,adobe photoshop cs3 [ mac ],adobe,649.0,324,adobe cs3 web premium,,1659.99
-22,0,512,microsoft windows xp professional upgrade with sp2,microsoft software,199.99,137,f1q-00302 microsoft visual studio 2005 professional edition upgrade package + msdn profe,,757.74
-23,0,514,microsoft windows vista ultimate upgrade [ dvd ],microsoft,259.95,1137,microsoft windows vista business upgrade license 1 pc english,,168.99
-24,0,645,microsoft virtual pc for mac 7.0 with windows xp home,microsoft,219.99,3093,microsoft ( r ) windows vista ( tm ) home basic,,99.99
-25,0,26,adobe premiere pro cs3 upgrade,adobe,299.0,430,adobe cs3 web standard upgrade,,413.99
-26,0,543,adobe photoshop cs3 upgrade [ mac ],adobe,199.0,257,adobe cs3 after effects upgrade,,306.99
-27,0,523,microsoft windows vista ultimate full version [ dvd ],microsoft,399.95,2607,adobe photoshop cs3 extended software full version for windows,,969.0
-28,0,1114,webroot spy sweeper antispyware 5.x,webroot software,29.95,3082,webroot ( r ) spy sweeper ( tm ) 2006,,29.99
-29,0,1066,the print shop design suite pro ed sb cs by the print shop,encore software,199.99,204,punch software pro home design suite,,61.8
-30,1,1091,soundtrack 1.2,apple,199.99,2779,apple software m9301z/b soundtrack v1 .2,apple software,199.0
-31,0,737,adobe photoshop cs2 ( mac ) [ old version ],adobe,649.0,145,adobe photoshop elements 4.0 mac,,79.99
-32,0,975,computrace lojack for laptops 1 year license ( mac ),absolute software,49.95,2714,absolute software lfl-m2-36 computrace lojack for laptops 3 year license mac 10.2 or higher,,80.97
-33,0,346,mcafee internet security suite 2007 3 users,mcafee,89.99,1534,norton internet security 2008 10 user,,199.99
-34,0,283,tonka town ( jewel case ),atari,9.99,3110,cross stitch design studio ( jewel case ) ( 8006 ),m-and-r-technologies,9.59
-35,0,549,adobe acrobat capture 100 000 page pack,adobe,1514.99,1150,adobe acrobat 7.0 standard academic mac,,98.99
-36,0,1038,printmaster 17 gold by encore software,encore software,30.66,1115,printmaster ( r ) gold 17,,19.99
-37,0,1258,punch ! home design architectura series 18,punch ! software,129.99,2720,punch software 90500 home design studio mac,punch software,135.99
-38,0,551,symc backup exec sbs aws 11d win sbs agent for windows systems,symantec,447.74,108,11105947 symantec backup exec 11d for windows small business server standard w / continu,,479.12
-39,0,804,digidesign music production toolkit ( pro tools le ),digidesign,495.0,1086,sony media software acid pro 6 software music production software,sony-pictures-digital-entertainment,299.95
-40,0,1176,valuesoft tune transfer for ipod software for windows xp,valuesoft,29.95,784,individual software prm-wn5 professor teaches windows xp,individual software,24.99
-41,0,1246,peachtree by sage complete accounting 2007,sage software,269.99,1264,peachtree ( r ) compatible continuous checks-accounting for windows versions 3.5-7 .0,,91.59
-42,0,230,ca arcserve bkup r11 .5 win svrless bkup opt sp1 - prod only,computer associates,,1709,babwbr1151s04 brightstor arcserve backup serverless backup option for windows w/sp1 v. 11 .,,1031.41
-43,0,118,crystal reports xi professional edition,business objects,495.0,2793,grass valley edius 4 pro video editing software professional editing software,,449.95
-44,0,504,adobe audition 2.0 upgrade,adobe,129.0,955,adobe pagemaker 7.0 for mac version upgrade,,79.99
-45,0,1218,civil air patrol : search & rescue,abacus,29.99,3006,tonka search & rescue 2,,7.95
-46,0,793,hoyle south beach solitaire,encore,9.99,1106,brain games : solitaire,,19.99
-47,0,124,tlc dr. seuss reading learning system 2008,encore,19.99,2770,tlc arthur 's kindergarten learning system ( pc ) encore,,19.95
-48,0,331,instant home cooking ( jewel case ),topics entertainment,9.99,2082,instant home design 1 ( jc ),,12.9
-49,0,737,adobe photoshop cs2 ( mac ) [ old version ],adobe,649.0,2839,adobe flash cs3 professional ( mac ),,699.0
-50,0,605,microsoft word 2004 ( mac ),microsoft,229.99,2833,microsoft office accounting professional 2007 ( pc ),,229.95
-51,0,1266,sony sound forge audio studio 8,sony-pictures-digital-entertainment,69.99,1448,sony creative software sfas9000 sound forge audio studio 9,,53.97
-52,0,876,adobe soundbooth cs3 [ mac ],adobe,199.0,371,adobe photoshop cs3 for mac upgrade,,189.99
-53,0,520,quickbooks premier nonprofit edition 2007,intuit,399.95,3133,quickbooks ( r ) credit card processing kit 2007,,39.99
-54,0,654,acrobat professional 8 ( windows ),adobe,273.0,2524,adobe after effects cs3 professional software for windows effects software,,998.95
-55,0,88,total training for adobe creative suite 3 : design premium bundle,total training,299.99,369,adobe cs3 design premium upsell,,1639.99
-56,0,1190,punch ! professional home design,punch ! software,89.99,2839,adobe flash cs3 professional ( mac ),,699.0
-57,0,1115,punch ! master landscape professional & home design v 10.0,punch ! software,69.95,535,encore inc 3d home architect landscape designer v 8.0,,25.49
-58,0,642,adobe flash pro cs3 [ mac ],adobe,699.0,324,adobe cs3 web premium,,1659.99
-59,1,103,my sim aquarium,viva media,19.99,1659,viva media llc 00257 my sim aquarium win 2000 xp vista,,19.97
-60,0,580,quickbooks premier edition 2007 5 user multi-pack,intuit,1499.95,1823,299530 quickbooks premier nonprofit edition 2007 complete package 1 user cd win,,344.58
-61,0,548,quickbooks pro 2007 small business financial software,intuit,199.95,2367,intuit quicken deluxe 2007 software for windows tax & finance software,,54.95
-62,0,436,sudoku puzzle addict : unlimited edition,global-software-publ-na,,2782,global software a7163jcw kakuro puzzle addict unlimited edition dvd movie,global-software-publishing,8.79
-63,0,763,station access collection,sony-creative-software,29.99,618,neil diamond the neil diamond collection,,22.13
-64,1,61,personal image manager,smith-micro-software,29.99,2111,personal imagemanager,smith-micro-software,22.9
-65,0,1215,microsoft digital image suite 2006 plus pinnacle studio 10.0,microsoft,99.95,2206,microsoft office 2004 software suite oem mac apple & mac software,,239.95
-66,0,412,adobe creative suite cs3 web premium upsell [ mac ],adobe,1399.0,372,adobe premiere pro cs3 upgrade,,308.99
-67,0,511,microsoft publisher 2007 version upgrade,microsoft,99.95,111,t74-01215 microsoft windows small business server 2003 version upgrade license 5 addit,,186.73
-68,0,531,microsoft windows server 2003 client additional license for users-5 pack,microsoft,809.0,1569,microsoft ho2-00003 data analyzer 2002 complete package 1 user,microsoft,154.99
-69,0,128,procurve vpn client software unlimited client licenses,hewlett packard,,843,bling software limited safekeeper plus,,34.75
-70,0,1282,adobe after effects cs3,adobe,999.0,324,adobe cs3 web premium,,1659.99
-71,0,54,allume boost xp for windows,smith-micro-software,29.99,1600,zoo tycoon for windows,,25.99
-72,0,602,adobe creative suite cs3 design standard upgrade [ mac ],adobe,399.0,1853,19300109 adobe creative suite 3 design standard product upgrade package 1 user upgr,,424.74
-73,0,549,adobe acrobat capture 100 000 page pack,adobe,1514.99,3003,adobe acrobat professional 7,,350.0
-74,0,512,microsoft windows xp professional upgrade with sp2,microsoft software,199.99,1129,microsoft academic microsoft visio 2003 professional,,159.0
-75,0,705,professional home design suite platinum,punch ! software,99.95,1955,punch software 85100 master landscape professional & home design v 10.0,,61.8
-76,0,918,recam remote monitoring software,mobi-technologies-inc .,129.0,561,mariner montage screenwriting software,,125.99
-77,0,858,microsoft onenote 2007 upgrade,microsoft,79.95,1129,microsoft academic microsoft visio 2003 professional,,159.0
-78,0,1105,punch ! master landscape & home design,punch ! software,59.99,2960,home & landscape design center,,8.49
-79,0,516,adobe creative suite cs3 design premium upgrade [ mac ],adobe,599.0,324,adobe cs3 web premium,,1659.99
-80,0,138,sonicwall gms standard edition 10 node license,sonicwall,,3148,ibm ( r ) viavoice ( r ) standard edition 10,,49.99
-81,0,859,onone software intellihance pro 4.1,onone software,,183,onone software qx-tools pro 7 upgrade,,69.17
-82,0,858,microsoft onenote 2007 upgrade,microsoft,79.95,1636,microsoft 164-04052,microsoft,90.24
-83,0,938,typing instructor deluxe ( jewel case ),individual software,9.99,829,individual software typing instructor for kids,,19.99
-84,0,1176,valuesoft tune transfer for ipod software for windows xp,valuesoft,29.95,2174,resco explorer 2007 for pocketpc windows mobile software for pocket pc,,29.95
-85,0,1053,high school advantage 2008,encore,39.99,2345,encore software 12371 encore middle school advantage 2008 training/wbt pc,,33.97
-86,0,15,omnioutliner professional 3.0,csdc,69.95,2141,system mechanic 6 professional,,36.9
-87,0,67,netgear vpn01l vpn client software,netgear,89.99,2674,d-link vpn client software ( 1-user license ) ds-601 ds-601,,42.99
-88,1,465,adobe creative suite cs3 web standard upgrade [ mac ],adobe,399.0,430,adobe cs3 web standard upgrade,,413.99
-89,0,622,emedia intermediate guitar method win/mac,emedia,59.99,1584,emedia essential bass guitar dvd,,16.95
-90,0,917,elementary advantage 2008,encore software,,773,encore software 12360 elementary advantage 2008 win 2000 xp vista,,34.97
-91,0,853,onone essentials for adobe photoshop elements,onone software,59.95,508,adobe photoshop elements 4.0 mac academic,adobe-education-box,69.99
-92,1,1147,zoo tycoon 2 ( mac ),destineer,39.99,928,aspyr zoo tycoon 2,,38.99
-93,0,690,sims 2 university expansion pack,aspyr media,34.99,333,aspyr sims 2 nightlife expansion pack,,35.99
-94,0,930,adobe contribute cs3 [ mac ],adobe,149.0,358,adobe illustrator cs3 for mac academic,adobe-education-box,199.99
-95,0,602,adobe creative suite cs3 design standard upgrade [ mac ],adobe,399.0,566,adobe cs3 web standard,,1035.99
-96,1,6,adobe after effects professional 6.5 upgrade from standard to professional,adobe,499.99,1923,adobe software 22070152 after effects 6.5 pbupgrd,,507.0
-97,0,1252,adobe photoshop cs2 fundamental techniques by julieanne kost,software cinema,,986,adobe photoshop cs3 for mac,,609.99
-98,1,1217,stubbs the zombie in rebel without a pulse ( dvd ) ( mac ),aspyr media,9.99,553,aspyr stubbs the zombie,,35.99
-99,1,1342,power translator 11 premium,language-engineering-co-llc,79.99,646,csdc power translator 11 premium language engineering company,language-engineering-co-llc,64.25
-100,0,512,microsoft windows xp professional upgrade with sp2,microsoft software,199.99,2961,professor teaches windows xp home & pro,,12.49
-101,0,346,mcafee internet security suite 2007 3 users,mcafee,89.99,793,panda software panda internet security 2007,,69.99
-102,0,244,microsoft visual studio team edition for software developers 2005 with msdn premium,microsoft,5479.0,1001,microsoft ( r ) money 2007 premium,,69.99
-103,0,23,the printshop 20 professional publisher,broderbund,69.99,3003,adobe acrobat professional 7,,350.0
-104,0,518,microsoft office 2004 standard upgrade ( mac ),microsoft,239.99,1170,microsoft ( r ) works suite 2005,,99.99
-105,0,1262,adobe flash pro cs3 upgrade [ mac ],adobe,199.0,4,production prem cs3 mac upgrad,adobe software,805.99
-106,0,562,adobe dreamweaver cs3 upgrade [ mac ],adobe,199.0,955,adobe pagemaker 7.0 for mac version upgrade,,79.99
-107,0,614,microsoft works suite 2006,microsoft,99.0,2848,microsoft onenote 2007 upgrade ( pc ),,79.95
-108,0,827,m-audio pro tools m-powered 7.3 m-audio compatible world-class production software,m-audio,299.99,2505,cakewalk sonar home studio 6 xl software music production software,,159.0
-109,0,90,emc retrospect 7.5 professional for windows upgrade,dantz,,2792,adobe dv rack 2.0 hd software for windows professional editing software,,499.0
-110,0,760,panda software antivirus & firewall 2008 windows,panda software,,2824,panda internet security 2007 panda software,,49.99
-111,0,1074,family tree maker version 16 collectors edition sb cs,encore software,99.99,659,abacus aircraft collectors second edition,,17.55
-112,0,823,microsoft word 2004 upgrade ( mac ),microsoft,109.99,1472,microsoft d48-00369 word mac 10.0 eng gov ' t 659556873790,,191.94
-113,0,1078,3d home architect home v. 8 by encore software,encore software,39.99,2550,encore software 10463 clickart fonts ( 2006 ) by encore,,17.97
-114,0,600,apple . mac 4.0 online service family pack,apple,179.95,926,apple mac os x 10.4.6 tiger family pack,,185.99
-115,0,1196,individual small business advantage deluxe 2006,individual,49.99,1438,individual software jce-th6 total 3d home deluxe j/c,individual software,9.99
-116,0,1137,wavelab studio 6,steinberg-media-technologies,399.99,2163,acid music studio 6,sony-pictures-digital-entertainment,59.95
-117,0,925,instant play guitar deluxe v2 .,topics entertainment,39.48,3016,instant immers italian dlux 2 .,,36.11
-118,0,21,world book encyclopedia 2006,topics entertainment,19.99,3000,encyclopedia britannica 2007 ready reference,,8.95
-119,0,960,make music finale 2008 academic,emedia,350.0,575,makemusic finale 2007 academic create edit and print sheet music,,269.0
-120,1,542,apple ilife '06 ( mac dvd ) [ older version ],apple computer,79.0,222,apple ilife '06,,79.99
-121,0,970,computrace lojack for laptops : 3 year subscription,absolute software,99.99,1517,computrace lojack for laptops 1 year license ( win 2000 xp ),,49.95
-122,0,875,century software tinyterm plus v. 4.0 complete product,century software,,2590,global marketing partners mcid global marketing magicard id professional software educational software complete product,,210.97
-123,0,881,the print shop 22 deluxe sb cs by the print shop,encore software,49.95,1821,10731 the print shop 22 pro publisher deluxe complete package 1 user win,,84.13
-124,0,661,adobe cs3 design standard macosx dvd,adobe,399.0,939,adobe cs3 design premium academic,,575.99
-125,0,584,microsoft windows vista business full version [ dvd ],microsoft,299.95,239,microsoft windows vista ultimate retail no open box returns,,399.99
-126,0,204,cisco ios enterprise services complete package cd28-esk9 = ),cisco systems enterprise,,35,s45es-12225sg = cisco ios enterprise services v. 12.2 ( 25 ) sg complete package,,7022.74
-127,1,124,tlc dr. seuss reading learning system 2008,encore,19.99,1837,encore tlc dr seuss reading learning system 2008,,17.9
-128,0,305,tonka raceway xp compatible ( jewel case ),hasbro interactive,29.95,3106,geometry ( win/mac ) ( jewel case ) ( 10158 ),,9.59
-129,0,501,microsoft digital image suite plus [ lb ],microsoft software,129.95,33,c6q-00002 microsoft digital image suite plus complete package 1 pc cd-rom ( mini box ),,93.33
-130,0,146,microsoft mappoint 2006 standard edition,microsoft,299.0,3123,goldmine ( r ) standard edition 6.7,,199.99
-131,0,654,acrobat professional 8 ( windows ),adobe,273.0,352,adobe cs3 flash professional,,724.99
-132,0,406,cluefinders 3rd grade,the learning company,,2894,cluefinders 3rd grade adventures with adapt,,9.95
-133,0,1272,punch ! home design architectural series 18,punch ! software,129.99,1057,punch software 20100 punch ! home design complete product architectural 1 user complete productcomplete productstandard english pc,,36.97
-134,0,991,instant immersion spanish audio deluxe,topics entertainment,39.95,196,topics entertainment instant immersion spanish advanced audio,,12.05
-135,0,432,cell phone software solution,susteen,113.1,801,onone software smartscale software,,189.99
-136,0,1341,instant immersion hawaiian audio,topics entertainment,,3014,instant immers german dlux 2.0,,36.11
-137,0,1186,adobe creative suite cs3 web standard [ mac ],adobe,999.0,242,adobe cs3 design standard academic,,385.99
-138,0,490,microsoft visual studio professional 2005 upgrade,microsoft software,549.0,831,individual software professor teaches microsoft office 2007,,29.99
-139,0,423,microsoft licenses word olp c ( 05903871 ),microsoft licenses,205.73,2867,microsoft onenote 2007 ( pc ),,99.95
-140,0,558,instant immersion spanish 2.0,topics entertainment,29.99,307,topics entertainment instant immersion german audio,,12.05
-141,0,890,instant immersion japanese deluxe 2.0,topics entertainment,39.99,2313,instant immersion italian platinum ( win 95 98 me nt 2000 xp ),,129.99
-142,0,816,microsoft visual studio team suite 2005 with msdn premium ( cd & dvd ),microsoft,10949.0,2803,visual studio pro 2005 upgrade ( pc ) microsoft,,549.0
-143,0,614,microsoft works suite 2006,microsoft,99.0,1512,microsoft w87-02380 office sbe 2007 win32,,400.34
-144,0,937,symc backup exec sbs std 11d win small business server standard,symantec,811.21,2216,symantec 11976505 symc backup exec sro 11d win system recovery option ml portfolio mpk,,30.24
-145,0,133,snap enterprise data replicator advanced license for 10000 series,adaptec,,80,5325301873 snap appliance snap care snap enterprise data replicator technical support c,,377.06
-146,0,290,talk now ! learn dutch,eurotalk interactive,29.95,2997,speak & learn ! dutch,,14.95
-147,1,356,ringtone media studio 2,laplink,19.95,2842,ringtone media studio ( pc ) avanquest,,19.99
-148,0,602,adobe creative suite cs3 design standard upgrade [ mac ],adobe,399.0,151,adobe indesign cs3 for mac upgrade,,205.99
-149,0,1272,punch ! home design architectural series 18,punch ! software,129.99,1433,punch software 20100 punch ! 5 in 1 home design,punch software,35.99
-150,0,1035,riverdeep spongebob squarepants typing fun,riverdeep,,401,encore inc spongebob squarepants typing fun,,17.1
-151,0,1342,power translator 11 premium,language-engineering-co-llc,79.99,1058,power translator ( tm ) 11 premium,,79.99
-152,0,608,adobe creative suite cs3 web premium upgrade [ mac ],adobe,499.0,176,adobe illustrator cs3 upgrade for mac,,206.99
-153,0,431,microsoft windows server 2003 client additional license for devices 5 pack,microsoft,209.0,1132,microsoft ( r ) windows ( r ) xp home edition with sp2,,199.99
-154,0,248,microsoft windows small business server cal 2003 license pack 20 client addpack device,microsoft software,,1899,p72-00473 microsoft windows server enterprise edition license & software assurance 1 u,,3282.33
-155,0,541,microsoft onenote 2007,microsoft,99.95,1652,microsoft 392-02322 ae frontpage 2003,,87.99
-156,0,348,microsoft office & windows training,topics entertainment,29.99,2847,microsoft office visio standard 2007 ( pc ),,249.95
-157,0,362,national geographic photo gallery ( jewel case ),topics entertainment,9.99,3106,geometry ( win/mac ) ( jewel case ) ( 10158 ),,9.59
-158,0,1225,sony acid pro 6 professional music workstation,sony-pictures-digital-entertainment,499.95,1090,sony media software acid pro 6 software upgrade from acid pro 5 music production software,sony-pictures-digital-entertainment,129.95
-159,0,678,instant immersion german v2 .0 ( pc & mac ),topics entertainment,29.99,307,topics entertainment instant immersion german audio,,12.05
-160,0,827,m-audio pro tools m-powered 7.3 m-audio compatible world-class production software,m-audio,299.99,2243,power production power production storyboard artist software animation software,,498.95
-161,0,611,quickbooks premier manufacturer and wholesale edition 2007,intuit,399.95,1823,299530 quickbooks premier nonprofit edition 2007 complete package 1 user cd win,,344.58
-162,0,578,microsoft office excel 2007,microsoft,229.95,915,microsoft office 2004 std upgrade,,219.99
-163,0,632,microsoft windows xp professional full version with sp2,microsoft,299.99,2959,microsoft windows vista business full version,,249.95
-164,0,1130,adobe cs3 design premium macosx dvd,adobe,599.0,1612,total training for adobe creative suite 3 design premium,,279.95
-165,0,1130,adobe cs3 design premium macosx dvd,adobe,599.0,216,adobe premiere pro cs3 academic,,339.99
-166,0,235,pdf converter professional v4 english,nuance communications inc.,99.99,291,csdc pop-up stopper professional panicware,,26.14
-167,0,852,cinescore professional soundtrack edition,sony-pictures-digital-entertainment,249.95,2688,sony vegas7 .0 + dvd editing software with sound forge 8 for windows professional editing software,,549.95
-168,0,431,microsoft windows server 2003 client additional license for devices 5 pack,microsoft,209.0,125,eq771av aba microsoft windows xp professional license and media 1 user cto english -,,137.09
-169,0,496,microsoft windows vista business 32-bit for system builders,microsoft,179.99,36,t74-00004 microsoft windows small business server 2003 license 20 additional user cals,,1834.4
-170,1,657,emedia guitar basics,emedia music,,234,emedia music corp emedia guitar basics,,16.64
-171,0,947,britannica deluxe,avanquest software,29.95,2939,britannica quiz show,,8.95
-172,0,560,symc backup exec aofo 11d win advanced open file option,symantec,769.49,1708,10759333 symantec backup exec 11d for windows servers central admin server option compl,,1219.72
-173,0,6,adobe after effects professional 6.5 upgrade from standard to professional,adobe,499.99,25,25510587 adobe after effects cs3 professional complete package 1 user dvd win c,,1054.23
-174,0,1275,punch ! super home suite,punch ! software,49.99,1083,punch software 14100 punch ! professional home design suite for windows,punch software,62.99
-175,0,244,microsoft visual studio team edition for software developers 2005 with msdn premium,microsoft,5479.0,777,microsoft uea-00033 visual studio 2005 team edition for database professionals with msdn premium subscription renewal complete product software development standard 1 user complete product pc - free shipping,,2072.97
-176,0,229,vcomm system suite professional 7,avanquest,49.95,1525,crystal reports xi professional edition complete package,,537.57
-177,0,64,kids power fun for kids,topics entertainment,19.99,2099,kids power fun for little ones,,15.9
-178,0,371,microsoft powerpoint 2004 upgrade ( mac ),microsoft,109.99,3190,microsoft ( r ) mappoint ( r ) 2006,,249.99
-179,0,539,learning quickbooks 2007,intuit,39.95,3087,quickbooks ( r ) premier : accountant edition 2007,,399.99
-180,0,587,microsoft word 2007 version upgrade,microsoft,109.95,3027,microsoft office visio standard 2007 upgrade ( pc ),,129.95
-181,0,516,adobe creative suite cs3 design premium upgrade [ mac ],adobe,599.0,1017,adobe creative suite 3 ( cs3 ) web standard 3 windows upsell from dreamweaver or flash,,799.0
-182,0,738,print shop 22 deluxe,encore,49.99,2050,the printshop v22 deluxe,,29.9
-183,0,1148,sibelius 4 professional edition,sibelius-software-ltd .,599.99,2141,system mechanic 6 professional,,36.9
-184,1,1080,adventure workshop 4th-6th grade 7th edition,encore software,19.99,2096,encore software 10119 adventure workshop 4th-6th grade 7th edition win xp,,18.97
-185,0,1229,adobe photoshop cs2 advanced techniques by julieanne kost,software cinema,,263,adobe photoshop cs3 extended for mac,,935.99
-186,1,1182,onone software pxl smartscale windows and macintosh ),onone software,,801,onone software smartscale software,,189.99
-187,1,836,i love the usa,global-software-publishing,9.99,2700,global software a1055 i love the usa,global-software-publishing,11.99
-188,0,827,m-audio pro tools m-powered 7.3 m-audio compatible world-class production software,m-audio,299.99,1355,bias deck 3.5 software music production software,,299.0
-189,1,1025,e-mu em8669 modern symphonic orchestra,e-mu,499.99,790,e-mu modern symphonic orchestra for emulator x and proteus x sounds for software,,329.99
-190,0,274,instant immersion italian 2.0,topics entertainment,29.99,3023,instant immers japanese dlx 2 .,,36.11
-191,0,582,apple garageband jam pack : remix tools,apple,99.0,357,apple garageband jam pack : symphony orchestra,,95.99
-192,1,349,middle school success deluxe 2008,topics entertainment,49.99,2862,middle school success deluxe 2008 ( pc/mac ) topics,,49.99
-193,0,1130,adobe cs3 design premium macosx dvd,adobe,599.0,893,adobe cs3 design premium upgrade,,619.99
-194,0,605,microsoft word 2004 ( mac ),microsoft,229.99,1816,microspot interiors ( mac 10.2 or later ),,99.95
-195,0,348,microsoft office & windows training,topics entertainment,29.99,3126,microsoft ( r ) windows vista ( tm ) business,,199.99
-196,0,1186,adobe creative suite cs3 web standard [ mac ],adobe,999.0,960,adobe cs3 web premium academic,,479.99
-197,1,1244,peachtree by sage pro accounting 2007,sage software,169.99,1068,sage software peachtree pro accounting 2007 software for windows tax & finance software,,159.95
-198,0,753,microsoft office & windows training professional,topics entertainment,49.95,2766,avid liquid 7.0 professional video editing software for windows professional editing software,,439.95
-199,0,251,microsoft crm small business ed cal 3.0 license pack user cal,microsoft software,9929.0,111,t74-01215 microsoft windows small business server 2003 version upgrade license 5 addit,,186.73
-200,0,1353,instant immersion italian deluxe v2 .0 ( large box ),topics entertainment,29.99,3014,instant immers german dlux 2.0,,36.11
-201,0,320,quicken 2007 premier,intuit,79.95,3038,quicken 2007 deluxe win cd,intuit,57.99
-202,0,261,procurve mobility manager 1.0 is a plug-in module for procurve manager plus 2.0,hewlett packard,,67,j8779a hp procurve manager plus v. 2.0 upgrade license unlimited devices wi,,2270.06
-203,0,1151,pc tools spyware doctor 2007,encore,29.95,1000,spyware x-terminator 2005,,29.99
-204,0,1190,punch ! professional home design,punch ! software,89.99,2402,punch software 41100 punch ! home design architectural series 18,punch software,118.99
-205,0,635,family tree maker version 16 essentials,encore,29.95,1127,family tree maker premium 11.2,,99.97
-206,0,270,adobe acrobat 7.0 professional,adobe,449.99,2315,adobe acrobat ( v8 .0 ) pro win up from std adobe 22020452,,151.27
-207,0,211,microsoft entertainment pack ce,microsoft,49.5,2512,topics entertainment cs-50613 snap ! 8 player poker 5 pack,,18.99
-208,1,113,microsoft licenses win svr 2003 ext conn lic ( r3900292 ),microsoft licenses,3371.85,1687,microsoft r39-00292 open win svr 2003 ext conn,,1863.78
-209,0,135,microsoft crm professional cal 3.0 product upgrade license pack user cal,microsoft software,9980.0,2513,microsoft r18-00908 windows server 2003 client access license 20-pack ( per user ),microsoft,688.99
-210,0,541,microsoft onenote 2007,microsoft,99.95,1075,microsoft ( r ) excel 2007,,109.99
-211,0,465,adobe creative suite cs3 web standard upgrade [ mac ],adobe,399.0,3188,adobe creative suite 3 web standard complete package academic cd mac,,369.0
-212,0,907,hoyle card games ( jewel case ),encore software,9.99,3106,geometry ( win/mac ) ( jewel case ) ( 10158 ),,9.59
-213,0,361,adobe creative suite cs3 web standard upsell,adobe,799.0,324,adobe cs3 web premium,,1659.99
-214,0,615,adobe creative suite cs3 design standard upgrade,adobe,399.0,558,adobe cs3 design standard,,1243.99
-215,0,832,global software smart steps 2nd grade windows macintosh ),global software,,1548,smart steps 4th grade ( jc ),dorling-kindersley-multimedia - ( dk ),11.95
-216,0,693,kakuro puzzle addict unlimited edition,global-software-publishing,9.99,2217,sudoku puzzle addict : unlimited edition ( win 98 me 2000 xp ) from global software publ na,global-software-publ-na,7.93
-217,0,930,adobe contribute cs3 [ mac ],adobe,149.0,182,adobe cs3 web premium upsell,,1434.99
-218,0,620,adobe premiere pro cs3,adobe,799.0,369,adobe cs3 design premium upsell,,1639.99
-219,0,382,adobe production studio premium,adobe,1699.0,1418,apple final cut studio 2 production suite for mac av production software,,1298.95
-220,0,683,math advantage 2008,encore,39.99,2076,math success deluxe 2006,,12.9
-221,0,588,adobe creative suite cs3 design standard [ mac ],adobe,1199.0,1017,adobe creative suite 3 ( cs3 ) web standard 3 windows upsell from dreamweaver or flash,,799.0
-222,0,211,microsoft entertainment pack ce,microsoft,49.5,685,topics entertainment snap ! kakuro,,3.44
-223,0,587,microsoft word 2007 version upgrade,microsoft,109.95,998,microsoft word 2004,,209.99
-224,0,609,quicken 2007 for mac,intuit,69.95,3055,quicken 2007 premier win cd,intuit,73.99
-225,1,90,emc retrospect 7.5 professional for windows upgrade,dantz,,1640,retrospect 7.5 prof win upg only pz24a0075,emc,54.68
-226,0,1145,microsoft office 2004 standard ( mac ),microsoft,399.99,2518,microsoft powerpoint mac 2004 version upgrade,,89.99
-227,0,1262,adobe flash pro cs3 upgrade [ mac ],adobe,199.0,986,adobe photoshop cs3 for mac,,609.99
-228,0,1241,quicken legal business pro 2007,nolo press,79.99,551,palo alto software business plan pro 2007,palo-alto-software,88.83
-229,0,602,adobe creative suite cs3 design standard upgrade [ mac ],adobe,399.0,331,adobe indesign cs3 for mac,,725.99
-230,0,364,adobe premiere elements 3.0 [ lb ],adobe,99.99,324,adobe cs3 web premium,,1659.99
-231,0,1321,instant immersion american sign language win/mac,topics entertainment,9.99,3009,instant immersion japanese 2.0,,22.43
-232,0,515,instant immersion spanish deluxe 2.0,topics entertainment,49.99,3023,instant immers japanese dlx 2 .,,36.11
-233,0,448,instant play electric guitar ( jewel box ),topics entertainment,6.99,1692,topics entertainment topics entertainment play electric guitar deluxe windows,,39.9
-234,0,1246,peachtree by sage complete accounting 2007,sage software,269.99,1261,peachtree ( r ) compatible continuous checks-office accounting 12.0,,121.89
-235,0,632,microsoft windows xp professional full version with sp2,microsoft,299.99,2791,adobe premiere pro cs3 video editing software for windows professional editing software,,798.95
-236,0,1262,adobe flash pro cs3 upgrade [ mac ],adobe,199.0,176,adobe illustrator cs3 upgrade for mac,,206.99
-237,0,1072,marine aquarium & goldfish screen saver by encore software,encore software,,2561,encore software 10393 network now ! pro by encore,,33.97
-238,0,910,adobe creative suite cs3 master collection upgrade [ mac ],adobe,1399.0,372,adobe premiere pro cs3 upgrade,,308.99
-239,0,502,symc backup exec sbs prm 11d win small business server,symantec,885.83,1757,10759328 symantec backup exec 11d for windows servers agent for db2 on windows servers -,,644.84
-240,0,389,instant immersion japanese 2.0,topics entertainment,19.99,2227,topics entertainment 80542 instant immersion french 2.0 781735805428,,18.2
-241,0,599,instant immersion french deluxe 2.0,topics entertainment,49.99,2062,instant immersion language lab deluxe edition,,14.9
-242,0,1273,adobe soundbooth cs3,adobe,199.0,172,adobe soundbooth cs3,,205.99
-243,0,204,cisco ios enterprise services complete package cd28-esk9 = ),cisco systems enterprise,,1793,cd72-ak9 = cisco ios enterprise ipsec 3des complete package cd,,4837.39
-244,0,558,instant immersion spanish 2.0,topics entertainment,29.99,2501,instant immers french dlx 2,,27.57
-245,0,90,emc retrospect 7.5 professional for windows upgrade,dantz,,2112,adobe production premium cs3 software suite for windows professional editing software,,1698.95
-246,0,851,punch ! professional home design platinum v10,punch ! software,99.0,1039,punch software 25100 punch ! master landscape and home design,punch software,45.99
-247,0,918,recam remote monitoring software,mobi-technologies-inc .,129.0,3212,software,,621.99
-248,0,1252,adobe photoshop cs2 fundamental techniques by julieanne kost,software cinema,,263,adobe photoshop cs3 extended for mac,,935.99
-249,0,618,pop-up stopper professional,panicware,29.99,203,avanquest usa llc system care professional,,43.32
-250,0,452,adobe after effects cs3,adobe,999.0,2154,adobe after effects professional 7 software for windows effects software,,999.0
-251,0,497,microsoft data analyzer 2002,microsoft,179.0,2821,microsoft excel 2007 ( pc ),,229.95
-252,0,1001,printmaster 17 platinum by encore software,encore software,39.99,2040,encore software 14111 jeopardy! deluxe,,17.97
-253,0,284,sibelius 5 educational edition,sibelius-software-ltd .,329.0,2789,steinberg nuendo 3 educational edition music production software,,999.99
-254,0,861,creating keepsakes scrapbook designer version 2 platinum,riverdeep-learning-company,39.99,2282,encore software 10610 encore creating keepsakes scrapbook designer platinum complete product creativity application 1 user complete product standard pc,,33.97
-255,0,981,instant immersion italian v2 .0 ( large box ),topics entertainment,29.99,307,topics entertainment instant immersion german audio,,12.05
-256,1,807,media studio for psp standard editon,encore software,29.99,3105,media studio for psp standard editon ( 800060 ),,47.99
-257,0,606,microsoft office 2004 professional ( mac ),microsoft,499.99,362,adobe acrobat v8 .0 professional for mac academic,adobe-education-box,159.99
-258,0,722,steinberg nuendo 3 digital audio software,steinberg,2499.0,1085,sony media software sound forge 9 digital audio production suite music production software,,299.95
-259,0,553,adobe indesign cs3 upgrade from pagemaker,adobe,199.0,954,adobe dreamweaver cs3 upgrade,,205.99
-260,0,755,micromat protogo,micromat,,376,micromat tech tool pro 4.5,,82.99
-261,0,363,sony psp media manager,sony-computer-entertainment,24.99,1009,sony psp : cabelas dangerous hunts,,29.95
-262,0,393,microsoft visual studio test agent 2005 cd 1 processor license,microsoft software,5099.0,1129,microsoft academic microsoft visio 2003 professional,,159.0
-263,0,208,wasp bar code wasp bar code labeler complete package 3 users std cd -,wasp technologies,,110,12000-0611 cadopia standard v. 6 complete package 1 user cd win,,235.17
-264,0,554,instant immersion german deluxe 2.0,topics entertainment,39.99,906,nova print explosion deluxe 3.0,,46.99
-265,0,520,quickbooks premier nonprofit edition 2007,intuit,399.95,1214,quickbooks ( r ),,103.99
-266,0,109,instant immersion french 2.0,topics entertainment,29.99,260,topics entertainment instant immersion german 2.0,,17.55
-267,0,699,scrapbook for windows,abacus,,1121,learning quickbooks ( r ) for windows ( r ),,39.99
-268,0,415,bodyworks 6.0 25-user building site license,learning company,399.95,3072,super solvers mission think 25 user site license,,79.95
-269,0,1001,printmaster 17 platinum by encore software,encore software,39.99,2587,3d home architect landscape v. 8by encore software,,26.36
-270,0,852,cinescore professional soundtrack edition,sony-pictures-digital-entertainment,249.95,1701,37510 novabackup professional edition v. 7.5 upgrade license 1 user win,,25.06
-271,1,370,cosmi talking math & more for kids ( windows ),cosmi,,2826,cosmi talking math for kids,,4.99
-272,0,504,adobe audition 2.0 upgrade,adobe,129.0,368,adobe cs3 design standard upgrade windows,,413.99
-273,0,773,microsoft office mac 2004 english 3pk dsp 731-01163 ),microsoft corporation,,3027,microsoft office visio standard 2007 upgrade ( pc ),,129.95
-274,0,859,onone software intellihance pro 4.1,onone software,,801,onone software smartscale software,,189.99
-275,0,779,3d home architect landscape v. 8 by encore software,encore software,39.99,2044,encore software 13921 3d home architect home design deluxe version 9,,25.97
-276,0,547,microsoft outlook 2007,microsoft,109.95,831,individual software professor teaches microsoft office 2007,,29.99
-277,0,348,microsoft office & windows training,topics entertainment,29.99,3093,microsoft ( r ) windows vista ( tm ) home basic,,99.99
-278,1,447,simple movie maker,topics entertainment,19.99,2157,simple movie maker,,12.9
-279,0,114,quickbooks pos : pro multistore 6.0,intuit inc.,1399.95,922,intuit quickbooks pro 2007 for mac,,185.99
-280,1,907,hoyle card games ( jewel case ),encore software,9.99,1593,encore 10025 hoyle card games for pc,encore,10.0
-281,0,380,kaspersky anti-virus 6.0,kaspersky lab,59.95,1210,kaspersky ( r ) internet security 6.0,,76.99
-282,0,26,adobe premiere pro cs3 upgrade,adobe,299.0,2807,adobe premiere elements 3 ( pc ),,99.99
-283,0,1139,cakewalk sonar 6 producer ed,cakewalk,799.0,2205,cakewalk sonar 5 producer edition music production software,,379.95
-284,0,520,quickbooks premier nonprofit edition 2007,intuit,399.95,1124,quickbooks ( r ) simple start 2007,,99.99
-285,0,1076,the print shop 22 sb cs by the print shop,encore software,,2544,encore software 10741 the print shop 22 deluxe sb cs by the print shop,,42.97
-286,0,1118,adobe creative suite cs3 master collection upsell,adobe,1999.0,182,adobe cs3 web premium upsell,,1434.99
-287,0,15,omnioutliner professional 3.0,csdc,69.95,312,sibelius sibelius photoscore professional 4,,145.7
-288,0,1160,apple mac os x tiger 10.4.6 ( mac dvd ),apple computer,129.0,304,apple shake 4.1 mac os x,,499.99
-289,1,250,adobe after effects professional 7.0,adobe,999.0,2154,adobe after effects professional 7 software for windows effects software,,999.0
-290,0,722,steinberg nuendo 3 digital audio software,steinberg,2499.0,1072,software,,112.95
-291,0,113,microsoft licenses win svr 2003 ext conn lic ( r3900292 ),microsoft licenses,3371.85,3109,microsoft windows server 2003 client additional license for devices 5 pack ( 823930 ),,158.39
-292,0,528,quickbooks simple start 2007,intuit,99.95,3133,quickbooks ( r ) credit card processing kit 2007,,39.99
-293,0,303,real arcade : adventure inlay,activision,29.95,2981,adventure inlay,,9.95
-294,0,484,adobe premiere elements 3.0,adobe,161.73,508,adobe photoshop elements 4.0 mac academic,adobe-education-box,69.99
-295,1,861,creating keepsakes scrapbook designer version 2 platinum,riverdeep-learning-company,39.99,2054,scrapbook designer platinum,riverdeep-learning-company,17.9
-296,0,515,instant immersion spanish deluxe 2.0,topics entertainment,49.99,2008,instant home design 3.0,,15.9
-297,0,216,adobe illustrator cs3 upgrade from freehand [ mac ],adobe,199.0,531,adobe cs3 web premium upgrade,,517.99
-298,0,1326,jumpstart world 2nd grade,knowledge adventure,19.99,3221,jumpstart ( r ) advanced 1st grade,,19.99
-299,0,1334,adobe creative suite cs3 web standard,adobe,999.0,917,adobe cs3 design standard upsell,,934.99
-300,0,543,adobe photoshop cs3 upgrade [ mac ],adobe,199.0,2606,adobe photoshop cs3 extended software full version for macintosh,,969.0
-301,0,546,adobe photoshop elements 5.0 premiere elements 3.0 bundle,adobe,149.99,1180,adobe ( r ) photoshop ( r ) 7.0 upgrade for pc,,679.99
-302,0,432,cell phone software solution,susteen,113.1,1054,freeverse software 005 solace,freeverse software,18.99
-303,0,899,onone genuine fractals 5 full 1u,onone software,159.95,2478,onone software inc. gpp-55212 upg genuine fractals print pro 5 1u,,66.97
-304,0,1174,adobe indesign cs3 upgrade from pagemaker [ mac ],adobe,199.0,192,adobe cs3 flash professional upgrade,,205.99
-305,0,479,sound studio 3 : record edit add effects to audio ( mac ),freeverse software,79.99,2418,sound forge audio studio 9,,66.89
-306,0,453,phonics success deluxe 2006 ( large box ),topics entertainment,49.99,2072,topics entertainment reference success deluxe 2006,,22.9
-307,0,1044,hoyle puzzle & board games 2007,encore software,19.99,1118,hoyle ( r ) card games 2007,,19.99
-308,0,991,instant immersion spanish audio deluxe,topics entertainment,39.95,1666,instant immersion italian audio ( audio book ),,19.95
-309,0,518,microsoft office 2004 standard upgrade ( mac ),microsoft,239.99,3199,microsoft ( r ) office ultimate 2007,,539.95
-310,0,608,adobe creative suite cs3 web premium upgrade [ mac ],adobe,499.0,75,19600061dm adobe creative suite 3 production premium media tlp download mac world,,20.97
-311,0,592,adobe after effects cs3 upgrade,adobe,299.0,531,adobe cs3 web premium upgrade,,517.99
-312,0,412,adobe creative suite cs3 web premium upsell [ mac ],adobe,1399.0,1865,19700045 adobe creative suite 3 web premium complete package 1 user cd mac univ,,1691.87
-313,0,687,grisoft avg anti-virus & anti-spyware 2 year subscription,grisoft,39.95,2369,apple . mac software 1-year subscription apple & mac software,,99.0
-314,0,550,windows vista business spanish full version [ dvd ],microsoft,329.95,3126,microsoft ( r ) windows vista ( tm ) business,,199.99
-315,0,910,adobe creative suite cs3 master collection upgrade [ mac ],adobe,1399.0,2393,adobe production premium cs3 software suite for mac av production software,,1698.95
-316,0,267,adobe photoshop elements 5.0 / premier elements 3.0 [ lb ],adobe,149.99,1900,29180162 adobe photoshop elements 4.0 plus adobe premiere elements 2.0 complete package,,138.28
-317,0,774,adobe software acrobat pro upgrd pro-pro mac ( adbcd01798mc ),adobe software,273.0,362,adobe acrobat v8 .0 professional for mac academic,adobe-education-box,159.99
-318,0,541,microsoft onenote 2007,microsoft,99.95,831,individual software professor teaches microsoft office 2007,,29.99
-319,0,1132,civilization iv dvd-rom ( mac ),aspyr media,49.99,1293,sid meiers civilization iii for pc,,7.99
-320,0,532,quickbooks pro 2007 for mac ( mac ),intuit,199.95,2843,quickbooks simple start 2007 intuit,,99.99
-321,0,1246,peachtree by sage complete accounting 2007,sage software,269.99,1312,peachtree ( r ) compatible continuous forms-accounting for windows 8.0-2004 version,,241.99
-322,0,548,quickbooks pro 2007 small business financial software,intuit,199.95,2329,intuit quicken premier 2007 software for windows tax & finance software,,73.95
-323,0,1269,punch 5 in 1 home design,punch ! software,39.99,1733,20100 punch ! 5 in 1 home design complete package 1 user cd win english,,34.26
-324,0,687,grisoft avg anti-virus & anti-spyware 2 year subscription,grisoft,39.95,2801,ca anti-spyware 2007,,24.99
-325,0,597,adobe creative suite cs3 design premium [ mac ],adobe,1799.0,531,adobe cs3 web premium upgrade,,517.99
-326,0,961,vegas movie studiodvd +8 plat,sony media,129.95,840,sony media software vegas movie studio + dvd 8 platinum edition,,100.97
-327,0,347,jumpstart advanced 1st grade v2 .0,knowledge adventure,19.99,2757,jumpstart advanced 3rd grade ( pc/mac ) knowledge adventure,,19.99
-328,0,67,netgear vpn01l vpn client software,netgear,89.99,3155,software,,153.99
-329,0,93,microsoft office frontpage 2003 academic version windows ),microsoft,159.98,1011,microsoft windows server 2003 terminal server cals 20-pack ( per device ),,2429.99
-330,0,991,instant immersion spanish audio deluxe,topics entertainment,39.95,3009,instant immersion japanese 2.0,,22.43
-331,0,853,onone essentials for adobe photoshop elements,onone software,59.95,1900,29180162 adobe photoshop elements 4.0 plus adobe premiere elements 2.0 complete package,,138.28
-332,0,788,hoyle puzzle & board games,encore software,19.95,3036,hoyle game collection 4 game pack,,14.95
-333,0,1164,g7 kontakt edition,sibelius-software-ltd .,99.99,651,nero inc nero 8 ultra edition,,88.83
-334,0,501,microsoft digital image suite plus [ lb ],microsoft software,129.95,1170,microsoft ( r ) works suite 2005,,99.99
-335,0,1176,valuesoft tune transfer for ipod software for windows xp,valuesoft,29.95,2187,iparrot portuguese/english phrase translator software for ipod ipod software,,16.95
-336,0,557,adobe creative suite cs3 production premium,adobe,1699.0,182,adobe cs3 web premium upsell,,1434.99
-337,0,273,quickbooks credit card processing kit 3.0,intuit,39.95,3080,quickbooks ( r ) pro 2003,,299.77
-338,0,1022,panda internet security 2007 3-user,panda software,69.95,2624,pc-cillin internet security 2007 3-user ( win me 2000 xp ),,49.95
-339,0,531,microsoft windows server 2003 client additional license for users-5 pack,microsoft,809.0,3117,microsoft windows terminal server 2003 client additional license for users - 5 user ( 824048 ),,719.04
-340,0,736,adobe creative suite cs3 production premium upgrade,adobe,799.0,1612,total training for adobe creative suite 3 design premium,,279.95
-341,0,1025,e-mu em8669 modern symphonic orchestra,e-mu,499.99,292,steinberg software halion symphonic orchestra educational edition,,545.51
-342,0,1139,cakewalk sonar 6 producer ed,cakewalk,799.0,1347,cakewalk guitar tracks pro 3 music production software,,99.0
-343,0,581,hoyle board games,encore,9.99,3036,hoyle game collection 4 game pack,,14.95
-344,0,208,wasp bar code wasp bar code labeler complete package 3 users std cd -,wasp technologies,,721,00dexx17cc01 designcad v. 17 complete package 1 user cd win,,25.54
-345,0,94,warlords 3 ( jewel case ),red-orb-entertainment,,3110,cross stitch design studio ( jewel case ) ( 8006 ),m-and-r-technologies,9.59
-346,0,481,art explosion t-shirt factory deluxe 3.0,nova development,29.99,2840,photo explosion deluxe 3.0 nova,,49.99
-347,0,265,adobe indesign cs3 [ mac ],adobe,699.0,3161,adobe creative suite 3 ( cs3 ) design suite standard upgrade ( upsell ) mac,,859.96
-348,0,1148,sibelius 4 professional edition,sibelius-software-ltd .,599.99,891,microspot macdraft professional edition,,249.99
-349,0,330,ghostsurf platinum 2006 [ lb ],avanquest publishing usa inc.,39.99,3045,ghostsurf 2006 platinum,,14.95
-350,0,1014,elementary advantage 2008,encore,39.99,772,encore software 10443 elementary school advantage 2007 win 98 me 2000 xp,,26.97
-351,0,490,microsoft visual studio professional 2005 upgrade,microsoft software,549.0,1478,microsoft t73-00091 molpc visio std sa,,168.03
-352,0,781,microsoft excel 2004 ( mac ),microsoft,229.99,1170,microsoft ( r ) works suite 2005,,99.99
-353,0,722,steinberg nuendo 3 digital audio software,steinberg,2499.0,850,migo software digital vault 2005,,24.58
-354,0,1279,palo alto business plan pro premier 2007,palo-alto-software,199.0,1031,palo alto software mpd9 palo alto marketing plan v. 9.0 pro complete product business planning 1 user complete product standard pc,palo-alto-software,149.97
-355,0,1176,valuesoft tune transfer for ipod software for windows xp,valuesoft,29.95,2173,corel ulead dvd moviefactory 6 software for windows authoring software,,49.95
-356,0,1272,punch ! home design architectural series 18,punch ! software,129.99,1026,punch software 14100 punch ! professional home design suite for windows,punch software,62.99
-357,1,798,hoyle solitaire ( jewel case ),encore,9.99,2588,encore software 33024 hoyle solitaire ( win 98 me 2000 xp ),,8.44
-358,0,506,corel wordperfect office 12 standard upgrade,corel,149.99,904,microsoft office 2004 standard,,369.99
-359,0,616,microsoft windows vista home basic upgrade [ dvd ],microsoft,99.95,332,microsoft virtual pc 7.0 windows xp home,,205.99
-360,0,1185,3d home architect landscape design deluxe version 9,encore,29.99,2061,encore software 13931 3d home architect landscape design deluxe version 9,,25.97
-361,0,574,microsoft mappoint 2006 with gps,microsoft,349.0,915,microsoft office 2004 std upgrade,,219.99
-362,0,829,avid liquid vs 7 software,avid technology,888.75,645,csdc liquid ledger personal finance modeless software,,71.01
-363,0,1004,professor teaches excel & word,individual software,19.99,2266,individual software prm-xw3 professor teaches excel & word,individual software,24.99
-364,0,955,turbocad mac 3d for mac,imsi,249.99,929,appleworks 6.2 for mac,,75.99
-365,0,145,microsoft virtual pc for mac 7.0 with windows 2000,microsoft,249.99,1961,microsoft windows services for netware v. 5.0 complete package,,138.17
-366,1,1249,window washer,navarre ( software ),29.95,1506,window washer,,22.99
-367,0,520,quickbooks premier nonprofit edition 2007,intuit,399.95,1311,quickbooks ( r ),,178.99
-368,0,1169,print explosion deluxe 3.0 ( mac ),nova development,49.99,1441,print shop deluxe 21,,44.9
-369,0,382,adobe production studio premium,adobe,1699.0,182,adobe cs3 web premium upsell,,1434.99
-370,0,523,microsoft windows vista ultimate full version [ dvd ],microsoft,399.95,2441,microsoft windows vista ultimate upgrade,,239.95
-371,0,574,microsoft mappoint 2006 with gps,microsoft,349.0,1165,microsoft ( r ) streets and trips 2005 with gps locator,,129.99
-372,0,890,instant immersion japanese deluxe 2.0,topics entertainment,39.99,2161,instant landscape design 3.0,,17.9
-373,1,512,microsoft windows xp professional upgrade with sp2,microsoft software,199.99,2853,microsoft windows xp professional edition ( upgrade ),,199.99
-374,0,174,1pk internet sec ste 2007 oem,ca oem,,2430,ca iss2007lec10 ca internet sec ste 2007 w/warranty xl box ecommerce 10u 0757943317589,,153.86
-375,0,523,microsoft windows vista ultimate full version [ dvd ],microsoft,399.95,1182,microsoft ( r ) office word 2004 for mac full version,,231.29
-376,0,635,family tree maker version 16 essentials,encore,29.95,3102,family tree maker version 16 deluxe ( 10870 ),,57.59
-377,0,553,adobe indesign cs3 upgrade from pagemaker,adobe,199.0,368,adobe cs3 design standard upgrade windows,,413.99
-378,0,584,microsoft windows vista business full version [ dvd ],microsoft,299.95,2607,adobe photoshop cs3 extended software full version for windows,,969.0
-379,0,257,ca brightstor arcserve backup r11 .5 for enterprise option for advantage ingres for,computer associates,,1939,babnbr1110s06 brightstor arcserve backup san option for netware v. 11.1 complete packa,,1038.22
-380,0,827,m-audio pro tools m-powered 7.3 m-audio compatible world-class production software,m-audio,299.99,2296,make finale 2007 software educational discount music production software,,289.95
-381,0,1334,adobe creative suite cs3 web standard,adobe,999.0,558,adobe cs3 design standard,,1243.99
-382,0,678,instant immersion german v2 .0 ( pc & mac ),topics entertainment,29.99,3014,instant immers german dlux 2.0,,36.11
-383,0,642,adobe flash pro cs3 [ mac ],adobe,699.0,521,adobe cs3 design premium,,1865.99
-384,0,897,adobe creative suite cs3 production premium upsell,adobe,1199.0,70,29270077 adobe creative suite 3 web standard product upgrade package 1 user upgrade,,843.15
-385,0,235,pdf converter professional v4 english,nuance communications inc.,99.99,732,m109a-g00-4 .0 scansoft pdf converter professional v. 4.0 complete package 1 user w,,87.79
-386,0,646,instant immersion german audio,topics entertainment,,3048,instant immersion italian 2.0,topics entertainment,20.99
-387,0,382,adobe production studio premium,adobe,1699.0,921,adobe cs3 production premium,,1749.99
-388,0,12,microsoft sql server standard edition 2005 64 bit cd/dvd 5 client,microsoft,1849.0,3027,microsoft office visio standard 2007 upgrade ( pc ),,129.95
-389,0,967,mavis beacon teaches typing 16,broderbund,19.99,2547,encore software 10072 mavis beacon typing 17 deluxe by broderbund,,33.97
-390,0,225,microsoft powerpoint 2004 ( mac ),microsoft,229.99,3029,microsoft mappoint 2006 with gps locator ( pc ),,349.99
-391,0,1055,high school advantage 2007,encore software,29.95,163,encore inc elementary advantage 2008,,33.89
-392,0,1010,roxio easy media creator 9,roxio,99.95,3195,roxio ( r ) easy media creator ( r ) 9 suite,,99.99
-393,0,1198,quickbooks point-of-sale basic 6.0,intuit,799.95,1307,quickbooks ( r ),,103.99
-394,0,549,adobe acrobat capture 100 000 page pack,adobe,1514.99,362,adobe acrobat v8 .0 professional for mac academic,adobe-education-box,159.99
-395,0,615,adobe creative suite cs3 design standard upgrade,adobe,399.0,242,adobe cs3 design standard academic,,385.99
-396,0,257,ca brightstor arcserve backup r11 .5 for enterprise option for advantage ingres for,computer associates,,1769,bablur1150s06 brightstor arcserve backup enterprise option for advantage ingres for linux (,,632.18
-397,0,1272,punch ! home design architectural series 18,punch ! software,129.99,204,punch software pro home design suite,,61.8
-398,0,500,the printshop business card maker ( jewel case ),riverdeep-learning-company,9.99,2890,print perfect business cards dvd ( pc ) cosmi,,29.99
-399,0,369,tlc arthur 's kindergarten learning system 2008,encore,19.99,2034,encore software 13891 tlc millies math learning system 2008,,17.97
-400,0,508,acrobat professional 8 mac upsell standard-professional,adobe,273.0,2998,orgchart professional 1.3,,39.95
-401,0,973,computrace lojack for laptops : 1 year subscription,absolute software,49.99,734,lfl-n2-12 computrace lojack for laptops subscription package 1 year 1 notebook m,,39.95
-402,0,1069,hasbro family game collection 2006,encore software,19.99,2556,encore software 11272 hasbro : family collection ( 2006 ) win 98 me 2000 xp,,18.97
-403,0,1292,small business server 2003 20u cal addpak user,microsoft,,111,t74-01215 microsoft windows small business server 2003 version upgrade license 5 addit,,186.73
-404,0,606,microsoft office 2004 professional ( mac ),microsoft,499.99,3199,microsoft ( r ) office ultimate 2007,,539.95
-405,0,608,adobe creative suite cs3 web premium upgrade [ mac ],adobe,499.0,3188,adobe creative suite 3 web standard complete package academic cd mac,,369.0
-406,0,1174,adobe indesign cs3 upgrade from pagemaker [ mac ],adobe,199.0,242,adobe cs3 design standard academic,,385.99
-407,0,1264,punch ! professional home design suite,punch ! software,69.99,2447,punch software 86100 prof home design platinum v10 sb win 98 me nt 2000 xp,,84.97
-408,0,819,mavis beacon 17 standard,encore software,19.95,2131,mavis beacon 16,,17.9
-409,0,578,microsoft office excel 2007,microsoft,229.95,1760,h22-01722 microsoft office project server 2007 media volume cd win english,,23.48
-410,0,652,quickverse mac bible study 2007 white box,findex,59.95,679,findex.com inc quickverse bible study 2007 bible suite,,24.89
-411,0,382,adobe production studio premium,adobe,1699.0,521,adobe cs3 design premium,,1865.99
-412,0,837,adobe photoshop cs3 extended upgrade [ mac ],adobe,349.0,2607,adobe photoshop cs3 extended software full version for windows,,969.0
-413,0,632,microsoft windows xp professional full version with sp2,microsoft,299.99,3094,adobe ( r ) photoshop ( r ) cs windows full version,,590.92
-414,0,937,symc backup exec sbs std 11d win small business server standard,symantec,811.21,140,10759354 symantec backup exec 11d for windows small business server agent for windows sys,,260.63
-415,1,823,microsoft word 2004 upgrade ( mac ),microsoft,109.99,2600,microsoft word 2004 upgrade for mac os x apple & mac software,,108.95
-416,0,1223,montage ( mac ),mariner software,149.95,2811,apple appleworks 6.2.9 ( mac ),,79.99
-417,1,1153,drive genius by prosoft engineering inc,global-marketing-partners,129.0,916,prosoft engineering drive genius 1.5,global-marketing-partners,84.99
-418,0,1362,photo explosion 3.0,nova development,29.99,906,nova print explosion deluxe 3.0,,46.99
-419,0,883,adobe creative suite cs3 production premium,adobe,1699.0,70,29270077 adobe creative suite 3 web standard product upgrade package 1 user upgrade,,843.15
-420,0,587,microsoft word 2007 version upgrade,microsoft,109.95,2803,visual studio pro 2005 upgrade ( pc ) microsoft,,549.0
-421,0,1259,print shop 22 pro publisher deluxe,encore,99.99,1821,10731 the print shop 22 pro publisher deluxe complete package 1 user win,,84.13
-422,1,906,monopoly here & now,encore,19.95,2559,encore software 11182 monopoly here & now win 98 me 2000 xp,,18.97
-423,0,208,wasp bar code wasp bar code labeler complete package 3 users std cd -,wasp technologies,,1569,microsoft ho2-00003 data analyzer 2002 complete package 1 user,microsoft,154.99
-424,0,497,microsoft data analyzer 2002,microsoft,179.0,3175,microsoft ( r ) powerpoint ( r ) 2002 upgrade,,108.87
-425,0,248,microsoft windows small business server cal 2003 license pack 20 client addpack device,microsoft software,,3117,microsoft windows terminal server 2003 client additional license for users - 5 user ( 824048 ),,719.04
-426,1,555,scooby doo glowing bug man ( jewel case ),encore software,9.99,546,encore inc scooby doo glowing bug man,,7.79
-427,0,349,middle school success deluxe 2008,topics entertainment,49.99,2119,middle school math & science,global-software-publishing,12.9
-428,0,662,microsoft windows terminal server 2003 client additional license for users - 5 user,microsoft,669.0,375,microsoft windows xp home edition sp2 oem,,95.99
-429,0,1044,hoyle puzzle & board games 2007,encore software,19.99,1593,encore 10025 hoyle card games for pc,encore,10.0
-430,0,632,microsoft windows xp professional full version with sp2,microsoft,299.99,2920,punch software professional home design platinum version 10,,99.99
-431,0,557,adobe creative suite cs3 production premium,adobe,1699.0,960,adobe cs3 web premium academic,,479.99
-432,0,632,microsoft windows xp professional full version with sp2,microsoft,299.99,2833,microsoft office accounting professional 2007 ( pc ),,229.95
-433,0,995,apple remote desktop 3 unlim managed systems,apple,499.0,1351,apple software m9953z/a remote desktop 2.2 10 client,apple software,294.99
-434,0,565,adobe creative suite cs3 web premium [ mac ],adobe,1599.0,254,adobe cs3 web standard upsell,,819.99
-435,0,952,nero 7 ultra edition enhanced,nero inc.,99.99,2123,i copy dvds 2 ultra edition,,29.9
-436,0,222,pinnacle studio plus titanium edition v10 .5,pinnacle,69.99,94,210100533 pinnacle studio plus titanium edition v. 10.5 complete package 1 user,,67.47
-437,1,1032,finale allegro 2007,finale,199.95,2325,make finale allegro software music production software,,164.95
-438,0,250,adobe after effects professional 7.0,adobe,999.0,3060,resume maker professional 12,,17.95
-439,0,582,apple garageband jam pack : remix tools,apple,99.0,316,apple garageband jam pack : world music,,95.99
-440,0,514,microsoft windows vista ultimate upgrade [ dvd ],microsoft,259.95,3126,microsoft ( r ) windows vista ( tm ) business,,199.99
-441,0,196,world of warcraft pc,vivendi,35.7,3114,world of wild cats,,8.95
-442,0,781,microsoft excel 2004 ( mac ),microsoft,229.99,2863,microsoft money 2007 premium ( pc ),,79.99
-443,0,481,art explosion t-shirt factory deluxe 3.0,nova development,29.99,494,nova development corp business card factory deluxe 3.0,,28.3
-444,0,572,adobe dreamweaver cs3 upgrade,adobe,199.0,371,adobe photoshop cs3 for mac upgrade,,189.99
-445,0,559,adobe dreamweaver cs3 [ mac ],adobe,399.0,580,adobe dreamweaver cs3 academic,adobe-education-box,195.99
-446,1,895,hoyle card games 2007,encore software,19.99,2540,encore software 10565 hoyle card games 2007 win 98 me 2000 xp,,18.97
-447,0,518,microsoft office 2004 standard upgrade ( mac ),microsoft,239.99,2411,office mac 2004 microsoft 731-01002,,331.77
-448,0,198,scansoft paperport professional 11 5 user license,nuance communications inc.,949.99,3072,super solvers mission think 25 user site license,,79.95
-449,0,753,microsoft office & windows training professional,topics entertainment,49.95,16,eu063av aba microsoft windows xp professional license and media 1 user cto english -,,137.09
-450,0,348,microsoft office & windows training,topics entertainment,29.99,2419,windows vista business sp microsoft 66j-00063,,272.38
-451,1,607,broderbund print shop 21 deluxe,encore software,49.99,1441,print shop deluxe 21,,44.9
-452,0,314,zipmagic personal edition,allume systems,19.95,330,microspot macdraft pe personal edition,,85.99
-453,0,557,adobe creative suite cs3 production premium,adobe,1699.0,4,production prem cs3 mac upgrad,adobe software,805.99
-454,0,1160,apple mac os x tiger 10.4.6 ( mac dvd ),apple computer,129.0,1599,apple apple mac os x server 10 4 7 10 client,,499.0
-455,0,605,microsoft word 2004 ( mac ),microsoft,229.99,1162,microsoft ( r ) access 2007,,109.99
-456,0,548,quickbooks pro 2007 small business financial software,intuit,199.95,3145,palo alto business plan pro 2007,,83.99
-457,0,804,digidesign music production toolkit ( pro tools le ),digidesign,495.0,2756,motu dp5 software music production software,,499.95
-458,0,562,adobe dreamweaver cs3 upgrade [ mac ],adobe,199.0,984,adobe indesign cs3 for mac academic,,192.99
-459,0,614,microsoft works suite 2006,microsoft,99.0,47,b11-01215 microsoft works suite 2006 license and media 1 user cd win english u,,94.08
-460,0,118,crystal reports xi professional edition,business objects,495.0,1183,web easy ( r ) professional 6,,49.99
-461,1,1134,comic book library,marvel,49.99,936,git comic book library collector 's edition vol . 1,,19.99
-462,0,1115,punch ! master landscape professional & home design v 10.0,punch ! software,69.95,2752,punch software 35100 punch ! professional home design suite ( small box ),punch software,62.99
-463,0,49,reference success deluxe 2006,topics entertainment,49.95,2076,math success deluxe 2006,,12.9
-464,0,511,microsoft publisher 2007 version upgrade,microsoft,99.95,1001,microsoft ( r ) money 2007 premium,,69.99
-465,0,1310,ca antivirus 2007,computer associates,39.95,2525,antivirus 2007 win uk ca av2007dgbp01e,,13.1
-466,0,236,readiris pro 11,global marketing partners,129.99,424,iris readiris pro 11 mac ocr,,109.99
-467,0,374,mcafee virusscan plus 2007,mcafee,39.99,3211,mcafee personal firewall plus,,39.97
-468,0,591,apple iwork '06 family pack ( mac dvd ) [ older version ],apple,99.0,228,apple ilife '06 family pack,,99.99
-469,0,287,sibelius 5 professional edition,sibelius-software-ltd .,599.0,3003,adobe acrobat professional 7,,350.0
-470,0,606,microsoft office 2004 professional ( mac ),microsoft,499.99,1182,microsoft ( r ) office word 2004 for mac full version,,231.29
-471,0,707,sudoku puzzle addict,global-software-publishing-north-america-inc,6.99,1084,sudoku for kids,,9.99
-472,0,939,bias peak pro 5 macintosh ),bias,599.0,1155,netopia timbuktu pro for macintosh ( twin-pack ),,183.99
-473,0,543,adobe photoshop cs3 upgrade [ mac ],adobe,199.0,430,adobe cs3 web standard upgrade,,413.99
-474,0,516,adobe creative suite cs3 design premium upgrade [ mac ],adobe,599.0,1564,adobe dreamweaver cs3 upgrade windows,,236.74
-475,0,625,apple final cut studio 2 upgrade from final cut studio ( mac ),apple,499.0,327,apple final cut studio 2 upgrade from final cut pro,,699.99
-476,0,1105,punch ! master landscape & home design,punch ! software,59.99,562,encore inc 3d home architect landscape design deluxe v 9.0,,25.49
-477,0,807,media studio for psp standard editon,encore software,29.99,1159,microsoft ( r ) office 2004 for mac standard edition upgrade version,,234.95
-478,0,382,adobe production studio premium,adobe,1699.0,1368,steinberg cubase studio 4 software music production software,,399.99
-479,0,1290,punch ! home design architectural series 4000 v10,punch ! software,199.99,2752,punch software 35100 punch ! professional home design suite ( small box ),punch software,62.99
-480,0,88,total training for adobe creative suite 3 : design premium bundle,total training,299.99,1842,29300183dm adobe creative suite 3 design standard media tlp tlp nonprofit download -,,20.97
-481,0,554,instant immersion german deluxe 2.0,topics entertainment,39.99,1153,photo explosion deluxe ( r ) 2.0,,49.99
-482,0,1315,solitaire antics deluxe,masque publishing,,1690,hoyle solitaire,,9.99
-483,1,659,more brain games,csdc,9.99,238,csdc more brain games on hand software,,7.17
-484,0,218,microsoft upg win small business svr cal t74-01215 ),microsoft corporation,330.14,1545,win 2003 ter svr cal 5pk microsoft r19-00846,,762.95
-485,0,1332,emedia blues guitar legends,emedia,29.94,705,emedia music corp guitar pro v 5.1 ( hybrid ),,51.92
-486,0,382,adobe production studio premium,adobe,1699.0,531,adobe cs3 web premium upgrade,,517.99
-487,0,522,microsoft visio standard 2007,microsoft,259.95,3183,microsoft ( r ) money 2004 standard,,29.99
-488,0,605,microsoft word 2004 ( mac ),microsoft,229.99,945,microsoft office 2004 student/teacher,,145.99
-489,0,260,cisco 2600xm ser ios ip/fw/ids cd26xm-ch = ),cisco systems enterprise,,1848,cd374-ch = cisco ios ip/fw/ids complete package cd,,1072.9
-490,1,1323,simple slide show,topics entertainment,19.99,672,simple slide show,,15.9
-491,1,910,adobe creative suite cs3 master collection upgrade [ mac ],adobe,1399.0,354,adobe cs3 master collection upsell from cs2,,1437.99
-492,0,547,microsoft outlook 2007,microsoft,109.95,2837,microsoft money 2007 home and business ( pc ),,89.99
-493,0,1321,instant immersion american sign language win/mac,topics entertainment,9.99,3023,instant immers japanese dlx 2 .,,36.11
-494,0,547,microsoft outlook 2007,microsoft,109.95,3194,microsoft ( r ) project standard 2007,,349.95
-495,0,216,adobe illustrator cs3 upgrade from freehand [ mac ],adobe,199.0,151,adobe indesign cs3 for mac upgrade,,205.99
-496,0,773,microsoft office mac 2004 english 3pk dsp 731-01163 ),microsoft corporation,,1880,543-03927 microsoft office outlook 2007 media volume cd win english,,23.33
-497,0,1246,peachtree by sage complete accounting 2007,sage software,269.99,1273,peachtree ( r ) compatible continuous checks-office accounting 12.0,,91.59
-498,0,389,instant immersion japanese 2.0,topics entertainment,19.99,647,topics entertainment instant immersion hawaiian audio,,12.05
-499,0,528,quickbooks simple start 2007,intuit,99.95,3080,quickbooks ( r ) pro 2003,,299.77
-500,0,270,adobe acrobat 7.0 professional,adobe,449.99,3003,adobe acrobat professional 7,,350.0
+_id,ltable_id,rtable_id,label,ltable_Song_Name,ltable_Artist_Name,ltable_Price,ltable_Released,rtable_Song_Name,rtable_Artist_Name,rtable_Price,rtable_Released
+0,110,53087,1,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,VHS Outro ( Interlude ) [ Explicit ],X Ambassadors,$ 1.29,"June 30 , 2015"
+1,147,50730,1,Credit,Meghan Trainor,$ 1.29,9-Jan-15,Credit,Meghan Trainor,$ 1.29,"January 9 , 2015"
+2,205,41179,1,Slow Down ( Smash Mode Remix ),Selena Gomez,$ 1.29,20-Aug-13,Slow Down ( Smash Mode Remix ),Selena Gomez,$ 1.29,"August 20 , 2013"
+3,210,19800,0,Slow Down ( Sure Shot Rockers Reggae Dub Remix ),Selena Gomez,$ 1.29,20-Aug-13,Good For You ( Yellow Claw & Cesqeaux Remix ) [ feat . A$ AP Rocky ],Selena Gomez,$ 1.29,"September 4 , 2015"
+4,249,53074,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,First Show ( Interlude ),X Ambassadors,$ 1.29,"June 30 , 2015"
+5,249,53087,1,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,VHS Outro ( Interlude ) [ Explicit ],X Ambassadors,$ 1.29,"June 30 , 2015"
+6,250,52970,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Moving Day ( Interlude ),X Ambassadors,$ 1.29,"June 30 , 2015"
+7,251,52967,1,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,VHS Outro ( Interlude ) [ Clean ],X Ambassadors,$ 1.29,"June 30 , 2015"
+8,251,53047,1,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,VHS Outro ( Interlude ) [ Explicit ],X Ambassadors,$ 1.29,"June 30 , 2015"
+9,252,52996,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Smoke ( Interlude ) [ Explicit ],X Ambassadors,$ 1.29,"June 30 , 2015"
+10,252,53036,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Smoke ( Interlude ) [ Explicit ],X Ambassadors,$ 1.29,"June 30 , 2015"
+11,253,52996,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Smoke ( Interlude ) [ Explicit ],X Ambassadors,$ 1.29,"June 30 , 2015"
+12,254,49104,1,Shining,X Ambassadors,$ 1.29,10-Aug-15,Shining,X Ambassadors,$ 1.29,"August 10 , 2015"
+13,261,53008,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Y2K Time Capsule ( Interlude ),X Ambassadors,$ 1.29,"June 30 , 2015"
+14,262,53016,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Smoke ( Interlude ) [ Explicit ],X Ambassadors,$ 1.29,"June 30 , 2015"
+15,264,53050,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Moving Day ( Interlude ),X Ambassadors,$ 1.29,"June 30 , 2015"
+16,265,52970,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Moving Day ( Interlude ),X Ambassadors,$ 1.29,"June 30 , 2015"
+17,271,53030,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Moving Day ( Interlude ),X Ambassadors,$ 1.29,"June 30 , 2015"
+18,275,52959,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Adam & Noah 's Priorities ( Interlude ),X Ambassadors,$ 1.29,"June 30 , 2015"
+19,276,53019,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Adam & Noah 's Priorities ( Interlude ),X Ambassadors,$ 1.29,"June 30 , 2015"
+20,282,52990,0,VHS Outro ( Interlude ),X Ambassadors,$ 1.29,30-Jun-15,Moving Day ( Interlude ),X Ambassadors,$ 1.29,"June 30 , 2015"
+21,289,22313,0,Epilogue ( feat . George the Poet ),Naughty Boy,$ 1.29,6-May-14,No One 's Here To Sleep [ feat . Bastille ] [ Explicit ],Naughty Boy,$ 1.29,"May 6 , 2014"
+22,291,22283,0,Epilogue ( feat . George the Poet ),Naughty Boy,$ 1.29,6-May-14,Wonder [ feat . Emeli SandÌ © ],Naughty Boy,$ 1.29,"May 6 , 2014"
+23,302,22315,0,Lifted ( feat . Emeli Sand ' © & Professor Green ),Naughty Boy,$ 1.29,6-May-14,Top Floor ( Cabana ) [ feat . Ed Sheeran ],Naughty Boy,$ 1.29,"May 6 , 2014"
+24,303,22289,0,Lifted ( feat . Emeli Sand ' © & Professor Green ),Naughty Boy,$ 1.29,6-May-14,Pardon Me [ feat . Tanika ],Naughty Boy,$ 1.29,"May 6 , 2014"
+25,303,22290,0,Lifted ( feat . Emeli Sand ' © & Professor Green ),Naughty Boy,$ 1.29,6-May-14,One Way [ feat . Mic Righteous ],Naughty Boy,$ 1.29,"May 6 , 2014"
+26,306,22303,0,Lifted ( feat . Emeli Sand ' © & Professor Green ),Naughty Boy,$ 1.29,6-May-14,Wonder [ feat . Emeli SandÌ © ],Naughty Boy,$ 1.29,"May 6 , 2014"
+27,310,22304,0,Lifted ( feat . Emeli Sand ' © & Professor Green ),Naughty Boy,$ 1.29,6-May-14,Think About It [ feat . Wiz Khalifa ] [ Explicit ],Naughty Boy,$ 1.29,"May 6 , 2014"
+28,311,22308,0,Lifted ( feat . Emeli Sand ' © & Professor Green ),Naughty Boy,$ 1.29,6-May-14,La La La [ feat . Sam Smith ],Naughty Boy,$ 1.29,"May 6 , 2014"
+29,313,22286,0,Epilogue ( feat . George the Poet ),Naughty Boy,$ 1.29,6-May-14,Hollywood [ feat . Gabrielle ],Naughty Boy,$ 1.29,"May 6 , 2014"
+30,313,22314,0,Epilogue ( feat . George the Poet ),Naughty Boy,$ 1.29,6-May-14,Lifted [ feat . Emeli SandÌ © ],Naughty Boy,$ 1.29,"May 6 , 2014"
+31,317,22283,0,Epilogue ( feat . George the Poet ),Naughty Boy,$ 1.29,6-May-14,Wonder [ feat . Emeli SandÌ © ],Naughty Boy,$ 1.29,"May 6 , 2014"
+32,322,22292,0,Epilogue ( feat . George the Poet ),Naughty Boy,$ 1.29,6-May-14,So Strong [ feat . Chasing Grace ],Naughty Boy,$ 1.29,"May 6 , 2014"
+33,325,22311,0,Lifted ( feat . Emeli Sand ' © & Professor Green ),Naughty Boy,$ 1.29,6-May-14,Pluto [ feat . Wretch 32 ],Naughty Boy,$ 1.29,"May 6 , 2014"
+34,330,22285,0,Lifted ( feat . Emeli Sand ' © & Professor Green ),Naughty Boy,$ 1.29,6-May-14,Never Been The Same [ feat . Thabo ],Naughty Boy,$ 1.29,"May 6 , 2014"
+35,337,26104,0,Get Free ( Andy C remix ),Major Lazer,$ 1.29,27-Feb-13,Keep It Goin ' Louder ( Savage Skulls Remix ) [ Explicit ],Major Lazer,$ 0.99,"December 21 , 2009"
+36,341,27491,0,Original Don ( feat . The Partysquad ) [ The Partysquad & Punish Smash Em Remix ],Major Lazer,$ 1.29,1-Nov-11,Lean On ( Fono Remix ) [ feat . MÌ ÷ & DJ Snake ],Major Lazer,$ 1.29,"July 10 , 2015"
+37,347,35883,0,All My Love ( feat . Ariana Grande & Machel Montano ) [ Remix ],Major Lazer,$ 1.29,1-Jun-15,Be Together ( feat . Wild Belle ),Major Lazer,$ 1.29,"June 1 , 2015"
+38,361,37081,0,Original Don ( feat . The Partysquad ) [ The Partysquad & Punish Smash Em Remix ],Major Lazer,$ 1.29,1-Nov-11,Powerful ( Michael Calfan Remix ) [ feat . Ellie Goulding ],Major Lazer,$ 1.29,"September 11 , 2015"
+39,368,19176,0,Get Free ( Andy C remix ),Major Lazer,$ 1.29,27-Feb-13,Break Free [ feat . Zedd ],Major Lazer,$ 1.29,
+40,380,33288,0,Closer ( feat . Mike Posner ),Nick Jonas,$ 1.29,10-Nov-14,Numb [ feat . Angel Haze ] [ Clean ],Nick Jonas,$ 1.29,"November 10 , 2014"
+41,416,33321,1,Nothing Would Be Better,Nick Jonas,$ 1.29,10-Nov-14,Nothing Would Be Better,Nick Jonas,$ 1.29,"November 10 , 2014"
+42,426,33282,1,Closer ( feat . Mike Posner ),Nick Jonas,$ 1.29,10-Nov-14,Closer [ feat . Mike Posner ] [ Clean ],Nick Jonas,$ 1.29,"November 10 , 2014"
+43,431,33296,1,Closer ( feat . Mike Posner ),Nick Jonas,$ 1.29,10-Nov-14,Closer [ feat . Mike Posner ] [ Clean ],Nick Jonas,$ 1.29,"November 10 , 2014"
+44,433,33307,1,Nothing Would Be Better,Nick Jonas,$ 1.29,10-Nov-14,Nothing Would Be Better,Nick Jonas,$ 1.29,"November 10 , 2014"
+45,467,362,1,Sunburn ( Bonus Track ),Ed Sheeran,$ 1.29,9-Sep-11,Sunburn ( Deluxe Edition ),Ed Sheeran,$ 1.29,"September 9 , 2011"
+46,470,1872,0,Goodbye to You ( feat . Dot Rotten ),Ed Sheeran,$ 1.29,23-Jun-14,You ( + Wiley ),Ed Sheeran,$ 1.29,"June 23 , 2014"
+47,498,29283,1,Firefly ( Bravado Dubstep Remix ),Ed Sheeran,$ 1.29,9-Dec-11,Firefly ( Bravado Dubstep Remix ),Ed Sheeran,$ 1.29,"December 9 , 2011"
+48,508,55899,1,Afire Love,Ed Sheeran,$ 1.29,20-Jun-14,Afire Love,Ed Sheeran,$ 1.29,"June 20 , 2014"
+49,529,44877,0,The A Team ( Live ),Ed Sheeran,$ 1.99,3-Sep-12,The A Team,Ed Sheeran,$ 1.29,"December 6 , 2011"
+50,537,1878,1,Goodbye to You ( feat . Dot Rotten ),Ed Sheeran,$ 1.29,23-Jun-14,Goodbye To You ( + Dot Rotten ),Ed Sheeran,$ 1.29,"June 23 , 2014"
+51,582,378,1,Sunburn ( Bonus Track ),Ed Sheeran,$ 1.29,9-Sep-11,Sunburn ( Deluxe Edition ),Ed Sheeran,$ 1.29,"September 9 , 2011"
+52,588,55899,1,Afire Love,Ed Sheeran,$ 1.29,20-Jun-14,Afire Love,Ed Sheeran,$ 1.29,"June 20 , 2014"
+53,592,43689,1,I Ai n't Livin ' Long Like This,Chris Janson,$ 1.29,24-Feb-14,I Ai n't Livin ' Long Like This,Chris Janson,$ 1.29,"February 24 , 2014"
+54,598,43689,1,I Ai n't Livin ' Long Like This,Chris Janson,$ 1.29,24-Feb-14,I Ai n't Livin ' Long Like This,Chris Janson,$ 1.29,"February 24 , 2014"
+55,624,8814,0,Centuries ( Gazzo Remix ),Fall Out Boy,$ 1.29,22-Dec-14,Busy ( N3mrod Remix ) [ feat . Kevin Lyttle ] [ Explicit ],Boy Face,$ 0.99,"April 10 , 2015"
+56,642,24635,1,I 've Got All This Ringing In My Ears and None On My Fingers,Fall Out Boy,$ 0.99,6-Feb-07,I 've Got All This Ringing In My Ears And None On My Fingers,Fall Out Boy,$ 0.99,"February 6 , 2007"
+57,667,24620,0,Thriller ( Live From Hammersmith Palais ),Fall Out Boy,$ 0.99,20-Nov-07,"This Ai n't A Scene , It 's An Arms Race ( Live From Hammersmith Palais )",Fall Out Boy,$ 1.29,"November 20 , 2007"
+58,668,24621,1,Thriller ( Live From Hammersmith Palais ),Fall Out Boy,$ 0.99,20-Nov-07,Thriller ( Live From Hammersmith Palais ),Fall Out Boy,$ 0.99,"November 20 , 2007"
+59,796,33113,0,As Long As You Love Me ( feat . Big Sean ) [ Audien Luvstep Mix ],Justin Bieber,$ 1.29,11-Sep-12,Never Say Never [ feat . Jaden Smith ],Justin Bieber,$ 1.29,"February 14 , 2011"
+60,801,29543,0,As Long As You Love Me ( feat . Big Sean ) [ Audien Luvstep Mix ],Justin Bieber,$ 1.29,11-Sep-12,Love Me Like You Do ( Sax Instrumental Version ),Justin Ward,$ 0.89,
+61,809,29543,0,Turn to You ( Mother 's Day Dedication ),Justin Bieber,$ 1.29,11-May-12,Love Me Like You Do ( Sax Instrumental Version ),Justin Ward,$ 0.89,
+62,836,23706,1,6PM In New York,Drake,$ 1.29,13-Feb-15,6PM In New York [ Explicit ],Drake,$ 1.29,"February 13 , 2015"
+63,896,44693,0,Thank Me Now,Drake,$ 1.29,16-Jun-10,Show Me A Good Time ( Explicit ),Drake,$ 1.29,"June 15 , 2010"
+64,956,44081,0,Teardrops On My Guitar ( Pop Version ),Taylor Swift,$ 0.99,24-Oct-06,Teardrops On My Guitar ( Radio Single Remix ),Taylor Swift,$ 1.29,"March 18 , 2008"
+65,969,41979,0,Speak Now - World Tour Live Concert ( Live 2011 ),Taylor Swift,Album Only,21-Nov-11,Long Live,Taylor Swift,$ 1.29,"October 25 , 2010"
+66,1022,9526,0,Masterpiece ( feat . Jordan Rakei ),Disclosure,Album Only,,Magnets [ feat . Lorde ],Disclosure,$ 1.29,"September 25 , 2015"
+67,1069,11277,1,Boiling ( Medlar Remix ),Disclosure,$ 1.29,2-Apr-13,Boiling ( Medlar Remix ),Disclosure,$ 0.89,"April 2 , 2013"
+68,1079,9500,0,Masterpiece ( feat . Jordan Rakei ),Disclosure,Album Only,,Willing & Able [ feat . Kwabs ],Disclosure,$ 1.29,"September 25 , 2015"
+69,1084,9523,0,Masterpiece ( feat . Jordan Rakei ),Disclosure,Album Only,,Holding On [ feat . Gregory Porter ],Disclosure,$ 1.29,"September 25 , 2015"
+70,1148,7757,1,Goner,twenty one pilots,$ 1.29,15-May-15,Goner,twenty one pilots,$ 1.29,"May 15 , 2015"
+71,1151,53282,1,Truce,twenty one pilots,$ 1.29,4-Jan-13,Truce,twenty one pilots,$ 1.29,"January 4 , 2013"
+72,1155,9941,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Bloody War ( Album Version ( Edited ) ) [ feat . BG ] [ Clean ],David Banner,$ 0.99,"September 20 , 2005"
+73,1155,28069,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,I 'll Keep Loving you ( feat . Birdy & Jaymes Young ),David Guetta,$ 1.29,"November 24 , 2014"
+74,1155,31282,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Fast Life ( Album Version ( Explicit ) ) [ feat . AX ] [ Explicit ],David Banner,$ 0.99,"May 20 , 2003"
+75,1155,31283,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Choose Me ( Album Version ( Edited ) ) [ feat . Sky ] [ Clean ],David Banner,$ 0.99,"May 20 , 2003"
+76,1156,28014,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,What I did for Love ( feat . Emeli SandÌ © ),David Guetta,$ 1.29,"November 24 , 2014"
+77,1156,28068,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,S.T.O.P ( feat . Ryan Tedder ),David Guetta,$ 1.29,"November 24 , 2014"
+78,1156,34886,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,When Love Takes Over ( Feat . Kelly Rowland ; Electro Extended ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+79,1156,34921,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,It 's The Way You Love Me ( Feat . Kelly Rowland ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+80,1157,27989,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,I 'll Keep Loving you ( feat . Birdy & Jaymes Young ),David Guetta,$ 1.29,"November 24 , 2014"
+81,1158,21574,0,"Hey Mama ( feat . Nicki Minaj , Bebe Rexha & Afrojack ) [ Extended ]",David Guetta,$ 1.29,12-May-15,Hey Mama ( Zia Moz Remix ),"Zia Moz feat . David Guetta , Bebe Rexha , Nicki Minaj and Afrojack",$ 0.99,"June 1 , 2015"
+82,1159,28024,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,S.T.O.P ( feat . Ryan Tedder ),David Guetta,$ 1.29,"November 24 , 2014"
+83,1159,36916,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Nothin ' On You [ Feat . Bruno Mars ],David Guetta,$ 1.29,
+84,1161,27990,1,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,"November 24 , 2014"
+85,1164,9943,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Take Your ( Album Version ( Edited ) ) [ feat . Bun B ] [ Clean ],David Banner,$ 0.69,"September 20 , 2005"
+86,1164,27989,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,I 'll Keep Loving you ( feat . Birdy & Jaymes Young ),David Guetta,$ 1.29,"November 24 , 2014"
+87,1164,27994,1,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,"November 24 , 2014"
+88,1164,28001,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Listen ( feat . John Legend ),David Guetta,$ 1.29,"November 24 , 2014"
+89,1165,27986,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,"Hey Mama ( feat . Nicki Minaj , Bebe Rexha & Afrojack )",David Guetta,$ 1.29,"November 24 , 2014"
+90,1166,21565,0,"Hey Mama ( feat . Nicki Minaj , Bebe Rexha & Afrojack ) [ Extended ]",David Guetta,$ 1.29,12-May-15,"Hey Mama ( feat . Nicki Minaj , Bebe Rexha & Afrojack ) [ Club Killers Remix ]",David Guetta,$ 1.29,"May 12 , 2015"
+91,1168,34894,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Gettin ' Over ( Feat . Chris Willis ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+92,1175,34891,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Choose ( Feat . Ne-Yo & Kelly Rowland ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+93,1176,34903,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Revolver ( Madonna Vs. David Guetta Feat . Lil ' Wayne ) ( One Love Remix ),David Guetta,$ 1.29,"August 21 , 2009"
+94,1176,34919,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Missing You ( Feat . Novel ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+95,1179,36652,0,Who 's That Chick ? ( feat . Rihanna ) [ Instrumental ],David Guetta,$ 0.99,7-Jan-11,Play Hard ( feat . Ne-Yo & Akon ) [ Maurizio Gubellini & Delayers In Da House Remix ],David Guetta,$ 1.29,"March 22 , 2013"
+96,1182,34041,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,Little Bad Girl ( feat . Taio Cruz & Ludacris ) [ Explicit ],David Guetta,$ 0.99,"August 26 , 2011"
+97,1183,31278,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Whoremonger ( Album Version ( Explicit ) ) [ Explicit ],David Banner,$ 0.99,"May 20 , 2003"
+98,1183,34915,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,I Wan na Go Crazy ( Feat . Will.I.Am ; Extended ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+99,1184,12106,0,"Hey Mama ( feat . Nicki Minaj , Bebe Rexha & Afrojack ) [ Extended ]",David Guetta,$ 1.29,12-May-15,Dangerous ( feat . Sam Martin ),David Guetta,$ 1.29,"October 6 , 2014"
+100,1193,27999,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,Goodbye Friend ( feat . The Script ),David Guetta,$ 1.29,"November 24 , 2014"
+101,1193,28006,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,S.T.O.P ( feat . Ryan Tedder ),David Guetta,$ 1.29,"November 24 , 2014"
+102,1193,28008,1,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,"November 24 , 2014"
+103,1194,28049,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,Listen ( feat . John Legend ),David Guetta,$ 1.29,"November 24 , 2014"
+104,1195,28050,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,Bang my Head ( feat . Sia ),David Guetta,$ 1.29,"November 24 , 2014"
+105,1195,28061,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,Goodbye Friend ( feat . The Script ),David Guetta,$ 1.29,"November 24 , 2014"
+106,1199,27988,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,S.T.O.P ( feat . Ryan Tedder ),David Guetta,$ 1.29,"November 24 , 2014"
+107,1199,27992,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,Rise ( feat . Skylar Grey ),David Guetta,$ 1.29,"November 24 , 2014"
+108,1201,27979,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,No Money no Love ( feat . Elliphant & Ms. Dynamite ),David Guetta,$ 1.29,"November 24 , 2014"
+109,1202,28013,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,Dangerous ( feat . Sam Martin ),David Guetta,$ 1.29,"November 24 , 2014"
+110,1203,27999,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Goodbye Friend ( feat . The Script ),David Guetta,$ 1.29,"November 24 , 2014"
+111,1203,34883,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,I Got ta Feeling ( Fmif Remix ) [ Edit ],David Guetta,$ 1.29,"August 21 , 2009"
+112,1204,28025,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,I 'll Keep Loving you ( feat . Birdy & Jaymes Young ),David Guetta,$ 1.29,"November 24 , 2014"
+113,1205,27980,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Lovers on the Sun ( feat . Sam Martin ),David Guetta,$ 1.29,"November 24 , 2014"
+114,1216,33988,1,Glasgow,David Guetta,$ 0.99,26-Aug-11,Glasgow,David Guetta,$ 0.99,"August 26 , 2011"
+115,1226,28022,0,The Whisperer ( feat . Sia ),David Guetta,$ 1.29,24-Nov-14,"Hey Mama ( feat . Nicki Minaj , Bebe Rexha & Afrojack )",David Guetta,$ 1.29,"November 24 , 2014"
+116,1231,55245,0,Titanium ( Cazzette 's Ant Seeking Hamster Mix ) [ feat . Sia ],David Guetta,$ 0.99,20-Jan-12,Yao Ming ( feat . Wayne & 2 Chainz ) [ Explicit ],David Banner,$ 0.99,"December 20 , 2011"
+117,1233,21564,0,Titanium ( Cazzette 's Ant Seeking Hamster Mix ) [ feat . Sia ],David Guetta,$ 0.99,20-Jan-12,"Hey Mama ( feat . Nicki Minaj , Bebe Rexha & Afrojack ) [ DJ LBR Remix ]",David Guetta,$ 1.29,"May 12 , 2015"
+118,1236,50715,0,Titanium ( Spanish Version ),David Guetta,$ 1.29,20-Aug-12,Titanium ( feat . Sia ) [ Cazzette 's Ant Seeking Hamster Mix ],David Guetta,$ 0.99,"January 20 , 2012"
+119,1238,36650,0,Who 's That Chick ? ( feat . Rihanna ) [ Single Version ],David Guetta & Rihanna,$ 0.99,3-Dec-10,Play Hard ( feat . Ne-Yo & Akon ) [ Albert Neve Remix ],David Guetta,$ 1.29,"March 22 , 2013"
+120,1241,54195,0,Who 's That Chick ? ( feat . Rihanna ) [ Single Version ],David Guetta & Rihanna,$ 0.99,3-Dec-10,When Love Takes Over ( Feat . Kelly Rowland - Electro Extended ),David Guetta,$ 0.99,"May 5 , 2009"
+121,1260,31287,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Phone Tap ( Album Version ( Explicit ) ) [ Explicit ],David Banner,$ 0.69,"May 20 , 2003"
+122,1260,31290,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Still Pimpin ' ( Album Version ( Explicit ) ) [ feat . Kamikazi ] [ Explicit ],David Banner,$ 0.99,"May 20 , 2003"
+123,1260,34919,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Missing You ( Feat . Novel ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+124,1260,54194,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,When Love Takes Over ( feat . Kelly Rowland ) [ Electro Radio Edit ],David Guetta,$ 0.99,"May 5 , 2009"
+125,1262,34894,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Gettin ' Over ( Feat . Chris Willis ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+126,1262,34952,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,When Love Takes Over ( Feat . Kelly Rowland ) [ Explicit ],David Guetta,$ 1.29,"November 24 , 2010"
+127,1263,28025,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,I 'll Keep Loving you ( feat . Birdy & Jaymes Young ),David Guetta,$ 1.29,"November 24 , 2014"
+128,1263,31287,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Phone Tap ( Album Version ( Explicit ) ) [ Explicit ],David Banner,$ 0.69,"May 20 , 2003"
+129,1263,34892,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,On The Dancefloor ( Feat . Will I Am & Apl De Ap ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+130,1263,34898,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Gettin ' Over You ( Feat . Fergie & Lmfao ),David Guetta,$ 1.29,"August 21 , 2009"
+131,1264,28000,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,"Lift me up ( feat . Nico & Vinz , Ladysmith Black Mambazo )",David Guetta,$ 1.29,"November 24 , 2014"
+132,1264,28015,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,No Money no Love ( feat . Elliphant & Ms. Dynamite ),David Guetta,$ 1.29,"November 24 , 2014"
+133,1264,34920,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Gettin ' Over ( Feat . Chris Willis ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+134,1266,34905,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,One Love ( Feat . Estelle ),David Guetta,$ 1.29,"August 21 , 2009"
+135,1267,34917,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Choose ( Feat . Ne-Yo & Kelly Rowland ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+136,1268,31286,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,My Shawty ( Album Version ( Explicit ) ) [ feat . Fiend ] [ Explicit ],David Banner,$ 0.99,"May 20 , 2003"
+137,1268,34910,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Sound Of Letting Go ( Feat . Chris Willis ),David Guetta,$ 1.29,"August 21 , 2009"
+138,1269,28015,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,No Money no Love ( feat . Elliphant & Ms. Dynamite ),David Guetta,$ 1.29,"November 24 , 2014"
+139,1269,34898,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Gettin ' Over You ( Feat . Fergie & Lmfao ),David Guetta,$ 1.29,"August 21 , 2009"
+140,1270,27984,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Bang my Head ( feat . Sia ),David Guetta,$ 1.29,"November 24 , 2014"
+141,1272,47771,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Fly ( Explicit ) [ feat . Jazze Pha ],David Banner,$ 0.99,"July 15 , 2008"
+142,1273,27979,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,No Money no Love ( feat . Elliphant & Ms. Dynamite ),David Guetta,$ 1.29,"November 24 , 2014"
+143,1273,31286,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,My Shawty ( Album Version ( Explicit ) ) [ feat . Fiend ] [ Explicit ],David Banner,$ 0.99,"May 20 , 2003"
+144,1274,9947,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Crossroads ( Album Version ( Edited ) ) [ feat . Grout ] [ Clean ],David Banner,$ 0.99,"September 20 , 2005"
+145,1274,31290,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Still Pimpin ' ( Album Version ( Explicit ) ) [ feat . Kamikazi ] [ Explicit ],David Banner,$ 0.99,"May 20 , 2003"
+146,1275,28013,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Dangerous ( feat . Sam Martin ),David Guetta,$ 1.29,"November 24 , 2014"
+147,1275,34897,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Sexy Bitch ( Feat . Akon ; Explicit ),David Guetta,$ 1.29,"August 21 , 2009"
+148,1276,31283,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Choose Me ( Album Version ( Edited ) ) [ feat . Sky ] [ Clean ],David Banner,$ 0.99,"May 20 , 2003"
+149,1276,31285,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,So Trill ( Album Version ( Explicit ) ) [ Explicit ],David Banner,$ 0.99,"May 20 , 2003"
+150,1277,28012,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,"November 24 , 2014"
+151,1278,27994,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,"November 24 , 2014"
+152,1278,34912,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,When Love Takes Over ( Feat . Kelly Rowland ; Electro Extended ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+153,1279,34874,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,On The Dancefloor ( Feat . Will.I.Am & Apl De Ap ),David Guetta,$ 1.29,"August 21 , 2009"
+154,1280,9941,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Bloody War ( Album Version ( Edited ) ) [ feat . BG ] [ Clean ],David Banner,$ 0.99,"September 20 , 2005"
+155,1285,34041,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,Little Bad Girl ( feat . Taio Cruz & Ludacris ) [ Explicit ],David Guetta,$ 0.99,"August 26 , 2011"
+156,1289,34035,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,I Can Only Imagine ( feat . Chris Brown & Lil Wayne ),David Guetta,$ 0.99,"August 26 , 2011"
+157,1290,34000,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,Repeat ( Feat . Jessie J ),David Guetta,$ 1.29,"August 26 , 2011"
+158,1291,34055,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,Without You ( feat . Usher ),David Guetta,$ 0.99,"August 26 , 2011"
+159,1292,34019,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,I Can Only Imagine ( Feat . Chris Brown & Lil Wayne ),David Guetta,$ 1.29,"August 26 , 2011"
+160,1292,34023,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,Night Of Your Life ( Feat . Jennifer Hudson ),David Guetta,$ 1.29,"August 26 , 2011"
+161,1299,34005,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,Without You ( Feat . Usher ),David Guetta,$ 1.29,"August 26 , 2011"
+162,1299,34007,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,I Can Only Imagine ( Feat . Chris Brown & Lil Wayne ),David Guetta,$ 1.29,"August 26 , 2011"
+163,1301,27982,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,"Lift me up ( feat . Nico & Vinz , Ladysmith Black Mambazo )",David Guetta,$ 1.29,"November 24 , 2014"
+164,1301,28063,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Listen ( feat . John Legend ),David Guetta,$ 1.29,"November 24 , 2014"
+165,1303,34060,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,In My Head ( feat . Nervo ),David Guetta,$ 0.99,"August 26 , 2011"
+166,1309,34898,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Gettin ' Over You ( Feat . Fergie & Lmfao ),David Guetta,$ 1.29,"August 21 , 2009"
+167,1312,28005,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Sun Goes Down ( Feat . Magic ! & Sonny Wilson ),David Guetta,$ 1.29,"November 24 , 2014"
+168,1312,28011,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,Shot me Down ( feat . Skylar Grey ) [ Radio Edit ],David Guetta,$ 1.29,"November 24 , 2014"
+169,1312,28022,0,Toyfriend ( feat . Wynter Gordon ) [ Continuous Mix Version ],David Guetta,$ 1.29,21-Aug-09,"Hey Mama ( feat . Nicki Minaj , Bebe Rexha & Afrojack )",David Guetta,$ 1.29,"November 24 , 2014"
+170,1314,34035,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,I Can Only Imagine ( feat . Chris Brown & Lil Wayne ),David Guetta,$ 0.99,"August 26 , 2011"
+171,1316,9940,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,Ai n't Got Nothing ( Album Version ( Edited ) ) [ feat . Lil Boosie ] [ Clean ],David Banner,$ 0.99,"September 20 , 2005"
+172,1317,34002,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,Little Bad Girl ( Feat . Taio Cruz & Ludacris ) [ Explicit ],David Guetta,$ 1.29,"August 26 , 2011"
+173,1317,34066,0,I 'm a Machine ( feat . Crystal Nicole and Tyrese Gibson ),David Guetta,$ 1.29,26-Aug-11,Nothing Really Matters ( feat . will.i.am ) [ Explicit ],David Guetta,$ 0.99,"August 26 , 2011"
+174,1318,34922,0,Dangerous ( feat . Sam Martin ) [ Robin Schulz Remix ] [ Radio Edit ],David Guetta,$ 1.29,24-Nov-14,One Love ( Feat . Estelle ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+175,1338,42035,0,Beautiful Now ( feat . Jon Bellion ) [ Charlie Darker Remix ],Zedd,$ 1.29,10-Jul-15,Spectrum ( Deniz Koyu Remix ) [ feat . Matthew Koma ],Zedd,$ 1.29,"July 31 , 2012"
+176,1343,6231,0,Find You ( feat . Matthew Koma & Miriam Bryant ) [ Mike Hawkins Remix ],Zedd,$ 1.29,8-Apr-14,Beautiful Now ( KDrew Remix ) [ feat . Jon Bellion ],Zedd,$ 1.29,"July 10 , 2015"
+177,1344,10527,0,Beautiful Now ( feat . Jon Bellion ) [ Charlie Darker Remix ],Zedd,$ 1.29,10-Jul-15,Clarity ( Zedd Union Mix ) [ feat . Foxes ],Zedd,$ 1.29,"February 12 , 2013"
+178,1345,42034,0,Clarity ( feat . Foxes ) [ Brillz Remix ],Zedd,$ 1.29,12-Feb-13,Spectrum ( Arty Remix ) [ feat . Matthew Koma ],Zedd,$ 1.29,"July 31 , 2012"
+179,1347,42021,0,Beautiful Now ( feat . Jon Bellion ) [ Charlie Darker Remix ],Zedd,$ 1.29,10-Jul-15,Spectrum ( Extended Mix ) [ feat . Matthew Koma ],Zedd,$ 1.29,"July 31 , 2012"
+180,1355,6230,0,Stars Come Out ( Tim Mason Remix ),Zedd,$ 1.29,20-May-14,Beautiful Now ( Marshmello Remix ) [ feat . Jon Bellion ],Zedd,$ 1.29,"July 10 , 2015"
+181,1358,42278,1,Stars Come Out ( Tim Mason Remix ),Zedd,$ 1.29,20-May-14,Stars Come Out ( Dillon Francis Remix ),Zedd,$ 1.29,"May 20 , 2014"
+182,1405,55640,0,Autonomy ( Cold Blank Mix ),Zedd,$ 0.99,28-Mar-11,Autonomy ( Lucky Date Mix ),Zedd,$ 0.99,"March 28 , 2011"
+183,1406,48287,1,The Legend Of Zelda ( Electrixx Remix ),Zedd,$ 0.99,27-May-11,The Legend Of Zelda ( Electrixx Remix ),Zedd,$ 0.89,"May 27 , 2011"
+184,1409,51560,0,Illusion ( feat . Echosmith ),Zedd,$ 1.29,18-May-15,Transmission [ feat . X Ambassadors ],Zedd,$ 1.29,"May 18 , 2015"
+185,1410,51576,0,Illusion ( feat . Echosmith ),Zedd,$ 1.29,18-May-15,Papercut [ feat . Troye Sivan ],Zedd,$ 1.29,"May 18 , 2015"
+186,1413,51590,1,Illusion ( feat . Echosmith ),Zedd,$ 1.29,18-May-15,Illusion [ feat . Echosmith ],Zedd,$ 1.29,"May 18 , 2015"
+187,1433,49484,0,Son of Sam ( Bonus Track ),Shinedown,Album Only,23-Jun-08,Her Name Is Alice ( Bonus Track ),Shinedown,$ 1.29,"June 24 , 2008"
+188,1437,52937,0,Fake ( Demo ),Shinedown,$ 1.29,4-Oct-05,Fake,Shinedown,$ 1.29,"October 4 , 2005"
+189,1447,41580,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Simple Man ( Live From Washington State ),Shinedown,$ 1.29,"April 18 , 2011"
+190,1489,3898,1,Through the Ghost,Shinedown,$ 1.29,23-Mar-12,Through The Ghost,Shinedown,$ 1.29,"March 23 , 2012"
+191,1514,49668,1,Through the Ghost,Shinedown,$ 1.29,8-Nov-13,Through the Ghost,Shinedown,$ 1.29,"November 8 , 2013"
+192,1542,41566,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Intro ( Scary Fairy ) [ Live From Washington State ],Shinedown,$ 1.29,"April 18 , 2011"
+193,1542,41590,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Times Like These ( Live Acoustic From Kansas City ),Shinedown,$ 1.29,"April 18 , 2011"
+194,1543,41585,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,If You Only Knew ( Live Acoustic From Kansas City ),Shinedown,$ 1.29,"April 18 , 2011"
+195,1545,41588,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,45 ( Live Acoustic From Kansas City ),Shinedown,$ 1.29,"April 18 , 2011"
+196,1548,41583,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Heroes ( Live Acoustic From Kansas City ),Shinedown,$ 1.29,"April 18 , 2011"
+197,1551,41574,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Burning Bright ( Live From Washington State ),Shinedown,$ 1.29,"April 18 , 2011"
+198,1552,50060,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Bully ( The Live Room ),Shinedown,$ 1.29,"May 28 , 2013"
+199,1552,50063,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Miracle ( The Live Room ),Shinedown,$ 1.29,"May 28 , 2013"
+200,1558,41579,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Left Out ( Live From Washington State ),Shinedown,$ 1.29,"April 18 , 2011"
+201,1570,27494,0,Breaking Inside ( feat . Lzzy Hale of Halestorm ) [ Bonus Track ],Shinedown,$ 1.29,24-Jun-08,Fly From The Inside,Shinedown,$ 1.29,"May 27 , 2003"
+202,1577,49518,0,Breaking Inside ( feat . Lzzy Hale of Halestorm ) [ Bonus Track ],Shinedown,$ 1.29,24-Jun-08,I Own You ( Bonus Track ),Shinedown,$ 1.29,"June 23 , 2008"
+203,1579,41572,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Diamond Eyes ( Boom-Lay Boom-Lay Boom ) [ Live From Washington State ],Shinedown,$ 1.29,"April 18 , 2011"
+204,1579,41593,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Devour ( Live Acoustic From Kansas City ),Shinedown,$ 1.29,"April 18 , 2011"
+205,1583,41583,0,Second Chance ( Live Acoustic from Kansas City ),Shinedown,$ 1.29,18-Apr-11,Heroes ( Live Acoustic From Kansas City ),Shinedown,$ 1.29,"April 18 , 2011"
+206,1585,27527,0,"Fly from the Inside ( Live Acoustic from WXDX , Pittsburgh )",Shinedown,$ 1.29,27-May-03,Stranger Inside,Shinedown,$ 1.29,"May 27 , 2003"
+207,1595,52925,1,Fake ( Demo ),Shinedown,$ 1.29,4-Oct-05,Fake [ Demo ],Shinedown,$ 1.29,"October 4 , 2005"
+208,1598,52923,0,Fake ( Demo ),Shinedown,$ 1.29,4-Oct-05,Carried Away [ Demo ],Shinedown,$ 1.29,"October 4 , 2005"
+209,1616,27519,0,"Fly from the Inside ( Live Acoustic from WXDX , Pittsburgh )",Shinedown,$ 1.29,27-May-03,Fly From The Inside,Shinedown,$ 1.29,"May 27 , 2003"
+210,1623,27506,0,"Fly from the Inside ( Live Acoustic from WXDX , Pittsburgh )",Shinedown,$ 1.29,27-May-03,Simple Man [ Acoustic ],Shinedown,$ 1.29,"May 27 , 2003"
+211,1625,27515,0,Fake ( Demo ),Shinedown,$ 1.29,4-Oct-05,Left Out [ Demo ],Shinedown,$ 1.29,"May 27 , 2003"
+212,1636,27530,1,45,Shinedown,$ 1.29,27-May-03,45,Shinedown,$ 1.29,"May 27 , 2003"
+213,1655,49479,1,Son of Sam ( Bonus Track ),Shinedown,Album Only,23-Jun-08,Son Of Sam ( Bonus Track ),Shinedown,$ 0.99,"June 24 , 2008"
+214,1669,52916,0,"Fly from the Inside ( Live Acoustic from WXDX , Pittsburgh )",Shinedown,$ 1.29,27-May-03,Save Me [ Acoustic ],Shinedown,$ 1.29,"October 4 , 2005"
+215,1683,23727,1,Jack Daniels and Jesus,Chase Rice,$ 1.29,19-Aug-14,Jack Daniels and Jesus,Chase Rice,$ 0.89,"August 19 , 2014"
+216,1683,23781,1,Jack Daniels and Jesus,Chase Rice,$ 1.29,19-Aug-14,Jack Daniels and Jesus,Chase Rice,$ 1.29,"August 19 , 2014"
+217,1685,23820,0,Best of Cr247,Chase Rice,Album Only,19-Aug-14,50 Shades of Crazy,Chase Rice,$ 1.29,"August 19 , 2014"
+218,1735,10926,1,The Back Roads and the Back Row,Cole Swindell,$ 1.29,18-Feb-14,The Back Roads & The Back Row,Cole Swindell,$ 1.29,"February 18 , 2014"
+219,1736,10938,1,The Back Roads and the Back Row,Cole Swindell,$ 1.29,18-Feb-14,The Back Roads & The Back Row,Cole Swindell,$ 1.29,"February 18 , 2014"
+220,1750,54953,0,Get Low ( Neo Fresco Remix ),Dillon Francis & DJ Snake,$ 1.29,2-Jun-15,Woman Like Me ( Dillon Francis Remix ),"Willy Joy , Flosstradamus , Dillon Francis , Bird Peterson , Cousin Cole , Flinch",$ 0.99,"September 30 , 2011"
+221,1753,37547,0,Get Low ( Neo Fresco Remix ),Dillon Francis & DJ Snake,$ 1.29,2-Jun-15,Que Que feat . Maluca ( Toy Selectah Remix ),Dillon Francis & Diplo,$ 0.99,"August 23 , 2011"
+222,1759,27480,0,"Turn Down for What ( feat . Juicy J , 2 Chainz & French Montana ) [ Remix ]",DJ Snake & Lil Jon,$ 1.29,19-May-14,Lean On ( Piano Karaoke Accompaniment ) [ Original Key ] [ feat . MÌ ÷ ],"Major Lazer , DJ Snake",$ 0.69,"August 31 , 2015"
+223,1776,33397,1,"Piensas en M ' _ ( feat . Luigi 21 Plus , Jory & Yelsid ) [ Remix ]",Nicky Jam,$ 0.99,9-Sep-14,Piensas en MÌ _ ( Remix ),Nicky Jam,$ 0.99,"September 9 , 2014"
+224,1777,20232,1,Voy a Beber ( feat . ' • ejo ) [ Remix ],Nicky Jam,$ 0.99,4-Nov-14,Voy a Beber ( Remix ),Nicky Jam,$ 0.99,"November 4 , 2014"
+225,1784,11758,0,"Piensas en M ' _ ( feat . Luigi 21 Plus , Jory & Yelsid ) [ Remix ]",Nicky Jam,$ 0.99,9-Sep-14,Cuando Te Veo Remix Feat . Nicky Jam ( Urban Version ),ChocQuibTown feat . Nicky Jam,$ 1.29,"April 17 , 2015"
+226,1784,20222,0,"Piensas en M ' _ ( feat . Luigi 21 Plus , Jory & Yelsid ) [ Remix ]",Nicky Jam,$ 0.99,9-Sep-14,Voy a Beber ( Remix ),Nicky Jam,$ 0.99,"November 4 , 2014"
+227,1828,15256,0,El Perd ' _ n ( Forgiveness ),Nicky Jam & Enrique Iglesias,$ 1.29,10-Jul-15,El PerdÌ_n ( Gregor Salto Remix ),Nicky Jam & Enrique Iglesias,$ 1.29,"July 1 , 2015"
+228,1897,51626,1,Love Song,P!NK,$ 0.99,10-Nov-03,Love Song,P!nk,$ 0.99,"November 11 , 2003"
+229,1918,9358,1,Is It Love,P!NK,$ 0.99,5-May-97,Is It Love,P!nk,$ 0.99,"May 17 , 1999"
+230,1946,23456,1,I Have Seen the Rain ( Featuring James T. Moore ),P!nk featuring James T. Moore,$ 0.99,4-Mar-06,I Have Seen The Rain ( Featuring James T. Moore ) ( Main Version ),P!nk,$ 0.99,"April 4 , 2006"
+231,2020,28191,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,Dear Chicago ( Live in Stockholm ),Ryan Adams,$ 0.99,"July 2 , 2012"
+232,2020,28308,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,16 Days ( Live in Glasgow ),Ryan Adams,$ 0.99,"July 2 , 2012"
+233,2020,28341,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,Carolina Rain ( Live in Cork ),Ryan Adams,$ 0.99,"August 9 , 2012"
+234,2020,28393,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,My Wrecking Ball ( Live At Carnegie Hall / 11/17/2014 ),Ryan Adams,$ 1.29,"April 21 , 2015"
+235,2021,28279,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,16 Days ( Live in London 2 Bonus Track ),Ryan Adams,$ 0.99,"July 2 , 2012"
+236,2021,28403,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,Lucky Now ( Live At Carnegie Hall / 11/17/2014 ) [ Explicit ],Ryan Adams,$ 1.29,"April 21 , 2015"
+237,2022,28157,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,Firecracker ( Live in Amsterdam ),Ryan Adams,$ 0.99,"July 2 , 2012"
+238,2022,28164,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,Dirty Rain ( Live in Cork ),Ryan Adams,$ 0.99,"July 2 , 2012"
+239,2022,28244,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,Do I Wait ( Live in Lisbon Bonus Track ),Ryan Adams,$ 0.99,"July 2 , 2012"
+240,2022,28261,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,The Rescue Blues ( Live in London 1 ),Ryan Adams,$ 0.99,"July 2 , 2012"
+241,2022,28367,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,September ( Live in Stockholm ),Ryan Adams,$ 0.99,"July 2 , 2012"
+242,2023,28222,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,Do n't Fail Me Now ( Live in Malmo Bonus Track ),Ryan Adams,$ 0.99,"July 2 , 2012"
+243,2023,28407,0,If I Am a Stranger ( Live In Amsterdam ),Ryan Adams,$ 0.99,2-Jul-12,Firecracker ( Live At Carnegie Hall / 11/17/2014 ) [ Explicit ],Ryan Adams,$ 1.29,"April 21 , 2015"
+244,2064,45391,0,Let Go,Ryan Adams,$ 1.29,9-Sep-14,Let Us Worship Him,Yolanda Adams,$ 0.99,"January 1 , 1990"
+245,2222,815,1,Clean,Ryan Adams,$ 1.29,21-Sep-15,Clean,Ryan Adams,$ 1.29,"September 21 , 2015"
+246,2293,33133,0,A+E ( feat . Kandaka Moore & Nikki Cislyn ),Clean Bandit,$ 1.29,2-Jun-14,Rather Be ( feat . Jess Glynne ),Clean Bandit,$ 1.29,"June 2 , 2014"
+247,2301,1238,0,Because of Your Love,Kenny Chesney,$ 0.99,26-Sep-00,Hurry Up Love,Kenny Rogers,$ 0.89,"August 1 , 2008"
+248,2317,20279,0,Because of Your Love,Kenny Chesney,$ 0.99,26-Sep-00,Fall in Love ( Remix ),Kenny Chesney,$ 0.99,"September 26 , 2000"
+249,2324,1222,0,Because of Your Love,Kenny Chesney,$ 0.99,26-Sep-00,"Ruby , Do n't Take Your Love To Town",Kenny Rogers,$ 0.89,"August 1 , 2008"
+250,2337,54230,1,Old Blue Chair,Kenny Chesney,$ 1.29,1-Jan-90,Old Blue Chair,Kenny Chesney,$ 1.29,"February 2 , 2004"
+251,2368,33786,1,I Ca n't Go There ( Acoustic Version ),Kenny Chesney,$ 0.99,2-Apr-02,I Ca n't Go There ( Acoustic Version ),Kenny Chesney,$ 0.99,"April 2 , 2002"
+252,2375,3581,1,The Tin Man,Kenny Chesney,$ 0.99,13-Jun-95,The Tin Man,Kenny Chesney,$ 0.99,"June 13 , 1995"
+253,2394,29834,1,That Lucky Old Sun ( Just Rolls Around Heaven All Day ) [ With Willie Nelson ],Kenny Chesney & Willie Nelson,$ 0.99,2008,That Lucky Old Sun ( Just Rolls Around Heaven All Day ( with Willie Nelson ) ),Kenny Chesney,$ 0.99,"April 24 , 2012"
+254,2399,29849,1,That Lucky Old Sun ( Just Rolls Around Heaven All Day ) [ With Willie Nelson ],Kenny Chesney & Willie Nelson,$ 0.99,2008,That Lucky Old Sun ( Just Rolls Around Heaven All Day ( with Willie Nelson ) ),Kenny Chesney,$ 0.99,"October 21 , 2008"
+255,2408,54231,0,Please Come to Boston ( Live ),Kenny Chesney,$ 1.29,2-Feb-04,Live Those Songs ( Live ),Kenny Chesney,$ 0.99,"February 2 , 2004"
+256,2455,49200,0,Like Me,Kenny Chesney,$ 0.99,6-Nov-05,Tequila Loves Me,Kenny Chesney,$ 0.99,"November 7 , 2005"
+257,2456,24297,1,I 'd Love to Change Your Name,Kenny Chesney,$ 0.99,1994,I 'd Love To Change Your Name,Kenny Chesney,$ 0.99,"July 27 , 2004"
+258,2459,10377,0,O Little Town of Bethlehem,Kenny Chesney,$ 0.99,4-Oct-03,Sweet Little Jesus Boy,Kenny Rogers,$ 1.29,"August 17 , 2000"
+259,2477,1222,0,Because of Your Love,Kenny Chesney,$ 0.99,26-Sep-00,"Ruby , Do n't Take Your Love To Town",Kenny Rogers,$ 0.89,"August 1 , 2008"
+260,2479,33786,1,I Ca n't Go There ( Acoustic Version ),Kenny Chesney,$ 0.99,2-Apr-02,I Ca n't Go There ( Acoustic Version ),Kenny Chesney,$ 0.99,"April 2 , 2002"
+261,2490,4511,1,Backwoods Beauty Queen,Florida Georgia Line,$ 0.99,14-Dec-10,Backwoods Beauty Queen,Florida Georgia Line,$ 0.99,"December 14 , 2010"
+262,2653,44051,0,From This Dream,Little Big Town,$ 0.99,7-May-02,Tattoos On This Town [ Explicit ],Like Tattoos On This Town,$ 0.99,"June 14 , 2012"
+263,2666,35475,1,Silver and Gold,Little Big Town,$ 1.29,21-Oct-14,Silver And Gold,Little Big Town,$ 1.29,"October 21 , 2014"
+264,2680,27453,0,Any Man of Mine ( American Idol Performance ),Lauren Alaina,$ 1.29,25-May-11,( You Make Me Feel Like ) A Natural Woman ( American Idol Performance ),Lauren Alaina,$ 1.29,"May 25 , 2011"
+265,2694,17169,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,My Way ( feat . Monty ) [ Explicit ],Fetty Wap,$ 1.29,"September 25 , 2015"
+266,2696,17160,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,For My Team ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+267,2702,17183,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,How We Do Things ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+268,2718,17189,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,My Way ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+269,2720,17143,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,How We Do Things ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+270,2721,17160,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,For My Team ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+271,2725,17169,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,My Way ( feat . Monty ) [ Explicit ],Fetty Wap,$ 1.29,"September 25 , 2015"
+272,2729,17190,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,Time ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+273,2731,17160,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,For My Team ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+274,2731,17200,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,How We Do Things ( feat . Monty ) [ Explicit ],Fetty Wap,$ 1.29,"September 25 , 2015"
+275,2734,17185,0,Rewind ( feat . Monty ),Fetty Wap,Album Only,,Jugg ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+276,2742,17181,1,Whateva ( feat . Monty ),Fetty Wap,Album Only,,Whateva ( feat . Monty ) [ Explicit ],Fetty Wap,$ 1.29,"September 25 , 2015"
+277,2742,17206,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,My Way ( feat . Monty ) [ Explicit ],Fetty Wap,$ 1.29,"September 25 , 2015"
+278,2744,17201,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,679 ( feat . Monty ) [ Explicit ],Fetty Wap,$ 1.29,"September 25 , 2015"
+279,2748,17158,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,Rewind ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+280,2749,17161,1,Whateva ( feat . Monty ),Fetty Wap,Album Only,,Whateva ( feat . Monty ) [ Clean ],Fetty Wap,$ 1.29,"September 25 , 2015"
+281,2752,17215,0,Whateva ( feat . Monty ),Fetty Wap,Album Only,,Rewind ( feat . Monty ) [ Explicit ],Fetty Wap,$ 1.29,"September 25 , 2015"
+282,2768,50547,0,Anna Sun ( Live ),WALK THE MOON,$ 1.29,10-Sep-12,Burning Down The House ( Live ),Walk the Moon,$ 1.29,"January 18 , 2013"
+283,2782,31534,1,Speakers,Sam Hunt,$ 1.29,27-Oct-14,Speakers,Sam Hunt,$ 1.29,"October 27 , 2014"
+284,2809,28356,0,Otherside Remix ( Live ),Macklemore & Ryan Lewis,$ 0.99,31-Aug-11,English Girls Approximately ( Live in London 2 ),Ryan Adams,$ 0.99,"July 2 , 2012"
+285,2809,44223,0,Otherside Remix ( Live ),Macklemore & Ryan Lewis,$ 0.99,31-Aug-11,Gim me Something Good ( Live At Carnegie Hall / 11/17/2014 ) [ Explicit ],Ryan Adams,$ 1.29,"June 9 , 2015"
+286,2812,47863,1,Cowboy Boots,Macklemore & Ryan Lewis,$ 1.29,9-Oct-12,Cowboy Boots,Macklemore & Ryan Lewis,$ 1.29,"October 9 , 2012"
+287,2834,53255,1,Outversion,Mark Ronson,$ 0.99,10-Jul-07,Outversion,Mark Ronson,$ 0.99,"July 10 , 2007"
+288,2841,52852,0,"Crack In the Pearl , Pt . II ( feat . Stevie Wonder & Jeff Bhasker )",Mark Ronson,$ 1.29,13-Jan-15,Crack In the Pearl,Mark Ronson,$ 1.29,"January 13 , 2015"
+289,2845,52867,1,"Crack In the Pearl , Pt . II ( feat . Stevie Wonder & Jeff Bhasker )",Mark Ronson,$ 1.29,13-Jan-15,"Crack In the Pearl , Pt . II",Mark Ronson,$ 1.29,"January 13 , 2015"
+290,2862,22966,0,Stop Me ( Kissy Sell Out Remix ),Daniel Merriweather & Mark Ronson,$ 0.99,14-Aug-07,I Ca n't Lose ( LindstrÌüm Remix ),Mark Ronson feat . Keyone Starr,$ 1.29,"July 3 , 2015"
+291,2862,42525,0,Stop Me ( Kissy Sell Out Remix ),Daniel Merriweather & Mark Ronson,$ 0.99,14-Aug-07,Stop Me,Mark Ronson feat . Daniel Merriweather,$ 0.99,"March 16 , 2007"
+292,2901,21458,1,Rashi ( Outro ),Mark Ronson,$ 0.99,29-Aug-03,Rashi ( Outro ),Mark Ronson,$ 0.99,"August 29 , 2003"
+293,2913,21458,1,Rashi ( Outro ),Mark Ronson,$ 0.99,29-Aug-03,Rashi ( Outro ),Mark Ronson,$ 0.99,"August 29 , 2003"
+294,2939,48458,0,Uptown Funk ( feat . Bruno Mars ) [ Trinidad James Remix ],Mark Ronson,$ 1.29,29-Jun-15,The Machines ( feat . Cevin Fisher ),"Mark Knight , Harry Romero , Chus & Ceballos",$ 1.29,"June 22 , 2015"
+295,2959,7497,0,Thinking About You ( feat . Ayah Marar ) [ Michael Brun Remix ],Calvin Harris,$ 1.29,2-Aug-13,Blame ( Burns Remix ),Calvin Harris feat . John Newman,$ 1.29,"November 10 , 2014"
+296,2959,22498,0,Thinking About You ( feat . Ayah Marar ) [ Michael Brun Remix ],Calvin Harris,$ 1.29,2-Aug-13,How Deep Is Your Love ( Calvin Harris & R3hab Remix ),Calvin Harris & Disciples,$ 1.29,"August 7 , 2015"
+297,2962,22498,0,Pray to God ( feat . HAIM ) [ Calvin Harris vs Mike Pickering Hacienda Remix ],Calvin Harris,$ 1.29,26-May-15,How Deep Is Your Love ( Calvin Harris & R3hab Remix ),Calvin Harris & Disciples,$ 1.29,"August 7 , 2015"
+298,2979,37085,0,Thinking About You ( feat . Ayah Marar ) [ Michael Brun Remix ],Calvin Harris,$ 1.29,2-Aug-13,Pray to God ( R3hab Remix ),Calvin Harris feat . HAIM,$ 1.29,"September 25 , 2015"
+299,2987,37085,0,Blame ( feat . John Newman ) [ BURNS Remix ],Calvin Harris,$ 1.29,10-Nov-14,Pray to God ( R3hab Remix ),Calvin Harris feat . HAIM,$ 1.29,"September 25 , 2015"
+300,2988,22500,0,Outside ( feat . Ellie Goulding ) [ Oliver Heldens Remix ],Calvin Harris,$ 1.29,10-Apr-15,How Deep Is Your Love ( Disciples & Unorthodox Remix ),Calvin Harris & Disciples,$ 1.29,"August 7 , 2015"
+301,3003,8057,0,Awooga ( Extended Mix ),Calvin Harris,$ 1.29,5-Feb-13,Bounce ( Fly Eye Club Mix ),Calvin Harris Feat . Kelis,$ 1.29,"February 5 , 2013"
+302,3017,22499,0,We 'll Be Coming Back ( feat . Example ) [ Jacob Plant Remix ],Calvin Harris,$ 1.29,5-Feb-13,How Deep Is Your Love ( Chris Lake Remix ),Calvin Harris & Disciples,$ 1.29,"August 7 , 2015"
+303,3043,38003,0,Ready for the Weekend ( Dave Spoon Dub Remix ),Calvin Harris,$ 0.99,15-Sep-09,Ready for the Weekend ( Album Version ),Calvin Harris,$ 1.29,"July 23 , 2013"
+304,3093,22994,1,Electro Man,Calvin Harris,$ 0.99,11-Jun-07,Electro Man,Calvin Harris,$ 0.99,"February 22 , 2012"
+305,3104,22995,1,We 're All the Same,Calvin Harris,$ 0.99,18-Jun-07,We 're All The Same,Calvin Harris,$ 0.99,"February 22 , 2012"
+306,3175,42596,0,The Breath You Take,George Strait,Album Only,14-Jun-11,If You 're Thinking You Want A Stranger ( There 's One Coming Home ),George Strait,$ 1.29,"September 23 , 1987"
+307,3236,5545,0,Do What U Want ( feat . Christina Aguilera ) [ Red Ant & Amp Lexvas Deep House Remix ],Lady Gaga,$ 1.29,25-Feb-14,Bad Romance ( Kaskade Remix ),Lady Gaga,$ 1.29,"December 21 , 2009"
+308,3255,4532,0,Applause ( Goldhouse Remix ),Lady Gaga,$ 1.29,30-Sep-13,Applause ( Empire Of The Sun Remix ),Lady Gaga,$ 1.29,"September 30 , 2013"
+309,3259,4536,0,Applause ( Goldhouse Remix ),Lady Gaga,$ 1.29,30-Sep-13,Applause ( DJ White Shadow Electrotech Remix ),Lady Gaga,$ 1.29,"September 30 , 2013"
+310,3264,25857,0,Judas ( Royksopp 's 30 Pieces Remix ),Lady Gaga,Album Only,21-Nov-11,Just Dance ( RedOne Remix ),Lady Gaga,$ 1.29,"November 4 , 2008"
+311,3270,49156,0,Judas ( Royksopp 's 30 Pieces Remix ),Lady Gaga,Album Only,21-Nov-11,Alejandro ( The Sound of Arrows Remix ),Lady Gaga,$ 1.29,"August 3 , 2010"
+312,3271,7926,0,Judas ( Royksopp 's 30 Pieces Remix ),Lady Gaga,Album Only,21-Nov-11,Electric Chapel ( Two Door Cinema Club Remix ),Lady Gaga,$ 1.29,"November 21 , 2011"
+313,3292,7440,1,True Colors ( feat . Nicki Minaj ),Wiz Khalifa,$ 1.29,19-Aug-14,True Colors ( feat . Nicki Minaj ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+314,3308,7387,0,We Dem Boyz,Wiz Khalifa,$ 1.99,19-Aug-14,"We Dem Boyz Remix ( feat . Rick Ross , ScHoolboy Q & Nas ) [ Explicit ]",Wiz Khalifa,$ 1.29,"August 19 , 2014"
+315,3312,34309,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,The Bluff ( feat . Cam ` Ron ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+316,3312,34336,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,The Plan ( feat . Juicy J ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+317,3313,34333,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Initiation ( feat . Lola Monroe ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+318,3318,34341,0,Medicated ( feat . Chevy Woods & Juicy J ),Wiz Khalifa,$ 1.29,4-Dec-12,Bluffin ( feat . Berner ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+319,3319,34342,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Let It Go ( feat . Akon ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+320,3320,7357,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,"We Dem Boyz Remix ( feat . Rick Ross , ScHoolboy Q & Nas ) [ Explicit ]",Wiz Khalifa,$ 1.29,"August 19 , 2014"
+321,3321,34321,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Medicated ( feat . Chevy Woods & Juicy J ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+322,3321,34348,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,It 's Nothin ( feat . 2 Chainz ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+323,3324,7357,0,We Dem Boyz,Wiz Khalifa,$ 1.99,19-Aug-14,"We Dem Boyz Remix ( feat . Rick Ross , ScHoolboy Q & Nas ) [ Explicit ]",Wiz Khalifa,$ 1.29,"August 19 , 2014"
+324,3324,7403,1,We Dem Boyz,Wiz Khalifa,$ 1.99,19-Aug-14,We Dem Boyz [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+325,3327,34307,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Bluffin ( feat . Berner ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+326,3332,7412,0,True Colors ( feat . Nicki Minaj ),Wiz Khalifa,$ 1.29,19-Aug-14,Still Down ( feat . Chevy Woods & Ty Dolla $ ign ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+327,3341,7371,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,True Colors ( feat . Nicki Minaj ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+328,3346,37611,0,"Young , Wild & Free ( feat . Bruno Mars )",Snoop Dogg,$ 1.99,12-Dec-11,Can You Control Yo Hoe ( Album Version ( Explicit ) ) [ feat . Soopafly ] [ Explicit ],Snoop Dogg,$ 0.99,"November 16 , 2004"
+329,3349,7362,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,KK ( feat . Project Pat & Juicy J ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+330,3350,7388,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,You And Your Friends ( feat . Snoop Dogg & Ty Dolla $ ign ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+331,3354,17643,1,Extra Extra Credit,Wiz Khalifa,$ 0.99,17-Apr-09,Extra Extra Credit [ Explicit ],Wiz Khalifa,$ 0.99,"April 17 , 2009"
+332,3354,17660,1,Extra Extra Credit,Wiz Khalifa,$ 0.99,17-Apr-09,Extra Extra Credit [ Explicit ],Wiz Khalifa,$ 0.99,"April 17 , 2009"
+333,3356,39335,1,Cameras,Wiz Khalifa,$ 1.29,28-Mar-11,Cameras [ Clean ],Wiz Khalifa,$ 1.29,"March 28 , 2011"
+334,3358,39320,1,Cameras,Wiz Khalifa,$ 1.29,28-Mar-11,Cameras [ Clean ],Wiz Khalifa,$ 1.29,"March 28 , 2011"
+335,3360,17651,0,That Good,Snoop Dogg & Wiz Khalifa,$ 1.29,9-Dec-11,I 'm Good [ Explicit ],Wiz Khalifa,$ 0.99,"April 17 , 2009"
+336,3363,37611,0,"Young , Wild & Free ( feat . Bruno Mars )",Snoop Dogg,$ 1.99,12-Dec-11,Can You Control Yo Hoe ( Album Version ( Explicit ) ) [ feat . Soopafly ] [ Explicit ],Snoop Dogg,$ 0.99,"November 16 , 2004"
+337,3363,37616,0,"Young , Wild & Free ( feat . Bruno Mars )",Snoop Dogg,$ 1.99,12-Dec-11,No Thang On Me ( Album Version ( Explicit ) ) [ feat . Bootsy Collins ] [ Explicit ],Snoop Dogg,$ 0.99,"November 16 , 2004"
+338,3372,7437,0,True Colors ( feat . Nicki Minaj ),Wiz Khalifa,$ 1.29,19-Aug-14,So High ( feat . Ghost Loft ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+339,3376,7414,1,True Colors ( feat . Nicki Minaj ),Wiz Khalifa,$ 1.29,19-Aug-14,True Colors ( feat . Nicki Minaj ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+340,3378,7377,0,True Colors ( feat . Nicki Minaj ),Wiz Khalifa,$ 1.29,19-Aug-14,KK ( feat . Project Pat & Juicy J ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+341,3392,53866,0,We Dem Boyz ( Louis Futon Remix ),Wiz Khalifa,$ 1.29,1-Jul-14,We Dem Boyz [ Explicit ],Wiz Khalifa,$ 1.29,"February 11 , 2014"
+342,3398,7369,0,True Colors ( feat . Nicki Minaj ),Wiz Khalifa,$ 1.29,19-Aug-14,Still Down ( feat . Chevy Woods & Ty Dolla $ ign ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+343,3407,7387,0,We Dem Boyz,Wiz Khalifa,$ 1.99,19-Aug-14,"We Dem Boyz Remix ( feat . Rick Ross , ScHoolboy Q & Nas ) [ Explicit ]",Wiz Khalifa,$ 1.29,"August 19 , 2014"
+344,3409,7357,0,We Dem Boyz,Wiz Khalifa,$ 1.99,19-Aug-14,"We Dem Boyz Remix ( feat . Rick Ross , ScHoolboy Q & Nas ) [ Explicit ]",Wiz Khalifa,$ 1.29,"August 19 , 2014"
+345,3412,7356,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,True Colors ( feat . Nicki Minaj ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+346,3412,7387,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,"We Dem Boyz Remix ( feat . Rick Ross , ScHoolboy Q & Nas ) [ Explicit ]",Wiz Khalifa,$ 1.29,"August 19 , 2014"
+347,3412,34324,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Bluffin ( feat . Berner ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+348,3413,34333,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Initiation ( feat . Lola Monroe ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+349,3413,34349,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,"Rise Above ( feat . Pharrell , Tuki Carter & Amber Rose ) [ Explicit ]",Wiz Khalifa,$ 1.29,"December 4 , 2012"
+350,3414,34350,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Initiation ( feat . Lola Monroe ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+351,3415,34308,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Let It Go ( feat . Akon ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+352,3419,7377,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,KK ( feat . Project Pat & Juicy J ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+353,3421,34320,1,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Remember You ( feat . The Weeknd ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+354,3421,34324,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Bluffin ( feat . Berner ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+355,3437,34343,0,Medicated ( feat . Chevy Woods & Juicy J ),Wiz Khalifa,$ 1.29,4-Dec-12,The Bluff ( feat . Cam ` Ron ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+356,3440,34314,0,Medicated ( feat . Chevy Woods & Juicy J ),Wiz Khalifa,$ 1.29,4-Dec-12,It 's Nothin ( feat . 2 Chainz ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+357,3443,34350,0,Medicated ( feat . Chevy Woods & Juicy J ),Wiz Khalifa,$ 1.29,4-Dec-12,Initiation ( feat . Lola Monroe ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+358,3449,7363,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,House In The Hills ( feat . Curren $ y ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+359,3449,34325,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Let It Go ( feat . Akon ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+360,3449,34332,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,"Rise Above ( feat . Pharrell , Tuki Carter & Amber Rose ) [ Explicit ]",Wiz Khalifa,$ 1.29,"December 4 , 2012"
+361,3450,7383,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,So High ( feat . Ghost Loft ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+362,3450,34292,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,The Bluff ( feat . Cam ` Ron ) [ Clean ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+363,3451,7344,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Hope ( feat . Ty Dolla $ ign ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+364,3451,34326,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,The Bluff ( feat . Cam ` Ron ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+365,3452,34321,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Medicated ( feat . Chevy Woods & Juicy J ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+366,3452,34332,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,"Rise Above ( feat . Pharrell , Tuki Carter & Amber Rose ) [ Explicit ]",Wiz Khalifa,$ 1.29,"December 4 , 2012"
+367,3459,34324,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,Bluffin ( feat . Berner ) [ Explicit ],Wiz Khalifa,$ 1.29,"December 4 , 2012"
+368,3461,7348,0,Remember You ( feat . The Weeknd ),Wiz Khalifa,$ 1.99,4-Dec-12,House In The Hills ( feat . Curren $ y ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+369,3499,54794,0,Sweet Spot 2.0 ( feat . Jennifer Lopez ),Flo Rida,$ 1.29,22-Jun-12,Wild Ones ( feat . Sia ),Flo Rida,$ 1.29,"June 22 , 2012"
+370,3503,54798,1,Sweet Spot 2.0 ( feat . Jennifer Lopez ),Flo Rida,$ 1.29,22-Jun-12,Sweet Spot ( feat . Jennifer Lopez ),Flo Rida,$ 1.29,"June 22 , 2012"
+371,3505,30346,0,Elevator ( feat . Timbaland ),Flo Rida,$ 1.99,17-Mar-08,Money Right ( feat . Rick Ross & Brisco ) [ Explicit ],Flo Rida,$ 1.29,"March 17 , 2008"
+372,3506,30327,0,Money Right ( feat . Rick Ross & Brisco ),Flo Rida,$ 1.29,18-Mar-08,In The Ayer ( feat . will.I.am ),Flo Rida,$ 1.29,"March 18 , 2008"
+373,3507,23084,1,"I Do n't Like It , I Love It ( feat . Robin Thicke & Verdine White ) [ Kasum Remix ]",Flo Rida,$ 1.29,10-Jul-15,"I Do n't Like It , I Love It ( feat . Robin Thicke & Verdine White ) [ Noodles Remix ]",Flo Rida,$ 1.29,"June 23 , 2015"
+374,3527,54789,0,Good Feeling ( Seductive Remix ),Flo Rida,$ 1.29,15-Nov-11,Wild Ones ( Feat . Sia ) ( Maison & Dragen Remix ),Flo Rida,$ 1.29,"April 24 , 2012"
+375,3549,19057,0,"Turn Around ( 5,4,3,2,1 ) [ AK Remix ]",Flo Rida,$ 1.29,19-Apr-11,Gdfr ( Feat . Sage The Gemini & Lookas ) [ K. Theory Remix ],Flo Rida,$ 1.29,"January 21 , 2015"
+376,3554,19790,0,"Turn Around ( 5,4,3,2,1 ) [ AK Remix ]",Flo Rida,$ 1.29,19-Apr-11,Good Feeling ( Jaywalker Remix ),Flo Rida,$ 1.29,"November 15 , 2011"
+377,3564,19787,0,Club Ca n't Handle Me ( Ridney Remix ),Flo Rida,$ 1.29,17-Aug-10,Good Feeling ( Hook N Sling Remix ),Flo Rida,$ 1.29,"November 15 , 2011"
+378,3571,53964,0,"Why You Up In Here ( feat . Ludacris , Git Fresh & Gucci Mane )",Flo Rida,$ 1.29,24-Nov-10,Street Money ( feat . Rick Ross ) [ Explicit ],Flo Rida,$ 0.99,"April 6 , 2015"
+379,3573,53964,0,"Why You Up In Here ( feat . Ludacris , Git Fresh & Gucci Mane )",Flo Rida,$ 1.29,24-Nov-10,Street Money ( feat . Rick Ross ) [ Explicit ],Flo Rida,$ 0.99,"April 6 , 2015"
+380,3574,53962,0,"Why You Up In Here ( feat . Ludacris , Git Fresh & Gucci Mane )",Flo Rida,$ 1.29,24-Nov-10,Man of the Year ( feat . Lil Wayne ) [ Explicit ],Flo Rida,$ 0.99,"April 6 , 2015"
+381,3610,30322,0,Money Right ( feat . Rick Ross & Brisco ),Flo Rida,$ 1.29,18-Mar-08,Roll ( feat . Sean Kingston ) [ Clean ],Flo Rida,$ 1.29,"March 18 , 2008"
+382,3611,30333,0,Money Right ( feat . Rick Ross & Brisco ),Flo Rida,$ 1.29,18-Mar-08,American Superstar ( feat . Lil Wayne ) [ Explicit ],Flo Rida,$ 1.29,"March 17 , 2008"
+383,3618,30321,0,Money Right ( feat . Rick Ross & Brisco ),Flo Rida,$ 1.29,18-Mar-08,Elevator ( feat . Timbaland ),Flo Rida,$ 1.29,"March 18 , 2008"
+384,3634,54794,0,Sweet Spot 2.0 ( feat . Jennifer Lopez ),Flo Rida,$ 1.29,22-Jun-12,Wild Ones ( feat . Sia ),Flo Rida,$ 1.29,"June 22 , 2012"
+385,3734,47848,1,Cowboy Boots,Macklemore & Ryan Lewis,$ 1.29,9-Oct-12,Cowboy Boots,Macklemore & Ryan Lewis,$ 1.29,"October 9 , 2012"
+386,3762,38431,1,Brave Honest Beautiful ( feat . Meghan Trainor ),Fifth Harmony,$ 1.29,30-Jan-15,Brave Honest Beautiful,Fifth Harmony,$ 1.29,"January 30 , 2015"
+387,3771,38442,1,We Know,Fifth Harmony,$ 1.29,30-Jan-15,We Know,Fifth Harmony,$ 1.29,"January 30 , 2015"
+388,3850,9120,1,Chevy Van,Eric Church,$ 1.29,14-Jan-11,Chevy Van,Eric Church,$ 1.29,"January 14 , 2011"
+389,3864,8306,1,One Mississippi ( Live from CMT `` Listen Up '' ),Brett Eldredge,$ 1.29,6-Aug-13,One Mississippi,Brett Eldredge,$ 1.29,"August 6 , 2013"
+390,3870,23889,1,Going Away For a While,Brett Eldredge,$ 1.29,11-Sep-15,Going Away For A While,Brett Eldredge,$ 1.29,"September 11 , 2015"
+391,3870,23901,1,Going Away For a While,Brett Eldredge,$ 1.29,11-Sep-15,Going Away For A While,Brett Eldredge,$ 1.29,"September 11 , 2015"
+392,3878,23925,1,Going Away For a While,Brett Eldredge,$ 1.29,11-Sep-15,Going Away For A While,Brett Eldredge,$ 1.29,"September 11 , 2015"
+393,3887,16397,1,X2CU,Jason Derulo,$ 1.29,29-May-15,X2CU,Jason Derulo,$ 1.29,"June 1 , 2015"
+394,3922,43866,0,Talk Dirty ( feat . 2 Chainz ) [ TJR Remix ],Jason Derulo,$ 1.29,2-May-14,Kama Sutra ( feat . Kid Ink ),Jason Derulo,$ 1.29,"September 10 , 2013"
+395,3926,16397,1,X2CU,Jason Derulo,$ 1.29,1-Jun-15,X2CU,Jason Derulo,$ 1.29,"June 1 , 2015"
+396,3944,18970,1,It Girl,Jason Derulo,$ 1.99,16-Sep-11,It Girl,Jason Derulo,$ 1.29,"September 16 , 2011"
+397,3949,38669,0,Whatcha Say ( Klubjumpers Remix Radio ),Jason Derulo,$ 1.29,16-Dec-11,The Sky 's The Limit ( Ayo Remix ),Jason Derulo,$ 1.29,"December 16 , 2011"
+398,4047,14998,0,Where Are '`` Now ( with Justin Bieber ) [ Ember Island Remix ],Skrillex & Diplo,$ 1.29,16-Jun-15,Ease My Mind ( feat . Niki and the Dove ) [ GTA Remix ],Skrillex,$ 1.29,"November 24 , 2014"
+399,4047,37547,0,Where Are '`` Now ( with Justin Bieber ) [ Ember Island Remix ],Skrillex & Diplo,$ 1.29,16-Jun-15,Que Que feat . Maluca ( Toy Selectah Remix ),Dillon Francis & Diplo,$ 0.99,"August 23 , 2011"
+400,4053,31610,0,Where Are '`` Now ( with Justin Bieber ) [ Ember Island Remix ],Skrillex & Diplo,$ 1.29,16-Jun-15,Scary Monsters And Nice Sprites ( Dirtyphonics Remix ),Skrillex,$ 1.29,"June 7 , 2011"
+401,4056,40142,0,Where Are '`` Now ( with Justin Bieber ) [ Ember Island Remix ],Skrillex & Diplo,$ 1.29,16-Jun-15,Scary Monsters And Nice Sprites ( Zedd Remix ),Skrillex,$ 1.29,"December 21 , 2010"
+402,4058,40164,0,Kill Everybody ( Bare Noize Remix ),Skrillex,$ 1.29,21-Dec-10,Kill Everybody,Skrillex,$ 1.29,"December 21 , 2010"
+403,4206,27799,0,Lights ( RAC Mix ),Ellie Goulding,$ 1.29,19-Jul-11,Lights ( Single Version ),Ellie Goulding,$ 1.29,"March 8 , 2011"
+404,4236,27814,0,Starry Eyed ( AN21 and Max Vangeli Remix ),Ellie Goulding,$ 1.29,15-Feb-11,Lights ( Shook Remix ),Ellie Goulding,$ 1.29,"May 23 , 2011"
+405,4301,29695,1,See You Again,Elle King,$ 1.29,13-Feb-15,See You Again,Elle King,$ 1.29,"February 13 , 2015"
+406,4312,6130,1,Remark,Rachel Platten,$ 0.99,26-Apr-11,Remark,Rachel Platten,$ 0.99,"April 26 , 2011"
+407,4326,23361,1,Tackle Box,Luke Bryan,$ 1.29,14-Aug-07,Tackle Box,Luke Bryan,$ 1.29,"August 14 , 2007"
+408,4384,23361,1,Tackle Box,Luke Bryan,$ 1.29,14-Aug-07,Tackle Box,Luke Bryan,$ 1.29,"August 14 , 2007"
+409,4413,42103,1,Are You Leaving With Him,Luke Bryan,$ 1.29,10-Mar-15,Are You Leaving With Him,Luke Bryan,$ 1.29,"March 10 , 2015"
+410,4426,43699,0,Act My Age,One Direction,$ 1.29,17-Nov-14,Change My Mind,One Direction,$ 1.29,"November 9 , 2012"
+411,4468,31072,1,Better Than Words,One Direction,$ 1.29,25-Nov-13,Better Than Words,One Direction,$ 1.29,"November 25 , 2013"
+412,4547,26140,1,Billy,Keith Urban,$ 1.29,1997,Billy,Keith Urban,$ 1.29,"February 10 , 2004"
+413,4587,26140,1,Billy,Keith Urban,$ 1.29,1997,Billy,Keith Urban,$ 1.29,"February 10 , 2004"
+414,4610,26152,1,I Thought You Knew,Keith Urban,$ 1.29,19-Oct-99,I Thought You Knew,Keith Urban,$ 1.29,"October 19 , 1999"
+415,4659,41090,1,Take '`` There ( feat . Kiesza ) [ Missy Elliott Remix ] [ Bonus Track ],Skrillex & Diplo,$ 1.29,24-Feb-15,Take ÌÏ There ( feat . Kiesza ) [ Missy Elliott Remix ] [ Bonus Track ],"Skrillex , Diplo",$ 1.29,"February 24 , 2015"
+416,4669,41083,1,Take '`` There ( feat . Kiesza ) [ Missy Elliott Remix ] [ Bonus Track ],Skrillex & Diplo,$ 1.29,24-Feb-15,Take ÌÏ There ( feat . Kiesza ),"Skrillex , Diplo",$ 1.29,"February 24 , 2015"
+417,4678,41114,0,Take '`` There ( feat . Kiesza ) [ Missy Elliott Remix ] [ Bonus Track ],Skrillex & Diplo,$ 1.29,24-Feb-15,Febreze ( feat . 2 Chainz ) [ Explicit ],"Skrillex , Diplo",$ 1.29,"February 24 , 2015"
+418,4692,40159,0,Dirty Vibe ( Ricky Remedy Remix ),Skrillex,$ 1.29,15-Dec-14,Scary Monsters And Nice Sprites ( Noisa Remix ),Skrillex,$ 1.29,"December 21 , 2010"
+419,4697,43756,0,Make It Bun Dem ( Alvin Risk Remix ),Skrillex & Damian `` Jr. . Gong '' Marley,$ 1.29,28-Aug-12,Take ÌÏ There ( feat . Kiesza ) [ Felix Cartal Remix ],Skrillex & Diplo,$ 1.29,"December 23 , 2014"
+420,4698,30404,0,Make It Bun Dem ( Alvin Risk Remix ),Skrillex & Damian `` Jr. . Gong '' Marley,$ 1.29,28-Aug-12,Make It Bun Dem ( David Heartbreak Remix ),Skrillex & Damian Jr Gong '' Marley '',$ 1.29,"August 28 , 2012"
+421,4714,40170,0,Recess ( feat . Fatman Scoop and Michael Angelakos ) [ Flux Pavilion Remix ],Skrillex & Kill the Noise,$ 1.29,7-Jul-14,Kill Everybody ( Bare Noize Remix ),Skrillex,$ 1.29,"December 21 , 2010"
+422,4715,31612,0,Ease My Mind ( feat . Niki and the Dove ) [ GTA Remix ],Skrillex,$ 1.29,24-Nov-14,Scary Monsters And Nice Sprites ( The Juggernaut Remix ),Skrillex,$ 1.29,"June 7 , 2011"
+423,4726,40156,0,Rock N ' Roll ( Will Take You to the Mountain ),Skrillex,$ 1.99,21-Jun-11,All I Ask Of You ( Feat . Penny ),Skrillex,$ 1.29,"December 21 , 2010"
+424,4730,17350,0,Kaskade - Fire & Ice Booklet,Kaskade,Album Only,25-Oct-11,ICE ( Kaskades ICE Mix ),Kaskade,$ 1.29,"July 23 , 2013"
+425,4733,31618,0,Lick It ( Norman Doray Remix ),Kaskade & Skrillex,$ 1.29,17-Apr-12,Scary Monsters And Nice Sprites ( Phonat Remix ),Skrillex,$ 1.29,"June 7 , 2011"
+426,4733,43755,0,Lick It ( Norman Doray Remix ),Kaskade & Skrillex,$ 1.29,17-Apr-12,Take ÌÏ There ( feat . Kiesza ) [ Netsky Remix ],Skrillex & Diplo,$ 1.29,"December 23 , 2014"
+427,4734,31604,0,Lick It ( Norman Doray Remix ),Kaskade & Skrillex,$ 1.29,17-Apr-12,Scary Monsters And Nice Sprites ( Phonat Remix ),Skrillex,$ 1.29,"June 7 , 2011"
+428,4736,30405,0,Lick It ( Norman Doray Remix ),Kaskade & Skrillex,$ 1.29,17-Apr-12,Make It Bun Dem ( Flinch Remix ),Skrillex & Damian Jr Gong '' Marley '',$ 1.29,"August 28 , 2012"
+429,4736,54337,0,Lick It ( Norman Doray Remix ),Kaskade & Skrillex,$ 1.29,17-Apr-12,Where Are ÌÏ Now ( with Justin Bieber ) [ Marshmello Remix ],Skrillex & Diplo,$ 1.29,"June 16 , 2015"
+430,4743,41114,0,Take '`` There ( feat . Kiesza ) [ Missy Elliott Remix ] [ Bonus Track ],Skrillex & Diplo,$ 1.29,24-Feb-15,Febreze ( feat . 2 Chainz ) [ Explicit ],"Skrillex , Diplo",$ 1.29,"February 24 , 2015"
+431,4743,41115,0,Take '`` There ( feat . Kiesza ) [ Missy Elliott Remix ] [ Bonus Track ],Skrillex & Diplo,$ 1.29,24-Feb-15,To ÌÏ ( feat . AlunaGeorge ),"Skrillex , Diplo",$ 1.29,"February 24 , 2015"
+432,4745,41095,0,Take '`` There ( feat . Kiesza ) [ Missy Elliott Remix ] [ Bonus Track ],Skrillex & Diplo,$ 1.29,24-Feb-15,To ÌÏ ( feat . AlunaGeorge ),"Skrillex , Diplo",$ 1.29,"February 24 , 2015"
+433,4747,5682,1,Skrillex Orchestral Suite By Varien ( Bonus Track ),Skrillex,$ 1.29,27-Dec-11,Skrillex Orchestral Suite By Varien ( Bonus Track ),Skrillex,$ 1.29,"December 27 , 2011"
+434,4761,6229,0,Stay the Night ( feat . Hayley Williams ),Zedd,Album Only,4-Feb-14,Beautiful Now ( Zonderling Remix ) [ feat . Jon Bellion ],Zedd,$ 1.29,"July 10 , 2015"
+435,4761,6235,0,Stay the Night ( feat . Hayley Williams ),Zedd,Album Only,4-Feb-14,Beautiful Now ( Scout Remix ) [ feat . Jon Bellion ],Zedd,$ 1.29,"October 9 , 2015"
+436,4823,20588,1,Halcyon,Ellie Goulding,$ 1.29,27-Aug-13,Halcyon,Ellie Goulding,$ 1.29,"August 27 , 2013"
+437,4890,35775,0,Sorry for Party Rocking,LMFAO,$ 1.29,21-Jun-11,Party Rock Anthem ( Made Famous By Lmfao Feat Lauren Bennett & Goon Rock ) ( Karaoke Version ),Lmfao Feat Lauren Bennett & Goon Rock Karaoke Band,$ 0.89,"July 14 , 2011"
+438,4936,36673,0,Songs Like This,Carrie Underwood,$ 1.29,3-Nov-09,This Time,Carrie Underwood,$ 1.29,"November 3 , 2009"
+439,4980,20081,0,Hurt a Lot Worse When You Go,Toby Keith,Album Only,20-Dec-11,Days Go By,Keith Urban,$ 1.29,"November 20 , 2007"
+440,5001,3099,1,Who I Am With You,Chris Young,$ 1.29,16-Sep-13,Who I Am With You,Chris Young,$ 1.29,"September 16 , 2013"
+441,5030,21803,0,First - Return to Tackyland,Cold War Kids,$ 1.29,11-Sep-15,First,Cold War Kids,$ 1.29,"October 21 , 2014"
+442,5059,34879,0,Delirious ( feat . Tara McDonald ),David Guetta,$ 1.29,18-Sep-07,One Love ( Feat . Estelle ),David Guetta,$ 1.29,"August 21 , 2009"
+443,5059,34895,0,Delirious ( feat . Tara McDonald ),David Guetta,$ 1.29,18-Sep-07,It 's The Way You Love Me ( Feat . Kelly Rowland ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+444,5062,34901,0,Do Something Love ( feat . Juliet ),David Guetta,$ 1.29,18-Sep-07,When Love Takes Over ( feat . Kelly Rowland ),David Guetta,$ 1.29,"August 21 , 2009"
+445,5065,36955,0,This Is Not a Love Song,David Guetta & JD Davis,$ 1.29,18-Sep-07,Drunk in Love [ Explicit ],David Guetta,$ 1.29,
+446,5071,34899,0,Obsession ( feat . JD Davis & Miss B ),David Guetta,Album Only,18-Sep-07,Memories ( Feat . Kid Cudi ),David Guetta,$ 1.29,"August 21 , 2009"
+447,5071,34920,0,Obsession ( feat . JD Davis & Miss B ),David Guetta,Album Only,18-Sep-07,Gettin ' Over ( Feat . Chris Willis ; Continuous Mix Version ),David Guetta,$ 1.29,"August 21 , 2009"
+448,5073,34877,0,Baby When the Light ( David Guetta & Fred Rister Remix ),David Guetta,$ 1.29,18-Sep-07,Revolver ( Madonna Vs. David Guetta Feat . Lil ' Wayne ) ( One Love Remix ),David Guetta,$ 1.29,"August 21 , 2009"
+449,5074,36946,0,Love Is Gone ( Fred Rister & Joachim Garraud Remix ),David Guetta,$ 1.99,18-Sep-07,We Found Love,David Guetta,$ 1.29,
+450,5077,40465,1,Latch ( feat . Sam Smith ),Disclosure,$ 1.29,15-Apr-14,Latch [ feat . Sam Smith ],Disclosure,$ 1.29,"June 11 , 2013"
+451,5077,40473,0,Latch ( feat . Sam Smith ),Disclosure,$ 1.29,15-Apr-14,You & Me [ feat . Eliza Doolittle ],Disclosure,$ 1.29,"June 11 , 2013"
+452,5079,40453,0,White Noise ( feat . AlunaGeorge ),Disclosure,$ 1.29,15-Apr-14,Voices ( Wookie Remix ) [ feat . Sasha Keable ],Disclosure,$ 1.29,"December 16 , 2013"
+453,5080,9487,0,Defeated No More ( feat . Edward Macfarlane ),Disclosure,$ 1.29,15-Apr-14,Magnets [ feat . Lorde ],Disclosure,$ 1.29,"September 25 , 2015"
+454,5082,40476,0,Voices ( feat . Sasha Keable ),Disclosure,$ 1.29,15-Apr-14,Help Me Lose My Mind [ feat . London Grammar ],Disclosure,$ 1.29,"June 11 , 2013"
+455,5083,40471,1,Second Chance,Disclosure,$ 1.29,15-Apr-14,Second Chance,Disclosure,$ 1.29,"June 11 , 2013"
+456,5085,40496,0,You & Me ( feat . Eliza Doolittle ),Disclosure,$ 1.29,15-Apr-14,Defeated No More [ feat . Edward Macfarlane ],Disclosure,$ 1.29,"June 11 , 2013"
+457,5086,40446,0,January ( feat . Jamie Woon ),Disclosure,$ 1.29,15-Apr-14,Confess To Me [ feat . Jessie Ware ],Disclosure,$ 1.29,"April 15 , 2014"
+458,5087,9483,0,Confess To Me ( feat . Jessie Ware ),Disclosure,$ 1.29,15-Apr-14,Omen [ feat . Sam Smith ],Disclosure,$ 1.29,"September 25 , 2015"
+459,5088,9508,0,Help Me Lose My Mind ( feat . London Grammar ),Disclosure,$ 1.29,15-Apr-14,Moving Mountains [ feat . Brendan Reilly ],Disclosure,$ 1.29,"September 25 , 2015"
+460,5088,40487,0,Help Me Lose My Mind ( feat . London Grammar ),Disclosure,$ 1.29,15-Apr-14,You & Me [ feat . Eliza Doolittle ],Disclosure,$ 1.29,"June 11 , 2013"
+461,5122,34113,1,From Time ( feat . Jhene Aiko ),Drake,$ 1.29,24-Sep-13,From Time [ feat . JhenÌ © Aiko ] [ Explicit ],Drake,$ 1.29,"September 24 , 2013"
+462,5130,37223,0,Money to Blow,"Birdman , Lil Wayne & Drake",$ 1.29,23-Nov-09,Been About Money ( Album Version ( Edited ) ),Birdman,$ 0.99,"November 23 , 2009"
+463,5143,43647,1,Over My Dead Body,Drake,$ 1.29,15-Nov-11,Over My Dead Body [ Clean ],Drake,$ 1.29,"March 20 , 2012"
+464,5146,34093,0,Crew Love ( feat . The Weeknd ),Drake,$ 1.29,15-Nov-11,All Me [ feat . 2 Chainz ] [ Explicit ],Drake,$ 1.29,"September 24 , 2013"
+465,5146,44694,0,Crew Love ( feat . The Weeknd ),Drake,$ 1.29,15-Nov-11,Up All Night ( Explicit ) [ feat . Nicki Minaj ],Drake,$ 1.29,"June 15 , 2010"
+466,5147,43656,0,Take Care ( feat . Rihanna ),Drake,$ 1.29,15-Nov-11,Make Me Proud [ feat . Nicki Minaj ] [ Clean ],Drake,$ 1.29,"March 20 , 2012"
+467,5147,43679,0,Take Care ( feat . Rihanna ),Drake,$ 1.29,15-Nov-11,The Real Her [ feat . Andre 3000 ] [ Explicit ],Drake,$ 1.29,"March 20 , 2012"
+468,5153,44698,0,Lord Knows ( feat . Rick Ross ),Drake,$ 1.29,15-Nov-11,Light Up ( Explicit ) [ feat . JAY-Z ],Drake,$ 1.29,"June 15 , 2010"
+469,5161,34090,0,The Motto ( Bonus Track ) [ feat . Lil Wayne ],Drake,$ 1.29,15-Nov-11,Too Much [ feat . Sampha ] [ Explicit ],Drake,$ 1.29,"September 24 , 2013"
+470,5201,22909,0,Hold Up ( feat . T Streets ),Lil Wayne & T Streets,$ 1.29,15-Nov-10,Wowzerz ( Album Version ( Explicit ) ) [ feat . Trina ] [ Explicit ],Lil Wayne,$ 1.29,"March 26 , 2013"
+471,5207,22901,0,Popular ( feat . Lil ' Twist ),Lil Wayne & Lil ' Twist,$ 1.29,15-Nov-10,No Worries ( Album Version ( Explicit ) ) [ feat . Detail ] [ Explicit ],Lil Wayne,$ 1.29,"March 26 , 2013"
+472,5208,22907,0,That Ai n't Me ( feat . Jay Sean ),Lil Wayne & Jay Sean,$ 1.29,15-Nov-10,Love Me ( Album Version ( Explicit ) ) [ feat . Drake ] [ Explicit ],Lil Wayne,$ 1.29,"March 26 , 2013"
+473,5215,44681,0,The Motto ( feat . Lil Wayne ) [ Bonus Track ],Drake,$ 1.29,15-Nov-11,"Fancy ( Edited ) [ feat . T.I. , Swizz Beatz ]",Drake,$ 1.29,"June 16 , 2010"
+474,5227,27254,1,"I Know ( feat . Chris Brown , Wiz Khalifa & Seven )","Diddy - Dirty Money , Chris Brown , Wiz Khalifa & Seven",$ 1.29,14-Dec-10,I Know [ feat . Wiz Khalifa ] [ Explicit ],Diddy - Dirty Money,$ 1.29,"December 14 , 2010"
+475,5343,47894,0,The Woodland Realm ( Extended Version ),Howard Shore,$ 1.29,10-Dec-13,The High Fells ( Extended Version ),Howard Shore,$ 1.29,"December 10 , 2013"
+476,5349,47893,0,The Nature of Evil,Howard Shore,$ 1.29,10-Dec-13,"Bard , a Man of Lake-town ( Extended Version )",Howard Shore,$ 1.29,"December 10 , 2013"
+477,5352,30496,0,"Girion , Lord of Dale ( Extended Version )",Howard Shore,$ 1.29,10-Dec-13,Path of Destruction,James Newton Howard,$ 1.29,"May 27 , 2014"
+478,5363,47909,1,My Armor Is Iron,Howard Shore,$ 1.29,10-Dec-13,My Armor Is Iron,Howard Shore,$ 1.29,"December 10 , 2013"
+479,5406,27824,1,This Love ( Will Be Your Downfall ),Ellie Goulding,$ 1.29,29-Nov-10,This Love ( Will Be Your Downfall ),Ellie Goulding,$ 1.29,"March 8 , 2011"
+480,5409,20551,0,Every Time You Go,Ellie Goulding,$ 1.29,29-Nov-10,I Know You Care,Ellie Goulding,$ 1.29,"August 27 , 2013"
+481,5515,9835,0,Before She Does ( Live ),Eric Church,$ 1.29,5-Apr-13,Pledge Allegiance To The Hag ( Live ),Eric Church,$ 1.29,"April 5 , 2013"
+482,5518,9828,1,Over When It 's Over ( Live ),Eric Church,$ 1.29,5-Apr-13,Over When It 's Over,Eric Church,$ 1.29,"April 5 , 2013"
+483,5542,10251,1,Over When It 's Over,Eric Church,$ 1.29,22-Jul-11,Over When It 's Over,Eric Church,$ 1.29,"July 22 , 2011"
+484,5682,35056,0,Who Dat Girl ( feat . Akon ),Flo Rida,$ 1.29,26-Nov-10,On and On ( Feat . Kevin Rudolf ),Flo Rida,$ 1.29,"November 26 , 2010"
+485,5695,37659,0,Jump ( feat . Nelly Furtado ),Flo Rida,$ 1.29,30-Mar-09,"Yayo [ Feat . Brisco , Billy Blue , Ball Greezy , Rick Ross , Red Eyezz , Bred , Pitbull & Ace Hood ] ( Amended Bonus Version )",Flo Rida,$ 1.29,"March 30 , 2009"
+486,5702,37654,1,Available ( feat . Akon ),Flo Rida,$ 1.29,30-Mar-09,Available [ Feat . Akon ],Flo Rida,$ 1.29,"March 30 , 2009"
+487,5707,37649,0,Ha ( feat . Brisco & 4 Mill ),Flo Rida,Album Only,30-Mar-09,Shone [ Feat . Pleasure P ],Flo Rida,$ 1.29,"March 30 , 2009"
+488,5712,35057,1,"Turn Around ( 5,4,3,2,1 ) [ DJ Bam Bam Radio Remix ]",Flo Rida,$ 1.29,16-Nov-10,"Turn Around ( 5,4,3,2,1 )",Flo Rida,$ 1.29,"November 26 , 2010"
+489,5726,4470,1,Anything Goes,Florida Georgia Line,$ 1.29,14-Oct-14,Anything Goes,Florida Georgia Line,$ 1.29,"October 14 , 2014"
+490,5733,4465,1,Bumpin ' the Night,Florida Georgia Line,$ 1.29,14-Oct-14,Bumpin ' The Night,Florida Georgia Line,$ 1.29,"October 14 , 2014"
+491,5747,21508,0,"Dayum , Baby ( feat . Sarah Buxton )",Florida Georgia Line,$ 1.29,25-Nov-13,This Is How We Roll [ feat . Luke Bryan ],Florida Georgia Line,$ 1.29,"November 25 , 2013"
+492,5748,50409,0,Party People ( feat . Jaren Johnston ),Florida Georgia Line,$ 1.29,25-Nov-13,This Is How We Roll ( Remix ) [ feat . Luke Bryan ],Florida Georgia Line,$ 1.29,"June 4 , 2014"
+493,5761,21517,1,Here 's to the Good Times,Florida Georgia Line,$ 1.29,4-Dec-12,Here 's To The Good Times,Florida Georgia Line,$ 1.29,"December 4 , 2012"
+494,5806,6499,1,Take You,Justin Bieber,$ 1.29,19-Jun-12,Take You ( Album Version ),Justin Bieber,$ 1.29,"June 19 , 2012"
+495,5827,6502,1,Die in Your Arms,Justin Bieber,$ 1.29,19-Jun-12,Die In Your Arms ( Album Version ),Justin Bieber,$ 1.29,"June 19 , 2012"
+496,5852,32665,0,Baby ( Bonus Video ),Justin Bieber,$ 1.99,23-Mar-10,Baby ( Acoustic Version ),Justin Bieber,$ 1.29,"February 8 , 2011"
+497,5885,19151,1,You Gon na Fly,Keith Urban,$ 1.29,22-Feb-11,You Gon na Fly,Keith Urban,$ 1.29,"February 22 , 2011"
+498,5942,29264,0,In God 's Hands ( feat . Keith Urban ),Nelly Furtado & Keith Urban,$ 0.99,16-Nov-10,Te Busque ( Full Spanish Version ) [ feat . Juanes ],Nelly Furtado,$ 1.29,"June 20 , 2006"
+499,5985,38096,0,Faith In Love,Reba McEntire & Rascal Flatts,$ 1.29,18-Sep-07,Love Needs A Holiday,Reba McEntire,$ 0.99,"November 22 , 2005"
+500,5993,38107,0,Because of You,Kelly Clarkson & Reba McEntire,$ 1.99,18-Sep-07,The Fear Of Being Alone ( Album Version ),Reba McEntire,$ 1.29,"November 22 , 2005"
+501,6011,47246,0,Dance In the Dark,Lady Gaga,$ 1.29,5-Aug-14,Just Dance [ feat . Colby O'Donis ],Lady Gaga,$ 0.99,"November 23 , 2009"
+502,6047,4667,1,G.U.Y.,Lady Gaga,$ 1.29,11-Nov-13,G.U.Y. [ Clean ],Lady Gaga,$ 1.29,"November 11 , 2013"
+503,6104,7981,1,Yayo,Lana Del Rey,$ 1.29,13-Nov-12,Yayo,Lana Del Rey,$ 1.29,"November 13 , 2012"
+504,6218,29583,1,We Run,Sugarland,$ 1.29,22-Jul-08,We Run,Sugarland,$ 1.29,"July 29 , 2008"
+505,6234,13713,1,Doin ' My Thing,Luke Bryan,$ 1.29,2-Oct-09,Doin ' My Thing,Luke Bryan,$ 1.29,"October 2 , 2009"
+506,6280,47818,1,Thrift Shop ( feat . Wanz ),Macklemore & Ryan Lewis,$ 1.29,1-Aug-12,Thrift Shop ( feat . Wanz ) [ Explicit ],Macklemore & Ryan Lewis,$ 1.29,"October 9 , 2012"
+507,6282,47824,0,Same Love ( feat . Mary Lambert ),Macklemore & Ryan Lewis,$ 1.29,1-Aug-12,"White Walls ( feat . ScHoolboy Q , Hollis ) [ Explicit ]",Macklemore & Ryan Lewis,$ 1.29,"October 9 , 2012"
+508,6287,47807,0,Jimmy Iovine ( feat . Ab-Soul ),Macklemore & Ryan Lewis,$ 1.29,1-Aug-12,Neon Cathedral ( feat . Allen Stone ),Macklemore & Ryan Lewis,$ 1.29,"October 9 , 2012"
+509,6289,47836,0,A Wake ( feat . Evan Roman ),Macklemore & Ryan Lewis,$ 1.29,1-Aug-12,Thrift Shop ( feat . Wanz ) [ Explicit ],Macklemore & Ryan Lewis,$ 1.29,"October 9 , 2012"
+510,6290,47840,0,Gold ( feat . Eighty4 Fly ),Macklemore & Ryan Lewis,$ 1.29,1-Aug-12,Neon Cathedral ( feat . Allen Stone ),Macklemore & Ryan Lewis,$ 1.29,"October 9 , 2012"
+511,6306,42359,0,Downside of Growing Up,Maddie & Tae,$ 1.29,28-Aug-15,Your Side Of Town,Maddie & Tae,$ 1.29,"August 28 , 2015"
+512,6314,20455,0,Ca n't Stop Now ( feat . Jovi Rockwell and Mr. Vegas ),Major Lazer,$ 1.29,2009,Hold The Line [ feat . Santigold ] [ Explicit ],Major Lazer,$ 1.29,"June 3 , 2015"
+513,6314,20460,0,Ca n't Stop Now ( feat . Jovi Rockwell and Mr. Vegas ),Major Lazer,$ 1.29,2009,Cash Flow [ feat . Jah Dan ],Major Lazer,$ 1.29,"June 3 , 2015"
+514,6333,18444,0,Wind Up ( feat . Elephant Man & Opal ),Major Lazer,$ 1.29,18-Jun-13,Jah No Partial ( feat . Flux Pavilion ),Major Lazer,$ 1.29,"April 16 , 2013"
+515,6345,18442,0,Get Free ( feat . Amber of Dirty Projectors ) [ What So Not Remix ],Major Lazer,$ 1.29,18-Jun-13,"Jet Blue Jet ( feat . Leftside , GTA , Razz & Biggy )",Major Lazer,$ 1.29,"April 16 , 2013"
+516,6425,31102,1,Happily,One Direction,$ 1.29,25-Nov-13,Happily,One Direction,$ 1.29,"November 25 , 2013"
+517,6429,31088,1,Something Great,One Direction,$ 1.29,25-Nov-13,Something Great,One Direction,$ 1.29,"November 25 , 2013"
+518,6430,31068,0,Little White Lies,One Direction,$ 1.29,25-Nov-13,Little Black Dress,One Direction,$ 1.29,"November 25 , 2013"
+519,6443,32639,0,My Songs Know What You Did In the Dark ( Light Em Up ),Fall Out Boy,Album Only,7-May-13,My Songs Know What You Did In The Dark ( Light Em Up ) ( 2 Chainz Remix ),Fall Out Boy,$ 1.29,"August 13 , 2013"
+520,6458,18807,1,I Do n't Believe You ( Main Version ),P!NK,$ 1.29,28-Oct-08,I Do n't Believe You,P!nk,$ 1.29,"October 28 , 2008"
+521,6524,38300,0,Talkin ' 2 Myself ( feat . Kobe ),Eminem,$ 1.29,21-Jun-10,No Love [ feat . Lil Wayne ] [ Explicit ],Eminem,$ 1.29,"June 21 , 2010"
+522,6532,38301,1,Space Bound,Eminem,$ 1.29,21-Jun-10,Space Bound [ Explicit ],Eminem,$ 1.29,"June 21 , 2010"
+523,6592,38375,1,I Almost Do,Taylor Swift,$ 1.29,22-Oct-12,I Almost Do,Taylor Swift,$ 1.29,"October 30 , 2012"
+524,6621,784,0,Bad Blood ( Karaoke Version ),Taylor Swift,$ 1.29,3-Mar-15,Bad Blood,Taylor Swift,$ 1.29,"October 27 , 2014"
+525,6624,800,0,This Love ( Karaoke Version ),Taylor Swift,$ 1.29,3-Mar-15,This Love,Taylor Swift,$ 1.29,"October 27 , 2014"
+526,6634,824,1,Wildest Dreams,Taylor Swift,$ 1.29,27-Oct-14,Wildest Dreams,Taylor Swift,$ 1.29,"October 27 , 2014"
+527,6679,44061,0,You Belong With Me ( Instrumental With Background Vocals ),Taylor Swift,$ 0.99,7-Apr-09,How You Get The Girl ( Karaoke Version ),Taylor Swift,$ 1.29,"March 3 , 2015"
+528,6724,17069,1,White Horse,Taylor Swift,$ 1.29,11-Nov-08,White Horse,Taylor Swift,$ 1.29,"November 11 , 2008"
+529,6762,51437,0,"The Birds , Pt. 1",The Weeknd,$ 1.29,13-Nov-12,The Birds Pt. 2 ( Album Version ( Edited ) ) [ Clean ],The Weeknd,$ 1.29,"September 18 , 2015"
+530,6764,51438,1,Gone,The Weeknd,$ 1.29,13-Nov-12,Gone ( Album Version ( Edited ) ) [ Clean ],The Weeknd,$ 1.29,"September 18 , 2015"
+531,6851,39325,0,Wake Up,Wiz Khalifa,$ 1.29,28-Mar-11,Roll Up [ Clean ],Wiz Khalifa,$ 1.29,"March 28 , 2011"
+532,6855,7373,0,Get Your S ** t,Wiz Khalifa,$ 1.29,28-Mar-11,You And Your Friends ( feat . Snoop Dogg & Ty Dolla $ ign ) [ Explicit ],Wiz Khalifa,$ 1.29,"August 19 , 2014"
+533,6857,39318,1,Fly Solo,Wiz Khalifa,$ 1.29,28-Mar-11,Fly Solo [ Clean ],Wiz Khalifa,$ 1.29,"March 28 , 2011"
+534,6866,13587,0,Peer Pressure ( feat . Traci Nelson ),Snoop Dogg,$ 1.29,29-Mar-11,Boom ( ( Feat . T-Pain ) [ Edited ] ),Snoop Dogg,$ 1.29,"March 29 , 2011"
+535,6867,13586,0,I Do n't Need No B **** ( feat . Devin the Dude & Kobe Honeycutt ),Snoop Dogg,$ 1.29,29-Mar-11,Platinum ( ( Feat . R. Kelly ) [ Edited ] ),Snoop Dogg,$ 1.29,"March 29 , 2011"
+536,6876,13612,0,Sumthin Like This Night ( feat . Gorillaz ),Snoop Dogg & Gorillaz,$ 1.29,29-Mar-11,This Weed Iz Mine ( Feat . Wiz Khalifa ) [ Explicit ],Snoop Dogg,$ 1.29,"March 29 , 2011"
+537,6881,13600,0,Cold Game ( feat . Latoiya Williams ),Snoop Dogg & Latoiya Williams,$ 1.29,29-Mar-11,Toyz N Da Hood ( Feat . Bootsy Collins ) [ Explicit ],Snoop Dogg,$ 1.29,"March 29 , 2011"
+538,6900,10533,0,Follow You Down ( feat . Bright Lights ),Zedd,$ 1.29,24-Sep-13,Spectrum [ feat . Matthew Koma ],Zedd,$ 1.29,"October 9 , 2012"

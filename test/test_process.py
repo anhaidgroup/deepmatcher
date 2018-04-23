@@ -94,20 +94,20 @@ class MakeFieldsTestCases(unittest.TestCase):
         with io.open(os.path.expanduser(os.path.join(path, a_dataset)),
                 encoding="utf8") as f:
             header = next(unicode_csv_reader(f))
-        self.assertEqual(header, ['id', 'label', 'left_id', 'left_title',
-                                  'left_manufacturer', 'left_price', 'right_id',
-                                  'right_title', 'right_manufacturer', 'right_price'])
-        id_attr= 'id'
+        self.assertEqual(header, ['_id', 'ltable_id', 'rtable_id', 'label',
+            'ltable_Song_Name', 'ltable_Artist_Name', 'ltable_Price', 'ltable_Released',
+            'rtable_Song_Name', 'rtable_Artist_Name', 'rtable_Price', 'rtable_Released'])
+        id_attr= '_id'
         label_attr = 'label'
         fields = _make_fields(header, id_attr, label_attr,
-                              ['left_price', 'right_price'], True, True)
-        self.assertEqual(len(fields), 10)
+                              ['ltable_id', 'rtable_id'], True, 'moses',True)
+        self.assertEqual(len(fields), 12)
         counter = {}
         for tup in fields:
             if tup[1] not in counter:
                 counter[tup[1]] = 0
             counter[tup[1]] += 1
-        self.assertEqual(sorted(list(counter.values())), [1, 1, 2, 6])
+        self.assertEqual(sorted(list(counter.values())), [1, 1, 2, 8])
 
 class ProcessTestCases(unittest.TestCase):
     def test_process_1(self):
@@ -130,6 +130,7 @@ class ProcessTestCases(unittest.TestCase):
         ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
 
         process(data_dir, train=train_path, validation=valid_path, test=test_path,
+                id_attr='_id', left_prefix='ltable_', right_prefix='rtable_',
                 cache=cache_file, embeddings=ft, embeddings_cache_path='')
 
         if os.path.exists(vectors_cache_dir):
@@ -137,3 +138,7 @@ class ProcessTestCases(unittest.TestCase):
 
         if os.path.exists(cache_path):
             os.remove(cache_path)
+
+class DataFrameSplitTestCases(unittest.TestCase):
+    def test_split_1(self):
+        pass

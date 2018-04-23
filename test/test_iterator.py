@@ -37,6 +37,7 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
 
         datasets = process(data_dir, train=train_path, validation=valid_path,
                            test=test_path, cache=cache_file, embeddings=ft,
+                           id_attr='_id', left_prefix='ltable_', right_prefix='rtable_',
                            embeddings_cache_path='',pca=False)
 
         splits = MatchingIterator.splits(datasets, batch_size=16)
@@ -76,6 +77,7 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
 
         datasets = process(data_dir, train=train_path, validation=valid_path,
                            test=test_path, cache=cache_file, embeddings=ft,
+                           id_attr='_id', left_prefix='ltable_', right_prefix='rtable_',
                            embeddings_cache_path='',pca=False)
 
         splits = MatchingIterator.splits(datasets, batch_size=16)
