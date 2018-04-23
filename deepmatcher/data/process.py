@@ -1,6 +1,8 @@
 import io
-import os
 import logging
+import os
+
+import six
 
 from torchtext.utils import unicode_csv_reader
 
@@ -35,7 +37,7 @@ def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore
 
 
 def _make_fields(header, id_attr, label_attr, ignore_columns, lower, tokenize,
-        include_lengths):
+                 include_lengths):
     r"""Create field metadata, i.e., attribute processing specification for each
     attribute.
 
@@ -46,6 +48,8 @@ def _make_fields(header, id_attr, label_attr, ignore_columns, lower, tokenize,
             (e.g. "left_address") and corresponding :class:`~data.MatchingField` pairs,
             in the same order that the columns occur in the CSV file.
     """
+    assert isinstance(tokenize, six.string_types)
+
     text_field = MatchingField(
         lower=lower,
         tokenize=tokenize,
@@ -95,7 +99,7 @@ def process(path,
             left_prefix='left_',
             right_prefix='right_',
             pca=True):
-    r"""Creates dataset objects for multiple splits of a dataset.
+    """Creates dataset objects for multiple splits of a dataset.
 
     This involves the following steps (if data cannot be retrieved from the cache):
     #. Read CSV header of a data file and verify header is sane.
@@ -104,7 +108,7 @@ def process(path,
     #. Load each data file:
         #. Read each example (tuple pair) in specified CSV file.
         #. Preprocess example. Involves lowercasing and tokenization (unless disabled).
-        #. Compute metadata if training data file.
+        #. Compute metadata if training data file. \
             See :meth:`MatchingDataset.compute_metadata` for details.
     #. Create vocabulary consisting of all tokens in all attributes in all datasets.
     #. Download word embedding data if necessary.
@@ -128,24 +132,30 @@ def process(path,
             are modified or if the field options change. Defaults to False.
         lowercase (bool): Whether to lowercase all words in all attributes.
         embeddings (str or list): One or more of the following strings:
-            * ``fasttext.{lang}.bin``: Uses binary models from "wiki word vectors"
-                released by FastText. {lang} is 'en' or any other 2 letter ISO 639-1
-                Language Code, or 3 letter ISO 639-2 Code, if the language does not
-                have a 2 letter code. 300d vectors. ``fasttext.en.bin`` is the default.
-            * ``fasttext.wiki.vec``: Uses wiki news word vectors released as part of
-                "Advances in Pre-Training Distributed Word Representations" by
-                Mikolov et al. (2018). 300d vectors.
-            * ``fasttext.wiki.vec``: Uses Common Crawl word vectors released as part
-                of "Advances in Pre-Training Distributed Word Representations" by
-                Mikolov et al. (2018). 300d vectors.
-            * ``glove.6B.{dims}``: Uses uncased Glove trained on Wiki + Gigaword.
-                {dims} is one of (50d, 100d, 200d, or 300d).
-            * ``glove.42B.300d``: Uses uncased Glove trained on Common Crawl.
+
+            * `fasttext.{lang}.bin`:
+                This uses sub-word level word embeddings based on binary models from "wiki
+                word vectors" released by FastText. {lang} is 'en' or any other 2 letter
+                ISO 639-1 Language Code, or 3 letter ISO 639-2 Code, if the language does
+                not have a 2 letter code. 300d vectors.
+                ``fasttext.en.bin`` is the default.
+            * `fasttext.wiki.vec`:
+                Uses wiki news word vectors released as part of "Advances in Pre-Training
+                Distributed Word Representations" by Mikolov et al. (2018). 300d vectors.
+            * `fasttext.crawl.vec`:
+                Uses Common Crawl word vectors released as part of "Advances in
+                Pre-Training Distributed Word Representations" by Mikolov et al. (2018).
                 300d vectors.
-            * ``glove.840B.300d``: Uses cased Glove trained on Common Crawl.
-                300d vectors.
-            * ``glove.twitter.27B.{dims}``: Uses cased Glove trained on Twitter.
-                {dims} is one of (25d, 50d, 100d, or 200d).
+            * `glove.6B.{dims}`:
+                Uses uncased Glove trained on Wiki + Gigaword. {dims} is one of (50d,
+                100d, 200d, or 300d).
+            * `glove.42B.300d`:
+                Uses uncased Glove trained on Common Crawl. 300d vectors.
+            * `glove.840B.300d`:
+                Uses cased Glove trained on Common Crawl. 300d vectors.
+            * `glove.twitter.27B.{dims}`:
+                Uses cased Glove trained on Twitter. {dims} is one of (25d, 50d, 100d, or
+                200d).
         embeddings_cache_path (str): Directory to store dowloaded word vector data.
         ignore_columns (list): A list of columns to ignore in the CSV files.
         include_lengths (bool): Whether to provide the model with the lengths of

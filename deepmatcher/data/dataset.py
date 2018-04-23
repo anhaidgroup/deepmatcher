@@ -2,27 +2,32 @@ from __future__ import division
 
 import logging
 import os
+import pdb
 from collections import Counter, defaultdict
 from timeit import default_timer as timer
 
+import pandas as pd
 import six
 from sklearn.decomposition import TruncatedSVD
 
 import torch
 import torch.nn as nn
-import pandas as pd
 from torchtext import data
 
 from ..models.modules import NoMeta, Pool
 from .iterator import MatchingIterator
 
-import pdb
-
 logger = logging.getLogger(__name__)
 
 
-def split(table, path, train_prefix, validation_prefix, test_prefix,
-    split_ratio=[0.6, 0.2, 0.2], stratified=False, strata_field='label'):
+def split(table,
+          path,
+          train_prefix,
+          validation_prefix,
+          test_prefix,
+          split_ratio=[0.6, 0.2, 0.2],
+          stratified=False,
+          strata_field='label'):
     """Split a pandas dataframe or CSV file into train / validation / test data sets.
 
     Args:
@@ -31,13 +36,15 @@ def split(table, path, train_prefix, validation_prefix, test_prefix,
         train: Suffix to add to `path` to get the training set save path.
         validation: Suffix to add to `path` to get the validation set save path.
         test: Suffix to add to `path` to get the test set save path.
-        split_ratio (List of floats): a list of numbers denoting the relative sizes of
+        split_ratio (List of floats): a list of 3 numbers denoting the relative sizes of
             train, test and valid splits respectively. Default is [0.6, 0.2, 0.2].
         stratified (bool): whether the sampling should be stratified.
             Default is False.
         strata_field (str): name of the examples Field stratified over.
             Default is 'label' for the conventional label field.
     """
+    assert len(split_ratio) == 3
+
     if not isinstance(table, pd.DataFrame):
         table = pd.read_csv(table)
     if table.index.name is not None:
@@ -48,12 +55,14 @@ def split(table, path, train_prefix, validation_prefix, test_prefix,
     dataset = data.Dataset(examples, fields)
     train, valid, test = dataset.split(split_ratio, stratified, strata_field)
 
-    pd.DataFrame(train.examples).to_csv(
-        os.path.join(path, train_prefix), index=False)
-    pd.DataFrame(valid.examples).to_csv(
-        os.path.join(path, validation_prefix), index=False)
-    pd.DataFrame(test.examples).to_csv(
-        os.path.join(path, test_prefix), index=False)
+    tables = (pd.DataFrame(train.examples), pd.DataFrame(valid.examples),
+              pd.DataFrame(test.examples))
+    prefixes = (train_prefix, validation_prefix, test_prefix)
+
+    for i in range(len(tables)):
+        tables[i].columns = table.columns
+        tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
+
 
 class MatchingDataset(data.TabularDataset):
     r"""Represents dataset with associated metadata.
@@ -247,7 +256,6 @@ class MatchingDataset(data.TabularDataset):
                 embeddings = inv_freq_pool(embed[name](attr_input))
                 attr_embeddings[name].append(embeddings.data.data)
 
-
         # Compute the first principal component of weighted sequence embeddings for each
         # attribute.
         pc = {}
@@ -383,17 +391,17 @@ class MatchingDataset(data.TabularDataset):
             for modifications.
         """
         cached_data = torch.load(cachefile)
-        cache_stale_cause = []
+        cache_stale_cause = set()
 
         if datafiles != cached_data['datafiles']:
-            cache_stale_cause.append('Data file list has changed.')
+            cache_stale_cause.add('Data file list has changed.')
 
         datafiles_modified = [os.path.getmtime(datafile) for datafile in datafiles]
         if datafiles_modified != cached_data['datafiles_modified']:
-            cache_stale_cause.append('One or more data files have been modified.')
+            cache_stale_cause.add('One or more data files have been modified.')
 
         if set(fields.keys()) != set(cached_data['field_args'].keys()):
-            cache_stale_cause.append('Fields have changed.')
+            cache_stale_cause.add('Fields have changed.')
 
         for name, field in six.iteritems(fields):
             none_mismatch = (field is None) != (cached_data['field_args'][name] is None)
@@ -401,12 +409,12 @@ class MatchingDataset(data.TabularDataset):
             if field is not None and cached_data['field_args'][name] is not None:
                 args_mismatch = field.preprocess_args() != cached_data['field_args'][name]
             if none_mismatch or args_mismatch:
-                cache_stale_cause.append('Field arguments have changed.')
+                cache_stale_cause.add('Field arguments have changed.')
 
         if column_naming != cached_data['column_naming']:
-            cache_stale_cause.append('Other arguments have changed.')
+            cache_stale_cause.add('Other arguments have changed.')
 
-        cache_stale_cause.extend(
+        cache_stale_cause.update(
             MatchingDataset.state_args_compatibility(state_args,
                                                      cached_data['state_args']))
 
@@ -508,8 +516,11 @@ class MatchingDataset(data.TabularDataset):
                 cached_data, cache_stale_cause = MatchingDataset.load_cache(
                     fields_dict, datafiles, cachefile, column_naming, state_args)
 
-                if check_cached_data and cache_stale_cause and not auto_rebuild_cache:
-                    raise MatchingDataset.CacheStaleException(cache_stale_cause)
+                if check_cached_data and cache_stale_cause:
+                    if not auto_rebuild_cache:
+                        raise MatchingDataset.CacheStaleException(cache_stale_cause)
+                    else:
+                        print('Rebuilding data cache because:', cache_stale_cause)
 
                 if not check_cached_data or not cache_stale_cause:
                     datasets = MatchingDataset.restore_data(fields, cached_data)
@@ -519,11 +530,7 @@ class MatchingDataset(data.TabularDataset):
 
         if not datasets:
             begin = timer()
-            dataset_args = {
-                'fields': fields,
-                'column_naming': column_naming,
-                **kwargs
-            }
+            dataset_args = {'fields': fields, 'column_naming': column_naming, **kwargs}
             if not unlabeled:
                 train_data = None if train is None else cls(
                     path=os.path.join(path, train), **dataset_args)
@@ -535,8 +542,7 @@ class MatchingDataset(data.TabularDataset):
                     d for d in (train_data, val_data, test_data) if d is not None)
             else:
                 datasets = (MatchingDataset(
-                    path=os.path.join(path, unlabeled),
-                    **dataset_args),)
+                    path=os.path.join(path, unlabeled), **dataset_args),)
 
             after_load = timer()
             print('Load time:', after_load - begin)

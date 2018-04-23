@@ -4,8 +4,10 @@ import os
 import pdb
 import sys
 import time
-import pandas as pd
+import warnings
 from collections import OrderedDict
+
+import pandas as pd
 
 import pyprind
 import torch
@@ -285,7 +287,8 @@ class Runner(object):
               epochs=30,
               criterion=None,
               optimizer=None,
-              pos_weight=1,
+              pos_neg_ratio=None,
+              pos_weight=None,
               label_smoothing=0.05,
               save_every_prefix=None,
               save_every_freq=None,
@@ -297,7 +300,19 @@ class Runner(object):
         model.register_train_buffer('epoch')
 
         if criterion is None:
-            assert pos_weight < 2
+            if pos_weight is not None:
+                assert pos_weight < 2
+                warnings.warn("'pos_weight' is deprecated and will be removed in a later "
+                              "release, please use 'pos_neg_ratio' instead",
+                              DeprecationWarning)
+                assert pos_neg_ratio is None
+            else:
+                if pos_neg_ratio is None:
+                    pos_neg_ratio = 1
+                else:
+                    assert pos_neg_ratio > 0
+                pos_weight = 2 * pos_neg_ratio / (1 + pos_neg_ratio)
+
             neg_weight = 2 - pos_weight
 
             criterion = SoftNLLLoss(label_smoothing,
@@ -348,7 +363,8 @@ class Runner(object):
         return Runner._run('EVAL', model, dataset, **kwargs)
 
     def predict(model, dataset, output_attributes=False, **kwargs):
-        predictions = Runner._run('PREDICT', model, dataset, return_predictions=True, **kwargs)
+        predictions = Runner._run(
+            'PREDICT', model, dataset, return_predictions=True, **kwargs)
         pred_table = pd.DataFrame(predictions, columns=(dataset.id_field, 'match_score'))
         pred_table = pred_table.set_index(dataset.id_field)
 
