@@ -111,32 +111,32 @@ class MakeFieldsTestCases(unittest.TestCase):
             counter[tup[1]] += 1
         self.assertEqual(sorted(list(counter.values())), [1, 1, 2, 8])
 
-class ProcessTestCases(unittest.TestCase):
-    def test_process_1(self):
-        vectors_cache_dir = '.cache'
-        if os.path.exists(vectors_cache_dir):
-            shutil.rmtree(vectors_cache_dir)
-
-        data_dir = os.path.join(test_dir_path, 'test_datasets')
-        train_path = 'sample_table_large.csv'
-        valid_path = 'sample_table_large.csv'
-        test_path = 'sample_table_large.csv'
-        cache_file = 'cache.pth'
-        cache_path = os.path.join(data_dir, cache_file)
-        if os.path.exists(cache_path):
-            os.remove(cache_path)
-
-        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
-        filename = 'fasttext_sample.vec.zip'
-        url_base = urljoin('file:', pathname2url(pathdir)) + os.path.sep
-        ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
-
-        process(data_dir, train=train_path, validation=valid_path, test=test_path,
-                id_attr='_id', left_prefix='ltable_', right_prefix='rtable_',
-                cache=cache_file, embeddings=ft, embeddings_cache_path='')
-
-        if os.path.exists(vectors_cache_dir):
-            shutil.rmtree(vectors_cache_dir)
-
-        if os.path.exists(cache_path):
-            os.remove(cache_path)
+# class ProcessTestCases(unittest.TestCase):
+#     def test_process_1(self):
+#         vectors_cache_dir = '.cache'
+#         if os.path.exists(vectors_cache_dir):
+#             shutil.rmtree(vectors_cache_dir)
+#
+#         data_dir = os.path.join(test_dir_path, 'test_datasets')
+#         train_path = 'sample_table_large.csv'
+#         valid_path = 'sample_table_large.csv'
+#         test_path = 'sample_table_large.csv'
+#         cache_file = 'cache.pth'
+#         cache_path = os.path.join(data_dir, cache_file)
+#         if os.path.exists(cache_path):
+#             os.remove(cache_path)
+#
+#         pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
+#         filename = 'fasttext_sample.vec.zip'
+#         url_base = urljoin('file:', pathname2url(pathdir)) + os.path.sep
+#         ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
+#
+#         process(data_dir, train=train_path, validation=valid_path, test=test_path,
+#                 id_attr='_id', left_prefix='ltable_', right_prefix='rtable_',
+#                 cache=cache_file, embeddings=ft, embeddings_cache_path='')
+#
+#         if os.path.exists(vectors_cache_dir):
+#             shutil.rmtree(vectors_cache_dir)
+#
+#         if os.path.exists(cache_path):
+#             os.remove(cache_path)
