@@ -44,4 +44,4 @@ install:
   - pip install -q --process-dependency-links git+https://github.com/sidharthms/deepmatcher
 
 script:
-  - nosetests -s
+  - nosetests -v
