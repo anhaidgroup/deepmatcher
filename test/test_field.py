@@ -19,7 +19,7 @@ from deepmatcher.data.field import FastText, MatchingField
 
 import nltk
 nltk.download('perluniprops')
-
+nltk.download('nonbreaking_prefixes')
 
 class ClassFastTextTestCases(unittest.TestCase):
     def test_init_1(self):
