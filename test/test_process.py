@@ -8,6 +8,8 @@ from torchtext.utils import unicode_csv_reader
 from deepmatcher.data.process import _check_header, _make_fields, process
 from deepmatcher.data.field import FastText
 
+from test import test_dir_path
+
 try:
     from urllib.parse import urljoin
     from urllib.request import pathname2url
@@ -17,7 +19,7 @@ except ImportError:
 
 class CheckHeaderTestCases(unittest.TestCase):
     def test_check_header_1(self):
-        path = os.path.join('.', 'test_datasets')
+        path = os.path.join(test_dir_path, 'test_datasets')
         a_dataset = 'sample_table_small.csv'
         with io.open(os.path.expanduser(os.path.join(path, a_dataset)),
                 encoding="utf8") as f:
@@ -31,7 +33,7 @@ class CheckHeaderTestCases(unittest.TestCase):
 
     @raises(AssertionError)
     def test_check_header_2(self):
-        path = os.path.join('.', 'test_datasets')
+        path = os.path.join(test_dir_path, 'test_datasets')
         a_dataset = 'sample_table_small.csv'
         with io.open(os.path.expanduser(os.path.join(path, a_dataset)),
                 encoding="utf8") as f:
@@ -45,7 +47,7 @@ class CheckHeaderTestCases(unittest.TestCase):
 
     @raises(AssertionError)
     def test_check_header_3(self):
-        path = os.path.join('.', 'test_datasets')
+        path = os.path.join(test_dir_path, 'test_datasets')
         a_dataset = 'sample_table_small.csv'
         with io.open(os.path.expanduser(os.path.join(path, a_dataset)),
                 encoding="utf8") as f:
@@ -59,7 +61,7 @@ class CheckHeaderTestCases(unittest.TestCase):
 
     @raises(AssertionError)
     def test_check_header_5(self):
-        path = os.path.join('.', 'test_datasets')
+        path = os.path.join(test_dir_path, 'test_datasets')
         a_dataset = 'sample_table_small.csv'
         with io.open(os.path.expanduser(os.path.join(path, a_dataset)),
                 encoding="utf8") as f:
@@ -73,7 +75,7 @@ class CheckHeaderTestCases(unittest.TestCase):
 
     @raises(AssertionError)
     def test_check_header_6(self):
-        path = os.path.join('.', 'test_datasets')
+        path = os.path.join(test_dir_path, 'test_datasets')
         a_dataset = 'sample_table_small.csv'
         with io.open(os.path.expanduser(os.path.join(path, a_dataset)),
                 encoding="utf8") as f:
@@ -89,7 +91,7 @@ class CheckHeaderTestCases(unittest.TestCase):
 
 class MakeFieldsTestCases(unittest.TestCase):
     def test_make_fields_1(self):
-        path = os.path.join('.', 'test_datasets')
+        path = os.path.join(test_dir_path, 'test_datasets')
         a_dataset = 'sample_table_large.csv'
         with io.open(os.path.expanduser(os.path.join(path, a_dataset)),
                 encoding="utf8") as f:
@@ -115,7 +117,7 @@ class ProcessTestCases(unittest.TestCase):
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 
-        data_dir = os.path.join('.', 'test_datasets')
+        data_dir = os.path.join(test_dir_path, 'test_datasets')
         train_path = 'sample_table_large.csv'
         valid_path = 'sample_table_large.csv'
         test_path = 'sample_table_large.csv'
@@ -124,7 +126,7 @@ class ProcessTestCases(unittest.TestCase):
         if os.path.exists(cache_path):
             os.remove(cache_path)
 
-        pathdir = os.path.abspath(os.path.join('.', 'test_datasets'))
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec.zip'
         url_base = urljoin('file:', pathname2url(pathdir)) + os.path.sep
         ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
@@ -138,7 +140,3 @@ class ProcessTestCases(unittest.TestCase):
 
         if os.path.exists(cache_path):
             os.remove(cache_path)
-
-class DataFrameSplitTestCases(unittest.TestCase):
-    def test_split_1(self):
-        pass

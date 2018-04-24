@@ -8,6 +8,8 @@ from deepmatcher.data.field import FastText
 from deepmatcher.data.process import process
 from deepmatcher.data.iterator import MatchingIterator
 
+from test import test_dir_path
+
 try:
     from urllib.parse import urljoin
     from urllib.request import pathname2url
@@ -21,7 +23,7 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 
-        data_dir = os.path.join('.', 'test_datasets')
+        data_dir = os.path.join(test_dir_path, 'test_datasets')
         train_path = 'sample_table_large.csv'
         valid_path = 'sample_table_large.csv'
         test_path = 'sample_table_large.csv'
@@ -30,7 +32,7 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
         if os.path.exists(cache_path):
             os.remove(cache_path)
 
-        pathdir = os.path.abspath(os.path.join('.', 'test_datasets'))
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec.zip'
         url_base = urljoin('file:', pathname2url(pathdir)) + os.path.sep
         ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
@@ -61,7 +63,7 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 
-        data_dir = os.path.join('.', 'test_datasets')
+        data_dir = os.path.join(test_dir_path, 'test_datasets')
         train_path = 'sample_table_large.csv'
         valid_path = 'sample_table_large.csv'
         test_path = 'sample_table_large.csv'
@@ -70,7 +72,7 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
         if os.path.exists(cache_path):
             os.remove(cache_path)
 
-        pathdir = os.path.abspath(os.path.join('.', 'test_datasets'))
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec.zip'
         url_base = urljoin('file:', pathname2url(pathdir)) + os.path.sep
         ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)

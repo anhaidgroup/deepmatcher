@@ -6,6 +6,8 @@ import torch
 from torchtext.vocab import Vectors
 import unittest
 
+from test import test_dir_path
+
 try:
     from urllib.parse import urljoin
     from urllib.request import pathname2url
@@ -21,7 +23,7 @@ class ClassFastTextTestCases(unittest.TestCase):
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 
-        pathdir = os.path.abspath(os.path.join('.', 'test_datasets'))
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec.zip'
         url_base = urljoin('file:', pathname2url(pathdir)) + os.path.sep
         mft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
@@ -66,14 +68,14 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
     def test_build_vocab_2(self):
         mf = MatchingField()
         vector_file_name = 'fasttext.wiki_test.vec'
-        cache_dir = os.path.join('.', 'test_datasets')
+        cache_dir = os.path.join(test_dir_path, 'test_datasets')
         vec_data = mf.build_vocab(vectors=vector_file_name, cache=cache_dir)
 
     @raises(KeyError)
     def test_build_vocab_3(self):
         mf = MatchingField()
         vector_file_name = 'fasttext.crawl_test.vec'
-        cache_dir = os.path.join('.', 'test_datasets')
+        cache_dir = os.path.join(test_dir_path, 'test_datasets')
         vec_data = mf.build_vocab(vectors=vector_file_name, cache=cache_dir)
         self.assertIsNone(vec_data)
 
@@ -82,7 +84,7 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 
-        pathdir = os.path.abspath(os.path.join('.', 'test_datasets'))
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec'
         file = os.path.join(pathdir, filename)
         url_base = urljoin('file:', pathname2url(file))
