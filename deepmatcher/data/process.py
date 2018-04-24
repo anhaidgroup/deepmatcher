@@ -1,6 +1,8 @@
+import copy
 import io
 import logging
 import os
+from timeit import default_timer as timer
 
 import six
 
@@ -123,8 +125,6 @@ def process(path,
             for no validation set. Default is None.
         test (str): Suffix to add to path for the test set, or None for no test
             set. Default is None.
-        unlabeled (str): Suffix to add to path for an unlabeled dataset (e.g. for
-            prediction). Default is None.
         cache (str): Suffix to add to path for cache file. If `None` disables caching.
         check_cached_data (bool): Verify that data files haven't changes since the
             cache was constructed and that relevant field options haven't changed.
@@ -173,12 +173,14 @@ def process(path,
         Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in that
             order, if provided, or dataset for unlabeled, if provided.
     """
+    if unlabeled is not None:
+        raise ValueError('Parameter "unlabeled" has been deprecated, use '
+                         '"deepmatcher.data.process_unlabeled" instead.')
+
     # TODO(Sid): check for all datasets to make sure the files exist and have the same schema
-    a_dataset = train or validation or test or unlabeled
+    a_dataset = train or validation or test
     with io.open(os.path.expanduser(os.path.join(path, a_dataset)), encoding="utf8") as f:
         header = next(unicode_csv_reader(f))
-
-    label_attr = None if unlabeled else label_attr
 
     _maybe_download_nltk_data()
     _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns)
@@ -192,12 +194,11 @@ def process(path,
         'label': label_attr
     }
 
-    return MatchingDataset.splits(
+    datasets = MatchingDataset.splits(
         path,
         train,
         validation,
         test,
-        unlabeled,
         fields,
         embeddings,
         embeddings_cache_path,
@@ -206,3 +207,55 @@ def process(path,
         check_cached_data,
         auto_rebuild_cache,
         train_pca=pca)
+
+    # Save additional information to train dataset.
+    datasets[0].ignore_columns = ignore_columns
+    datasets[0].tokenize = tokenize
+    datasets[0].lowercase = lowercase
+    datasets[0].include_lengths = include_lengths
+
+    return datasets
+
+
+def process_unlabeled(path, trained_model, ignore_columns=None):
+    with io.open(path, encoding="utf8") as f:
+        header = next(unicode_csv_reader(f))
+
+    train_info = trained_model.meta
+    if ignore_columns is None:
+        ignore_columns = train_info.ignore_columns
+    column_naming = dict(train_info.column_naming)
+    column_naming['label'] = None
+
+    fields = _make_fields(header, column_naming['id'], column_naming['label'],
+                          ignore_columns, train_info.lowercase, train_info.tokenize,
+                          train_info.include_lengths)
+
+    begin = timer()
+    dataset_args = {'fields': fields, 'column_naming': column_naming}
+    dataset = MatchingDataset(path=path, **dataset_args)
+
+    # Make sure we have the same attributes.
+    assert set(dataset.all_text_fields) == set(train_info.all_text_fields)
+
+    after_load = timer()
+    print('Load time:', after_load - begin)
+
+    reverse_fields_dict = dict((pair[1], pair[0]) for pair in fields)
+    for field, name in reverse_fields_dict.items():
+        if field is not None and field.use_vocab:
+            # Copy over vocab from original train data.
+            field.vocab = copy.deepcopy(train_info.vocabs[name])
+            # Then extend the vocab.
+            field.extend_vocab(
+                dataset, vectors=train_info.embeddings, cache=train_info.embeddings_cache)
+
+    dataset.vocabs = {
+        name: dataset.fields[name].vocab
+        for name in train_info.all_text_fields
+    }
+
+    after_vocab = timer()
+    print('Vocab update time:', after_vocab - after_load)
+
+    return dataset

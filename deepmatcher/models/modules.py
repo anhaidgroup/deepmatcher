@@ -335,7 +335,7 @@ class Pool(LazyModule):
     def _init(self, style, alpha=0.001):
         assert self.supports_style(style)
         self.style = style.lower()
-        self.alpha = alpha
+        self.register_buffer('alpha', torch.Tensor([alpha]))
 
     def _forward(self, input_with_meta):
         input = input_with_meta.data
@@ -378,14 +378,10 @@ class Pool(LazyModule):
             elif self.style == 'divsqrt':
                 output = input.sum(1) / lengths.sqrt()
             elif self.style == 'inv-freq-avg':
-                if isinstance(self.alpha, numbers.Real):
-                    self.alpha = input.data.new([self.alpha])
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
                 weighted = input * Variable(inv_probs.unsqueeze(2))
                 output = weighted.sum(1) / lengths.sqrt()
             elif self.style == 'sif':
-                if isinstance(self.alpha, numbers.Real):
-                    self.alpha = input.data.new([self.alpha])
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
                 weighted = input * Variable(inv_probs.unsqueeze(2))
                 output = (weighted.sum(1) / lengths.sqrt()) - Variable(input_with_meta.pc)

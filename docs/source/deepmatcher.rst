@@ -30,9 +30,3 @@ AttrSummarizer Submodules
 
 .. autoclass:: deepmatcher.WordAggregator
     :members:
-
-
-Data Processing Utilities
-----------------------------------
-
-.. autofunction:: deepmatcher.process

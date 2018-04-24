@@ -75,7 +75,35 @@ class FastTextBinary(vocab.Vectors):
         self.dim = len(self['a'])
 
 
+class MatchingVocab(vocab.Vocab):
+
+    def extend_vectors(self, tokens, vectors):
+        tot_dim = sum(v.dim for v in vectors)
+        prev_len = len(self.itos)
+
+        new_tokens = []
+        for token in tokens:
+            if token not in self.stoi:
+                self.itos.append(token)
+                self.stoi[token] = len(self.itos) - 1
+                new_tokens.append(token)
+        self.vectors.resize_(len(self.itos), tot_dim)
+
+        for i in range(prev_len, prev_len + len(new_tokens)):
+            token = self.itos[i]
+            assert token == new_tokens[i - prev_len]
+
+            start_dim = 0
+            for v in vectors:
+                end_dim = start_dim + v.dim
+                self.vectors[i][start_dim:end_dim] = v[token.strip()]
+                start_dim = end_dim
+            assert (start_dim == tot_dim)
+
+
 class MatchingField(data.Field):
+    vocab_cls = MatchingVocab
+
     _cached_vec_data = {}
 
     def __init__(self, tokenize='moses', id=False, **kwargs):
@@ -130,6 +158,30 @@ class MatchingField(data.Field):
         if vectors is not None:
             vectors = MatchingField._get_vector_data(vectors, cache)
         super(MatchingField, self).build_vocab(*args, vectors=vectors, **kwargs)
+
+    def extend_vocab(self, *args, vectors=None, cache=None):
+        sources = []
+        for arg in args:
+            if isinstance(arg, data.Dataset):
+                sources += [
+                    getattr(arg, name)
+                    for name, field in arg.fields.items()
+                    if field is self
+                ]
+            else:
+                sources.append(arg)
+
+        tokens = set()
+        for source in sources:
+            for x in source:
+                if not self.sequential:
+                    tokens.add(x)
+                else:
+                    tokens.update(x)
+
+        if self.vocab.vectors is not None:
+            vectors = MatchingField._get_vector_data(vectors, cache)
+            self.vocab.extend_vectors(tokens, vectors)
 
     def numericalize(self, arr, *args, **kwargs):
         if not self.is_id:

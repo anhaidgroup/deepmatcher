@@ -1,5 +1,6 @@
 from __future__ import division
 
+import copy
 import logging
 import os
 import pdb
@@ -15,6 +16,7 @@ import torch.nn as nn
 from torchtext import data
 
 from ..models.modules import NoMeta, Pool
+from .field import MatchingField
 from .iterator import MatchingIterator
 
 logger = logging.getLogger(__name__)
@@ -200,7 +202,7 @@ class MatchingDataset(data.TabularDataset):
 
         # Create an iterator over the entire dataset.
         train_iter = MatchingIterator(
-            self, self, batch_size=1024, device=-1, sort_in_buckets=False)
+            self, self, train=False, batch_size=1024, device=-1, sort_in_buckets=False)
         counter = defaultdict(Counter)
 
         # For each attribute, find the number of times each word id occurs in the dataset.
@@ -245,7 +247,7 @@ class MatchingDataset(data.TabularDataset):
 
         # Create an iterator over the entire dataset.
         train_iter = MatchingIterator(
-            self, self, batch_size=1024, device=-1, sort_in_buckets=False)
+            self, self, train=False, batch_size=1024, device=-1, sort_in_buckets=False)
         attr_embeddings = defaultdict(list)
 
         # Run the constructed neural network to compute weighted sequence embeddings
@@ -273,6 +275,7 @@ class MatchingDataset(data.TabularDataset):
         the cache.
         """
 
+        self.orig_metadata = copy.deepcopy(self.metadata)
         for name in self.all_text_fields:
             self.metadata['word_probs'][name] = defaultdict(
                 lambda: 1 / self.metadata['totals'][name],
@@ -410,6 +413,8 @@ class MatchingDataset(data.TabularDataset):
                 args_mismatch = field.preprocess_args() != cached_data['field_args'][name]
             if none_mismatch or args_mismatch:
                 cache_stale_cause.add('Field arguments have changed.')
+            if field is not None and not isinstance(field, MatchingField):
+                cache_stale_cause.add('Cache update required.')
 
         if column_naming != cached_data['column_naming']:
             cache_stale_cause.add('Other arguments have changed.')
@@ -456,10 +461,9 @@ class MatchingDataset(data.TabularDataset):
     @classmethod
     def splits(cls,
                path,
-               train,
+               train=None,
                validation=None,
                test=None,
-               unlabeled=None,
                fields=None,
                embeddings=None,
                embeddings_cache=None,
@@ -478,8 +482,6 @@ class MatchingDataset(data.TabularDataset):
                 for no validation set. Default is None.
             test (str): Suffix to add to path for the test set, or None for no test
                 set. Default is None.
-            unlabeled (str): Suffix to add to path for an unlabeled dataset (e.g. for
-                prediction). Default is None.
             fields (list(tuple(str, MatchingField))): A list of tuples containing column
                 name (e.g. "left_address") and corresponding :class:`~data.MatchingField`
                 pairs, in the same order that the columns occur in the CSV file. Tuples of
@@ -501,14 +503,14 @@ class MatchingDataset(data.TabularDataset):
 
         Returns:
             Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in
-                that order, if provided, or dataset for unlabeled, if provided.
+                that order, if provided.
         """
 
         fields_dict = dict(fields)
         state_args = {'train_pca': train_pca}
 
         datasets = None
-        if cache and not unlabeled:
+        if cache:
             datafiles = list(f for f in (train, validation, test) if f is not None)
             datafiles = [os.path.expanduser(os.path.join(path, d)) for d in datafiles]
             cachefile = os.path.expanduser(os.path.join(path, cache))
@@ -531,18 +533,14 @@ class MatchingDataset(data.TabularDataset):
         if not datasets:
             begin = timer()
             dataset_args = {'fields': fields, 'column_naming': column_naming, **kwargs}
-            if not unlabeled:
-                train_data = None if train is None else cls(
-                    path=os.path.join(path, train), **dataset_args)
-                val_data = None if validation is None else cls(
-                    path=os.path.join(path, validation), **dataset_args)
-                test_data = None if test is None else cls(
-                    path=os.path.join(path, test), **dataset_args)
-                datasets = tuple(
-                    d for d in (train_data, val_data, test_data) if d is not None)
-            else:
-                datasets = (MatchingDataset(
-                    path=os.path.join(path, unlabeled), **dataset_args),)
+            train_data = None if train is None else cls(
+                path=os.path.join(path, train), **dataset_args)
+            val_data = None if validation is None else cls(
+                path=os.path.join(path, validation), **dataset_args)
+            test_data = None if test is None else cls(
+                path=os.path.join(path, test), **dataset_args)
+            datasets = tuple(
+                d for d in (train_data, val_data, test_data) if d is not None)
 
             after_load = timer()
             print('Load time:', after_load - begin)
@@ -560,14 +558,27 @@ class MatchingDataset(data.TabularDataset):
             after_metadata = timer()
             print('Metadata time:', after_metadata - after_vocab)
 
-            if cache and not unlabeled:
+            if cache:
                 MatchingDataset.save_cache(datasets, fields_dict, datafiles, cachefile,
                                            column_naming, state_args)
                 after_cache = timer()
                 print('Cache time:', after_cache - after_vocab)
 
         if train:
+
             datasets[0].finalize_metadata()
+
+            # Save additional information to train dataset.
+            datasets[0].embeddings = embeddings
+            datasets[0].embeddings_cache = embeddings_cache
+            datasets[0].train_pca = train_pca
+
+        # Set vocabs.
+        for dataset in datasets:
+            dataset.vocabs = {
+                name: datasets[0].fields[name].vocab
+                for name in datasets[0].all_text_fields
+            }
 
         if len(datasets) == 1:
             return datasets[0]

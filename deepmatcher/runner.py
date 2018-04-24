@@ -1,3 +1,4 @@
+import copy
 import logging
 import math
 import os
@@ -166,7 +167,8 @@ class Runner(object):
         sort_in_buckets = train
         run_iter = MatchingIterator(
             dataset,
-            model.train_dataset,
+            model.meta,
+            train,
             batch_size=batch_size,
             device=device,
             sort_in_buckets=sort_in_buckets)
@@ -187,18 +189,14 @@ class Runner(object):
         else:
             model.eval()
 
-        # Init model
-        init_batch = next(run_iter.__iter__())
-        model(init_batch)
-
         epoch = model.epoch
         datatime = 0
         runtime = 0
         cum_stats = Statistics()
         stats = Statistics()
         predictions = []
-        id_attr = model.train_dataset.id_field
-        label_attr = model.train_dataset.label_field
+        id_attr = model.meta.id_field
+        label_attr = model.meta.label_field
 
         if train and epoch == 0:
             Runner.tally_parameters(model)
@@ -241,7 +239,6 @@ class Runner(object):
             stats.update(float(loss), *scores)
 
             if return_predictions:
-                predicted = output.max(1)[1].data
                 for idx, id in enumerate(getattr(batch, id_attr)):
                     predictions.append((id, float(output[idx, 1].exp())))
 
@@ -295,15 +292,15 @@ class Runner(object):
               **kwargs):
         model.initialize(train_dataset)
 
-        model.register_train_buffer('optimizer_state')
-        model.register_train_buffer('best_score')
-        model.register_train_buffer('epoch')
+        model.register_train_buffer('optimizer_state', None)
+        model.register_train_buffer('best_score', None)
+        model.register_train_buffer('epoch', None)
 
         if criterion is None:
             if pos_weight is not None:
                 assert pos_weight < 2
-                warnings.warn("'pos_weight' is deprecated and will be removed in a later "
-                              "release, please use 'pos_neg_ratio' instead",
+                warnings.warn('"pos_weight" parameter is deprecated and will be removed '
+                              'in a later release, please use "pos_neg_ratio" instead',
                               DeprecationWarning)
                 assert pos_neg_ratio is None
             else:
@@ -363,6 +360,11 @@ class Runner(object):
         return Runner._run('EVAL', model, dataset, **kwargs)
 
     def predict(model, dataset, output_attributes=False, **kwargs):
+        # Create a shallow copy of the model and reset embeddings to use vocab and
+        # embeddings from new dataset.
+        model = copy.deepcopy(model)
+        model.reset_embeddings(dataset.vocabs)
+
         predictions = Runner._run(
             'PREDICT', model, dataset, return_predictions=True, **kwargs)
         pred_table = pd.DataFrame(predictions, columns=(dataset.id_field, 'match_score'))

@@ -11,7 +11,9 @@ import torch.nn.functional as F
 
 from . import _utils
 from ..batch import AttrTensor
+from ..data import MatchingDataset, MatchingIterator
 from ..runner import Runner
+from ..utils import Bunch
 
 
 class MatchingModel(nn.Module):
@@ -61,9 +63,6 @@ class MatchingModel(nn.Module):
             Defaults to :class:`Classifier`.
         hidden_size (int):
             TODO(Sid)
-        finetune_embeddings (boolean):
-            A boolean flag to choose if fine tuning on the word embeddings will be conducted.
-            The default value is False.
     """
 
     def __init__(self,
@@ -72,8 +71,7 @@ class MatchingModel(nn.Module):
                  attr_comparator=None,
                  attr_merge='concat',
                  classifier='2-layer-highway',
-                 hidden_size=300,
-                 finetune_embeddings=False):
+                 hidden_size=300):
 
         super(MatchingModel, self).__init__()
 
@@ -84,11 +82,10 @@ class MatchingModel(nn.Module):
         self.classifier = classifier
 
         self.hidden_size = hidden_size
-        self.finetune_embeddings = finetune_embeddings
         self._train_buffers = set()
         self._initialized = False
 
-    def initialize(self, train_dataset):
+    def initialize(self, train_dataset, init_batch=None):
         r"""
         Initialize (not lazily) the matching model given the actual training data.
 
@@ -98,13 +95,16 @@ class MatchingModel(nn.Module):
 
         if self._initialized:
             return
-        self.train_dataset = train_dataset
-        self.text_fields = train_dataset.text_fields
-        self.all_text_fields = train_dataset.all_text_fields
-        self.all_left_fields = train_dataset.all_left_fields
-        self.all_right_fields = train_dataset.all_right_fields
-        self.corresponding_field = train_dataset.corresponding_field
-        self.canonical_text_fields = train_dataset.canonical_text_fields
+
+        self.meta = train_dataset
+
+        # Copy over training info from train set for persistent state. But remove actual
+        # data examples.
+        self.register_train_buffer('state_meta', Bunch(**train_dataset.__dict__))
+        del self.state_meta.metadata  # we only need `self.meta.orig_metadata`
+        if hasattr(self.state_meta, 'fields'):
+            del self.state_meta.fields
+            del self.state_meta.examples
 
         self.attr_summarizers = dm.modules.ModuleMap()
         if isinstance(self.attr_summarizer, Mapping):
@@ -112,15 +112,16 @@ class MatchingModel(nn.Module):
                 self.attr_summarizers[name] = AttrSummarizer.create(
                     summarizer, hidden_size=self.hidden_size)
             assert len(
-                set(self.attr_summarizers.keys()) ^ set(self.canonical_text_fields)) == 0
+                set(self.attr_summarizers.keys()) ^ set(self.meta.canonical_text_fields)
+            ) == 0
         else:
             self.attr_summarizer = AttrSummarizer.create(
                 self.attr_summarizer, hidden_size=self.hidden_size)
-            for name in self.canonical_text_fields:
+            for name in self.meta.canonical_text_fields:
                 self.attr_summarizers[name] = copy.deepcopy(self.attr_summarizer)
 
         if self.attr_condense_factor == 'auto':
-            self.attr_condense_factor = min(len(self.canonical_text_fields), 6)
+            self.attr_condense_factor = min(len(self.meta.canonical_text_fields), 6)
             if self.attr_condense_factor == 1:
                 self.attr_condense_factor = None
 
@@ -128,7 +129,7 @@ class MatchingModel(nn.Module):
             self.attr_condensors = None
         else:
             self.attr_condensors = dm.modules.ModuleMap()
-            for name in self.canonical_text_fields:
+            for name in self.meta.canonical_text_fields:
                 self.attr_condensors[name] = dm.modules.Transform(
                     '1-layer-highway',
                     non_linearity=None,
@@ -139,32 +140,51 @@ class MatchingModel(nn.Module):
             for name, comparator in self.attr_comparator.items():
                 self.attr_comparators[name] = AttrComparator.create(comparator)
             assert len(
-                set(self.attr_comparators.keys()) ^ set(self.canonical_text_fields)) == 0
+                set(self.attr_comparators.keys()) ^ set(self.meta.canonical_text_fields)
+            ) == 0
         else:
             if isinstance(self.attr_summarizer, AttrSummarizer):
                 self.attr_comparator = self.get_attr_comparator(
                     self.attr_comparator, self.attr_summarizer)
             self.attr_comparator = AttrComparator.create(self.attr_comparator)
-            for name in self.canonical_text_fields:
+            for name in self.meta.canonical_text_fields:
                 self.attr_comparators[name] = copy.deepcopy(self.attr_comparator)
 
         self.attr_merge = dm.modules._merge_module(self.attr_merge)
         self.classifier = _utils.get_module(
             Classifier, self.classifier, hidden_size=self.hidden_size)
 
-        self.embed = dm.modules.ModuleMap()
-        field_embeds = {}
-        for name in self.all_text_fields:
-            field = train_dataset.fields[name]
-            if field not in field_embeds:
-                vectors_size = field.vocab.vectors.shape
-                embed = nn.Embedding(vectors_size[0], vectors_size[1])
-                embed.weight.data.copy_(field.vocab.vectors)
-                embed.weight.requires_grad = self.finetune_embeddings
-                field_embeds[field] = dm.modules.NoMeta(embed)
-            self.embed[name] = field_embeds[field]
+        self.reset_embeddings(train_dataset.vocabs)
+
+        # Instantiate all components using a small batch from training set.
+        if not init_batch:
+            run_iter = MatchingIterator(
+                train_dataset,
+                train_dataset,
+                train=False,
+                batch_size=4,
+                device=-1,
+                sort_in_buckets=False)
+            init_batch = next(run_iter.__iter__())
+        self.forward(init_batch)
+
+        # Keep this init_batch for future initializations.
+        self.state_meta.init_batch = init_batch
 
         self._initialized = True
+
+    def reset_embeddings(self, vocabs):
+        self.embed = dm.modules.ModuleMap()
+        field_vectors = {}
+        for name in self.meta.all_text_fields:
+            vectors = vocabs[name].vectors
+            if vectors not in field_vectors:
+                vectors_size = vectors.shape
+                embed = nn.Embedding(vectors_size[0], vectors_size[1])
+                embed.weight.data.copy_(vectors)
+                embed.weight.requires_grad = False
+                field_vectors[vectors] = dm.modules.NoMeta(embed)
+            self.embed[name] = field_vectors[vectors]
 
     def get_attr_comparator(self, arg, attr_summarizer):
         r"""
@@ -204,13 +224,13 @@ class MatchingModel(nn.Module):
             TODO(Sid)
         """
         embeddings = {}
-        for name in self.all_text_fields:
+        for name in self.meta.all_text_fields:
             attr_input = getattr(input, name)
             embeddings[name] = self.embed[name](attr_input)
 
         attr_comparisons = []
-        for name in self.canonical_text_fields:
-            left, right = self.text_fields[name]
+        for name in self.meta.canonical_text_fields:
+            left, right = self.meta.text_fields[name]
             left_summary, right_summary = self.attr_summarizers[name](embeddings[left],
                                                                       embeddings[right])
             left_summary, right_summary = left_summary.data, right_summary.data
@@ -223,11 +243,11 @@ class MatchingModel(nn.Module):
         entity_comparison = self.attr_merge(*attr_comparisons)
         return self.classifier(entity_comparison)
 
-    def register_train_buffer(self, name, value=None):
+    def register_train_buffer(self, name, value):
         self._train_buffers.add(name)
         setattr(self, name, value)
 
-    def save_state(self, path):
+    def save_state(self, path, include_meta=True):
         r"""
         Save the model state to a certain path.
 
@@ -236,7 +256,8 @@ class MatchingModel(nn.Module):
         """
         state = {'model': self.state_dict()}
         for k in self._train_buffers:
-            state[k] = getattr(self, k)
+            if include_meta or k != 'state_meta':
+                state[k] = getattr(self, k)
         torch.save(state, path)
 
     def load_state(self, path):
@@ -251,6 +272,17 @@ class MatchingModel(nn.Module):
             if k != 'model':
                 self._train_buffers.add(k)
                 setattr(self, k, v)
+
+        if hasattr(self, 'state_meta'):
+            train_info = copy.copy(self.state_meta)
+
+            # Handle metadata manually.
+            # TODO (Sid): Make this cleaner.
+            train_info.metadata = train_info.orig_metadata
+            MatchingDataset.finalize_metadata(train_info)
+
+            self.initialize(train_info, self.state_meta.init_batch)
+
         self.load_state_dict(state['model'])
 
     def run_train(self, *args, **kwargs):
