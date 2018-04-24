@@ -1,4 +1,5 @@
 language: python
+sudo: required
 
 matrix:
   include:
@@ -41,8 +42,7 @@ before_install:
 
 install:
   - conda install --yes python=$PYTHON_VERSION pip scikit-learn nose
-  - conda install --yes pytorch
-  - pip install --process-dependency-links git+https://github.com/sidharthms/deepmatcher
+  - pip install -q --process-dependency-links git+https://github.com/sidharthms/deepmatcher
   - python -m nltk.downloader perluniprops nonbreaking_prefixes
 
 script:
