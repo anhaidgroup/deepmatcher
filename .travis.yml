@@ -43,7 +43,7 @@ before_install:
 install:
   - conda install --yes python=$PYTHON_VERSION pip scikit-learn nose
   - pip install -q --process-dependency-links git+https://github.com/sidharthms/deepmatcher
-  - python -m nltk.downloader perluniprops nonbreaking_prefixes
+  #- python -m nltk.downloader perluniprops nonbreaking_prefixes
 
 script:
   - nosetests -v
