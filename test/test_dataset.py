@@ -10,9 +10,9 @@ from deepmatcher.data.process import process
 
 from test import test_dir_path
 
-import nltk
-nltk.download('perluniprops')
-nltk.download('nonbreaking_prefixes')
+# import nltk
+# nltk.download('perluniprops')
+# nltk.download('nonbreaking_prefixes')
 
 class ClassMatchingDatasetTestCases(unittest.TestCase):
     def test_init_1(self):
