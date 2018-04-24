@@ -17,6 +17,10 @@ except ImportError:
 
 from deepmatcher.data.field import FastText, MatchingField
 
+import nltk
+nltk.download('perluniprops')
+
+
 class ClassFastTextTestCases(unittest.TestCase):
     def test_init_1(self):
         vectors_cache_dir = '.cache'

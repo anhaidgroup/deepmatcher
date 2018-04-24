@@ -2,19 +2,19 @@ language: python
 
 matrix:
   include:
-  - os: linux
-    python: 2.7
-    env: PYTHON_VERSION=2.7
+  # - os: linux
+  #   python: 2.7
+  #   env: PYTHON_VERSION=2.7
   - os: linux
     python: 3.5
     env: PYTHON_VERSION=3.5
   - os: linux
     python: 3.6
     env: PYTHON_VERSION=3.6
-  - os: osx
-    language: generic
-    env:
-    - PYTHON_VERSION=2.7
+  # - os: osx
+  #   language: generic
+  #   env:
+  #   - PYTHON_VERSION=2.7
   - os: osx
     language: generic
     env:
