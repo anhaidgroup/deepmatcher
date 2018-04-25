@@ -187,3 +187,7 @@ class MatchingField(data.Field):
         if not self.is_id:
             return super(MatchingField, self).numericalize(arr, *args, **kwargs)
         return arr
+
+
+def reset_vector_cache():
+    MatchingField._cached_vec_data = {}
