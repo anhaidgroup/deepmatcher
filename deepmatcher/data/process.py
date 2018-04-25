@@ -31,7 +31,10 @@ def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore
 
     for attr in header:
         if attr not in (id_attr, label_attr) and attr not in ignore_columns:
-            assert attr.startswith(left_prefix) or attr.startswith(right_prefix)
+            if not attr.startswith(left_prefix) and not attr.startswith(right_prefix):
+                raise ValueError('Attribute ' + attr + ' is not a left or a right table '
+                                 'column, not a label or id and is not ignored. Not sure '
+                                 'what it is...')
 
     num_left = sum(attr.startswith(left_prefix) for attr in header)
     num_right = sum(attr.startswith(right_prefix) for attr in header)

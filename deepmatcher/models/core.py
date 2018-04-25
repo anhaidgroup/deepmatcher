@@ -96,15 +96,15 @@ class MatchingModel(nn.Module):
         if self._initialized:
             return
 
-        self.meta = train_dataset
-
         # Copy over training info from train set for persistent state. But remove actual
         # data examples.
-        self.register_train_buffer('state_meta', Bunch(**train_dataset.__dict__))
-        del self.state_meta.metadata  # we only need `self.meta.orig_metadata`
-        if hasattr(self.state_meta, 'fields'):
-            del self.state_meta.fields
-            del self.state_meta.examples
+        self.meta = Bunch(**train_dataset.__dict__)
+        if hasattr(self.meta, 'fields'):
+            del self.meta.fields
+            del self.meta.examples
+
+        self.register_train_buffer('state_meta', Bunch(**self.meta.__dict__))
+        del self.state_meta.metadata  # we only need `self.meta.orig_metadata` for state.
 
         self.attr_summarizers = dm.modules.ModuleMap()
         if isinstance(self.attr_summarizer, Mapping):
