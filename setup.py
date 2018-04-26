@@ -21,7 +21,7 @@ def find_version(*file_paths):
 
 
 VERSION = find_version('deepmatcher', '__init__.py')
-long_description = read('README.md')
+long_description = read('README.rst')
 
 setup(
     name='deepmatcher',
