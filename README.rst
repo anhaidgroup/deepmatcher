@@ -27,36 +27,34 @@ crashes / bugs / problems you encounter while using this package.
 Quick Start: DeepMatcher in 30 seconds
 **********
 
-.. highlight:: python
-
 There are four main steps in using DeepMatcher:
 
 1. Data processing: Load and process labeled training, validation and test CSV data.
 
-::
-  import deepmatcher as dm
-  train, validation, test = dm.data.process(path='data_directory',
-      train='train.csv', validation='validation.csv', test='test.csv')
+.. code-block:: python
+   import deepmatcher as dm
+   train, validation, test = dm.data.process(path='data_directory',
+       train='train.csv', validation='validation.csv', test='test.csv')
 
 2. Model definition: Specify neural network architecture. Uses a built-in architecture by
 default. Can be customized to your heart's desire.
 
-::
-  model = dm.MatchingModel()
+.. code-block:: python
+   model = dm.MatchingModel()
 
 3. Model training: Train neural network.
 
-::
-  model.run_train(train, validation, best_save_path='hybrid_model.pth')
+.. code-block:: python
+   model.run_train(train, validation, best_save_path='hybrid_model.pth')
 
 4. Application: Evaluate model on test set and apply to unlabeled data.
 
-::
-  model.run_eval(test)
-  unlabeled = dm.data.process_unlabeled(
-    path='data_directory/unlabeled.csv',
-    trained_model=model)
-  model.run_prediction(unlabeled)
+.. code-block:: python
+   model.run_eval(test)
+   unlabeled = dm.data.process_unlabeled(
+       path='data_directory/unlabeled.csv',
+       trained_model=model)
+   model.run_prediction(unlabeled)
 
 **********
 Installation
