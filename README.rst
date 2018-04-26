@@ -3,10 +3,10 @@ DeepMatcher
 ##################
 
 DeepMatcher is a python package for performing entity matching using deep learning. It
-provides built-in neural networks and utilities that enable you to train state-of-the-art
-deep learning models for entity matching using just 5 lines of code. The models are
-also easily customizable - they are modular and any subcomponent can be altered or swapped
-out for a custom implementation.
+provides built-in neural networks and utilities that enable you to train and apply
+state-of-the-art deep learning models for entity matching in less than 10 lines of code.
+The models are also easily customizable - the modular design allows any subcomponent to be
+altered or swapped out for a custom implementation.
 
 As an example, given labeled tuple pairs such as the following:
 
@@ -32,6 +32,7 @@ There are four main steps in using DeepMatcher:
 1. Data processing: Load and process labeled training, validation and test CSV data.
 
 .. code-block:: python
+
    import deepmatcher as dm
    train, validation, test = dm.data.process(path='data_directory',
        train='train.csv', validation='validation.csv', test='test.csv')
@@ -40,16 +41,19 @@ There are four main steps in using DeepMatcher:
 default. Can be customized to your heart's desire.
 
 .. code-block:: python
+
    model = dm.MatchingModel()
 
 3. Model training: Train neural network.
 
 .. code-block:: python
+
    model.run_train(train, validation, best_save_path='hybrid_model.pth')
 
 4. Application: Evaluate model on test set and apply to unlabeled data.
 
 .. code-block:: python
+
    model.run_eval(test)
    unlabeled = dm.data.process_unlabeled(
        path='data_directory/unlabeled.csv',
@@ -60,37 +64,44 @@ default. Can be customized to your heart's desire.
 Installation
 **********
 
-DeepMatcher is under active development, installing directly from GitHub is recommended:
+Installing directly from GitHub is recommended:
 
-``pip install --process-dependency-links git+https://github.com/sidharthms/deepmatcher``
+.. code-block:: none
+
+   pip install --process-dependency-links git+https://github.com/sidharthms/deepmatcher
 
 **********
 Tutorials
 **********
 
-Using DeepMatcher
-=================
+**Using DeepMatcher:**
 
 1. `Getting Started`_: A more in-depth guide to help you get familiar with the basics of
-using DeepMatcher.
+   using DeepMatcher.
 2. `Data Processing`_: Advanced guide on what data processing involves and how to
-customize it.
-3. `Matching Models`_: Advanced guide on the neural network architecture used for entity
-matching and how to customize it.
+   customize it.
+3. `Matching Models`_: Advanced guide on neural network architecture for entity matching
+   and how to customize it.
 
-Entity Matching
-=================
+**Entity Matching Workflow:**
 
-`End to End entity matching with DeepMatcher and Magellan`_: This tutorial demonstrates a
-complete entity matching workflow, i.e., how to obtain matching tuple pairs given two
-tables. This involves blocking, sampling, labeling and matching.
+`End to End Entity Matching`_: A guide to develop a complete entity
+matching workflow. The tutorial discusses how to use DeepMatcher with `Magellan`_ to
+perform blocking, sampling, labeling and matching to obtain matching tuple pairs from two
+tables.
+
+**********
+API Reference
+**********
+
+API docs are under construction. The half baked docs `can be accessed here`_.
 
 **********
 Support
 **********
 
-If you run into any issues or have questions about this package, please file GitHub
-issues.
+This package is under active development. If you run into any issues or have questions,
+please file GitHub issues.
 
 **********
 The Team
@@ -101,7 +112,9 @@ and Han Li, under the supervision of Prof. AnHai Doan and Prof. Theodoros Rekats
 
 .. _`Deep Learning for Entity Matching`: http://pages.cs.wisc.edu/~anhai/papers1/deepmatcher-sigmod18.pdf
 .. _`Prof. AnHai Doan's data repository`: https://sites.google.com/site/anhaidgroup/useful-stuff/data
+.. _`Magellan`: https://sites.google.com/site/anhaidgroup/projects/magellan
 .. _`Getting Started`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/getting_started.ipynb
 .. _`Data Processing`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/data_processing.ipynb
 .. _`Matching Models`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb
-.. _`End to End entity matching with DeepMatcher and Magellan`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/end_to_end_em.ipynb
+.. _`End to End Entity Matching`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/end_to_end_em.ipynb
+.. _`can be accessed here`: http://pages.cs.wisc.edu/~sidharth/deepmatcher/index.html
