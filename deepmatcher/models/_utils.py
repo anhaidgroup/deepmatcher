@@ -30,7 +30,7 @@ def get_module(cls, op, required=False, op_kwarg=None, **kwargs):
             return cls(**kwargs)
         else:
             return cls(op, **kwargs)
-    elif six.callable(op):
+    elif six.callable(op) and not isinstance(op, torch.nn.Module):
         return dm.modules.LazyModuleFn(op)
     else:
         raise ValueError(

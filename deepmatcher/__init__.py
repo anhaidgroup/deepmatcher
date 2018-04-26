@@ -3,6 +3,7 @@ The deepmatcher package contains high level modules used in the construction of 
 learning modules for entity matching.
 """
 
+import logging
 import warnings
 
 from .data import process as data_process
@@ -13,6 +14,9 @@ from .models import (attr_summarizers, word_aggregators, word_comparators,
                      word_contextualizers)
 
 warnings.filterwarnings('always', module='deepmatcher')
+
+logging.basicConfig()
+logging.getLogger('deepmatcher.data.field').setLevel(logging.INFO)
 
 
 def process(*args, **kwargs):

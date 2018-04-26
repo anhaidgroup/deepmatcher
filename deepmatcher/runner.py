@@ -1,8 +1,5 @@
 import copy
 import logging
-import math
-import os
-import pdb
 import sys
 import time
 import warnings
@@ -16,6 +13,7 @@ from tqdm import tqdm
 
 from .data import MatchingIterator
 from .optim import Optimizer, SoftNLLLoss
+from .utils import tally_parameters
 
 try:
     get_ipython
@@ -141,11 +139,6 @@ class Runner(object):
         return tp, tn, fp, fn
 
     @staticmethod
-    def tally_parameters(model):
-        n_params = sum([p.nelement() for p in model.parameters() if p.requires_grad])
-        print('* Number of trainable parameters:', n_params)
-
-    @staticmethod
     def _run(run_type,
              model,
              dataset,
@@ -199,7 +192,7 @@ class Runner(object):
         label_attr = model.meta.label_field
 
         if train and epoch == 0:
-            Runner.tally_parameters(model)
+            print('* Number of trainable parameters:', tally_parameters(model))
 
         epoch_str = 'Epoch ' + str(epoch + 1) + ' :'
         print('===> ', run_type, epoch_str)

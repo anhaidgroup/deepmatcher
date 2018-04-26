@@ -36,11 +36,14 @@ class Attention(dm.WordComparator):
               input_size=None):
         hidden_size = hidden_size if hidden_size is not None else input_size[0]
 
-        self.alignment_network = dm.modules._alignment_module(alignment_network,
-                                                              hidden_size)
+        self.alignment_networks = nn.ModuleList()
+        for head in range(heads):
+            self.alignment_networks.append(
+                dm.modules._alignment_module(alignment_network, hidden_size))
 
         if value_transform_network is None and heads > 1:
-            value_transform_network = 'linear'
+            value_transform_network = dm.modules.Transform(
+                '1-layer-highway', non_linearity=None, hidden_size=hidden_size // heads)
         self.value_transform_network = dm.modules._transform_module(
             value_transform_network, hidden_size // heads)
 
@@ -83,9 +86,10 @@ class Attention(dm.WordComparator):
 
         inputs_transformed = []
         values_aligned = []
-        for _ in range(self.heads):
+        for head in range(self.heads):
             # Dims: batch x len1 x len2
-            alignment_scores = self.score_dropout(self.alignment_network(queries, keys))
+            alignment_scores = self.score_dropout(self.alignment_networks[head](queries,
+                                                                                keys))
             if self.scale:
                 alignment_scores = alignment_scores / torch.sqrt(queries.size(2))
 

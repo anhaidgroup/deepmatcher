@@ -34,24 +34,28 @@ class SelfAttention(dm.WordContextualizer):
               bypass_network='highway',
               normalization=None,
               input_size=None):
-        hidden_size = hidden_size if hidden_size is not None else input_size[0]
+        hidden_size = hidden_size if hidden_size is not None else input_size
 
-        self.alignment_network = dm.modules._alignment_module(
-            alignment_network, hidden_size=hidden_size)
+        self.alignment_networks = nn.ModuleList()
+        for head in range(heads):
+            self.alignment_networks.append(
+                dm.modules._alignment_module(alignment_network, hidden_size))
 
         if value_transform_network is None and heads > 1:
-            value_transform_network = 'linear'
+            value_transform_network = dm.modules.Transform(
+                '1-layer-highway', non_linearity=None, hidden_size=hidden_size // heads)
         self.value_transform_network = dm.modules._transform_module(
-            value_transform_network, hidden_size=hidden_size // heads)
+            value_transform_network, hidden_size // heads)
 
         self.value_merge = dm.modules._merge_module(value_merge)
 
-        self.softmax = dm.modules.Softmax(dim=2)
+        self.softmax = nn.Softmax(dim=2)
 
         if output_transform_network is None and heads > 1:
-            output_transform_network = 'linear'
+            output_transform_network = dm.modules.Transform(
+                '1-layer-highway', non_linearity=None)
         self.output_transform_network = dm.modules._transform_module(
-            output_transform_network, hidden_size=hidden_size)
+            output_transform_network, hidden_size)
 
         self.input_dropout = nn.Dropout(input_dropout)
         self.transform_dropout = nn.Dropout(transform_dropout)
@@ -70,9 +74,10 @@ class SelfAttention(dm.WordContextualizer):
         input = self.input_dropout(input_with_meta.data)
 
         values_aligned = []
-        for _ in range(self.heads):
+        for head in range(self.heads):
             # Dims: batch x len1 x len2
-            alignment_scores = self.score_dropout(self.alignment_network(input, input))
+            alignment_scores = self.score_dropout(self.alignment_networks[head](input,
+                                                                                input))
 
             if self.scale:
                 alignment_scores = alignment_scores / torch.sqrt(input.size(2))
@@ -87,6 +92,8 @@ class SelfAttention(dm.WordContextualizer):
             if self.value_transform_network is not None:
                 values_transformed = self.transform_dropout(
                     self.value_transform_network(input))
+            else:
+                values_transformed = input
 
             # Dims: batch x len1 x channels
             values_aligned.append(torch.bmm(normalized_scores, values_transformed))
@@ -99,7 +106,5 @@ class SelfAttention(dm.WordContextualizer):
         output = self.output_dropout(output)
 
         final_output = self.bypass_network(output, input)
-        if self.normalization_network:
-            final_output = self.normalization_network(final_output)
 
         return AttrTensor.from_old_metadata(final_output, input_with_meta)

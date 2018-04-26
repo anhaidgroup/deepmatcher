@@ -1,19 +1,19 @@
 import copy
-import pdb
-from collections import Iterable, Mapping
+import logging
+from collections import Mapping
 
 import six
 
 import deepmatcher as dm
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 from . import _utils
-from ..batch import AttrTensor
 from ..data import MatchingDataset, MatchingIterator
 from ..runner import Runner
-from ..utils import Bunch
+from ..utils import Bunch, tally_parameters
+
+logger = logging.getLogger('deepmatcher.core')
 
 
 class MatchingModel(nn.Module):
@@ -146,6 +146,11 @@ class MatchingModel(nn.Module):
             if isinstance(self.attr_summarizer, AttrSummarizer):
                 self.attr_comparator = self.get_attr_comparator(
                     self.attr_comparator, self.attr_summarizer)
+            else:
+                if self.attr_comparator is None:
+                    raise ValueError('"attr_comparator" must be specified if '
+                                     '"attr_summarizer" is custom.')
+
             self.attr_comparator = AttrComparator.create(self.attr_comparator)
             for name in self.meta.canonical_text_fields:
                 self.attr_comparators[name] = copy.deepcopy(self.attr_comparator)
@@ -172,6 +177,8 @@ class MatchingModel(nn.Module):
         self.state_meta.init_batch = init_batch
 
         self._initialized = True
+        logger.info('Successfully initialized MatchingModel with {:d} trainable '
+                    'parameters.'.format(tally_parameters(self)))
 
     def reset_embeddings(self, vocabs):
         self.embed = dm.modules.ModuleMap()
@@ -233,7 +240,10 @@ class MatchingModel(nn.Module):
             left, right = self.meta.text_fields[name]
             left_summary, right_summary = self.attr_summarizers[name](embeddings[left],
                                                                       embeddings[right])
+
+            # Remove metadata information at this point.
             left_summary, right_summary = left_summary.data, right_summary.data
+
             if self.attr_condensors:
                 left_summary = self.attr_condensors[name](left_summary)
                 right_summary = self.attr_condensors[name](right_summary)
@@ -434,7 +444,7 @@ class WordContextualizer(dm.modules.LazyModule):
             The argument for creating a word contextualizer object. It can be one of:
             * a string specifying the word contextualizer to use. It can be one of:
                 * RNN-based contextualizer ("rnn", "gru", "lstm").
-                * Self-attention-based contextualizer ("selfattention").
+                * Self-attention-based contextualizer ("self-attention").
             * a :class:`~dm.WordContextualizer` object.
             * a callable that returns a :class:`nn.Module`.
         **kwargs:
@@ -445,7 +455,7 @@ class WordContextualizer(dm.modules.LazyModule):
         if isinstance(arg, six.string_types):
             if dm.word_contextualizers.RNN.supports_style(arg):
                 wc = dm.word_contextualizers.RNN(arg, **kwargs)
-            elif arg == 'selfattention':
+            elif arg == 'self-attention':
                 wc = dm.word_contextualizers.SelfAttention(**kwargs)
             else:
                 raise ValueError('Unknown Word Contextualizer name.')

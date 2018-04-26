@@ -1,9 +1,8 @@
 from __future__ import division
 
 import abc
+import logging
 import math
-import numbers
-import pdb
 
 import six
 
@@ -15,6 +14,8 @@ from torch.autograd import Variable
 
 from . import _utils
 from ..batch import AttrTensor
+
+logger = logging.getLogger('deepmatcher.modules')
 
 
 @six.add_metaclass(abc.ABCMeta)
@@ -51,7 +52,8 @@ class LazyModule(nn.Module):
                     *self._init_args,
                     input_size=self._get_input_size(input, *args, **kwargs),
                     **self._init_kwargs)
-            except TypeError:
+            except TypeError as e:
+                logger.debug('Got exception when passing input size: ' + str(e))
                 self._init(*self._init_args, **self._init_kwargs)
             for fn in self._fns:
                 super(LazyModule, self)._apply(fn)
@@ -119,10 +121,29 @@ class NoMeta(nn.Module):
         for arg in args:
             module_args.append(arg.data if isinstance(arg, AttrTensor) else arg)
 
-        result = self.module(*module_args)
-        if isinstance(args[0], AttrTensor):
-            return AttrTensor.from_old_metadata(result, args[0])
-        return result
+        results = self.module(*module_args)
+
+        if not isinstance(args[0], AttrTensor):
+            return results
+        else:
+            if not isinstance(results, tuple):
+                results = (results,)
+
+            if len(results) != len(args) and len(results) != 1 and len(args) != 1:
+                raise ValueError(
+                    'Number of inputs must equal number of outputs, or '
+                    'number of inputs must be 1 or number of outputs must be 1.')
+
+            results_with_meta = []
+            for i in range(len(results)):
+                arg_i = min(i, len(args) - 1)
+                results_with_meta.append(
+                    AttrTensor.from_old_metadata(results[i], args[arg_i]))
+
+            if len(results_with_meta) == 1:
+                return results_with_meta[0]
+
+            return tuple(results_with_meta)
 
 
 class ModuleMap(nn.Module):
@@ -146,7 +167,10 @@ class MultiSequential(nn.Sequential):
         modules = list(self._modules.values())
         inputs = modules[0](*inputs)
         for module in modules[1:]:
-            inputs = module(inputs)
+            if isinstance(inputs, tuple) and not isinstance(inputs, AttrTensor):
+                inputs = module(*inputs)
+            else:
+                inputs = module(inputs)
         return inputs
 
 
@@ -449,9 +473,8 @@ class Bypass(LazyModule):
                 tsize / rsize)
         elif tsize > rsize:
             multiples = math.ceil(tsize / rsize)
-            adjusted_raw = raw.repeat([1] * (raw.dim() - 1), multiples).narrow(
+            adjusted_raw = raw.repeat(*([1] * (raw.dim() - 1)), multiples).narrow(
                 -1, 0, tsize)
-            pdb.set_trace()
 
         if self.style == 'residual':
             res = transformed + adjusted_raw

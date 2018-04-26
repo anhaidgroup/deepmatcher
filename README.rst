@@ -38,7 +38,7 @@ There are four main steps in using DeepMatcher:
        train='train.csv', validation='validation.csv', test='test.csv')
 
 2. Model definition: Specify neural network architecture. Uses a built-in architecture by
-default. Can be customized to your heart's desire.
+   default. Can be customized to your heart's desire.
 
 .. code-block:: python
 
@@ -55,9 +55,8 @@ default. Can be customized to your heart's desire.
 .. code-block:: python
 
    model.run_eval(test)
-   unlabeled = dm.data.process_unlabeled(
-       path='data_directory/unlabeled.csv',
-       trained_model=model)
+   
+   unlabeled = dm.data.process_unlabeled(path='data_directory/unlabeled.csv', trained_model=model)
    model.run_prediction(unlabeled)
 
 **********
