@@ -1,12 +1,15 @@
 from nose.tools import *
 
+import io
 import os
 import pandas as pd
 import torch
 import unittest
 from deepmatcher.data.dataset import *
 from deepmatcher.data.field import MatchingField
-from deepmatcher.data.process import process
+from deepmatcher.data.process import process, _make_fields
+
+from torchtext.utils import unicode_csv_reader
 
 from test import test_dir_path
 
@@ -27,6 +30,104 @@ class ClassMatchingDatasetTestCases(unittest.TestCase):
         self.assertEqual(md.all_right_fields, ['right_a'])
         self.assertEqual(md.all_text_fields, ['left_a', 'right_a'])
         self.assertEqual(md.canonical_text_fields, ['_a'])
+
+
+class MatchingDatasetSplitsTestCases(unittest.TestCase):
+    def setUp(self):
+        self.data_dir = os.path.join(test_dir_path, 'test_datasets')
+        self.train = 'test_train.csv'
+        self.validation = 'test_valid.csv'
+        self.test = 'test_test.csv'
+        self.cache_name = 'test_cacheddata.pth'
+        with io.open(os.path.expanduser(os.path.join(self.data_dir, self.train)), encoding="utf8") as f:
+            header = next(unicode_csv_reader(f))
+
+        id_attr = 'id'
+        label_attr = 'label'
+        ignore_columns = ['left_id', 'right_id']
+        self.fields = _make_fields(header, id_attr, label_attr, ignore_columns, True,
+                          'moses', False)
+
+        self.column_naming = {
+            'id': id_attr,
+            'left': 'left_',
+            'right': 'right_',
+            'label': label_attr
+        }
+
+    def tearDown(self):
+        cache_name = os.path.join(self.data_dir, self.cache_name)
+        if os.path.exists(cache_name):
+            os.remove(cache_name)
+
+    def test_splits_1(self):
+        datasets = MatchingDataset.splits(
+            self.data_dir,
+            self.train,
+            self.validation,
+            self.test,
+            self.fields,
+            None,
+            None,
+            self.column_naming,
+            self.cache_name,
+            train_pca=False)
+
+    @raises(MatchingDataset.CacheStaleException)
+    def test_splits_2(self):
+        datasets = MatchingDataset.splits(
+            self.data_dir,
+            self.train,
+            self.validation,
+            self.test,
+            self.fields,
+            None,
+            None,
+            self.column_naming,
+            self.cache_name,
+            train_pca=False)
+
+        datasets_2 = MatchingDataset.splits(
+            self.data_dir,
+            'sample_table_small.csv',
+            self.validation,
+            self.test,
+            self.fields,
+            None,
+            None,
+            self.column_naming,
+            self.cache_name,
+            True,
+            False,
+            train_pca=False)
+
+    def test_splits_3(self):
+        datasets = MatchingDataset.splits(
+            self.data_dir,
+            self.train,
+            self.validation,
+            self.test,
+            self.fields,
+            None,
+            None,
+            self.column_naming,
+            self.cache_name,
+            train_pca=False)
+
+        datasets_2 = MatchingDataset.splits(
+            self.data_dir,
+            self.train,
+            self.validation,
+            self.test,
+            self.fields,
+            None,
+            None,
+            self.column_naming,
+            self.cache_name,
+            False,
+            False,
+            train_pca=False)
+
 
 class DataframeSplitTestCases(unittest.TestCase):
     def test_split_1(self):
@@ -87,15 +188,22 @@ class DataframeSplitTestCases(unittest.TestCase):
         if os.path.exists(test_path):
             os.remove(test_path)
 
-# class GetRawTableTestCases(unittest.TestCase):
-#     def test_get_raw_table(self):
-#         train = process(
-#             path=os.path.join('.', 'test_datasets'),
-#             train='sample_table_large.csv',
-#             id_attr='_id',
-#             left_prefix='ltable_',
-#             right_prefix='rtable_',
-#             ignore_columns=('ltable_id', 'rtable_id'))
-#         train_raw = train.get_raw_table()
-#         ori_train = pd.read_csv(os.path.join('.', 'test_datasets', 'sample_table_large.csv'))
-#         self.assertEqual(list(train_raw.columns), list(ori_train.columns))
+
+class GetRawTableTestCases(unittest.TestCase):
+    def test_get_raw_table(self):
+        data_cache_path = os.path.join(test_dir_path, 'test_datasets',
+            'cacheddata.pth')
+        if os.path.exists(data_cache_path):
+            os.remove(data_cache_path)
+
+        train = process(
+            path=os.path.join(test_dir_path, 'test_datasets'),
+            train='sample_table_small.csv',
+            id_attr='id', pca=False)
+        train_raw = train.get_raw_table()
+        ori_train = pd.read_csv(os.path.join(test_dir_path, 'test_datasets',
+            'sample_table_small.csv'))
+        self.assertEqual(list(train_raw.columns), list(ori_train.columns))
+
+        if os.path.exists(data_cache_path):
+            os.remove(data_cache_path)
