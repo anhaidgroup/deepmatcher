@@ -7,8 +7,9 @@ from test import test_dir_path
 from nose.tools import *
 
 from deepmatcher.data.field import FastText
-from deepmatcher.data.process import _check_header, _make_fields, process
+from deepmatcher.data.process import _check_header, _make_fields, process, process_unlabeled
 from torchtext.utils import unicode_csv_reader
+from deepmatcher import MatchingModel
 
 try:
     from urllib.parse import urljoin
@@ -155,3 +156,52 @@ class ProcessTestCases(unittest.TestCase):
 
         if os.path.exists(cache_path):
             os.remove(cache_path)
+
+class ProcessUnlabeledTestCases(unittest.TestCase):
+    def test_process_unlabeled_1(self):
+        vectors_cache_dir = '.cache'
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
+        data_cache_path = os.path.join(test_dir_path, 'test_datasets',
+            'cacheddata.pth')
+        if os.path.exists(data_cache_path):
+            os.remove(data_cache_path)
+
+        vec_dir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
+        filename = 'fasttext_sample.vec.zip'
+        url_base = urljoin('file:', pathname2url(vec_dir)) + os.path.sep
+        ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
+
+        train, valid, test = process(
+            path=os.path.join(test_dir_path, 'test_datasets'),
+            train='test_train.csv',
+            validation='test_valid.csv',
+            test='test_test.csv',
+            id_attr='id',
+            ignore_columns=('left_id', 'right_id'),
+            embeddings=ft,
+            embeddings_cache_path='',
+            pca=True)
+
+        model = MatchingModel(attr_summarizer='sif')
+        model.run_train(
+            train,
+            valid,
+            epochs=1,
+            batch_size=8,
+            best_save_path='sif_model.pth',
+            pos_neg_ratio=3)
+
+        test_unlabeled = process_unlabeled(
+            path=os.path.join(test_dir_path, 'test_datasets', 'test_test.csv'),
+            trained_model=model,
+            ignore_columns=('left_id', 'right_id'))
+
+        self.assertEqual(test_unlabeled.all_text_fields, test.all_text_fields)
+
+        if os.path.exists(data_cache_path):
+            os.remove(data_cache_path)
+
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)

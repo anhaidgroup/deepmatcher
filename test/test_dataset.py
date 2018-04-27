@@ -2,6 +2,7 @@ from nose.tools import *
 
 import io
 import os
+import shutil
 import pandas as pd
 import torch
 import unittest
@@ -227,3 +228,6 @@ class GetRawTableTestCases(unittest.TestCase):
 
         if os.path.exists(data_cache_path):
             os.remove(data_cache_path)
+
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
