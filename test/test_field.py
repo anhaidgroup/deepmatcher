@@ -1,5 +1,6 @@
 from nose.tools import *
 
+from collections import Counter
 import os
 import shutil
 import torch
@@ -15,7 +16,9 @@ except ImportError:
     from urlparse import urljoin
     from urllib import path2pathname2url
 
-from deepmatcher.data.field import FastText, MatchingField
+from deepmatcher.data.field import FastText, FastTextBinary, MatchingVocab
+from deepmatcher.data.field import MatchingField, reset_vector_cache
+from deepmatcher.data.dataset import MatchingDataset
 
 # import nltk
 # nltk.download('perluniprops')
@@ -33,6 +36,49 @@ class ClassFastTextTestCases(unittest.TestCase):
         mft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
         self.assertEqual(mft.dim, 300)
         self.assertEqual(mft.vectors.size(), torch.Size([100, 300]))
+
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
+class ClassFastTextBinaryTestCases(unittest.TestCase):
+    @raises(RuntimeError)
+    def test_init_1(self):
+        vectors_cache_dir = '.cache'
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
+        filename = 'fasttext_sample.vec.zip'
+        url_base = urljoin('file:', pathname2url(os.path.join(pathdir, filename)))
+        mftb = FastTextBinary(filename, url_base=url_base, cache=vectors_cache_dir)
+
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
+    @raises(OSError)
+    def test_init_2(self):
+        vectors_cache_dir = '.cache'
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
+        filename = 'fasttext_sample_not_exist.vec.zip'
+        url_base = urljoin('file:', pathname2url(os.path.join(pathdir, filename)))
+        mftb = FastTextBinary(filename, url_base=url_base, cache=vectors_cache_dir)
+
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
+    @raises(OSError)
+    def test_init_3(self):
+        vectors_cache_dir = '.cache'
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
+        filename = 'fasttext_sample_not_exist.gz'
+        url_base = urljoin('file:', pathname2url(os.path.join(pathdir, filename)))
+        mftb = FastTextBinary(filename, url_base=url_base, cache=vectors_cache_dir)
 
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
@@ -97,6 +143,8 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
 
         vec_data = MatchingField._get_vector_data(vecs, vectors_cache_dir)
         self.assertEqual(len(vec_data), 1)
+        self.assertEqual(vec_data[0].vectors.size(), torch.Size([100, 300]))
+        self.assertEqual(vec_data[0].dim, 300)
 
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
@@ -112,3 +160,63 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
         mf = MatchingField()
         arr = [['a'], ['b'], ['c']]
         mf.numericalize(arr)
+
+    def test_extend_vocab_1(self):
+        vectors_cache_dir = '.cache'
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
+        mf = MatchingField()
+        lf = MatchingField(id=True, sequential=False)
+        fields = [ ('id', lf), ('left_a', mf), ('right_a', mf), ('label', lf)]
+        col_naming = {'id':'id', 'label':'label', 'left':'left_',
+                      'right':'right_'}
+
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
+        filename = 'fasttext_sample.vec'
+        file = os.path.join(pathdir, filename)
+        url_base = urljoin('file:', pathname2url(file))
+        vecs = Vectors(name=filename, cache=vectors_cache_dir, url=url_base)
+
+        data_path = os.path.join(test_dir_path, 'test_datasets', 'sample_table_small.csv')
+        md = MatchingDataset(fields, col_naming, path=data_path)
+
+        mf.build_vocab()
+        mf.vocab.vectors = torch.Tensor(len(mf.vocab.itos), 300)
+        mf.extend_vocab(md, vectors=vecs)
+        self.assertEqual(len(mf.vocab.itos), 6)
+        self.assertEqual(mf.vocab.vectors.size(), torch.Size([6, 300]))
+
+
+class TestResetVectorCache(unittest.TestCase):
+    def test_reset_vector_cache_1(self):
+        mf = MatchingField()
+        reset_vector_cache()
+        self.assertDictEqual(mf._cached_vec_data, {})
+
+class ClassMatchingVocabTestCases(unittest.TestCase):
+    def test_extend_vectors_1(self):
+        vectors_cache_dir = '.cache'
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
+        pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
+        filename = 'fasttext_sample.vec'
+        file = os.path.join(pathdir, filename)
+        url_base = urljoin('file:', pathname2url(file))
+        vecs = Vectors(name=filename, cache=vectors_cache_dir, url=url_base)
+        self.assertIsInstance(vecs, Vectors)
+
+        vec_data = MatchingField._get_vector_data(vecs, vectors_cache_dir)
+        v = MatchingVocab(Counter())
+        v.vectors = torch.Tensor(1, vec_data[0].dim)
+        v.unk_init = torch.Tensor.zero_
+        tokens = {'hello', 'world'}
+        v.extend_vectors(tokens, vec_data)
+        self.assertEqual(len(v.itos), 3)
+        self.assertEqual(v.vectors.size(), torch.Size([3, 300]))
+        self.assertEqual(list(v.vectors[1][0:10]), [0.0] * 10)
+        self.assertEqual(list(v.vectors[2][0:10]), [0.0] * 10)
+
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
