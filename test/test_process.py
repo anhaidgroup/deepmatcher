@@ -184,13 +184,14 @@ class ProcessUnlabeledTestCases(unittest.TestCase):
             embeddings_cache_path='',
             pca=True)
 
+        model_save_path = 'sif_model.pth'
         model = MatchingModel(attr_summarizer='sif')
         model.run_train(
             train,
             valid,
             epochs=1,
             batch_size=8,
-            best_save_path='sif_model.pth',
+            best_save_path= model_save_path,
             pos_neg_ratio=3)
 
         test_unlabeled = process_unlabeled(
@@ -199,6 +200,9 @@ class ProcessUnlabeledTestCases(unittest.TestCase):
             ignore_columns=('left_id', 'right_id'))
 
         self.assertEqual(test_unlabeled.all_text_fields, test.all_text_fields)
+
+        if os.path.exists(model_save_path):
+            os.remove(model_save_path)
 
         if os.path.exists(data_cache_path):
             os.remove(data_cache_path)
