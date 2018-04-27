@@ -223,7 +223,7 @@ class GetRawTableTestCases(unittest.TestCase):
         train_raw = train.get_raw_table()
         ori_train = pd.read_csv(os.path.join(test_dir_path, 'test_datasets',
             'sample_table_small.csv'))
-        self.assertEqual(list(train_raw.columns), list(ori_train.columns))
+        self.assertEqual(set(train_raw.columns), set(ori_train.columns))
 
         if os.path.exists(data_cache_path):
             os.remove(data_cache_path)
