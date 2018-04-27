@@ -6,10 +6,17 @@ import pandas as pd
 import torch
 import unittest
 from deepmatcher.data.dataset import *
-from deepmatcher.data.field import MatchingField
+from deepmatcher.data.field import MatchingField, FastText
 from deepmatcher.data.process import process, _make_fields
 
 from torchtext.utils import unicode_csv_reader
+
+try:
+    from urllib.parse import urljoin
+    from urllib.request import pathname2url
+except ImportError:
+    from urlparse import urljoin
+    from urllib import path2pathname2url
 
 from test import test_dir_path
 
@@ -191,15 +198,28 @@ class DataframeSplitTestCases(unittest.TestCase):
 
 class GetRawTableTestCases(unittest.TestCase):
     def test_get_raw_table(self):
+        vectors_cache_dir = '.cache'
+        if os.path.exists(vectors_cache_dir):
+            shutil.rmtree(vectors_cache_dir)
+
         data_cache_path = os.path.join(test_dir_path, 'test_datasets',
             'cacheddata.pth')
         if os.path.exists(data_cache_path):
             os.remove(data_cache_path)
 
+        vec_dir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
+        filename = 'fasttext_sample.vec.zip'
+        url_base = urljoin('file:', pathname2url(vec_dir)) + os.path.sep
+        ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
+
         train = process(
             path=os.path.join(test_dir_path, 'test_datasets'),
             train='sample_table_small.csv',
-            id_attr='id', pca=False)
+            id_attr='id',
+            embeddings=ft,
+            embeddings_cache_path='',
+            pca=False)
+
         train_raw = train.get_raw_table()
         ori_train = pd.read_csv(os.path.join(test_dir_path, 'test_datasets',
             'sample_table_small.csv'))
