@@ -192,8 +192,8 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
         pred_test = model.run_eval(self.test, return_predictions=True)
         pred_unlabeled = model.run_prediction(unlabeled)
 
-        self.assertEqual([tup[1] for tup in pred_test],
-                         list(pred_unlabeled['match_score']))
+        self.assertEqual(sorted([tup[1] for tup in pred_test]),
+                         sorted(list(pred_unlabeled['match_score'])))
 
         if os.path.exists(model_save_path):
             os.remove(model_save_path)
@@ -217,8 +217,8 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
         pred_test = model.run_eval(self.test, return_predictions=True)
         pred_unlabeled = model.run_prediction(unlabeled)
 
-        self.assertEqual([tup[1] for tup in pred_test],
-                         list(pred_unlabeled['match_score']))
+        self.assertEqual(sorted([tup[1] for tup in pred_test]),
+                         sorted(list(pred_unlabeled['match_score'])))
 
         if os.path.exists(model_save_path):
             os.remove(model_save_path)
@@ -242,8 +242,8 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
         pred_test = model.run_eval(self.test, return_predictions=True)
         pred_unlabeled = model.run_prediction(unlabeled)
 
-        self.assertEqual([tup[1] for tup in pred_test],
-                         list(pred_unlabeled['match_score']))
+        self.assertEqual(sorted([tup[1] for tup in pred_test]),
+                         sorted(list(pred_unlabeled['match_score'])))
 
         if os.path.exists(model_save_path):
             os.remove(model_save_path)
@@ -267,8 +267,8 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
         pred_test = model.run_eval(self.test, return_predictions=True)
         pred_unlabeled = model.run_prediction(unlabeled)
 
-        self.assertEqual([tup[1] for tup in pred_test],
-                         list(pred_unlabeled['match_score']))
+        self.assertEqual(sorted([tup[1] for tup in pred_test]),
+                         sorted(list(pred_unlabeled['match_score'])))
 
         if os.path.exists(model_save_path):
             os.remove(model_save_path)
