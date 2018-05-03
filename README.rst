@@ -2,6 +2,12 @@
 DeepMatcher
 ##################
 
+.. image:: https://travis-ci.org/sidharthms/deepmatcher.svg?branch=master
+    :target: https://travis-ci.org/sidharthms/deepmatcher
+
+.. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
+    :target: https://opensource.org/licenses/BSD-3-Clause
+
 DeepMatcher is a python package for performing entity matching using deep learning. It
 provides built-in neural networks and utilities that enable you to train and apply
 state-of-the-art deep learning models for entity matching in less than 10 lines of code.
