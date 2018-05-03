@@ -2,12 +2,6 @@
 DeepMatcher
 ##################
 
-.. image:: https://travis-ci.org/sidharthms/deepmatcher.svg?branch=master
-    :target: https://travis-ci.org/sidharthms/deepmatcher
-
-.. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
-    :target: https://opensource.org/licenses/BSD-3-Clause
-
 DeepMatcher is a python package for performing entity matching using deep learning. It
 provides built-in neural networks and utilities that enable you to train and apply
 state-of-the-art deep learning models for entity matching in less than 10 lines of code.
@@ -95,6 +89,12 @@ matching workflow. The tutorial discusses how to use DeepMatcher with `Magellan`
 perform blocking, sampling, labeling and matching to obtain matching tuple pairs from two
 tables.
 
+**DeepMatcher for other matching tasks:**
+
+`Question Answering with DeepMatcher`_: A tutorial on how to use DeepMatcher for question
+answering. Specifically, we will look at `WikiQA`_, a benchmark dataset for the task of
+Answer Selection.
+
 **********
 API Reference
 **********
@@ -123,3 +123,5 @@ and Han Li, under the supervision of Prof. AnHai Doan and Prof. Theodoros Rekats
 .. _`Matching Models`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb
 .. _`End to End Entity Matching`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/end_to_end_em.ipynb
 .. _`can be accessed here`: http://pages.cs.wisc.edu/~sidharth/deepmatcher/index.html
+.. _`Question Answering with DeepMatcher`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/question_answering.ipynb
+.. _`WikiQA`: https://aclweb.org/anthology/D15-1237
