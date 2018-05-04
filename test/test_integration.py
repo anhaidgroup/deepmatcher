@@ -7,6 +7,7 @@ import pandas as pd
 import torch
 import unittest
 
+from deepmatcher import attr_summarizers
 from deepmatcher.data.field import MatchingField, FastText
 from deepmatcher.data.process import process, process_unlabeled
 from deepmatcher import MatchingModel
@@ -131,6 +132,33 @@ class ModelTrainSaveLoadTest(unittest.TestCase):
         s1 = model.run_eval(self.test)
 
         model2 = MatchingModel(attr_summarizer='hybrid')
+        model2.load_state(model_save_path)
+        s2 = model2.run_eval(self.test)
+
+        self.assertEqual(s1, s2)
+
+        if os.path.exists(model_save_path):
+            os.remove(model_save_path)
+
+    def test_hybrid_self_attention(self):
+        model_save_path = 'self_att_hybrid_model.pth'
+        model = MatchingModel(
+            attr_summarizer=attr_summarizers.Hybrid(
+                word_contextualizer='self-attention'))
+
+        model.run_train(
+            self.train,
+            self.valid,
+            epochs=1,
+            batch_size=8,
+            best_save_path= model_save_path,
+            pos_neg_ratio=3)
+
+        s1 = model.run_eval(self.test)
+
+        model2 = MatchingModel(
+            attr_summarizer=attr_summarizers.Hybrid(
+                word_contextualizer='self-attention'))
         model2.load_state(model_save_path)
         s2 = model2.run_eval(self.test)
 
