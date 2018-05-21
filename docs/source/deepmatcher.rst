@@ -1,3 +1,6 @@
+.. role:: hidden
+    :class: hidden-section
+
 deepmatcher
 ==================================
 
@@ -6,27 +9,36 @@ deepmatcher
 Main Modules
 ----------------------------------
 
+:hidden:`MatchingModel`
+~~~~~~~~~~~~~~~~~~
 .. autoclass:: MatchingModel
     :members:
 
+:hidden:`AttrSummarizer`
+~~~~~~~~~~~~~~~~~~
 .. autoclass:: deepmatcher.AttrSummarizer
     :members:
 
-.. autoclass:: deepmatcher.AttrComparator
-    :members:
-
+:hidden:`Classifier`
+~~~~~~~~~~~~~~~~~~
 .. autoclass:: deepmatcher.Classifier
     :members:
 
 
-AttrSummarizer Submodules
+Components of Attribute Summarizer
 ----------------------------------
 
+:hidden:`WordContextualizer`
+~~~~~~~~~~~~~~~~~~
 .. autoclass:: deepmatcher.WordContextualizer
     :members:
 
+:hidden:`WordComparator`
+~~~~~~~~~~~~~~~~~~
 .. autoclass:: deepmatcher.WordComparator
     :members:
 
+:hidden:`WordAggregator`
+~~~~~~~~~~~~~~~~~~
 .. autoclass:: deepmatcher.WordAggregator
     :members:

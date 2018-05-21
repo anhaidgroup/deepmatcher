@@ -2,11 +2,11 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = -v
 SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = DeepMatcher
 SOURCEDIR     = source
-BUILDDIR      = build
+BUILDDIR      = ../../deepmatcher.github.io/docs
 
 # Put it first so that "make" without argument is like "make help".
 help:

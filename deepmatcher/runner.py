@@ -25,9 +25,9 @@ logger = logging.getLogger(__name__)
 
 
 class Statistics(object):
-    """
-    Accumulator for loss statistics, inspired by ONMT.
-    Currently calculates:
+    """Accumulator for loss statistics, inspired by ONMT.
+
+    Keeps track of the following metrics:
     * F1
     * Precision
     * Recall
@@ -74,12 +74,14 @@ class Statistics(object):
 
 
 class Runner(object):
-    """
+    """Experiment runner.
+
+    This class implements routines to train, evaluate and make predictions from models.
     """
 
     @staticmethod
-    def print_stats(name, epoch, batch, n_batches, stats, cum_stats):
-        """Write out statistics to stdout.
+    def _print_stats(name, epoch, batch, n_batches, stats, cum_stats):
+        """Write out batch statistics to stdout.
         """
         print((' | {name} | [{epoch}][{batch:4d}/{n_batches}] || Loss: {loss:7.4f} |'
                ' F1: {f1:7.2f} | Prec: {prec:7.2f} | Rec: {rec:7.2f} ||'
@@ -99,8 +101,8 @@ class Runner(object):
                    eps=cum_stats.examples_per_sec()))
 
     @staticmethod
-    def print_final_stats(epoch, runtime, datatime, stats):
-        """Write out statistics to stdout.
+    def _print_final_stats(epoch, runtime, datatime, stats):
+        """Write out epoch statistics to stdout.
         """
         print(('Finished Epoch {epoch} || Run Time: {runtime:6.1f} | '
                'Load Time: {datatime:6.1f} || F1: {f1:6.2f} | Prec: {prec:6.2f} | '
@@ -114,7 +116,7 @@ class Runner(object):
                    eps=stats.examples_per_sec()))
 
     @staticmethod
-    def set_pbar_status(pbar, stats, cum_stats):
+    def _set_pbar_status(pbar, stats, cum_stats):
         postfix_dict = OrderedDict([
             ('Loss', '{0:7.4f}'.format(stats.loss())),
             ('F1', '{0:7.2f}'.format(stats.f1())),
@@ -124,7 +126,7 @@ class Runner(object):
         pbar.set_postfix(ordered_dict=postfix_dict)
 
     @staticmethod
-    def compute_scores(output, target):
+    def _compute_scores(output, target):
         predictions = output.max(1)[1].data
         correct = (predictions == target.data).float()
         incorrect = (1 - correct).float()
@@ -146,9 +148,7 @@ class Runner(object):
              optimizer=None,
              train=False,
              device=None,
-             save_path=None,
              batch_size=32,
-             num_data_workers=2,
              batch_callback=None,
              epoch_callback=None,
              progress_style='bar',
@@ -224,7 +224,7 @@ class Runner(object):
                 loss = criterion(output, getattr(batch, label_attr))
 
             if hasattr(batch, label_attr):
-                scores = Runner.compute_scores(output, getattr(batch, label_attr))
+                scores = Runner._compute_scores(output, getattr(batch, label_attr))
             else:
                 scores = [0] * 4
 
@@ -237,11 +237,11 @@ class Runner(object):
 
             if (batch_idx + 1) % log_freq == 0:
                 if progress_style == 'log':
-                    Runner.print_stats(run_type, epoch + 1, batch_idx + 1, len(run_iter),
-                                       stats, cum_stats)
+                    Runner._print_stats(run_type, epoch + 1, batch_idx + 1, len(run_iter),
+                                        stats, cum_stats)
                 elif progress_style == 'tqdm-bar':
                     pbar.update()
-                    Runner.set_pbar_status(pbar, stats, cum_stats)
+                    Runner._set_pbar_status(pbar, stats, cum_stats)
                 elif progress_style == 'bar':
                     pbar.update()
                 stats = Statistics()
@@ -262,7 +262,7 @@ class Runner(object):
         elif progress_style == 'bar':
             sys.stderr.flush()
 
-        Runner.print_final_stats(epoch + 1, runtime, datatime, cum_stats)
+        Runner._print_final_stats(epoch + 1, runtime, datatime, cum_stats)
 
         if return_predictions:
             return predictions
@@ -281,13 +281,27 @@ class Runner(object):
               pos_weight=None,
               label_smoothing=0.05,
               save_every_prefix=None,
-              save_every_freq=None,
+              save_every_freq=1,
               **kwargs):
+        """run_train(model, train_dataset, validation_dataset, best_save_path,epochs=30, \
+            criterion=None, optimizer=None, pos_neg_ratio=None, pos_weight=None, \
+            label_smoothing=0.05, save_every_prefix=None, save_every_freq=None, \
+            batch_size=32, device=None, progress_style='bar', log_freq=5, \
+            sort_in_buckets=None)
+
+        Train a :class:`deepmatcher.MatchingModel` using the specified training set.
+        Refer to :meth:`deepmatcher.MatchingModel.run_train` for details on
+        parameters.
+
+        Returns:
+            float: The best F1 score obtained by the model on the validation dataset.
+        """
+
         model.initialize(train_dataset)
 
-        model.register_train_buffer('optimizer_state', None)
-        model.register_train_buffer('best_score', None)
-        model.register_train_buffer('epoch', None)
+        model._register_train_buffer('optimizer_state', None)
+        model._register_train_buffer('best_score', None)
+        model._register_train_buffer('epoch', None)
 
         if criterion is None:
             if pos_weight is not None:
@@ -343,20 +357,45 @@ class Runner(object):
 
             if save_every_prefix is not None and (epoch + 1) % save_every_freq == 0:
                 save_path = '{prefix}_ep{epoch}.pth'.format(
-                    prefix=save_every_prefix, epoch=epoch)
+                    prefix=save_every_prefix, epoch=epoch + 1)
                 model.save_state(save_path)
 
         print('Loading best model...')
         model.load_state(best_save_path)
+        print('Training done.')
+
+        return model.best_score
 
     def eval(model, dataset, **kwargs):
+        """eval(model, dataset, device=None, batch_size=32, progress_style='bar', log_freq=5,
+            sort_in_buckets=None)
+
+        Evaluate a :class:`deepmatcher.MatchingModel` on the specified dataset.
+        Refer to :meth:`deepmatcher.MatchingModel.run_eval` for details on
+        parameters.
+
+        Returns:
+            float: The F1 score obtained by the model on the dataset.
+        """
         return Runner._run('EVAL', model, dataset, **kwargs)
 
     def predict(model, dataset, output_attributes=False, **kwargs):
+        """predict(model, dataset, output_attributes=False, device=None, batch_size=32, \
+            progress_style='bar', log_freq=5, sort_in_buckets=None)
+
+        Use a :class:`deepmatcher.MatchingModel` to obtain predictions, i.e., match scores
+        on the specified dataset.
+
+        Returns:
+            pandas.DataFrame: A pandas DataFrame containing tuple pair IDs (in the "id"
+                column) and the corresponding match score predictions (in the
+                "match_score" column). Will also include all attributes in the original
+                CSV file of the dataset if `output_attributes` is True.
+        """
         # Create a shallow copy of the model and reset embeddings to use vocab and
         # embeddings from new dataset.
         model = copy.deepcopy(model)
-        model.reset_embeddings(dataset.vocabs)
+        model._reset_embeddings(dataset.vocabs)
 
         predictions = Runner._run(
             'PREDICT', model, dataset, return_predictions=True, **kwargs)

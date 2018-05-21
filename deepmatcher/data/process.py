@@ -217,6 +217,18 @@ def process(path,
 
 
 def process_unlabeled(path, trained_model, ignore_columns=None):
+    """Creates a dataset object for an unlabeled dataset.
+
+    Args:
+        path (string):
+            The full path to the unlabeled data file (not just the directory).
+        trained_model (:class:`~deepmatcher.MatchingModel`):
+            The trained model. The model is aware of the configuration of the training
+            data on which it was trained, and so this method reuses the same
+            configuration for the unlabeled data.
+        ignore_columns (list):
+            A list of columns to ignore in the unlabeled CSV file.
+    """
     with io.open(path, encoding="utf8") as f:
         header = next(unicode_csv_reader(f))
 

@@ -5,13 +5,22 @@ learning modules for entity matching.
 
 import logging
 import warnings
+import sys
 
 from .data import process as data_process
 from .models import modules
-from .models.core import (MatchingModel, AttrSummarizer, AttrComparator,
-                          WordContextualizer, WordComparator, WordAggregator, Classifier)
+from .models.core import (MatchingModel, AttrSummarizer, WordContextualizer,
+                          WordComparator, WordAggregator, Classifier)
 from .models import (attr_summarizers, word_aggregators, word_comparators,
                      word_contextualizers)
+
+# Register these as submodules of deepmatcher. This helps organize files better while
+# permitting an easier way to access these modules.
+sys.modules['deepmatcher.attr_summarizers'] = attr_summarizers
+sys.modules['deepmatcher.word_contextualizers'] = word_contextualizers
+sys.modules['deepmatcher.word_comparators'] = word_comparators
+sys.modules['deepmatcher.word_aggregators'] = word_aggregators
+sys.modules['deepmatcher.modules'] = modules
 
 warnings.filterwarnings('always', module='deepmatcher')
 
@@ -29,9 +38,9 @@ def process(*args, **kwargs):
 __version__ = '0.0.1a0'
 
 __all__ = [
-    attr_summarizers, word_aggregators, word_comparators, word_contextualizers, process,
-    MatchingModel, AttrSummarizer, AttrComparator, WordContextualizer, WordComparator,
-    WordAggregator, Classifier, modules
+    'attr_summarizers', 'word_aggregators', 'word_comparators', 'word_contextualizers', 'process',
+    'MatchingModel', 'AttrSummarizer', 'WordContextualizer', 'WordComparator', 'WordAggregator',
+    'Classifier', 'modules'
 ]
 
 _check_nan = True

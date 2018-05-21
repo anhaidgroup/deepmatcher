@@ -12,53 +12,64 @@ from ..batch import AttrTensor
 
 
 class Pool(dm.modules.Pool, dm.WordAggregator):
-    r"""
-    The pooling aggregation class.
+    """Pooling based Word Aggregator.
+
+    Takes the same parameters as the :class:`~deepmatcher.modules.Pool` module.
     """
     pass
 
 
 class AttentionWithRNN(dm.WordAggregator):
-    r"""
-    The aggregation class using attention with RNN. This class can be used when the
+    r"""__init__(hidden_size=None, input_dropout=0, rnn='gru', rnn_pool_style='birnn-last', score_dropout=0, input_context_comparison_network='1-layer-highway', value_transform_network=None, transform_dropout=0, input_size=None)
+
+    Attention and RNN based Word Aggregator. This class can be used when the
     aggregation on the primary input also needs the information from the context.
-    Specifically, the hybrid attribute summarizer  (:class:`attr_summarizers.Hybrid`)
-    takes advantange of this aggregation approach.
+    Specifically, the :class:`~deepmatcher.attr_summarizers.Hybrid` attribute summarizer
+    uses this aggregation approach by default. This module takes a primary input sequence
+    and a context input sequence and computes a single summary vector for the primary
+    input sequence based on the information in the context input. To do so, it does the
+    following:
+
+    1. Applies an :ref:`rnn-op` over the context input.
+    2. Uses a :ref:`pool-op` operation over the RNN to obtain a single vector summarizing
+       the information in the context input.
+    3. Based on this context summary vector, uses attention to score the relevance of each
+       vector in the primary input sequence.
+    4. Performs a weighted average of the vectors in the primary input sequence based on
+       the computed scores to obtain a context dependent summary of the primary input
+       sequence.
 
     Args:
-    hidden_size (int):
-        TODO(Sid)
-    input_dropout (float):
-        The dropout ratio for the input vector sequence. The default value is 0, meaning
-        no dropout used.
-    rnn (string or :obj:`dm.modules.RNN` or callable):
-        The argument for creating the RNN that will be used for attention-based
-        comparison. It could be one of:
-        * a string specifying the RNN to use, which is one of "rnn", "gru", and "lstm".
-        * a :class:`dm.modules.RNN` object.
-        * a callable that returns a :class:`nn.Module`.
-        The default value is 'gru' (using the GRU network).
-    rnn_pool_style (string):
-        The pooling style for the RNN. Please refer to :class:`dm.modules.Pool` for the
-        list of supported pooling style. The default value is 'birnn-last' (using the
-        bi-directional RNN, and concatenating the last hidden output of the forward
-        RNN and the first hidden output of the backward RNN).
-    score_dropout (float):
-        Dropout ratio for the alignment scores after the comparison of the primary input
-        and the context input. The default value is 0 (no dropout used).
-    scale (boolean):
-        Scale the alignment scores
-    input_context_comparison_network ():
-        The comparison network to compare the primary input with the context input after
-        the attention step.
-        TODO(Sid)
-    input_transform_network ():
-        TODO(Sid)
-    transform_dropout (float):
-        Dropout ratio for the transform network of the input. The default value is 0 (no
-        dropout used).
-    input_size (int):
-        TODO(Sid)
+        hidden_size (int):
+            The default hidden size to use for the RNN,
+            `input_context_comparison_network`, and the `value_transform_network`.
+        input_dropout (float):
+            If non-zero, applies dropout to the input to this module. Dropout probability
+            must be between 0 and 1.
+        rnn (string or :class:`~deepmatcher.modules.RNN` or callable):
+            The RNN used in Step 1 described above. Argument must specify an
+            :ref:`rnn-op` operation.
+        rnn_pool_style (string):
+            The pooling operation used in Step 2 described above. Argument must specify a
+            :ref:`pool-op` operation.
+        score_dropout (float):
+            If non-zero, applies dropout to the attention scores computed in Step 3
+            described above. Dropout probability must be between 0 and 1.
+        input_context_comparison_network (string or :class:`~deepmatcher.modules.Transform` or callable):
+            The neural network that takes each vector in the primary input sequence
+            concatenated with the context summary vector to obtain a hidden vector
+            representing the primary vector's relevance to the context input.
+            Argument must specify a :ref:`transform-op` operation.
+        value_transform_network (string or :class:`~deepmatcher.modules.Transform` or callable):
+            The neural network to transform the primary input sequence before taking its
+            weighted average in Step 4 described above. Argument must be None or specify a
+            :ref:`transform-op` operation.
+        transform_dropout (float):
+            If non-zero, applies dropout to the output of the `value_transform_network`,
+            if applicable. Dropout probability must be between 0 and 1.
+        input_size (int):
+            The number of features in the input to the module. This parameter will be
+            automatically specified by :class:`LazyModule`.
     """
 
     def _init(self,
@@ -67,9 +78,8 @@ class AttentionWithRNN(dm.WordAggregator):
               rnn='gru',
               rnn_pool_style='birnn-last',
               score_dropout=0,
-              scale=False,
               input_context_comparison_network='1-layer-highway',
-              input_transform_network=None,
+              value_transform_network=None,
               transform_dropout=0,
               input_size=None):
 
@@ -85,16 +95,14 @@ class AttentionWithRNN(dm.WordAggregator):
         self.input_context_comparison_network = dm.modules._transform_module(
             input_context_comparison_network, hidden_size=hidden_size)
         self.scoring_network = dm.modules._transform_module('1-layer', hidden_size=1)
-        self.input_transform_network = dm.modules._transform_module(
-            input_transform_network, hidden_size=hidden_size)
+        self.value_transform_network = dm.modules._transform_module(
+            value_transform_network, hidden_size=hidden_size)
 
         self.input_dropout = nn.Dropout(input_dropout)
         self.transform_dropout = nn.Dropout(transform_dropout)
         self.score_dropout = nn.Dropout(score_dropout)
 
         self.softmax = nn.Softmax(dim=1)
-
-        self.scale = scale
 
     def _forward(self, input_with_meta, context_with_meta):
         r"""
@@ -127,9 +135,6 @@ class AttentionWithRNN(dm.WordAggregator):
 
         alignment_scores = self.score_dropout(raw_scores)
 
-        if self.scale:
-            alignment_scores = alignment_scores / torch.sqrt(input.size(2))
-
         if input_with_meta.lengths is not None:
             mask = _utils.sequence_mask(input_with_meta.lengths)
             alignment_scores.data.masked_fill_(1 - mask, -float('inf'))
@@ -138,8 +143,8 @@ class AttentionWithRNN(dm.WordAggregator):
         normalized_scores = self.softmax(alignment_scores)
 
         transformed = input
-        if self.input_transform_network is not None:
-            transformed = self.transform_dropout(self.input_transform_network(input))
+        if self.value_transform_network is not None:
+            transformed = self.transform_dropout(self.value_transform_network(input))
 
         weighted_sum = torch.bmm(normalized_scores.unsqueeze(1), transformed).squeeze(1)
         return AttrTensor.from_old_metadata(weighted_sum, input_with_meta)

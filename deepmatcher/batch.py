@@ -6,6 +6,29 @@ AttrTensor_ = namedtuple('AttrTensor', ['data', 'lengths', 'word_probs', 'pc'])
 
 
 class AttrTensor(AttrTensor_):
+    """A wrapper around the batch tensor for a specific attribute.
+
+    The purpose of having a wrapper around the tensor is to include attribute specific
+    metadata along with it. Metadata include the following:
+
+    * ``lengths``: Lengths of each sequence (attribute value) in the batch.
+    * ``word_probs``: For each sequence in the batch, a list of word probabilities
+      corresponding to words in the sequence.
+    * ``pc``: The first principal component of the sequence embeddings for all values of
+      this attribute. For details on how this is computed refer documentation for
+      :meth:`~deepmatcher.data.MatchingDataset.compute_metadata`. This is used for
+      implementing the SIF model proposed in
+      `this paper <https://openreview.net/pdf?id=SyK00v5xx>`__.
+
+    This class is essentially a :class:`namedtuple`. The tensor containing the data and
+    the associated metadata described above can be accessed as follows::
+
+        name_attr = AttrTensor(data, lengths, word_probs, pc)
+        assert(name_attr.data == data)
+        assert(name_attr.lengths == lengths)
+        assert(name_attr.word_probs == word_probs)
+        assert(name_attr.pc == pc)
+    """
 
     @staticmethod
     def __new__(cls, *args, **kwargs):
@@ -37,10 +60,32 @@ class AttrTensor(AttrTensor_):
 
     @staticmethod
     def from_old_metadata(data, old_attrtensor):
+        """Wrap a PyTorch :class:`torch.Tensor` into an :class:`AttrTensor`.
+
+        The metadata information is (shallow) copied from a pre-existing
+        :class:`AttrTensor`. This is useful when the data for an attribute is
+        transformed by a neural network and we wish the wrap the result into an
+        :class:`AttrTensor` for further processing by another module that requires
+        access to metadata.
+
+        Args:
+            old_attrtensor (:class:`AttrTensor`):
+                The pre-existing :class:`AttrTensor` to copy metadata from.
+        """
         return AttrTensor(data, *old_attrtensor[1:])
 
 
 class MatchingBatch(object):
+    """A batch of data and associated metadata for a text matching task.
+
+    Consists of one :class:`AttrTensor` (containing the data and metadata) for each
+    attribute. For example, the :class:`AttrTensor` s of a :class:`MatchingBatch` object
+    ``mbatch`` for a matching task with two attribtues ``name`` and ``category``, can be
+    accessed as follows::
+
+        name_attr = mbatch.name
+        category_attr = mbatch.category
+    """
 
     def __init__(self, input, train_info):
         copy_fields = train_info.all_text_fields

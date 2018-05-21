@@ -97,6 +97,7 @@ html_theme_options = {
     'collapse_navigation': False,
     'display_version': True,
     'logo_only': True,
+    'navigation_depth': 4,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -166,4 +167,9 @@ texinfo_documents = [
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/', None),
+    'torch': ('http://pytorch.org/docs/0.3.1/', None),
+    'torchtext': ('http://torchtext.readthedocs.io/en/latest/', None),
+    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None)
+}

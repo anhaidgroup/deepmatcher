@@ -1,14 +1,39 @@
-import pdb
+import logging
 
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
-
 import torch.optim as optim
+from torch.autograd import Variable
 from torch.nn.utils import clip_grad_norm
+
+logger = logging.getLogger('deepmatcher.optim')
+logger.setLevel(logging.INFO)
 
 
 class SoftNLLLoss(nn.NLLLoss):
+    """A soft version of negative log likelihood loss with support for label smoothing.
+
+    Effectively equivalent to PyTorch's :class:`torch.nn.NLLLoss`, if `label_smoothing`
+    set to zero. While the numerical loss values will be different compared to
+    :class:`torch.nn.NLLLoss`, this loss results in the same gradients. This is because
+    the implementation uses :class:`torch.nn.KLDivLoss` to support multi-class label
+    smoothing.
+
+    Args:
+        label_smoothing (float):
+            The smoothing parameter :math:`epsilon` for label smoothing. For details on
+            label smoothing refer `this paper <https://arxiv.org/abs/1512.00567v1>`__.
+        weight (:class:`torch.Tensor`):
+            A 1D tensor of size equal to the number of classes. Specifies the manual
+            weight rescaling applied to each class. Useful in cases when there is severe
+            class imbalance in the training set.
+        num_classes (int):
+            The number of classes.
+        size_average (bool):
+            By default, the losses are averaged for each minibatch over observations **as
+            well as** over dimensions. However, if ``False`` the losses are instead
+            summed. This is a keyword only parameter.
+    """
 
     def __init__(self, label_smoothing=0, weight=None, num_classes=2, **kwargs):
         super(SoftNLLLoss, self).__init__(**kwargs)
@@ -19,13 +44,9 @@ class SoftNLLLoss(nn.NLLLoss):
 
         assert label_smoothing >= 0.0 and label_smoothing <= 1.0
 
-        # if num_classes == 2:
-        self.criterion2 = nn.NLLLoss(weight=weight, **kwargs)
-        # else:
-        # self.criterion1 = nn.KLDivLoss(**kwargs)
+        self.criterion = nn.KLDivLoss(**kwargs)
 
     def forward(self, input, target):
-        # if self.num_classes > 2:
         one_hot = torch.zeros_like(input)
         one_hot.fill_(self.label_smoothing / (self.num_classes - 1))
         one_hot.scatter_(1, target.unsqueeze(1).long(), self.confidence)
@@ -33,59 +54,42 @@ class SoftNLLLoss(nn.NLLLoss):
         if self.weight is not None:
             one_hot.mul_(self.weight)
 
-        # loss1 = self.criterion1(input, one_hot)
-        # else:
-        loss2 = (self.confidence * self.criterion2(input, target) +
-                 self.label_smoothing * self.criterion2(input, 1 - target))
-
-        # print(loss1 - loss2)
-        # pdb.set_trace()
-        return loss2
+        return self.criterion(input, one_hot)
 
 
-# This class is taken mostly from the ONMT project.
+# This class is based on the Optimizer class in the ONMT-py project.
 class Optimizer(object):
-    """
-    Controller class for optimization. Mostly a thin
-    wrapper for `optim`, but also useful for implementing
-    rate scheduling beyond what is currently available.
-    Also implements necessary methods for training RNNs such
-    as grad manipulations.
+    """Controller class for optimization.
+
+    Mostly a thin wrapper for `optim`, but also useful for implementing learning rate
+    scheduling beyond what is currently available. Also implements necessary methods for
+    training RNNs such as grad manipulations.
 
     Args:
-      method (:obj:`str`): one of [sgd, adagrad, adadelta, adam]
-      lr (float): learning rate
-      lr_decay (float, optional): learning rate decay multiplier
-      start_decay_at (int, optional): epoch to start learning rate decay
-      beta1, beta2 (float, optional): parameters for adam
-      adagrad_accum (float, optional): initialization parameter for adagrad
-      lr_decay_method (str, option): custom decay options
-      warmup_steps (int, option): parameter for `noam` decay
-      model_size (int, option): parameter for `noam` decay
+        method (string):
+            One of [sgd, adagrad, adadelta, adam].
+        lr (float):
+            Learning rate.
+        lr_decay (float):
+            Learning rate decay multiplier.
+        start_decay_at (int):
+            Epoch to start learning rate decay. If None, starts decay when the validation
+            accuracy stops improving. Defaults to 1.
+        beta1, beta2 (float):
+            Hyperarameters for adam.
+        adagrad_accum (float, optional):
+            Initialization hyperparameter for adagrad.
     """
 
-    # We use the default parameters for Adam that are suggested by
-    # the original paper https://arxiv.org/pdf/1412.6980.pdf
-    # These values are also used by other established implementations,
-    # e.g. https://www.tensorflow.org/api_docs/python/tf/train/AdamOptimizer
-    # https://keras.io/optimizers/
-    # Recently there are slightly different values used in the paper
-    # "Attention is all you need"
-    # https://arxiv.org/pdf/1706.03762.pdf, particularly the value beta2=0.98
-    # was used there however, beta2=0.999 is still arguably the more
-    # established value, so we use that here as well
     def __init__(self,
                  method='adam',
                  lr=0.001,
                  max_grad_norm=5,
-                 start_decay_at=None,
+                 start_decay_at=1,
                  beta1=0.9,
                  beta2=0.999,
                  adagrad_accum=0.0,
-                 lr_decay=0.8,
-                 lr_decay_method=None,
-                 warmup_steps=4000,
-                 model_size=None):
+                 lr_decay=0.8):
         self.last_acc = None
         self.lr = lr
         self.original_lr = lr
@@ -97,20 +101,20 @@ class Optimizer(object):
         self._step = 0
         self.betas = [beta1, beta2]
         self.adagrad_accum = adagrad_accum
-        self.lr_decay_method = lr_decay_method
-        self.warmup_steps = warmup_steps
-        self.model_size = model_size
         self.params = None
 
     def set_parameters(self, params):
+        """Sets the model parameters and initializes the base optimizer.
+
+        Args:
+            params:
+                Dictionary of named model parameters. Parameters that do not require
+                gradients will be filtered out for optimization.
+        """
         self.params = []
-        self.sparse_params = []
         for k, p in params:
             if p.requires_grad:
-                if self.method != 'sparseadam' or "embed" not in k:
-                    self.params.append(p)
-                else:
-                    self.sparse_params.append(p)
+                self.params.append(p)
         if self.method == 'sgd':
             self.base_optimizer = optim.SGD(self.params, lr=self.lr)
         elif self.method == 'adagrad':
@@ -124,46 +128,37 @@ class Optimizer(object):
         elif self.method == 'adam':
             self.base_optimizer = optim.Adam(
                 self.params, lr=self.lr, betas=self.betas, eps=1e-9)
-        elif self.method == 'sparseadam':
-            self.base_optimizer = MultipleOptimizer([
-                optim.Adam(self.params, lr=self.lr, betas=self.betas, eps=1e-8),
-                optim.SparseAdam(
-                    self.sparse_params, lr=self.lr, betas=self.betas, eps=1e-8)
-            ])
         else:
             raise RuntimeError("Invalid optim method: " + self.method)
 
     def _set_rate(self, lr):
-        self.lr = lr
-        pdb.set_trace()
-        self.base_optimizer.param_groups[0]['lr'] = self.lr
+        for param_group in self.base_optimizer.param_groups:
+            param_group['lr'] = self.lr
 
     def step(self):
         """Update the model parameters based on current gradients.
 
-        Optionally, will employ gradient modification or update learning
-        rate.
+        Optionally, will employ gradient clipping.
         """
         self._step += 1
-
-        # Decay method used in tensor2tensor.
-        if self.lr_decay_method == "noam":
-            self._set_rate(self.original_lr *
-                           (self.model_size**
-                            (-0.5) * min(self._step**
-                                         (-0.5), self._step * self.warmup_steps**(-1.5))))
 
         if self.max_grad_norm:
             clip_grad_norm(self.params, self.max_grad_norm)
         self.base_optimizer.step()
 
     def update_learning_rate(self, acc, epoch):
-        """
-        Decay learning rate if val perf does not improve
-        or we hit the start_decay_at limit.
+        """Decay learning rate.
+
+        Decays lerning rate if val perf does not improve or we hit the `start_decay_at`
+        limit.
+
+        Args:
+            acc:
+                The accuracy score on the validation set.
+            epoch:
+                The current epoch number.
         """
 
-        self.start_decay = True
         if self.start_decay_at is not None and epoch >= self.start_decay_at:
             self.start_decay = True
         if self.last_acc is not None and acc < self.last_acc:
@@ -171,6 +166,7 @@ class Optimizer(object):
 
         if self.start_decay:
             self.lr = self.lr * self.lr_decay
+            logger.info('Setting learning rate to {:0.3e}'.format(self.lr))
 
         self.last_acc = acc
-        self.base_optimizer.param_groups[0]['lr'] = self.lr
+        self._set_rate(self.lr)

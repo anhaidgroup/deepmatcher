@@ -17,14 +17,6 @@ Tutorials are located `here <https://github.com/sidharthms/deepmatcher/blob/mast
 
 .. toctree::
    :maxdepth: 1
-   :caption: Notes
-
-   Deep Learning Model Architecture Template <notes/model>
-   Package Design Notes <notes/design>
-   FAQ <notes/faq>
-
-.. toctree::
-   :maxdepth: 1
    :caption: Package Reference
 
    deepmatcher
@@ -36,6 +28,9 @@ Tutorials are located `here <https://github.com/sidharthms/deepmatcher/blob/mast
    deepmatcher.optim <optim>
    deepmatcher.data <data>
    deepmatcher.batch <batch>
+
+.. automodule:: deepmatcher
+   :members:
 
 Indices and tables
 ==================

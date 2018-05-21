@@ -185,15 +185,14 @@ class MatchingDataset(data.TabularDataset):
         Computes the following metadata about the dataset:
 
         * ``word_probs``: For each attribute in the dataset, a mapping from words to
-            word (token) probabilities.
+          word (token) probabilities.
         * ``totals``: For each attribute in the dataset, a count of the total number of
-            words present in all attribute examples.
+          words present in all attribute examples.
         * ``pc``: For each attribute in the dataset, the first principal component of the
-            sequence embeddings for all attribute examples. The sequence embedding of an
-            attribute value is computed by taking the weighted average of its word
-            embeddings, where the weight is the soft inverse word probability.
-            Refer "A simple but tough-to-beat baseline for sentence embeddings." by
-            Arora et al. (2017) for details.
+          sequence embeddings for all values of that attribute. The sequence embedding of
+          an attribute value is computed by taking the weighted average of its word
+          embeddings, where the weight is the soft inverse word probability. Refer
+          `Arora et al. (2017) <https://openreview.net/pdf?id=SyK00v5xx>`__ for details.
 
         Arguments:
             pca (bool): Whether to compute the ``pc`` metadata.
