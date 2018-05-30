@@ -13,7 +13,7 @@ DeepMatcher is a deep learning library for entity matching.
 Tutorials
 ---------
 
-Tutorials are located `here <https://github.com/sidharthms/deepmatcher/blob/master/examples/getting_started.ipynb>`_
+Tutorials are located `here <https://github.com/sidharthms/deepmatcher#tutorials>`_
 
 .. toctree::
    :maxdepth: 1

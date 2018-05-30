@@ -1,13 +1,16 @@
-from nose.tools import *
-
-from collections import Counter
 import os
 import shutil
-import torch
-from torchtext.vocab import Vectors
 import unittest
-
+from collections import Counter
 from test import test_dir_path
+
+from nose.tools import *
+
+import torch
+from deepmatcher.data.dataset import MatchingDataset
+from deepmatcher.data.field import (FastText, FastTextBinary, MatchingField,
+                                    MatchingVocab, reset_vector_cache)
+from torchtext.vocab import Vectors
 
 try:
     from urllib.parse import urljoin
@@ -16,15 +19,13 @@ except ImportError:
     from urlparse import urljoin
     from urllib import path2pathname2url
 
-from deepmatcher.data.field import FastText, FastTextBinary, MatchingVocab
-from deepmatcher.data.field import MatchingField, reset_vector_cache
-from deepmatcher.data.dataset import MatchingDataset
-
 # import nltk
 # nltk.download('perluniprops')
 # nltk.download('nonbreaking_prefixes')
 
+
 class ClassFastTextTestCases(unittest.TestCase):
+
     def test_init_1(self):
         vectors_cache_dir = '.cache'
         if os.path.exists(vectors_cache_dir):
@@ -40,7 +41,9 @@ class ClassFastTextTestCases(unittest.TestCase):
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 
+
 class ClassFastTextBinaryTestCases(unittest.TestCase):
+
     @raises(RuntimeError)
     def test_init_1(self):
         vectors_cache_dir = '.cache'
@@ -85,15 +88,17 @@ class ClassFastTextBinaryTestCases(unittest.TestCase):
 
 
 class ClassMatchingFieldTestCases(unittest.TestCase):
+
     def test_init_1(self):
         mf = MatchingField()
         self.assertTrue(mf.sequential)
 
     def test_init_2(self):
         mf = MatchingField()
-        seq = 'Hello, This is a test sequence for Moses.'
-        tok_seq = ['Hello', ',', 'This', 'is', 'a', 'test', 'sequence',
-                   'for', 'Moses', '.']
+        seq = 'Hello, This is a test sequence for tokenizer.'
+        tok_seq = [
+            'Hello', ',', 'This', 'is', 'a', 'test', 'sequence', 'for', 'tokenizer', '.'
+        ]
         self.assertEqual(mf.tokenize(seq), tok_seq)
 
     @raises(ValueError)
@@ -103,11 +108,17 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
     def test_preprocess_args_1(self):
         mf = MatchingField()
         arg_dict = mf.preprocess_args()
-        res_dict = {'sequential': True, 'init_token': None,
-                    'eos_token': None, 'init_token': None,
-                    'lower': False, 'preprocessing': None,
-                    'sequential': True, 'tokenizer_arg': 'moses',
-                    'unk_token': '<unk>'}
+        res_dict = {
+            'sequential': True,
+            'init_token': None,
+            'eos_token': None,
+            'init_token': None,
+            'lower': False,
+            'preprocessing': None,
+            'sequential': True,
+            'tokenizer_arg': 'nltk',
+            'unk_token': '<unk>'
+        }
         self.assertEqual(arg_dict, res_dict)
 
     def test_build_vocab_1(self):
@@ -168,9 +179,8 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
 
         mf = MatchingField()
         lf = MatchingField(id=True, sequential=False)
-        fields = [ ('id', lf), ('left_a', mf), ('right_a', mf), ('label', lf)]
-        col_naming = {'id':'id', 'label':'label', 'left':'left_',
-                      'right':'right_'}
+        fields = [('id', lf), ('left_a', mf), ('right_a', mf), ('label', lf)]
+        col_naming = {'id': 'id', 'label': 'label', 'left': 'left_', 'right': 'right_'}
 
         pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec'
@@ -189,12 +199,15 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
 
 
 class TestResetVectorCache(unittest.TestCase):
+
     def test_reset_vector_cache_1(self):
         mf = MatchingField()
         reset_vector_cache()
         self.assertDictEqual(mf._cached_vec_data, {})
 
+
 class ClassMatchingVocabTestCases(unittest.TestCase):
+
     def test_extend_vectors_1(self):
         vectors_cache_dir = '.cache'
         if os.path.exists(vectors_cache_dir):

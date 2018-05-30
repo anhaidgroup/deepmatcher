@@ -1,5 +1,6 @@
 import copy
 import io
+import logging
 import os
 from timeit import default_timer as timer
 
@@ -9,6 +10,8 @@ from torchtext.utils import unicode_csv_reader
 
 from .dataset import MatchingDataset
 from .field import MatchingField
+
+logger = logging.getLogger(__name__)
 
 
 def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns):
@@ -79,6 +82,7 @@ def _maybe_download_nltk_data():
     import nltk
     nltk.download('perluniprops', quiet=True)
     nltk.download('nonbreaking_prefixes', quiet=True)
+    nltk.download('punkt', quiet=True)
 
 
 def process(path,
@@ -89,7 +93,7 @@ def process(path,
             cache='cacheddata.pth',
             check_cached_data=True,
             auto_rebuild_cache=True,
-            tokenize='moses',
+            tokenize='nltk',
             lowercase=True,
             embeddings='fasttext.en.bin',
             embeddings_cache_path='~/.vector_cache',
@@ -250,7 +254,7 @@ def process_unlabeled(path, trained_model, ignore_columns=None):
     assert set(dataset.all_text_fields) == set(train_info.all_text_fields)
 
     after_load = timer()
-    print('Load time:', after_load - begin)
+    logger.info('Data load time: {}s'.format(after_load - begin))
 
     reverse_fields_dict = dict((pair[1], pair[0]) for pair in fields)
     for field, name in reverse_fields_dict.items():
@@ -267,6 +271,6 @@ def process_unlabeled(path, trained_model, ignore_columns=None):
     }
 
     after_vocab = timer()
-    print('Vocab update time:', after_vocab - after_load)
+    logger.info('Vocab update time: {}s'.format(after_vocab - after_load))
 
     return dataset

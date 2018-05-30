@@ -33,7 +33,7 @@ setup(
     license='BSD',
     packages=['deepmatcher', 'deepmatcher.data', 'deepmatcher.models'],
     install_requires=[
-        'torch==0.3.1', 'tqdm', 'pyprind', 'six', 'Cython', 'torchtext', 'nltk==3.2.5',
+        'torch==0.3.1', 'tqdm', 'pyprind', 'six', 'Cython', 'torchtext', 'nltk>=3.2.5',
         'fasttextgithub==0.1.1', 'pandas'
     ],
     dependency_links=[

@@ -3,6 +3,7 @@ import os
 import tarfile
 import zipfile
 
+import nltk
 import six
 
 import fastText
@@ -106,10 +107,17 @@ class MatchingField(data.Field):
 
     _cached_vec_data = {}
 
-    def __init__(self, tokenize='moses', id=False, **kwargs):
+    def __init__(self, tokenize='nltk', id=False, **kwargs):
         self.tokenizer_arg = tokenize
         self.is_id = id
+        tokenize = MatchingField._get_tokenizer(tokenize)
         super(MatchingField, self).__init__(tokenize=tokenize, **kwargs)
+
+    @staticmethod
+    def _get_tokenizer(tokenizer):
+        if tokenizer == 'nltk':
+            return nltk.word_tokenize
+        return tokenizer
 
     def preprocess_args(self):
         attrs = [

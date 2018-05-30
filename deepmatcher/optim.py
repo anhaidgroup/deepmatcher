@@ -7,7 +7,6 @@ from torch.autograd import Variable
 from torch.nn.utils import clip_grad_norm
 
 logger = logging.getLogger('deepmatcher.optim')
-logger.setLevel(logging.INFO)
 
 
 class SoftNLLLoss(nn.NLLLoss):
@@ -102,6 +101,7 @@ class Optimizer(object):
         self.betas = [beta1, beta2]
         self.adagrad_accum = adagrad_accum
         self.params = None
+        logger.info('Initial learning rate: {:0.3e}'.format(self.lr))
 
     def set_parameters(self, params):
         """Sets the model parameters and initializes the base optimizer.
@@ -166,7 +166,7 @@ class Optimizer(object):
 
         if self.start_decay:
             self.lr = self.lr * self.lr_decay
-            logger.info('Setting learning rate to {:0.3e}'.format(self.lr))
+            logger.info('Setting learning rate to {:0.3e} for next epoch'.format(self.lr))
 
         self.last_acc = acc
         self._set_rate(self.lr)

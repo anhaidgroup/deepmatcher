@@ -35,12 +35,13 @@ def process(*args, **kwargs):
     return data_process(*args, **kwargs)
 
 
-__version__ = '0.0.1a0'
+__version__ = '0.0.1b'
+__author__ = 'Sidharth Mudgal, Han Li'
 
 __all__ = [
-    'attr_summarizers', 'word_aggregators', 'word_comparators', 'word_contextualizers', 'process',
-    'MatchingModel', 'AttrSummarizer', 'WordContextualizer', 'WordComparator', 'WordAggregator',
-    'Classifier', 'modules'
+    'attr_summarizers', 'word_aggregators', 'word_comparators', 'word_contextualizers',
+    'process', 'MatchingModel', 'AttrSummarizer', 'WordContextualizer', 'WordComparator',
+    'WordAggregator', 'Classifier', 'modules'
 ]
 
 _check_nan = True

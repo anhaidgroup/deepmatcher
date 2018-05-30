@@ -23,7 +23,7 @@ class MatchingIterator(data.BucketIterator):
         self.sort_in_buckets = sort_in_buckets
         self.train_info = train_info
         super(MatchingIterator, self).__init__(
-            dataset, batch_size, train=train, repeat=False, **kwargs)
+            dataset, batch_size, train=train, repeat=False, sort=False, **kwargs)
 
     @classmethod
     def splits(cls, datasets, batch_sizes=None, **kwargs):

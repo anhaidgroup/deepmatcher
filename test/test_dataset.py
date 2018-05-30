@@ -1,15 +1,16 @@
-from nose.tools import *
-
 import io
 import os
 import shutil
-import pandas as pd
-import torch
 import unittest
-from deepmatcher.data.dataset import *
-from deepmatcher.data.field import MatchingField, FastText
-from deepmatcher.data.process import process, _make_fields
+from test import test_dir_path
 
+import pandas as pd
+from nose.tools import *
+
+import torch
+from deepmatcher.data.dataset import *
+from deepmatcher.data.field import FastText, MatchingField
+from deepmatcher.data.process import _make_fields, process
 from torchtext.utils import unicode_csv_reader
 
 try:
@@ -19,17 +20,17 @@ except ImportError:
     from urlparse import urljoin
     from urllib import path2pathname2url
 
-from test import test_dir_path
 
 # import nltk
 # nltk.download('perluniprops')
 # nltk.download('nonbreaking_prefixes')
 
+
 class ClassMatchingDatasetTestCases(unittest.TestCase):
+
     def test_init_1(self):
         fields = [('left_a', MatchingField()), ('right_a', MatchingField())]
-        col_naming = {'id':'id', 'label':'label', 'left':'left',
-                      'right':'right'}
+        col_naming = {'id': 'id', 'label': 'label', 'left': 'left', 'right': 'right'}
         path = os.path.join(test_dir_path, 'test_datasets', 'sample_table_small.csv')
         md = MatchingDataset(fields, col_naming, path=path)
         self.assertEqual(md.id_field, 'id')
@@ -41,20 +42,23 @@ class ClassMatchingDatasetTestCases(unittest.TestCase):
 
 
 class MatchingDatasetSplitsTestCases(unittest.TestCase):
+
     def setUp(self):
         self.data_dir = os.path.join(test_dir_path, 'test_datasets')
         self.train = 'test_train.csv'
         self.validation = 'test_valid.csv'
         self.test = 'test_test.csv'
         self.cache_name = 'test_cacheddata.pth'
-        with io.open(os.path.expanduser(os.path.join(self.data_dir, self.train)), encoding="utf8") as f:
+        with io.open(
+                os.path.expanduser(os.path.join(self.data_dir, self.train)),
+                encoding="utf8") as f:
             header = next(unicode_csv_reader(f))
 
         id_attr = 'id'
         label_attr = 'label'
         ignore_columns = ['left_id', 'right_id']
         self.fields = _make_fields(header, id_attr, label_attr, ignore_columns, True,
-                          'moses', False)
+                                   'nltk', False)
 
         self.column_naming = {
             'id': id_attr,
@@ -138,8 +142,10 @@ class MatchingDatasetSplitsTestCases(unittest.TestCase):
 
 
 class DataframeSplitTestCases(unittest.TestCase):
+
     def test_split_1(self):
-        labeled_path = os.path.join(test_dir_path, 'test_datasets', 'sample_table_large.csv')
+        labeled_path = os.path.join(test_dir_path, 'test_datasets',
+                                    'sample_table_large.csv')
         labeled_table = pd.read_csv(labeled_path)
         ori_cols = list(labeled_table.columns)
         out_path = os.path.join(test_dir_path, 'test_datasets')
@@ -168,7 +174,8 @@ class DataframeSplitTestCases(unittest.TestCase):
             os.remove(test_path)
 
     def test_split_2(self):
-        labeled_path = os.path.join(test_dir_path, 'test_datasets', 'sample_table_large.csv')
+        labeled_path = os.path.join(test_dir_path, 'test_datasets',
+                                    'sample_table_large.csv')
         labeled_table = pd.read_csv(labeled_path)
         ori_cols = list(labeled_table.columns)
         out_path = os.path.join(test_dir_path, 'test_datasets')
@@ -198,13 +205,13 @@ class DataframeSplitTestCases(unittest.TestCase):
 
 
 class GetRawTableTestCases(unittest.TestCase):
+
     def test_get_raw_table(self):
         vectors_cache_dir = '.cache'
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 
-        data_cache_path = os.path.join(test_dir_path, 'test_datasets',
-            'cacheddata.pth')
+        data_cache_path = os.path.join(test_dir_path, 'test_datasets', 'cacheddata.pth')
         if os.path.exists(data_cache_path):
             os.remove(data_cache_path)
 
@@ -222,8 +229,8 @@ class GetRawTableTestCases(unittest.TestCase):
             pca=False)
 
         train_raw = train.get_raw_table()
-        ori_train = pd.read_csv(os.path.join(test_dir_path, 'test_datasets',
-            'sample_table_small.csv'))
+        ori_train = pd.read_csv(
+            os.path.join(test_dir_path, 'test_datasets', 'sample_table_small.csv'))
         self.assertEqual(set(train_raw.columns), set(ori_train.columns))
 
         if os.path.exists(data_cache_path):

@@ -8,8 +8,8 @@ DeepMatcher
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :target: https://opensource.org/licenses/BSD-3-Clause
 
-DeepMatcher is a python package for performing entity matching using deep learning. It
-provides built-in neural networks and utilities that enable you to train and apply
+DeepMatcher is a python package for performing entity / text matching using deep learning.
+It provides built-in neural networks and utilities that enable you to train and apply
 state-of-the-art deep learning models for entity matching in less than 10 lines of code.
 The models are also easily customizable - the modular design allows any subcomponent to be
 altered or swapped out for a custom implementation.
@@ -18,16 +18,13 @@ As an example, given labeled tuple pairs such as the following:
 
 .. image:: docs/source/_static/match_input_ex.png
 
-DeepMatcher trains a neural network to perform matching, i.e., to predict
-match / non-match labels. The trained network can then be used obtain labels for unseen
-tuple pairs or text sequences.
+DeepMatcher uses labeled tuple pairs trains a neural network to perform matching, i.e., to
+predict match / non-match labels. The trained network can then be used obtain labels for
+unlabeled tuple pairs or text sequences.
 
-This package is the official PyTorch rewrite of the code for the paper
-`Deep Learning for Entity Matching`_ (SIGMOD '18). All the publicly available datasets used
-in the paper can be found at `Prof. AnHai Doan's data repository`_.
-
-This package is currently in early-release alpha. Please report any
-crashes / bugs / problems you encounter while using this package.
+For details on the architecture of the models used, take a look at our paper `Deep
+Learning for Entity Matching`_ (SIGMOD '18). All the publicly available datasets used in
+the paper can be found at `Prof. AnHai Doan's data repository`_.
 
 **********
 Quick Start: DeepMatcher in 30 seconds
@@ -105,14 +102,14 @@ Answer Selection.
 API Reference
 **********
 
-API docs are under construction. The half baked docs `can be accessed here`_.
+API docs `are here`_.
 
 **********
 Support
 **********
 
 This package is under active development. If you run into any issues or have questions,
-please file GitHub issues.
+please `file GitHub issues`_.
 
 **********
 The Team
@@ -128,6 +125,7 @@ and Han Li, under the supervision of Prof. AnHai Doan and Prof. Theodoros Rekats
 .. _`Data Processing`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/data_processing.ipynb
 .. _`Matching Models`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb
 .. _`End to End Entity Matching`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/end_to_end_em.ipynb
-.. _`can be accessed here`: http://pages.cs.wisc.edu/~sidharth/deepmatcher/index.html
+.. _`are here`: https://deepmatcher.github.io/docs/
 .. _`Question Answering with DeepMatcher`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/question_answering.ipynb
 .. _`WikiQA`: https://aclweb.org/anthology/D15-1237
+.. _`file GitHub issues`: https://github.com/sidharthms/deepmatcher/issues

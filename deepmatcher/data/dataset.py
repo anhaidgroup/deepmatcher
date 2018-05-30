@@ -521,7 +521,7 @@ class MatchingDataset(data.TabularDataset):
                     if not auto_rebuild_cache:
                         raise MatchingDataset.CacheStaleException(cache_stale_cause)
                     else:
-                        print('Rebuilding data cache because:', cache_stale_cause)
+                        logger.warn('Rebuilding data cache because:', cache_stale_cause)
 
                 if not check_cached_data or not cache_stale_cause:
                     datasets = MatchingDataset.restore_data(fields, cached_data)
@@ -542,7 +542,7 @@ class MatchingDataset(data.TabularDataset):
                 d for d in (train_data, val_data, test_data) if d is not None)
 
             after_load = timer()
-            print('Load time:', after_load - begin)
+            logger.info('Data load took: {}s'.format(after_load - begin))
 
             fields_set = set(fields_dict.values())
             for field in fields_set:
@@ -550,18 +550,19 @@ class MatchingDataset(data.TabularDataset):
                     field.build_vocab(
                         *datasets, vectors=embeddings, cache=embeddings_cache)
             after_vocab = timer()
-            print('Vocab time:', after_vocab - after_load)
+            logger.info('Vocab construction time: {}s'.format(after_vocab - after_load))
 
             if train:
                 datasets[0].compute_metadata(train_pca)
             after_metadata = timer()
-            print('Metadata time:', after_metadata - after_vocab)
+            logger.info(
+                'Metadata computation time: {}s'.format(after_metadata - after_vocab))
 
             if cache:
                 MatchingDataset.save_cache(datasets, fields_dict, datafiles, cachefile,
                                            column_naming, state_args)
                 after_cache = timer()
-                print('Cache time:', after_cache - after_vocab)
+                logger.info('Cache save time: {}s'.format(after_cache - after_vocab))
 
         if train:
 

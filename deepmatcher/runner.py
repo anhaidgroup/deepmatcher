@@ -194,7 +194,7 @@ class Runner(object):
         if train and epoch == 0:
             print('* Number of trainable parameters:', tally_parameters(model))
 
-        epoch_str = 'Epoch ' + str(epoch + 1) + ' :'
+        epoch_str = 'Epoch {0:d}'.format(epoch + 1)
         print('===> ', run_type, epoch_str)
         batch_end = time.time()
 
@@ -342,7 +342,7 @@ class Runner(object):
 
             score = Runner._run('EVAL', model, validation_dataset, train=False, **kwargs)
 
-            optimizer.update_learning_rate(score, epoch)
+            optimizer.update_learning_rate(score, epoch + 1)
             model.optimizer_state = optimizer.base_optimizer.state_dict()
 
             new_best_found = False
@@ -354,11 +354,15 @@ class Runner(object):
                 if best_save_path and new_best_found:
                     print('Saving best model...')
                     model.save_state(best_save_path)
+                    print('Done.')
 
             if save_every_prefix is not None and (epoch + 1) % save_every_freq == 0:
+                print('Saving epoch model...')
                 save_path = '{prefix}_ep{epoch}.pth'.format(
                     prefix=save_every_prefix, epoch=epoch + 1)
                 model.save_state(save_path)
+                print('Done.')
+            print('---------------------\n')
 
         print('Loading best model...')
         model.load_state(best_save_path)

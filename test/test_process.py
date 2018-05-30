@@ -108,7 +108,7 @@ class MakeFieldsTestCases(unittest.TestCase):
         id_attr = '_id'
         label_attr = 'label'
         fields = _make_fields(header, id_attr, label_attr, ['ltable_id', 'rtable_id'],
-                              True, 'moses', True)
+                              True, 'nltk', True)
         self.assertEqual(len(fields), 12)
         counter = {}
         for tup in fields:
