@@ -66,11 +66,11 @@ There are four main steps in using DeepMatcher:
 Installation
 **********
 
-Installing directly from GitHub is recommended:
+Installing using pip is recommended:
 
 .. code-block:: none
 
-   pip install --process-dependency-links git+https://github.com/sidharthms/deepmatcher
+   pip install deepmatcher
 
 **********
 Tutorials
