@@ -32,7 +32,6 @@ setup(
     url='http://bit.do/deepmatcher',
     license='BSD',
     packages=['deepmatcher', 'deepmatcher.data', 'deepmatcher.models'],
-    python_requires='>=3.5'
     install_requires=[
         'torch==0.3.1', 'tqdm', 'pyprind', 'six', 'Cython', 'torchtext', 'nltk>=3.2.5',
         'fasttextmirror', 'pandas'
