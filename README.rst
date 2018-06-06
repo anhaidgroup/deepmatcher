@@ -66,7 +66,7 @@ There are four main steps in using DeepMatcher:
 Installation
 **********
 
-Installing using pip is recommended:
+We currently support only Python 3. Installing using pip is recommended:
 
 .. code-block:: none
 
