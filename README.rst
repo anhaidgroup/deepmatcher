@@ -8,7 +8,7 @@ DeepMatcher
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :target: https://opensource.org/licenses/BSD-3-Clause
 
-DeepMatcher is a python package for performing entity / text matching using deep learning.
+DeepMatcher is a python package for performing entity and text matching using deep learning.
 It provides built-in neural networks and utilities that enable you to train and apply
 state-of-the-art deep learning models for entity matching in less than 10 lines of code.
 The models are also easily customizable - the modular design allows any subcomponent to be
@@ -18,13 +18,17 @@ As an example, given labeled tuple pairs such as the following:
 
 .. image:: docs/source/_static/match_input_ex.png
 
-DeepMatcher uses labeled tuple pairs trains a neural network to perform matching, i.e., to
-predict match / non-match labels. The trained network can then be used obtain labels for
-unlabeled tuple pairs or text sequences.
+DeepMatcher uses labeled tuple pairs and trains a neural network to perform matching, i.e., to
+predict match / non-match labels. The trained network can then be used to obtain labels for
+unlabeled tuple pairs.
+
+**********
+Paper and Data
+**********
 
 For details on the architecture of the models used, take a look at our paper `Deep
-Learning for Entity Matching`_ (SIGMOD '18). All the publicly available datasets used in
-the paper can be found at `Prof. AnHai Doan's data repository`_.
+Learning for Entity Matching`_ (SIGMOD '18). All the public datasets used in
+the paper will be added to `Prof. AnHai Doan's data repository`_ by the end of June 2018.
 
 **********
 Quick Start: DeepMatcher in 30 seconds
