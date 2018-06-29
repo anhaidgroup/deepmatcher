@@ -24,7 +24,7 @@
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#beeradvo-ratebeer">Details</a></td>
     </tr>
     <tr>
       <td>iTunes-Amazon<sub>1</sub></td>
@@ -34,7 +34,7 @@
       <td>8</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#itunes-amazon">Details</a></td>
     </tr>
     <tr>
       <td>Fodors-Zagats</td>
@@ -44,7 +44,7 @@
       <td>6</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#fodors-zagats">Details</a></td>
     </tr>
     <tr>
       <td>DBLP-ACM<sub>1</sub></td>
@@ -54,7 +54,7 @@
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#dblp-acm">Details</a></td>
     </tr>
     <tr>
       <td>DBLP-Scholar<sub>1</sub></td>
@@ -64,7 +64,7 @@
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#dblp-scholar">Details</a></td>
     </tr>
     <tr>
       <td>Amazon-Google</td>
@@ -74,7 +74,7 @@
       <td>3</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#amazon-google">Details</a></td>
     </tr>
     <tr>
       <td>Walmart-Amazon<sub>1</sub></td>
@@ -84,7 +84,7 @@
       <td>5</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#walmart-amazon">Details</a></td>
     </tr>
     <tr>
       <td rowspan=2>Textual</td>
@@ -168,7 +168,7 @@ For the purpose of performing experiments for this work, we split the set of lab
 
 ### iTunes-Amazon
 
-This dataset contains music data from iTunes and Amazon and was obtained from [here](https://sites.google.com/site/anhaidgroup/useful-stuff/data). This was also created by students in the CS 784 data science class at UW-Madison. The dataset was created in the same manner as [BeerAdvo-RateBeer](#BeerAdvo-RateBeer).
+This dataset contains music data from iTunes and Amazon and was obtained from [here](https://sites.google.com/site/anhaidgroup/useful-stuff/data). This was also created by students in the CS 784 data science class at UW-Madison. The dataset was created in the same manner as [BeerAdvo-RateBeer](#beeradvo-ratebeer).
 
 ### Fodors-Zagats
 
@@ -180,17 +180,17 @@ This dataset contains restaurant data from Fodors and from Zagat and was obtaine
 
 ### DBLP-ACM
 
-This dataset contains bibliographic data from DBLP and ACM and was obtained from [here](https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset obtained from the source contained two tables, and a list of golden matches. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#Fodors-Zagats).
+This dataset contains bibliographic data from DBLP and ACM and was obtained from [here](https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset obtained from the source contained two tables, and a list of golden matches. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
 
 ### DBLP-Scholar
 
-This dataset contains bibliographic data from DBLP and Google Scholar and was obtained from [here](https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset obtained from the source contained two tables, and a list of golden matches. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#Fodors-Zagats).
+This dataset contains bibliographic data from DBLP and Google Scholar and was obtained from [here](https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset obtained from the source contained two tables, and a list of golden matches. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
 
 ### Amazon-Google
 
-This dataset contains product data from Amazon and Google and was obtained from [here]((https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which was removed to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#Fodors-Zagats).
+This dataset contains product data from Amazon and Google and was obtained from [here]((https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which was removed to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
 
 ### Walmart-Amazon
 
-This dataset contains product data from Walmart and Amazon and was obtained from [here](https://sites.google.com/site/anhaidgroup/useful-stuff/data). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which was removed to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#Fodors-Zagats).
+This dataset contains product data from Walmart and Amazon and was obtained from [here](https://sites.google.com/site/anhaidgroup/useful-stuff/data). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which was removed to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
 
