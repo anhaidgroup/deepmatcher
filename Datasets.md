@@ -1,4 +1,11 @@
-# Datasets
+# Datasets for DeepMatcher paper
+
+Datasets listed in this page were used for the experimental study in [Deep Learning for Entity Matching](http://pages.cs.wisc.edu/~anhai/papers1/deepmatcher-sigmod18.pdf) published in SIGMOD 2018. Each data instance in each dataset is a labeled tuple pair, where each tuple pair comes from the 2 tables being matched, say table A and table B. We assume that both the tables being matched have the same schema. 
+
+The table below summarizes all the datasets. Here's a brief description of some of the columns:
+- Size: Number of labeled tuple pairs in the dataset.
+- \# Pos.: Number of positive instances, i.e., tuple pairs marked as a match in the dataset.
+- \# Attr.: Number of attributes in the tables being matched (note that both tables have same schema)
 
 <table border=1>
   <thead>
@@ -151,6 +158,14 @@
   </tbody>
 </table>
 
+Batch download links:
+- [Download all structured datasets](http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured.zip)
+- Download all textual datasets
+- [Download all dirty datasets](http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty.zip)
+- Download all datasets
+
+**Note:** The `tableA.csv` and `tableB.csv` files in the provided experimental data may not directly correspond to the original tables being matched. You can think of `tableA.csv` as containing all the "left" tuples and `tableB.csv` as containing all the "right" tuples. This is done so as to distribute the data in a reasonably compact but readable form.
+
 # Dataset Details
 
 ## Structured
@@ -188,9 +203,36 @@ This dataset contains bibliographic data from DBLP and Google Scholar and was ob
 
 ### Amazon-Google
 
-This dataset contains product data from Amazon and Google and was obtained from [here]((https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which was removed to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
+This dataset contains product data from Amazon and Google and was obtained from [here]((https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which contained long blobs of text. This attribute was removed so as to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
 
 ### Walmart-Amazon
 
-This dataset contains product data from Walmart and Amazon and was obtained from [here](https://sites.google.com/site/anhaidgroup/useful-stuff/data). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which was removed to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
+This dataset contains product data from Walmart and Amazon and was obtained from [here](https://sites.google.com/site/anhaidgroup/useful-stuff/data). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "proddescrlong" which contained long blobs of text. This attribute was removed so as to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
 
+## Textual
+
+### Abt-Buy
+
+This dataset contains product data from Abt.com and Buy.com and was obtained from [here](https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset contained two tables, and a list of golden matches. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
+
+### Company
+
+This dataset consists of pairs `(a,b)`, where `a` is the text of a Wikipedia page describing a company and `b` is the text of a company’s homepage. We created matching pairs in this dataset by crawling Wikipedia pages describing companies, then following company URLs in those pages to retrieve company homepages. To generate the non-matching pairs, for each matching pair `(a,b)`, we fix `a` and form three negative pairs <code>(a,b<sub>1</sub>)</code>, <code>(a,b<sub>2</sub>)</code>, and <code>(a,b<sub>3</sub>)</code> where b<sub>1</sub>, b<sub>2</sub>, and b<sub>3</sub> are the top-3 most similar pages other than `b` in the company homepage collection, calculated based on Okapi BM25 rankings.
+
+## Dirty
+
+### iTunes-Amazon
+
+This dataset contains music data from iTunes and Amazon and was obtained by modifying the [structured iTunes-Amazon](#itunes-amazon) dataset to simulate dirty data. Specifically, for each attribute other than "title", we randomly moved each value to the attribute "title" in the same tuple with 50% probability. This simulates a common kind of dirty data seen in the wild while keeping the modifications simple. 
+
+### DBLP-ACM
+
+This dataset contains bibliographic data from DBLP and ACM and was obtained by modifying the [structured DBLP-ACM](#dblp-acm) dataset to simulate dirty data. The procedure for generating this dataset is the same as that for [dirty iTunes-Amazon](#itunes-amazon-1).
+
+### DBLP-Scholar
+
+This dataset contains bibliographic data from DBLP and Google Scholar and was obtained by modifying the [structured DBLP-Scholar](#dblp-scholar) dataset to simulate dirty data. The procedure for generating this dataset is the same as that for [dirty iTunes-Amazon](#itunes-amazon-1).
+
+### Walmart-Amazon
+
+This dataset contains product data from Walmart and Amazon and was obtained by modifying the [structured Walmart-Amazon](#walmart-amazon) dataset to simulate dirty data. The procedure for generating this dataset is the same as that for [dirty iTunes-Amazon](#itunes-amazon-1).
