@@ -102,7 +102,7 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>3</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#abt-buy">Details</a></td>
     </tr>
     <tr>
       <td>Company</td>
@@ -112,7 +112,7 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>1</td>
       <td>Browse</td>
       <td>Download</td>
-      <td>Details</td>
+      <td><a href="#company">Details</a></td>
     </tr>
     <tr>
       <td rowspan=4>Dirty</td>
@@ -123,7 +123,7 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>8</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/iTunes-Amazon/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/iTunes-Amazon/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#itunes-amazon-1">Details</a></td>
     </tr>
     <tr>
       <td>DBLP-ACM<sub>2</sub></td>
@@ -133,7 +133,7 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-ACM/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-ACM/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#dblp-acm-1">Details</a></td>
     </tr>
     <tr>
       <td>DBLP-Scholar<sub>2</sub></td>
@@ -143,7 +143,7 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#dblp-scholar-1">Details</a></td>
     </tr>
     <tr>
       <td>Walmart-Amazon<sub>2</sub></td>
@@ -153,7 +153,7 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>5</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/Walmart-Amazon/exp_data/">Browse</a></td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/Walmart-Amazon/exp_data.zip">Download</a></td>
-      <td>Details</td>
+      <td><a href="#walmart-amazon-1">Details</a></td>
     </tr>
   </tbody>
 </table>
@@ -203,7 +203,7 @@ This dataset contains bibliographic data from DBLP and Google Scholar and was ob
 
 ### Amazon-Google
 
-This dataset contains product data from Amazon and Google and was obtained from [here]((https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which contained long blobs of text. This attribute was removed so as to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
+This dataset contains product data from Amazon and Google and was obtained from [here](https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which contained long blobs of text. This attribute was removed so as to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#fodors-zagats).
 
 ### Walmart-Amazon
 
