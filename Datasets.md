@@ -42,8 +42,8 @@
       <td>946</td>
       <td>110</td>
       <td>6</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagat/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagat/exp_data.zip">Download</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data/">Browse</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data.zip">Download</a></td>
       <td>Details</td>
     </tr>
     <tr>
@@ -62,8 +62,8 @@
       <td>28,707</td>
       <td>5,347</td>
       <td>4</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-Scholar/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-Scholar/exp_data.zip">Download</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data/">Browse</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data.zip">Download</a></td>
       <td>Details</td>
     </tr>
     <tr>
@@ -134,8 +134,8 @@
       <td>28,707</td>
       <td>5,347</td>
       <td>4</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-Scholar/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-Scholar/exp_data.zip">Download</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data/">Browse</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data.zip">Download</a></td>
       <td>Details</td>
     </tr>
     <tr>
@@ -155,6 +155,21 @@
 
 ## Structured
 
+### BeerAdvo-RateBeer
+
+This dataset contains beer data from BeerAdvocate and RateBeer and was obtained from [here](https://sites.google.com/site/anhaidgroup/useful-stuff/data). It was created by students in the CS 784 data science class at UW-Madison, Fall 2015, as a part of their class project. To create the data set, students
+
+1. Crawled HTML pages from the two websites
+2. Extracted tuples from the HTML pages to create two tables, one per site
+3. Performed blocking on these tables (to remove obviously non-matched tuple pairs), producing a set of candidate tuple pairs
+4. Took a random sample of pairs from the above set and labeled the pairs in the sample as "match" / "non-match".
+
+For the purpose of performing experiments for this work, we split the set of labeled tuple pairs into 3 sub-sets, i.e., train, validation, and test, with ratio 3:1:1.
+
+### iTunes-Amazon
+
+This dataset contains music data from iTunes and Amazon and was obtained from [here](https://sites.google.com/site/anhaidgroup/useful-stuff/data). This was also created by students in the CS 784 data science class at UW-Madison. The dataset was created in the same manner as [BeerAdvo-RateBeer](#BeerAdvo-RateBeer).
+
 ### Fodors-Zagats
 
 This dataset contains restaurant data from Fodors and from Zagat and was obtained from [here](http://www.cs.utexas.edu/users/ml/riddle/data.html). The original dataset obtained from the source contained two tables, one each for Fodors and Zagat, and a list of golden matches indicating which tuple pairs referred to the same restaurant. To create the version of the dataset used in our experiments which contain both matches and non-matches, we use the following procudere:
@@ -167,9 +182,15 @@ This dataset contains restaurant data from Fodors and from Zagat and was obtaine
 
 This dataset contains bibliographic data from DBLP and ACM and was obtained from [here](https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset obtained from the source contained two tables, and a list of golden matches. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#Fodors-Zagats).
 
+### DBLP-Scholar
+
+This dataset contains bibliographic data from DBLP and Google Scholar and was obtained from [here](https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset obtained from the source contained two tables, and a list of golden matches. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#Fodors-Zagats).
+
 ### Amazon-Google
 
-This dataset contains product data from Amazon and Google. The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which was removed to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#Fodors-Zagats).
+This dataset contains product data from Amazon and Google and was obtained from [here]((https://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which was removed to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#Fodors-Zagats).
 
+### Walmart-Amazon
 
+This dataset contains product data from Walmart and Amazon and was obtained from [here](https://sites.google.com/site/anhaidgroup/useful-stuff/data). The original dataset contained two tables, and a list of golden matches. Further, the original dataset contained one additional attribute "description" which was removed to use this as a structured dataset. To create the version of the dataset used in our experiments we used the same procedure as in the case of [Fodors-Zagats](#Fodors-Zagats).
 
