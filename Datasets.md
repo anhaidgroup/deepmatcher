@@ -110,8 +110,8 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>112,632</td>
       <td>28,200</td>
       <td>1</td>
-      <td>Browse</td>
-      <td>Download</td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/exp_data/">Browse</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/exp_data.zip">Download</a></td>
       <td><a href="#company">Details</a></td>
     </tr>
     <tr>
