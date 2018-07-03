@@ -27,8 +27,8 @@ Paper and Data
 **********
 
 For details on the architecture of the models used, take a look at our paper `Deep
-Learning for Entity Matching`_ (SIGMOD '18). All the public datasets used in
-the paper will be added to `Prof. AnHai Doan's data repository`_ by the end of June 2018.
+Learning for Entity Matching`_ (SIGMOD '18). All public datasets used in
+the paper can be downloaded from the `datasets page <Datasets.md>`__.
 
 **********
 Quick Start: DeepMatcher in 30 seconds
