@@ -1,13 +1,13 @@
 # Datasets for DeepMatcher paper
 
-Datasets listed in this page were used for the experimental study in [Deep Learning for Entity Matching](http://pages.cs.wisc.edu/~anhai/papers1/deepmatcher-sigmod18.pdf) published in SIGMOD 2018. Each data instance in each dataset is a labeled tuple pair, where each tuple pair comes from the 2 tables being matched, say table A and table B. We assume that both the tables being matched have the same schema. 
+Datasets listed in this page were used for the experimental study in [Deep Learning for Entity Matching](http://pages.cs.wisc.edu/~anhai/papers1/deepmatcher-sigmod18.pdf) published in SIGMOD 2018. Each data instance in each dataset is a labeled tuple pair, where each tuple pair comes from the 2 tables being matched, say table A and table B. We assume that both the tables being matched have the same schema.
 
 The table below summarizes all the datasets. Here's a brief description of some of the columns:
 - Size: Number of labeled tuple pairs in the dataset.
 - \# Pos.: Number of positive instances, i.e., tuple pairs marked as a match in the dataset.
 - \# Attr.: Number of attributes in the tables being matched (note that both tables have same schema)
 
-<table border=1>
+<table>
   <thead>
     <tr>
       <th>Type</th>
@@ -16,9 +16,7 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <th>Size</th>
       <th># Pos.</th>
       <th># Attr.</th>
-      <th>Browse</th>
-      <th>Download</th>
-      <th>Details</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -29,9 +27,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>450</td>
       <td>68</td>
       <td>4</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/exp_data.zip">Download</a></td>
-      <td><a href="#beeradvo-ratebeer">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/exp_data.zip">Download</a> | Raw |
+      <a href="#beeradvo-ratebeer">Details</a></td>
     </tr>
     <tr>
       <td>iTunes-Amazon<sub>1</sub></td>
@@ -39,9 +37,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>539</td>
       <td>132</td>
       <td>8</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/exp_data.zip">Download</a></td>
-      <td><a href="#itunes-amazon">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/exp_data.zip">Download</a> |
+      <a href="#itunes-amazon">Details</a></td>
     </tr>
     <tr>
       <td>Fodors-Zagats</td>
@@ -49,9 +47,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>946</td>
       <td>110</td>
       <td>6</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data.zip">Download</a></td>
-      <td><a href="#fodors-zagats">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data.zip">Download</a> |
+      <a href="#fodors-zagats">Details</a></td>
     </tr>
     <tr>
       <td>DBLP-ACM<sub>1</sub></td>
@@ -59,9 +57,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>12,363</td>
       <td>2,220</td>
       <td>4</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/exp_data.zip">Download</a></td>
-      <td><a href="#dblp-acm">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/exp_data.zip">Download</a> |
+      <a href="#dblp-acm">Details</a></td>
     </tr>
     <tr>
       <td>DBLP-Scholar<sub>1</sub></td>
@@ -69,9 +67,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>28,707</td>
       <td>5,347</td>
       <td>4</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data.zip">Download</a></td>
-      <td><a href="#dblp-scholar">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data.zip">Download</a> |
+      <a href="#dblp-scholar">Details</a></td>
     </tr>
     <tr>
       <td>Amazon-Google</td>
@@ -79,9 +77,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>11,460</td>
       <td>1,167</td>
       <td>3</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/exp_data.zip">Download</a></td>
-      <td><a href="#amazon-google">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/exp_data.zip">Download</a> |
+      <a href="#amazon-google">Details</a></td>
     </tr>
     <tr>
       <td>Walmart-Amazon<sub>1</sub></td>
@@ -89,9 +87,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>10,242</td>
       <td>962</td>
       <td>5</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/exp_data.zip">Download</a></td>
-      <td><a href="#walmart-amazon">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/exp_data.zip">Download</a> |
+      <a href="#walmart-amazon">Details</a></td>
     </tr>
     <tr>
       <td rowspan=2>Textual</td>
@@ -100,9 +98,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>9,575</td>
       <td>1,028</td>
       <td>3</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/exp_data.zip">Download</a></td>
-      <td><a href="#abt-buy">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/exp_data.zip">Download</a> |
+      <a href="#abt-buy">Details</a></td>
     </tr>
     <tr>
       <td>Company</td>
@@ -110,9 +108,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>112,632</td>
       <td>28,200</td>
       <td>1</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/exp_data.zip">Download</a></td>
-      <td><a href="#company">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/exp_data.zip">Download</a> |
+      <a href="#company">Details</a></td>
     </tr>
     <tr>
       <td rowspan=4>Dirty</td>
@@ -121,9 +119,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>539</td>
       <td>132</td>
       <td>8</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/iTunes-Amazon/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/iTunes-Amazon/exp_data.zip">Download</a></td>
-      <td><a href="#itunes-amazon-1">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/iTunes-Amazon/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/iTunes-Amazon/exp_data.zip">Download</a> |
+      <a href="#itunes-amazon-1">Details</a></td>
     </tr>
     <tr>
       <td>DBLP-ACM<sub>2</sub></td>
@@ -131,9 +129,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>12,363</td>
       <td>2,220</td>
       <td>4</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-ACM/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-ACM/exp_data.zip">Download</a></td>
-      <td><a href="#dblp-acm-1">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-ACM/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-ACM/exp_data.zip">Download</a> |
+      <a href="#dblp-acm-1">Details</a></td>
     </tr>
     <tr>
       <td>DBLP-Scholar<sub>2</sub></td>
@@ -141,9 +139,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>28,707</td>
       <td>5,347</td>
       <td>4</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data.zip">Download</a></td>
-      <td><a href="#dblp-scholar-1">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data.zip">Download</a> |
+      <a href="#dblp-scholar-1">Details</a></td>
     </tr>
     <tr>
       <td>Walmart-Amazon<sub>2</sub></td>
@@ -151,9 +149,9 @@ The table below summarizes all the datasets. Here's a brief description of some 
       <td>10,242</td>
       <td>962</td>
       <td>5</td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/Walmart-Amazon/exp_data/">Browse</a></td>
-      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/Walmart-Amazon/exp_data.zip">Download</a></td>
-      <td><a href="#walmart-amazon-1">Details</a></td>
+      <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/Walmart-Amazon/exp_data/">Browse</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/Walmart-Amazon/exp_data.zip">Download</a> |
+      <a href="#walmart-amazon-1">Details</a></td>
     </tr>
   </tbody>
 </table>
@@ -223,7 +221,7 @@ This dataset consists of pairs `(a,b)`, where `a` is the text of a Wikipedia pag
 
 ### iTunes-Amazon
 
-This dataset contains music data from iTunes and Amazon and was obtained by modifying the [structured iTunes-Amazon](#itunes-amazon) dataset to simulate dirty data. Specifically, for each attribute other than "title", we randomly moved each value to the attribute "title" in the same tuple with 50% probability. This simulates a common kind of dirty data seen in the wild while keeping the modifications simple. 
+This dataset contains music data from iTunes and Amazon and was obtained by modifying the [structured iTunes-Amazon](#itunes-amazon) dataset to simulate dirty data. Specifically, for each attribute other than "title", we randomly moved each value to the attribute "title" in the same tuple with 50% probability. This simulates a common kind of dirty data seen in the wild while keeping the modifications simple.
 
 ### DBLP-ACM
 
