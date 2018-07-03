@@ -167,6 +167,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
   </tbody>
 </table>
 
+**Note:** The `tableA.csv` and `tableB.csv` files in the provided experimental data may not directly correspond to the original tables being matched. You can think of `tableA.csv` as containing all the "left" tuples and `tableB.csv` as containing all the "right" tuples. This is done so as to distribute the data in a reasonably compact but readable form.
+
 ## Batch download links:
 ### Preprocessed Data
 - [Download all preprocessed structured datasets](http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured.zip)
@@ -175,8 +177,6 @@ The "Browse" links point to the preprocessed versions of the datasets which were
 ### Raw Data
 - [Download all raw structured datasets](http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/StructuredRaw.zip)
 - [Download all raw textual datasets](http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/TextualRaw.zip)
-
-**Note:** The `tableA.csv` and `tableB.csv` files in the provided experimental data may not directly correspond to the original tables being matched. You can think of `tableA.csv` as containing all the "left" tuples and `tableB.csv` as containing all the "right" tuples. This is done so as to distribute the data in a reasonably compact but readable form.
 
 # Dataset Details
 
