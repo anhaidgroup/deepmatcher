@@ -30,8 +30,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>68</td>
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/exp_data.zip">Download</a> | 
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/raw_data.zip">Raw</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/beer_exp_data.zip">Download</a> | 
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Beer/beer_raw_data.zip">Raw</a> |
       <a href="#beeradvo-ratebeer">Info</a></td>
     </tr>
     <tr>
@@ -41,8 +41,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>132</td>
       <td>8</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/exp_data.zip">Download</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/raw_data.zip">Raw</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/itunes_amazon_exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/iTunes-Amazon/itunes_amazon_raw_data.zip">Raw</a> |
       <a href="#itunes-amazon">Info</a></td>
     </tr>
     <tr>
@@ -52,8 +52,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>110</td>
       <td>6</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/exp_data.zip">Download</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/raw_data.zip">Raw</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/fodors_zagat_exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Fodors-Zagats/fodors_zagat_raw_data.zip">Raw</a> |
       <a href="#fodors-zagats">Info</a></td>
     </tr>
     <tr>
@@ -63,8 +63,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>2,220</td>
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/exp_data.zip">Download</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/raw_data.zip">Raw</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/dblp_acm_exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-ACM/dblp_acm_raw_data.zip">Raw</a> |
       <a href="#dblp-acm">Info</a></td>
     </tr>
     <tr>
@@ -74,8 +74,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>5,347</td>
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/exp_data.zip">Download</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/raw_data.zip">Raw</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/dblp_scholar_exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/DBLP-GoogleScholar/dblp_scholar_raw_data.zip">Raw</a> |
       <a href="#dblp-scholar">Info</a></td>
     </tr>
     <tr>
@@ -85,8 +85,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>1,167</td>
       <td>3</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/exp_data.zip">Download</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/raw_data.zip">Raw</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/amazon_google_exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Amazon-Google/amazon_google_raw_data.zip">Raw</a> |
       <a href="#amazon-google">Info</a></td>
     </tr>
     <tr>
@@ -96,8 +96,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>962</td>
       <td>5</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/exp_data.zip">Download</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/raw_data.zip">Raw</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/walmart_amazon_exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Structured/Walmart-Amazon/walmart_amazon_raw_data.zip">Raw</a> |
       <a href="#walmart-amazon">Info</a></td>
     </tr>
     <tr>
@@ -108,8 +108,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>1,028</td>
       <td>3</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/exp_data.zip">Download</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/raw_data.zip">Raw</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/abt_buy_exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Abt-Buy/abt_buy_raw_data.zip">Raw</a> |
       <a href="#abt-buy">Info</a></td>
     </tr>
     <tr>
@@ -119,8 +119,8 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>28,200</td>
       <td>1</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/exp_data.zip">Download</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/raw_data.zip">Raw</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/company_exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Textual/Company/company_raw_data.zip">Raw</a> |
       <a href="#company">Info</a></td>
     </tr>
     <tr>
@@ -131,7 +131,7 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>132</td>
       <td>8</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/iTunes-Amazon/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/iTunes-Amazon/exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/iTunes-Amazon/dirty_itunes_amazon_exp_data.zip">Download</a> |
       <a href="#itunes-amazon-1">Info</a></td>
     </tr>
     <tr>
@@ -141,7 +141,7 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>2,220</td>
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-ACM/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-ACM/exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-ACM/dirty_dblp_acm_exp_data.zip">Download</a> |
       <a href="#dblp-acm-1">Info</a></td>
     </tr>
     <tr>
@@ -151,7 +151,7 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>5,347</td>
       <td>4</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/DBLP-GoogleScholar/dirty_dblp_scholar_exp_data.zip">Download</a> |
       <a href="#dblp-scholar-1">Info</a></td>
     </tr>
     <tr>
@@ -161,7 +161,7 @@ The "Browse" links point to the preprocessed versions of the datasets which were
       <td>962</td>
       <td>5</td>
       <td><a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/Walmart-Amazon/exp_data/">Browse</a> |
-      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/Walmart-Amazon/exp_data.zip">Download</a> |
+      <a href="http://pages.cs.wisc.edu/~anhai/data1/deepmatcher_data/Dirty/Walmart-Amazon/dirty_walmart_amazon_exp_data.zip">Download</a> |
       <a href="#walmart-amazon-1">Info</a></td>
     </tr>
   </tbody>
