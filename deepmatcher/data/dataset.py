@@ -8,12 +8,15 @@ from collections import Counter, defaultdict
 from timeit import default_timer as timer
 
 import pandas as pd
+import pyprind
 import six
 from sklearn.decomposition import TruncatedSVD
 
 import torch
 import torch.nn as nn
 from torchtext import data
+from torchtext.data.example import Example
+from torchtext.utils import unicode_csv_reader
 
 from ..models.modules import NoMeta, Pool
 from .field import MatchingField
@@ -66,7 +69,7 @@ def split(table,
         tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
 
 
-class MatchingDataset(data.TabularDataset):
+class MatchingDataset(data.Dataset):
     r"""Represents dataset with associated metadata.
 
     Holds all information about one split of a dataset (e.g. training set).
@@ -139,8 +142,29 @@ class MatchingDataset(data.TabularDataset):
                 Default is None. This is a keyword-only parameter.
         """
         if examples is None:
-            super(MatchingDataset, self).__init__(
-                path, format, fields, skip_header=True, **kwargs)
+            make_example = {
+                'json': Example.fromJSON, 'dict': Example.fromdict,
+                'tsv': Example.fromCSV, 'csv': Example.fromCSV}[format.lower()]
+
+            lines = 0
+            with open(os.path.expanduser(path), encoding="utf8") as f:
+                for line in f:
+                    lines += 1
+
+            with open(os.path.expanduser(path), encoding="utf8") as f:
+                if format == 'csv':
+                    reader = unicode_csv_reader(f)
+                elif format == 'tsv':
+                    reader = unicode_csv_reader(f, delimiter='\t')
+                else:
+                    reader = f
+
+                next(reader)
+                examples = [make_example(line, fields) for line in
+                    pyprind.prog_bar(reader, iterations=lines,
+                        title='\nReading and processing data from "' + path + '"')]
+
+            super(MatchingDataset, self).__init__(examples, fields, **kwargs)
         else:
             self.fields = dict(fields)
             self.examples = examples
@@ -206,7 +230,7 @@ class MatchingDataset(data.TabularDataset):
 
         # For each attribute, find the number of times each word id occurs in the dataset.
         # Note that word ids here also include ``UNK`` tokens, padding tokens, etc.
-        for batch in train_iter:
+        for batch in pyprind.prog_bar(train_iter, title='\nBuilding vocabulary'):
             for name in self.all_text_fields:
                 attr_input = getattr(batch, name)
                 counter[name].update(attr_input.data.data.view(-1))
@@ -251,7 +275,8 @@ class MatchingDataset(data.TabularDataset):
 
         # Run the constructed neural network to compute weighted sequence embeddings
         # for each attribute of each example in the dataset.
-        for batch in train_iter:
+        for batch in pyprind.prog_bar(train_iter,
+            title='\nComputing principal components'):
             for name in self.all_text_fields:
                 attr_input = getattr(batch, name)
                 embeddings = inv_freq_pool(embed[name](attr_input))
@@ -565,7 +590,6 @@ class MatchingDataset(data.TabularDataset):
                 logger.info('Cache save time: {}s'.format(after_cache - after_vocab))
 
         if train:
-
             datasets[0].finalize_metadata()
 
             # Save additional information to train dataset.

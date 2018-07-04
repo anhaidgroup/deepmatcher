@@ -52,7 +52,6 @@ def _make_fields(header, id_attr, label_attr, ignore_columns, lower, tokenize,
             (e.g. "left_address") and corresponding :class:`~data.MatchingField` pairs,
             in the same order that the columns occur in the CSV file.
     """
-    assert isinstance(tokenize, six.string_types)
 
     text_field = MatchingField(
         lower=lower,
