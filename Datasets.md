@@ -167,7 +167,9 @@ The "Browse" links point to the preprocessed versions of the datasets which were
   </tbody>
 </table>
 
-**Note:** The `tableA.csv` and `tableB.csv` files in the provided experimental data may not directly correspond to the original tables being matched. You can think of `tableA.csv` as containing all the "left" tuples and `tableB.csv` as containing all the "right" tuples. This is done so as to distribute the data in a reasonably compact but readable form.
+**Notes:** 
+- The `tableA.csv` and `tableB.csv` files in the provided experimental data may not directly correspond to the original tables being matched. You can think of `tableA.csv` as containing all the "left" tuples and `tableB.csv` as containing all the "right" tuples. This is done so as to distribute the data in a reasonably compact but readable form.
+- The dirty EM datasets were generated from the preprocessed versions of the corresponding structured EM datasets. As a result there are no raw versions of the dirty datasets.
 
 ## Batch download links:
 ### Preprocessed Data
