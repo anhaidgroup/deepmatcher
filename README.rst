@@ -2,8 +2,8 @@
 DeepMatcher
 ##################
 
-.. image:: https://travis-ci.org/sidharthms/deepmatcher.svg?branch=master
-    :target: https://travis-ci.org/sidharthms/deepmatcher
+.. image:: https://travis-ci.org/anhaidgroup/deepmatcher.svg?branch=master
+    :target: https://travis-ci.org/anhaidgroup/deepmatcher
 
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :target: https://opensource.org/licenses/BSD-3-Clause
@@ -125,11 +125,11 @@ and Han Li, under the supervision of Prof. AnHai Doan and Prof. Theodoros Rekats
 .. _`Deep Learning for Entity Matching`: http://pages.cs.wisc.edu/~anhai/papers1/deepmatcher-sigmod18.pdf
 .. _`Prof. AnHai Doan's data repository`: https://sites.google.com/site/anhaidgroup/useful-stuff/data
 .. _`Magellan`: https://sites.google.com/site/anhaidgroup/projects/magellan
-.. _`Getting Started`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/getting_started.ipynb
-.. _`Data Processing`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/data_processing.ipynb
-.. _`Matching Models`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb
-.. _`End to End Entity Matching`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/end_to_end_em.ipynb
+.. _`Getting Started`: https://nbviewer.jupyter.org/github/anhaidgroup/deepmatcher/blob/master/examples/getting_started.ipynb
+.. _`Data Processing`: https://nbviewer.jupyter.org/github/anhaidgroup/deepmatcher/blob/master/examples/data_processing.ipynb
+.. _`Matching Models`: https://nbviewer.jupyter.org/github/anhaidgroup/deepmatcher/blob/master/examples/matching_models.ipynb
+.. _`End to End Entity Matching`: https://nbviewer.jupyter.org/github/anhaidgroup/deepmatcher/blob/master/examples/end_to_end_em.ipynb
 .. _`are here`: https://deepmatcher.github.io/docs/
-.. _`Question Answering with DeepMatcher`: https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/question_answering.ipynb
+.. _`Question Answering with DeepMatcher`: https://nbviewer.jupyter.org/github/anhaidgroup/deepmatcher/blob/master/examples/question_answering.ipynb
 .. _`WikiQA`: https://aclweb.org/anthology/D15-1237
-.. _`file GitHub issues`: https://github.com/sidharthms/deepmatcher/issues
+.. _`file GitHub issues`: https://github.com/anhaidgroup/deepmatcher/issues
