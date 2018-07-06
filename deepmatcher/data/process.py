@@ -102,6 +102,7 @@ def process(path,
             label_attr='label',
             left_prefix='left_',
             right_prefix='right_',
+            use_magellan_convention=False,
             pca=True):
     """Creates dataset objects for multiple splits of a dataset.
 
@@ -168,6 +169,9 @@ def process(path,
         label_attr (str): The name of the tuple pair match label column in the CSV file.
         left_prefix (str): The prefix for attribute names belonging to the left table.
         right_prefix (str): The prefix for attribute names belonging to the right table.
+        use_magellan_convention (bool): Set `id_attr`, `left_prefix`, and `right_prefix`
+            according to Magellan (py_entitymatching Python package) naming conventions.
+            Specifically, set them to be '_id', 'ltable_', and 'rtable_' respectively.
         pca (bool): Whether to compute PCA for each attribute (needed for SIF model).
             Defaults to False.
 
@@ -178,6 +182,11 @@ def process(path,
     if unlabeled is not None:
         raise ValueError('Parameter "unlabeled" has been deprecated, use '
                          '"deepmatcher.data.process_unlabeled" instead.')
+
+    if use_magellan_convention:
+        id_attr = '_id'
+        left_prefix = 'ltable_'
+        right_prefix = 'rtable_'
 
     # TODO(Sid): check for all datasets to make sure the files exist and have the same schema
     a_dataset = train or validation or test

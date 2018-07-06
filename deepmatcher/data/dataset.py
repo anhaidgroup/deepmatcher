@@ -546,7 +546,7 @@ class MatchingDataset(data.Dataset):
                     if not auto_rebuild_cache:
                         raise MatchingDataset.CacheStaleException(cache_stale_cause)
                     else:
-                        logger.warn('Rebuilding data cache because:', cache_stale_cause)
+                        logger.warning('Rebuilding data cache because: %s', list(cache_stale_cause))
 
                 if not check_cached_data or not cache_stale_cause:
                     datasets = MatchingDataset.restore_data(fields, cached_data)

@@ -8,7 +8,7 @@ DeepMatcher
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :target: https://opensource.org/licenses/BSD-3-Clause
 
-DeepMatcher is a python package for performing entity and text matching using deep learning.
+DeepMatcher is a Python package for performing entity and text matching using deep learning.
 It provides built-in neural networks and utilities that enable you to train and apply
 state-of-the-art deep learning models for entity matching in less than 10 lines of code.
 The models are also easily customizable - the modular design allows any subcomponent to be
@@ -44,8 +44,10 @@ There are four main steps in using DeepMatcher:
    train, validation, test = dm.data.process(path='data_directory',
        train='train.csv', validation='validation.csv', test='test.csv')
 
-2. Model definition: Specify neural network architecture. Uses a built-in architecture by
-   default. Can be customized to your heart's desire.
+2. Model definition: Specify neural network architecture. Uses the built-in hybrid
+   model (as discussed in section 4.4 of `our paper
+   <http://pages.cs.wisc.edu/~anhai/papers1/deepmatcher-sigmod18.pdf>`__) by default. Can
+   be customized to your heart's desire.
 
 .. code-block:: python
 
@@ -55,7 +57,7 @@ There are four main steps in using DeepMatcher:
 
 .. code-block:: python
 
-   model.run_train(train, validation, best_save_path='hybrid_model.pth')
+   model.run_train(train, validation, best_save_path='best_model.pth')
 
 4. Application: Evaluate model on test set and apply to unlabeled data.
 
@@ -70,11 +72,13 @@ There are four main steps in using DeepMatcher:
 Installation
 **********
 
-We currently support only Python 3. Installing using pip is recommended:
+We currently support only Python versions 3.5 and 3.6. Installing using pip is recommended:
 
 .. code-block:: none
 
    pip install deepmatcher
+
+Note that during installation you may see an error message that says "Failed building wheel for fasttextmirror". You can safely ignore this - it does NOT mean that there are any problems with installation.
 
 **********
 Tutorials
