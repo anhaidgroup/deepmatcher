@@ -1,6 +1,5 @@
-##################
 DeepMatcher
-##################
+=============
 
 .. image:: https://travis-ci.org/anhaidgroup/deepmatcher.svg?branch=master
     :target: https://travis-ci.org/anhaidgroup/deepmatcher
@@ -16,23 +15,21 @@ altered or swapped out for a custom implementation.
 
 As an example, given labeled tuple pairs such as the following:
 
-.. image:: docs/source/_static/match_input_ex.png
+.. image:: https://raw.githubusercontent.com/anhaidgroup/deepmatcher/master/docs/source/_static/match_input_ex.png
 
 DeepMatcher uses labeled tuple pairs and trains a neural network to perform matching, i.e., to
 predict match / non-match labels. The trained network can then be used to obtain labels for
 unlabeled tuple pairs.
 
-**********
 Paper and Data
-**********
+****************
 
 For details on the architecture of the models used, take a look at our paper `Deep
 Learning for Entity Matching`_ (SIGMOD '18). All public datasets used in
 the paper can be downloaded from the `datasets page <Datasets.md>`__.
 
-**********
 Quick Start: DeepMatcher in 30 seconds
-**********
+******************************************
 
 There are four main steps in using DeepMatcher:
 
@@ -68,19 +65,17 @@ There are four main steps in using DeepMatcher:
    unlabeled = dm.data.process_unlabeled(path='data_directory/unlabeled.csv', trained_model=model)
    model.run_prediction(unlabeled)
 
-**********
 Installation
-**********
+**************
 
 We currently support only Python versions 3.5 and 3.6. Installing using pip is recommended:
 
-.. code-block:: none
+.. code-block::
 
    pip install deepmatcher
 
 Note that during installation you may see an error message that says "Failed building wheel for fasttextmirror". You can safely ignore this - it does NOT mean that there are any problems with installation.
 
-**********
 Tutorials
 **********
 
@@ -106,20 +101,17 @@ tables.
 answering. Specifically, we will look at `WikiQA`_, a benchmark dataset for the task of
 Answer Selection.
 
-**********
 API Reference
-**********
+***************
 
 API docs `are here`_.
 
-**********
 Support
 **********
 
 This package is under active development. If you run into any issues or have questions,
 please `file GitHub issues`_.
 
-**********
 The Team
 **********
 
@@ -133,7 +125,7 @@ and Han Li, under the supervision of Prof. AnHai Doan and Prof. Theodoros Rekats
 .. _`Data Processing`: https://nbviewer.jupyter.org/github/anhaidgroup/deepmatcher/blob/master/examples/data_processing.ipynb
 .. _`Matching Models`: https://nbviewer.jupyter.org/github/anhaidgroup/deepmatcher/blob/master/examples/matching_models.ipynb
 .. _`End to End Entity Matching`: https://nbviewer.jupyter.org/github/anhaidgroup/deepmatcher/blob/master/examples/end_to_end_em.ipynb
-.. _`are here`: https://deepmatcher.github.io/docs/
+.. _`are here`: https://anhaidgroup.github.io/deepmatcher/html/
 .. _`Question Answering with DeepMatcher`: https://nbviewer.jupyter.org/github/anhaidgroup/deepmatcher/blob/master/examples/question_answering.ipynb
 .. _`WikiQA`: https://aclweb.org/anthology/D15-1237
 .. _`file GitHub issues`: https://github.com/anhaidgroup/deepmatcher/issues
