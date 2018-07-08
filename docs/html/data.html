@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.data &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deepmatcher.batch" href="batch.html" />
+    <link rel="prev" title="deepmatcher.optim" href="optim.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>deepmatcher.data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-deepmatcher.data">
+<span id="deepmatcher-data"></span><h1>deepmatcher.data<a class="headerlink" href="#module-deepmatcher.data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="process">
+<h2><span class="hidden-section">process</span><a class="headerlink" href="#process" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="deepmatcher.data.process">
+<code class="descclassname">deepmatcher.data.</code><code class="descname">process</code><span class="sig-paren">(</span><em>path</em>, <em>train=None</em>, <em>validation=None</em>, <em>test=None</em>, <em>unlabeled=None</em>, <em>cache='cacheddata.pth'</em>, <em>check_cached_data=True</em>, <em>auto_rebuild_cache=True</em>, <em>tokenize='nltk'</em>, <em>lowercase=True</em>, <em>embeddings='fasttext.en.bin'</em>, <em>embeddings_cache_path='~/.vector_cache'</em>, <em>ignore_columns=()</em>, <em>include_lengths=True</em>, <em>id_attr='id'</em>, <em>label_attr='label'</em>, <em>left_prefix='left_'</em>, <em>right_prefix='right_'</em>, <em>use_magellan_convention=False</em>, <em>pca=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/data/process.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.data.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates dataset objects for multiple splits of a dataset.</p>
+<p>This involves the following steps (if data cannot be retrieved from the cache):
+#. Read CSV header of a data file and verify header is sane.
+#. Create fields, i.e., column processing specifications (e.g. tokenization, label</p>
+<blockquote>
+<div>conversion to integers etc.)</div></blockquote>
+<ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>Load each data file:</dt>
+<dd><ol class="first last arabic">
+<li>Read each example (tuple pair) in specified CSV file.</li>
+<li>Preprocess example. Involves lowercasing and tokenization (unless disabled).</li>
+<li>Compute metadata if training data file.             See <code class="xref py py-meth docutils literal"><span class="pre">MatchingDataset.compute_metadata()</span></code> for details.</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li>Create vocabulary consisting of all tokens in all attributes in all datasets.</li>
+<li>Download word embedding data if necessary.</li>
+<li>Create mapping from each word in vocabulary to its word embedding.</li>
+<li>Compute metadata</li>
+<li>Write to cache</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Common prefix of the splits’ file paths.</li>
+<li><strong>train</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Suffix to add to path for the train set.</li>
+<li><strong>validation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Suffix to add to path for the validation set, or None
+for no validation set. Default is None.</li>
+<li><strong>test</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Suffix to add to path for the test set, or None for no test
+set. Default is None.</li>
+<li><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Suffix to add to path for cache file. If <cite>None</cite> disables caching.</li>
+<li><strong>check_cached_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Verify that data files haven’t changes since the
+cache was constructed and that relevant field options haven’t changed.</li>
+<li><strong>auto_rebuild_cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Automatically rebuild the cache if the data files
+are modified or if the field options change. Defaults to False.</li>
+<li><strong>lowercase</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to lowercase all words in all attributes.</li>
+<li><strong>embeddings</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – <p>One or more of the following strings:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><cite>fasttext.{lang}.bin</cite>:</dt>
+<dd>This uses sub-word level word embeddings based on binary models from “wiki
+word vectors” released by FastText. {lang} is ‘en’ or any other 2 letter
+ISO 639-1 Language Code, or 3 letter ISO 639-2 Code, if the language does
+not have a 2 letter code. 300d vectors.
+<code class="docutils literal"><span class="pre">fasttext.en.bin</span></code> is the default.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><cite>fasttext.wiki.vec</cite>:</dt>
+<dd>Uses wiki news word vectors released as part of “Advances in Pre-Training
+Distributed Word Representations” by Mikolov et al. (2018). 300d vectors.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><cite>fasttext.crawl.vec</cite>:</dt>
+<dd>Uses Common Crawl word vectors released as part of “Advances in
+Pre-Training Distributed Word Representations” by Mikolov et al. (2018).
+300d vectors.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><cite>glove.6B.{dims}</cite>:</dt>
+<dd>Uses uncased Glove trained on Wiki + Gigaword. {dims} is one of (50d,
+100d, 200d, or 300d).</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><cite>glove.42B.300d</cite>:</dt>
+<dd>Uses uncased Glove trained on Common Crawl. 300d vectors.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><cite>glove.840B.300d</cite>:</dt>
+<dd>Uses cased Glove trained on Common Crawl. 300d vectors.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><cite>glove.twitter.27B.{dims}</cite>:</dt>
+<dd>Uses cased Glove trained on Twitter. {dims} is one of (25d, 50d, 100d, or
+200d).</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li><strong>embeddings_cache_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory to store dowloaded word vector data.</li>
+<li><strong>ignore_columns</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – A list of columns to ignore in the CSV files.</li>
+<li><strong>include_lengths</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to provide the model with the lengths of
+each attribute sequence in each batch. If True, length information can be
+used by the neural network, e.g. when picking the last RNN output of each
+attribute sequence.</li>
+<li><strong>id_attr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the tuple pair ID column in the CSV file.</li>
+<li><strong>label_attr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the tuple pair match label column in the CSV file.</li>
+<li><strong>left_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The prefix for attribute names belonging to the left table.</li>
+<li><strong>right_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The prefix for attribute names belonging to the right table.</li>
+<li><strong>use_magellan_convention</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Set <cite>id_attr</cite>, <cite>left_prefix</cite>, and <cite>right_prefix</cite>
+according to Magellan (py_entitymatching Python package) naming conventions.
+Specifically, set them to be ‘_id’, ‘<a href="#id1"><span class="problematic" id="id2">ltable_</span></a>’, and ‘<a href="#id3"><span class="problematic" id="id4">rtable_</span></a>’ respectively.</li>
+<li><strong>pca</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to compute PCA for each attribute (needed for SIF model).
+Defaults to False.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>Datasets for (train, validation, and test) splits in that</dt>
+<dd><p class="first last">order, if provided, or dataset for unlabeled, if provided.</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Tuple[MatchingDataset]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="process-unlabeled">
+<h2><span class="hidden-section">process_unlabeled</span><a class="headerlink" href="#process-unlabeled" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="deepmatcher.data.process_unlabeled">
+<code class="descclassname">deepmatcher.data.</code><code class="descname">process_unlabeled</code><span class="sig-paren">(</span><em>path</em>, <em>trained_model</em>, <em>ignore_columns=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/data/process.html#process_unlabeled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.data.process_unlabeled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a dataset object for an unlabeled dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – The full path to the unlabeled data file (not just the directory).</li>
+<li><strong>trained_model</strong> (<a class="reference internal" href="index.html#deepmatcher.MatchingModel" title="deepmatcher.MatchingModel"><code class="xref py py-class docutils literal"><span class="pre">MatchingModel</span></code></a>) – The trained model. The model is aware of the configuration of the training
+data on which it was trained, and so this method reuses the same
+configuration for the unlabeled data.</li>
+<li><strong>ignore_columns</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – A list of columns to ignore in the unlabeled CSV file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="batch.html" class="btn btn-neutral float-right" title="deepmatcher.batch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="optim.html" class="btn btn-neutral" title="deepmatcher.optim" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

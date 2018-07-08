@@ -6,7 +6,7 @@ SPHINXOPTS    = -v
 SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = DeepMatcher
 SOURCEDIR     = source
-BUILDDIR      = ../../deepmatcher.github.io/docs
+BUILDDIR      = .
 
 # Put it first so that "make" without argument is like "make help".
 help:

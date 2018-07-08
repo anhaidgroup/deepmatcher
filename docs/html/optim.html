@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.optim &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deepmatcher.data" href="data.html" />
+    <link rel="prev" title="deepmatcher.modules" href="modules.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>deepmatcher.optim</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/optim.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-deepmatcher.optim">
+<span id="deepmatcher-optim"></span><h1>deepmatcher.optim<a class="headerlink" href="#module-deepmatcher.optim" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="softnllloss">
+<h2><span class="hidden-section">SoftNLLLoss</span><a class="headerlink" href="#softnllloss" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.optim.SoftNLLLoss">
+<em class="property">class </em><code class="descclassname">deepmatcher.optim.</code><code class="descname">SoftNLLLoss</code><span class="sig-paren">(</span><em>label_smoothing=0</em>, <em>weight=None</em>, <em>num_classes=2</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/optim.html#SoftNLLLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.optim.SoftNLLLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>A soft version of negative log likelihood loss with support for label smoothing.</p>
+<p>Effectively equivalent to PyTorch’s <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.NLLLoss" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">torch.nn.NLLLoss</span></code></a>, if <cite>label_smoothing</cite>
+set to zero. While the numerical loss values will be different compared to
+<a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.NLLLoss" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">torch.nn.NLLLoss</span></code></a>, this loss results in the same gradients. This is because
+the implementation uses <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.KLDivLoss" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">torch.nn.KLDivLoss</span></code></a> to support multi-class label
+smoothing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>label_smoothing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The smoothing parameter <span class="math">\(epsilon\)</span> for label smoothing. For details on
+label smoothing refer <a class="reference external" href="https://arxiv.org/abs/1512.00567v1">this paper</a>.</li>
+<li><strong>weight</strong> (<a class="reference external" href="https://pytorch.org/docs/0.3.1/tensors.html#torch.Tensor" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">torch.Tensor</span></code></a>) – A 1D tensor of size equal to the number of classes. Specifies the manual
+weight rescaling applied to each class. Useful in cases when there is severe
+class imbalance in the training set.</li>
+<li><strong>num_classes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of classes.</li>
+<li><strong>size_average</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – By default, the losses are averaged for each minibatch over observations <strong>as
+well as</strong> over dimensions. However, if <code class="docutils literal"><span class="pre">False</span></code> the losses are instead
+summed. This is a keyword only parameter.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="optimizer">
+<h2><span class="hidden-section">Optimizer</span><a class="headerlink" href="#optimizer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.optim.Optimizer">
+<em class="property">class </em><code class="descclassname">deepmatcher.optim.</code><code class="descname">Optimizer</code><span class="sig-paren">(</span><em>method='adam'</em>, <em>lr=0.001</em>, <em>max_grad_norm=5</em>, <em>start_decay_at=1</em>, <em>beta1=0.9</em>, <em>beta2=0.999</em>, <em>adagrad_accum=0.0</em>, <em>lr_decay=0.8</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/optim.html#Optimizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.optim.Optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controller class for optimization.</p>
+<p>Mostly a thin wrapper for <cite>optim</cite>, but also useful for implementing learning rate
+scheduling beyond what is currently available. Also implements necessary methods for
+training RNNs such as grad manipulations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – One of [sgd, adagrad, adadelta, adam].</li>
+<li><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Learning rate.</li>
+<li><strong>lr_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Learning rate decay multiplier.</li>
+<li><strong>start_decay_at</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Epoch to start learning rate decay. If None, starts decay when the validation
+accuracy stops improving. Defaults to 1.</li>
+<li><strong>beta2</strong> (<em>beta1</em><em>,</em>) – Hyperarameters for adam.</li>
+<li><strong>adagrad_accum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Initialization hyperparameter for adagrad.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="deepmatcher.optim.Optimizer.set_parameters">
+<code class="descname">set_parameters</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/optim.html#Optimizer.set_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.optim.Optimizer.set_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the model parameters and initializes the base optimizer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> – Dictionary of named model parameters. Parameters that do not require
+gradients will be filtered out for optimization.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.optim.Optimizer.step">
+<code class="descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/optim.html#Optimizer.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.optim.Optimizer.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the model parameters based on current gradients.</p>
+<p>Optionally, will employ gradient clipping.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.optim.Optimizer.update_learning_rate">
+<code class="descname">update_learning_rate</code><span class="sig-paren">(</span><em>acc</em>, <em>epoch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/optim.html#Optimizer.update_learning_rate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.optim.Optimizer.update_learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decay learning rate.</p>
+<p>Decays lerning rate if val perf does not improve or we hit the <cite>start_decay_at</cite>
+limit.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>acc</strong> – The accuracy score on the validation set.</li>
+<li><strong>epoch</strong> – The current epoch number.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="data.html" class="btn btn-neutral float-right" title="deepmatcher.data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral" title="deepmatcher.modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

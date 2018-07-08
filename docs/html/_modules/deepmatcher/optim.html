@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.optim &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>deepmatcher.optim</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for deepmatcher.optim</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="k">import</span> <span class="n">Variable</span>
+<span class="kn">from</span> <span class="nn">torch.nn.utils</span> <span class="k">import</span> <span class="n">clip_grad_norm</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;deepmatcher.optim&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SoftNLLLoss"><a class="viewcode-back" href="../../optim.html#deepmatcher.optim.SoftNLLLoss">[docs]</a><span class="k">class</span> <span class="nc">SoftNLLLoss</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">NLLLoss</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A soft version of negative log likelihood loss with support for label smoothing.</span>
+
+<span class="sd">    Effectively equivalent to PyTorch&#39;s :class:`torch.nn.NLLLoss`, if `label_smoothing`</span>
+<span class="sd">    set to zero. While the numerical loss values will be different compared to</span>
+<span class="sd">    :class:`torch.nn.NLLLoss`, this loss results in the same gradients. This is because</span>
+<span class="sd">    the implementation uses :class:`torch.nn.KLDivLoss` to support multi-class label</span>
+<span class="sd">    smoothing.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        label_smoothing (float):</span>
+<span class="sd">            The smoothing parameter :math:`epsilon` for label smoothing. For details on</span>
+<span class="sd">            label smoothing refer `this paper &lt;https://arxiv.org/abs/1512.00567v1&gt;`__.</span>
+<span class="sd">        weight (:class:`torch.Tensor`):</span>
+<span class="sd">            A 1D tensor of size equal to the number of classes. Specifies the manual</span>
+<span class="sd">            weight rescaling applied to each class. Useful in cases when there is severe</span>
+<span class="sd">            class imbalance in the training set.</span>
+<span class="sd">        num_classes (int):</span>
+<span class="sd">            The number of classes.</span>
+<span class="sd">        size_average (bool):</span>
+<span class="sd">            By default, the losses are averaged for each minibatch over observations **as</span>
+<span class="sd">            well as** over dimensions. However, if ``False`` the losses are instead</span>
+<span class="sd">            summed. This is a keyword only parameter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_smoothing</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SoftNLLLoss</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_smoothing</span> <span class="o">=</span> <span class="n">label_smoothing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confidence</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_smoothing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">num_classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">Variable</span><span class="p">(</span><span class="n">weight</span><span class="p">))</span>
+
+        <span class="k">assert</span> <span class="n">label_smoothing</span> <span class="o">&gt;=</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="n">label_smoothing</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">KLDivLoss</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="n">one_hot</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+        <span class="n">one_hot</span><span class="o">.</span><span class="n">fill_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_smoothing</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">one_hot</span><span class="o">.</span><span class="n">scatter_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">long</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">confidence</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">one_hot</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">criterion</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">one_hot</span><span class="p">)</span></div>
+
+
+<span class="c1"># This class is based on the Optimizer class in the ONMT-py project.</span>
+<div class="viewcode-block" id="Optimizer"><a class="viewcode-back" href="../../optim.html#deepmatcher.optim.Optimizer">[docs]</a><span class="k">class</span> <span class="nc">Optimizer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Controller class for optimization.</span>
+
+<span class="sd">    Mostly a thin wrapper for `optim`, but also useful for implementing learning rate</span>
+<span class="sd">    scheduling beyond what is currently available. Also implements necessary methods for</span>
+<span class="sd">    training RNNs such as grad manipulations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        method (string):</span>
+<span class="sd">            One of [sgd, adagrad, adadelta, adam].</span>
+<span class="sd">        lr (float):</span>
+<span class="sd">            Learning rate.</span>
+<span class="sd">        lr_decay (float):</span>
+<span class="sd">            Learning rate decay multiplier.</span>
+<span class="sd">        start_decay_at (int):</span>
+<span class="sd">            Epoch to start learning rate decay. If None, starts decay when the validation</span>
+<span class="sd">            accuracy stops improving. Defaults to 1.</span>
+<span class="sd">        beta1, beta2 (float):</span>
+<span class="sd">            Hyperarameters for adam.</span>
+<span class="sd">        adagrad_accum (float, optional):</span>
+<span class="sd">            Initialization hyperparameter for adagrad.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">method</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+                 <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+                 <span class="n">max_grad_norm</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                 <span class="n">start_decay_at</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">beta1</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+                 <span class="n">beta2</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span>
+                 <span class="n">adagrad_accum</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">lr_decay</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_acc</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">original_lr</span> <span class="o">=</span> <span class="n">lr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_grad_norm</span> <span class="o">=</span> <span class="n">max_grad_norm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr_decay</span> <span class="o">=</span> <span class="n">lr_decay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_decay_at</span> <span class="o">=</span> <span class="n">start_decay_at</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_decay</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">betas</span> <span class="o">=</span> <span class="p">[</span><span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adagrad_accum</span> <span class="o">=</span> <span class="n">adagrad_accum</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Initial learning rate: </span><span class="si">{:0.3e}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">))</span>
+
+<div class="viewcode-block" id="Optimizer.set_parameters"><a class="viewcode-back" href="../../optim.html#deepmatcher.optim.Optimizer.set_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">set_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the model parameters and initializes the base optimizer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            params:</span>
+<span class="sd">                Dictionary of named model parameters. Parameters that do not require</span>
+<span class="sd">                gradients will be filtered out for optimization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;sgd&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;adagrad&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adagrad</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_optimizer</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">base_optimizer</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_optimizer</span>\
+                        <span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fill_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adagrad_accum</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;adadelta&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adadelta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;adam&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">betas</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Invalid optim method: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_set_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">param_group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_optimizer</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+            <span class="n">param_group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span>
+
+<div class="viewcode-block" id="Optimizer.step"><a class="viewcode-back" href="../../optim.html#deepmatcher.optim.Optimizer.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update the model parameters based on current gradients.</span>
+
+<span class="sd">        Optionally, will employ gradient clipping.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_grad_norm</span><span class="p">:</span>
+            <span class="n">clip_grad_norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_grad_norm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Optimizer.update_learning_rate"><a class="viewcode-back" href="../../optim.html#deepmatcher.optim.Optimizer.update_learning_rate">[docs]</a>    <span class="k">def</span> <span class="nf">update_learning_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Decay learning rate.</span>
+
+<span class="sd">        Decays lerning rate if val perf does not improve or we hit the `start_decay_at`</span>
+<span class="sd">        limit.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            acc:</span>
+<span class="sd">                The accuracy score on the validation set.</span>
+<span class="sd">            epoch:</span>
+<span class="sd">                The current epoch number.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_decay_at</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epoch</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_decay_at</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_decay</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_acc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">acc</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_acc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_decay</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_decay</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr_decay</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Setting learning rate to </span><span class="si">{:0.3e}</span><span class="s1"> for next epoch&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_acc</span> <span class="o">=</span> <span class="n">acc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_rate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

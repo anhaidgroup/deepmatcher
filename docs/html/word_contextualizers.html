@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.word_contextualizers &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deepmatcher.word_comparators" href="word_comparators.html" />
+    <link rel="prev" title="deepmatcher.attr_summarizers" href="attr_summarizers.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>deepmatcher.word_contextualizers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/word_contextualizers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-deepmatcher.word_contextualizers">
+<span id="deepmatcher-word-contextualizers"></span><h1>deepmatcher.word_contextualizers<a class="headerlink" href="#module-deepmatcher.word_contextualizers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rnn">
+<h2><span class="hidden-section">RNN</span><a class="headerlink" href="#rnn" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.word_contextualizers.RNN">
+<em class="property">class </em><code class="descclassname">deepmatcher.word_contextualizers.</code><code class="descname">RNN</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/word_contextualizers.html#RNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.word_contextualizers.RNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multi layered RNN based Word Contextualizer.</p>
+<p>Supports dropout and residual / highway connections. Takes the same parameters as the
+<a class="reference internal" href="modules.html#deepmatcher.modules.RNN" title="deepmatcher.modules.RNN"><code class="xref py py-class docutils literal"><span class="pre">RNN</span></code></a> module.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="selfattention">
+<h2><span class="hidden-section">SelfAttention</span><a class="headerlink" href="#selfattention" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.word_contextualizers.SelfAttention">
+<em class="property">class </em><code class="descclassname">deepmatcher.word_contextualizers.</code><code class="descname">SelfAttention</code><span class="sig-paren">(</span><em>heads=1</em>, <em>hidden_size=None</em>, <em>input_dropout=0</em>, <em>alignment_network='decomposable'</em>, <em>scale=False</em>, <em>score_dropout=0</em>, <em>value_transform_network=None</em>, <em>value_merge='concat'</em>, <em>transform_dropout=0</em>, <em>output_transform_network=None</em>, <em>output_dropout=0</em>, <em>bypass_network='highway'</em>, <em>input_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/word_contextualizers.html#SelfAttention"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.word_contextualizers.SelfAttention" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self Attention based Word Contextualizer.</p>
+<p>Supports <a class="reference external" href="https://arxiv.org/abs/1606.01933">vanilla self attention</a> and <a class="reference external" href="https://arxiv.org/abs/1706.03762">multi-head
+self attention</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>heads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of attention heads to use. Defaults to 1.</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The default hidden size of the <cite>alignment_network</cite> and transform networks, if
+they are not disabled.</li>
+<li><strong>input_dropout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – If non-zero, applies dropout to the input to this module. Dropout probability
+must be between 0 and 1.</li>
+<li><strong>alignment_network</strong> (string or <a class="reference internal" href="modules.html#deepmatcher.modules.AlignmentNetwork" title="deepmatcher.modules.AlignmentNetwork"><code class="xref py py-class docutils literal"><span class="pre">deepmatcher.modules.AlignmentNetwork</span></code></a> or callable) – The neural network takes the input sequence, aligns the words in the sequence
+with other words in the sequence, and returns the corresponding alignment
+score matrix. Argument must specify a <a class="reference internal" href="modules.html#align-op"><span class="std std-ref">Align</span></a> operation.</li>
+<li><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to scale the alignment scores by the square root of the
+<cite>hidden_size</cite> parameter. Based on <a class="reference external" href="https://arxiv.org/abs/1706.03762">scaled dot-product attention</a></li>
+<li><strong>score_dropout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – If non-zero, applies dropout to the alignment score matrix. Dropout
+probability must be between 0 and 1.</li>
+<li><strong>value_transform_network</strong> (string or <a class="reference internal" href="modules.html#deepmatcher.modules.Transform" title="deepmatcher.modules.Transform"><code class="xref py py-class docutils literal"><span class="pre">Transform</span></code></a> or callable) – For each word embedding in the input sequence, SelfAttention takes a weighted
+average of the aligning values, i.e., the aligning word embeddings based on
+the alignment scores. This parameter specifies the neural network to transform
+the values (word embeddings) before taking the weighted average. Argument must
+be None or specify a <a class="reference internal" href="modules.html#transform-op"><span class="std std-ref">Transform</span></a> operation. If the argument is a
+string, the hidden size of the transform operation is computed as
+<code class="code docutils literal"><span class="pre">hidden_size</span> <span class="pre">//</span> <span class="pre">heads</span></code>. If argument is None, and <cite>heads</cite> is 1, then the
+values are not transformed. If argument is None and <cite>heads</cite> is &gt; 1, then a 1
+layer highway network without any non-linearity is used. The hidden size for
+this is computed as mentioned above.</li>
+<li><strong>value_merge</strong> (string or <a class="reference internal" href="modules.html#deepmatcher.modules.Merge" title="deepmatcher.modules.Merge"><code class="xref py py-class docutils literal"><span class="pre">Merge</span></code></a> or callable) – For each word embedding in the input sequence, each SelfAttention head
+produces one corresponding vector as output. This parameter specifies how
+to merge the outputs of all attention heads for each word embedding.
+Concatenates the outputs of all heads by default. Argument must specify a
+<a class="reference internal" href="modules.html#merge-op"><span class="std std-ref">Merge</span></a> operation.</li>
+<li><strong>transform_dropout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – If non-zero, applies dropout to the output of the <cite>value_transform_network</cite>,
+if applicable. Dropout probability must be between 0 and 1.</li>
+<li><strong>output_transform_network</strong> (string or <a class="reference internal" href="modules.html#deepmatcher.modules.Transform" title="deepmatcher.modules.Transform"><code class="xref py py-class docutils literal"><span class="pre">Transform</span></code></a> or callable) – For each word embedding in the input sequence, SelfAttention produces one
+corresponding vector as output. This neural network specifies how to transform
+each of these output vectors to obtain a hidden representation of size
+<cite>hidden_size</cite>. Argument must be None or specify a <a class="reference internal" href="modules.html#transform-op"><span class="std std-ref">Transform</span></a>
+operation. If argument is None, and <cite>heads</cite> is 1, then the output vectors are
+not transformed. If argument is None and <cite>heads</cite> is &gt; 1, then a 1 layer
+highway network without any non-linearity is used.</li>
+<li><strong>output_dropout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – If non-zero, applies dropout to the output of the <cite>output_transform_network</cite>,
+if applicable. Dropout probability must be between 0 and 1.</li>
+<li><strong>bypass_network</strong> (string or <code class="xref py py-class docutils literal"><span class="pre">Bypass</span></code> or callable) – The bypass network (e.g. residual or highway network) to use. The input word
+embedding sequence to this module is considered as the raw input to the bypass
+network and the final output vector sequence (output of <cite>value_merge</cite> or
+<cite>output_transform_network</cite> if applicable) is considered as the transformed
+input. Argument must specify a <a class="reference internal" href="modules.html#bypass-op"><span class="std std-ref">Bypass</span></a> operation. If None, does not
+use a bypass network.</li>
+<li><strong>input_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of features in the input to the module. This parameter will be
+automatically specified by <code class="xref py py-class docutils literal"><span class="pre">LazyModule</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="word_comparators.html" class="btn btn-neutral float-right" title="deepmatcher.word_comparators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="attr_summarizers.html" class="btn btn-neutral" title="deepmatcher.attr_summarizers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

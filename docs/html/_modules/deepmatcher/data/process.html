@@ -1,0 +1,563 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.data.process &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>deepmatcher.data.process</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for deepmatcher.data.process</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">timeit</span> <span class="k">import</span> <span class="n">default_timer</span> <span class="k">as</span> <span class="n">timer</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">from</span> <span class="nn">torchtext.utils</span> <span class="k">import</span> <span class="n">unicode_csv_reader</span>
+
+<span class="kn">from</span> <span class="nn">.dataset</span> <span class="k">import</span> <span class="n">MatchingDataset</span>
+<span class="kn">from</span> <span class="nn">.field</span> <span class="k">import</span> <span class="n">MatchingField</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_check_header</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">id_attr</span><span class="p">,</span> <span class="n">left_prefix</span><span class="p">,</span> <span class="n">right_prefix</span><span class="p">,</span> <span class="n">label_attr</span><span class="p">,</span> <span class="n">ignore_columns</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Verify CSV file header.</span>
+
+<span class="sd">    Checks that:</span>
+<span class="sd">    * There is a label column</span>
+<span class="sd">    * There is an ID column</span>
+<span class="sd">    * All columns except the label and ID columns, and ignored columns start with either</span>
+<span class="sd">        the left table attribute prefix or the right table attribute prefix.</span>
+<span class="sd">    * The number of left and right table attributes are the same.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># assert id_attr in header</span>
+    <span class="k">if</span> <span class="n">label_attr</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">label_attr</span> <span class="ow">in</span> <span class="n">header</span>
+
+    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">header</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">id_attr</span><span class="p">,</span> <span class="n">label_attr</span><span class="p">)</span> <span class="ow">and</span> <span class="n">attr</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignore_columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">left_prefix</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">right_prefix</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Attribute &#39;</span> <span class="o">+</span> <span class="n">attr</span> <span class="o">+</span> <span class="s1">&#39; is not a left or a right table &#39;</span>
+                                 <span class="s1">&#39;column, not a label or id and is not ignored. Not sure &#39;</span>
+                                 <span class="s1">&#39;what it is...&#39;</span><span class="p">)</span>
+
+    <span class="n">num_left</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">left_prefix</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">header</span><span class="p">)</span>
+    <span class="n">num_right</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">right_prefix</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">header</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">num_left</span> <span class="o">==</span> <span class="n">num_right</span>
+
+
+<span class="k">def</span> <span class="nf">_make_fields</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">id_attr</span><span class="p">,</span> <span class="n">label_attr</span><span class="p">,</span> <span class="n">ignore_columns</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">tokenize</span><span class="p">,</span>
+                 <span class="n">include_lengths</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create field metadata, i.e., attribute processing specification for each</span>
+<span class="sd">    attribute.</span>
+
+<span class="sd">    This includes fields for label and ID columns.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list(tuple(str, MatchingField)): A list of tuples containing column name</span>
+<span class="sd">            (e.g. &quot;left_address&quot;) and corresponding :class:`~data.MatchingField` pairs,</span>
+<span class="sd">            in the same order that the columns occur in the CSV file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">text_field</span> <span class="o">=</span> <span class="n">MatchingField</span><span class="p">(</span>
+        <span class="n">lower</span><span class="o">=</span><span class="n">lower</span><span class="p">,</span>
+        <span class="n">tokenize</span><span class="o">=</span><span class="n">tokenize</span><span class="p">,</span>
+        <span class="n">init_token</span><span class="o">=</span><span class="s1">&#39;&lt;&lt;&lt;&#39;</span><span class="p">,</span>
+        <span class="n">eos_token</span><span class="o">=</span><span class="s1">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span>
+        <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">include_lengths</span><span class="o">=</span><span class="n">include_lengths</span><span class="p">)</span>
+    <span class="n">numeric_field</span> <span class="o">=</span> <span class="n">MatchingField</span><span class="p">(</span>
+        <span class="n">sequential</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">preprocessing</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">use_vocab</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">id_field</span> <span class="o">=</span> <span class="n">MatchingField</span><span class="p">(</span><span class="n">sequential</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_vocab</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">header</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="n">id_attr</span><span class="p">:</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">attr</span><span class="p">,</span> <span class="n">id_field</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">attr</span> <span class="o">==</span> <span class="n">label_attr</span><span class="p">:</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">attr</span><span class="p">,</span> <span class="n">numeric_field</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">ignore_columns</span><span class="p">:</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">attr</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">attr</span><span class="p">,</span> <span class="n">text_field</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">fields</span>
+
+
+<span class="k">def</span> <span class="nf">_maybe_download_nltk_data</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">nltk</span>
+    <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;perluniprops&#39;</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;nonbreaking_prefixes&#39;</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="process"><a class="viewcode-back" href="../../../data.html#deepmatcher.data.process">[docs]</a><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">train</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">validation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">test</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">unlabeled</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">cache</span><span class="o">=</span><span class="s1">&#39;cacheddata.pth&#39;</span><span class="p">,</span>
+            <span class="n">check_cached_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">auto_rebuild_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">tokenize</span><span class="o">=</span><span class="s1">&#39;nltk&#39;</span><span class="p">,</span>
+            <span class="n">lowercase</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">embeddings</span><span class="o">=</span><span class="s1">&#39;fasttext.en.bin&#39;</span><span class="p">,</span>
+            <span class="n">embeddings_cache_path</span><span class="o">=</span><span class="s1">&#39;~/.vector_cache&#39;</span><span class="p">,</span>
+            <span class="n">ignore_columns</span><span class="o">=</span><span class="p">(),</span>
+            <span class="n">include_lengths</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">id_attr</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span>
+            <span class="n">label_attr</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span>
+            <span class="n">left_prefix</span><span class="o">=</span><span class="s1">&#39;left_&#39;</span><span class="p">,</span>
+            <span class="n">right_prefix</span><span class="o">=</span><span class="s1">&#39;right_&#39;</span><span class="p">,</span>
+            <span class="n">use_magellan_convention</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">pca</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates dataset objects for multiple splits of a dataset.</span>
+
+<span class="sd">    This involves the following steps (if data cannot be retrieved from the cache):</span>
+<span class="sd">    #. Read CSV header of a data file and verify header is sane.</span>
+<span class="sd">    #. Create fields, i.e., column processing specifications (e.g. tokenization, label</span>
+<span class="sd">        conversion to integers etc.)</span>
+<span class="sd">    #. Load each data file:</span>
+<span class="sd">        #. Read each example (tuple pair) in specified CSV file.</span>
+<span class="sd">        #. Preprocess example. Involves lowercasing and tokenization (unless disabled).</span>
+<span class="sd">        #. Compute metadata if training data file. \</span>
+<span class="sd">            See :meth:`MatchingDataset.compute_metadata` for details.</span>
+<span class="sd">    #. Create vocabulary consisting of all tokens in all attributes in all datasets.</span>
+<span class="sd">    #. Download word embedding data if necessary.</span>
+<span class="sd">    #. Create mapping from each word in vocabulary to its word embedding.</span>
+<span class="sd">    #. Compute metadata</span>
+<span class="sd">    #. Write to cache</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        path (str): Common prefix of the splits&#39; file paths.</span>
+<span class="sd">        train (str): Suffix to add to path for the train set.</span>
+<span class="sd">        validation (str): Suffix to add to path for the validation set, or None</span>
+<span class="sd">            for no validation set. Default is None.</span>
+<span class="sd">        test (str): Suffix to add to path for the test set, or None for no test</span>
+<span class="sd">            set. Default is None.</span>
+<span class="sd">        cache (str): Suffix to add to path for cache file. If `None` disables caching.</span>
+<span class="sd">        check_cached_data (bool): Verify that data files haven&#39;t changes since the</span>
+<span class="sd">            cache was constructed and that relevant field options haven&#39;t changed.</span>
+<span class="sd">        auto_rebuild_cache (bool): Automatically rebuild the cache if the data files</span>
+<span class="sd">            are modified or if the field options change. Defaults to False.</span>
+<span class="sd">        lowercase (bool): Whether to lowercase all words in all attributes.</span>
+<span class="sd">        embeddings (str or list): One or more of the following strings:</span>
+
+<span class="sd">            * `fasttext.{lang}.bin`:</span>
+<span class="sd">                This uses sub-word level word embeddings based on binary models from &quot;wiki</span>
+<span class="sd">                word vectors&quot; released by FastText. {lang} is &#39;en&#39; or any other 2 letter</span>
+<span class="sd">                ISO 639-1 Language Code, or 3 letter ISO 639-2 Code, if the language does</span>
+<span class="sd">                not have a 2 letter code. 300d vectors.</span>
+<span class="sd">                ``fasttext.en.bin`` is the default.</span>
+<span class="sd">            * `fasttext.wiki.vec`:</span>
+<span class="sd">                Uses wiki news word vectors released as part of &quot;Advances in Pre-Training</span>
+<span class="sd">                Distributed Word Representations&quot; by Mikolov et al. (2018). 300d vectors.</span>
+<span class="sd">            * `fasttext.crawl.vec`:</span>
+<span class="sd">                Uses Common Crawl word vectors released as part of &quot;Advances in</span>
+<span class="sd">                Pre-Training Distributed Word Representations&quot; by Mikolov et al. (2018).</span>
+<span class="sd">                300d vectors.</span>
+<span class="sd">            * `glove.6B.{dims}`:</span>
+<span class="sd">                Uses uncased Glove trained on Wiki + Gigaword. {dims} is one of (50d,</span>
+<span class="sd">                100d, 200d, or 300d).</span>
+<span class="sd">            * `glove.42B.300d`:</span>
+<span class="sd">                Uses uncased Glove trained on Common Crawl. 300d vectors.</span>
+<span class="sd">            * `glove.840B.300d`:</span>
+<span class="sd">                Uses cased Glove trained on Common Crawl. 300d vectors.</span>
+<span class="sd">            * `glove.twitter.27B.{dims}`:</span>
+<span class="sd">                Uses cased Glove trained on Twitter. {dims} is one of (25d, 50d, 100d, or</span>
+<span class="sd">                200d).</span>
+<span class="sd">        embeddings_cache_path (str): Directory to store dowloaded word vector data.</span>
+<span class="sd">        ignore_columns (list): A list of columns to ignore in the CSV files.</span>
+<span class="sd">        include_lengths (bool): Whether to provide the model with the lengths of</span>
+<span class="sd">            each attribute sequence in each batch. If True, length information can be</span>
+<span class="sd">            used by the neural network, e.g. when picking the last RNN output of each</span>
+<span class="sd">            attribute sequence.</span>
+<span class="sd">        id_attr (str): The name of the tuple pair ID column in the CSV file.</span>
+<span class="sd">        label_attr (str): The name of the tuple pair match label column in the CSV file.</span>
+<span class="sd">        left_prefix (str): The prefix for attribute names belonging to the left table.</span>
+<span class="sd">        right_prefix (str): The prefix for attribute names belonging to the right table.</span>
+<span class="sd">        use_magellan_convention (bool): Set `id_attr`, `left_prefix`, and `right_prefix`</span>
+<span class="sd">            according to Magellan (py_entitymatching Python package) naming conventions.</span>
+<span class="sd">            Specifically, set them to be &#39;_id&#39;, &#39;ltable_&#39;, and &#39;rtable_&#39; respectively.</span>
+<span class="sd">        pca (bool): Whether to compute PCA for each attribute (needed for SIF model).</span>
+<span class="sd">            Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in that</span>
+<span class="sd">            order, if provided, or dataset for unlabeled, if provided.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">unlabeled</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Parameter &quot;unlabeled&quot; has been deprecated, use &#39;</span>
+                         <span class="s1">&#39;&quot;deepmatcher.data.process_unlabeled&quot; instead.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">use_magellan_convention</span><span class="p">:</span>
+        <span class="n">id_attr</span> <span class="o">=</span> <span class="s1">&#39;_id&#39;</span>
+        <span class="n">left_prefix</span> <span class="o">=</span> <span class="s1">&#39;ltable_&#39;</span>
+        <span class="n">right_prefix</span> <span class="o">=</span> <span class="s1">&#39;rtable_&#39;</span>
+
+    <span class="c1"># TODO(Sid): check for all datasets to make sure the files exist and have the same schema</span>
+    <span class="n">a_dataset</span> <span class="o">=</span> <span class="n">train</span> <span class="ow">or</span> <span class="n">validation</span> <span class="ow">or</span> <span class="n">test</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">a_dataset</span><span class="p">)),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">unicode_csv_reader</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+    <span class="n">_maybe_download_nltk_data</span><span class="p">()</span>
+    <span class="n">_check_header</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">id_attr</span><span class="p">,</span> <span class="n">left_prefix</span><span class="p">,</span> <span class="n">right_prefix</span><span class="p">,</span> <span class="n">label_attr</span><span class="p">,</span> <span class="n">ignore_columns</span><span class="p">)</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">_make_fields</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">id_attr</span><span class="p">,</span> <span class="n">label_attr</span><span class="p">,</span> <span class="n">ignore_columns</span><span class="p">,</span> <span class="n">lowercase</span><span class="p">,</span>
+                          <span class="n">tokenize</span><span class="p">,</span> <span class="n">include_lengths</span><span class="p">)</span>
+
+    <span class="n">column_naming</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">id_attr</span><span class="p">,</span>
+        <span class="s1">&#39;left&#39;</span><span class="p">:</span> <span class="n">left_prefix</span><span class="p">,</span>
+        <span class="s1">&#39;right&#39;</span><span class="p">:</span> <span class="n">right_prefix</span><span class="p">,</span>
+        <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">label_attr</span>
+    <span class="p">}</span>
+
+    <span class="n">datasets</span> <span class="o">=</span> <span class="n">MatchingDataset</span><span class="o">.</span><span class="n">splits</span><span class="p">(</span>
+        <span class="n">path</span><span class="p">,</span>
+        <span class="n">train</span><span class="p">,</span>
+        <span class="n">validation</span><span class="p">,</span>
+        <span class="n">test</span><span class="p">,</span>
+        <span class="n">fields</span><span class="p">,</span>
+        <span class="n">embeddings</span><span class="p">,</span>
+        <span class="n">embeddings_cache_path</span><span class="p">,</span>
+        <span class="n">column_naming</span><span class="p">,</span>
+        <span class="n">cache</span><span class="p">,</span>
+        <span class="n">check_cached_data</span><span class="p">,</span>
+        <span class="n">auto_rebuild_cache</span><span class="p">,</span>
+        <span class="n">train_pca</span><span class="o">=</span><span class="n">pca</span><span class="p">)</span>
+
+    <span class="c1"># Save additional information to train dataset.</span>
+    <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ignore_columns</span> <span class="o">=</span> <span class="n">ignore_columns</span>
+    <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tokenize</span> <span class="o">=</span> <span class="n">tokenize</span>
+    <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lowercase</span> <span class="o">=</span> <span class="n">lowercase</span>
+    <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">include_lengths</span> <span class="o">=</span> <span class="n">include_lengths</span>
+
+    <span class="k">return</span> <span class="n">datasets</span></div>
+
+
+<div class="viewcode-block" id="process_unlabeled"><a class="viewcode-back" href="../../../data.html#deepmatcher.data.process_unlabeled">[docs]</a><span class="k">def</span> <span class="nf">process_unlabeled</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">trained_model</span><span class="p">,</span> <span class="n">ignore_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates a dataset object for an unlabeled dataset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (string):</span>
+<span class="sd">            The full path to the unlabeled data file (not just the directory).</span>
+<span class="sd">        trained_model (:class:`~deepmatcher.MatchingModel`):</span>
+<span class="sd">            The trained model. The model is aware of the configuration of the training</span>
+<span class="sd">            data on which it was trained, and so this method reuses the same</span>
+<span class="sd">            configuration for the unlabeled data.</span>
+<span class="sd">        ignore_columns (list):</span>
+<span class="sd">            A list of columns to ignore in the unlabeled CSV file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">unicode_csv_reader</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+    <span class="n">train_info</span> <span class="o">=</span> <span class="n">trained_model</span><span class="o">.</span><span class="n">meta</span>
+    <span class="k">if</span> <span class="n">ignore_columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ignore_columns</span> <span class="o">=</span> <span class="n">train_info</span><span class="o">.</span><span class="n">ignore_columns</span>
+    <span class="n">column_naming</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">train_info</span><span class="o">.</span><span class="n">column_naming</span><span class="p">)</span>
+    <span class="n">column_naming</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">_make_fields</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">column_naming</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">column_naming</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span>
+                          <span class="n">ignore_columns</span><span class="p">,</span> <span class="n">train_info</span><span class="o">.</span><span class="n">lowercase</span><span class="p">,</span> <span class="n">train_info</span><span class="o">.</span><span class="n">tokenize</span><span class="p">,</span>
+                          <span class="n">train_info</span><span class="o">.</span><span class="n">include_lengths</span><span class="p">)</span>
+
+    <span class="n">begin</span> <span class="o">=</span> <span class="n">timer</span><span class="p">()</span>
+    <span class="n">dataset_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span> <span class="s1">&#39;column_naming&#39;</span><span class="p">:</span> <span class="n">column_naming</span><span class="p">}</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">MatchingDataset</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">dataset_args</span><span class="p">)</span>
+
+    <span class="c1"># Make sure we have the same attributes.</span>
+    <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">all_text_fields</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">train_info</span><span class="o">.</span><span class="n">all_text_fields</span><span class="p">)</span>
+
+    <span class="n">after_load</span> <span class="o">=</span> <span class="n">timer</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Data load time: </span><span class="si">{}</span><span class="s1">s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">after_load</span> <span class="o">-</span> <span class="n">begin</span><span class="p">))</span>
+
+    <span class="n">reverse_fields_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">reverse_fields_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">field</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">field</span><span class="o">.</span><span class="n">use_vocab</span><span class="p">:</span>
+            <span class="c1"># Copy over vocab from original train data.</span>
+            <span class="n">field</span><span class="o">.</span><span class="n">vocab</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">train_info</span><span class="o">.</span><span class="n">vocabs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+            <span class="c1"># Then extend the vocab.</span>
+            <span class="n">field</span><span class="o">.</span><span class="n">extend_vocab</span><span class="p">(</span>
+                <span class="n">dataset</span><span class="p">,</span> <span class="n">vectors</span><span class="o">=</span><span class="n">train_info</span><span class="o">.</span><span class="n">embeddings</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">train_info</span><span class="o">.</span><span class="n">embeddings_cache</span><span class="p">)</span>
+
+    <span class="n">dataset</span><span class="o">.</span><span class="n">vocabs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">dataset</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">vocab</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">train_info</span><span class="o">.</span><span class="n">all_text_fields</span>
+    <span class="p">}</span>
+
+    <span class="n">after_vocab</span> <span class="o">=</span> <span class="n">timer</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Vocab update time: </span><span class="si">{}</span><span class="s1">s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">after_vocab</span> <span class="o">-</span> <span class="n">after_load</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">dataset</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,460 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.models.word_contextualizers &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>deepmatcher.models.word_contextualizers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for deepmatcher.models.word_contextualizers</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">import</span> <span class="nn">deepmatcher</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="k">import</span> <span class="n">Variable</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">_utils</span>
+<span class="kn">from</span> <span class="nn">..batch</span> <span class="k">import</span> <span class="n">AttrTensor</span>
+
+
+<div class="viewcode-block" id="RNN"><a class="viewcode-back" href="../../../word_contextualizers.html#deepmatcher.word_contextualizers.RNN">[docs]</a><span class="k">class</span> <span class="nc">RNN</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">RNN</span><span class="p">,</span> <span class="n">dm</span><span class="o">.</span><span class="n">WordContextualizer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Multi layered RNN based Word Contextualizer.</span>
+
+<span class="sd">    Supports dropout and residual / highway connections. Takes the same parameters as the</span>
+<span class="sd">    :class:`~deepmatcher.modules.RNN` module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<span class="c1"># class CNN(dm.WordContextualizer):</span>
+<span class="c1">#     pass</span>
+
+
+<div class="viewcode-block" id="SelfAttention"><a class="viewcode-back" href="../../../word_contextualizers.html#deepmatcher.word_contextualizers.SelfAttention">[docs]</a><span class="k">class</span> <span class="nc">SelfAttention</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">WordContextualizer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;__init__(heads=1, hidden_size=None, input_dropout=0, alignment_network=&#39;decomposable&#39;, scale=False, score_dropout=0, value_transform_network=None, value_merge=&#39;concat&#39;, transform_dropout=0, output_transform_network=None, output_dropout=0, bypass_network=&#39;highway&#39;, input_size=None)</span>
+
+<span class="sd">    Self Attention based Word Contextualizer.</span>
+
+<span class="sd">    Supports `vanilla self attention &lt;https://arxiv.org/abs/1606.01933&gt;`__ and `multi-head</span>
+<span class="sd">    self attention &lt;https://arxiv.org/abs/1706.03762&gt;`__.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        heads (int):</span>
+<span class="sd">            Number of attention heads to use. Defaults to 1.</span>
+<span class="sd">        hidden_size (int):</span>
+<span class="sd">            The default hidden size of the `alignment_network` and transform networks, if</span>
+<span class="sd">            they are not disabled.</span>
+<span class="sd">        input_dropout (float):</span>
+<span class="sd">            If non-zero, applies dropout to the input to this module. Dropout probability</span>
+<span class="sd">            must be between 0 and 1.</span>
+<span class="sd">        alignment_network (string or :class:`deepmatcher.modules.AlignmentNetwork` or callable):</span>
+<span class="sd">            The neural network takes the input sequence, aligns the words in the sequence</span>
+<span class="sd">            with other words in the sequence, and returns the corresponding alignment</span>
+<span class="sd">            score matrix. Argument must specify a :ref:`align-op` operation.</span>
+<span class="sd">        scale (bool):</span>
+<span class="sd">            Whether to scale the alignment scores by the square root of the</span>
+<span class="sd">            `hidden_size` parameter. Based on `scaled dot-product attention</span>
+<span class="sd">            &lt;https://arxiv.org/abs/1706.03762&gt;`__</span>
+<span class="sd">        score_dropout (float):</span>
+<span class="sd">            If non-zero, applies dropout to the alignment score matrix. Dropout</span>
+<span class="sd">            probability must be between 0 and 1.</span>
+<span class="sd">        value_transform_network (string or :class:`~deepmatcher.modules.Transform` or callable):</span>
+<span class="sd">            For each word embedding in the input sequence, SelfAttention takes a weighted</span>
+<span class="sd">            average of the aligning values, i.e., the aligning word embeddings based on</span>
+<span class="sd">            the alignment scores. This parameter specifies the neural network to transform</span>
+<span class="sd">            the values (word embeddings) before taking the weighted average. Argument must</span>
+<span class="sd">            be None or specify a :ref:`transform-op` operation. If the argument is a</span>
+<span class="sd">            string, the hidden size of the transform operation is computed as</span>
+<span class="sd">            :code:`hidden_size // heads`. If argument is None, and `heads` is 1, then the</span>
+<span class="sd">            values are not transformed. If argument is None and `heads` is &gt; 1, then a 1</span>
+<span class="sd">            layer highway network without any non-linearity is used. The hidden size for</span>
+<span class="sd">            this is computed as mentioned above.</span>
+<span class="sd">        value_merge (string or :class:`~deepmatcher.modules.Merge` or callable):</span>
+<span class="sd">            For each word embedding in the input sequence, each SelfAttention head</span>
+<span class="sd">            produces one corresponding vector as output. This parameter specifies how</span>
+<span class="sd">            to merge the outputs of all attention heads for each word embedding.</span>
+<span class="sd">            Concatenates the outputs of all heads by default. Argument must specify a</span>
+<span class="sd">            :ref:`merge-op` operation.</span>
+<span class="sd">        transform_dropout (float):</span>
+<span class="sd">            If non-zero, applies dropout to the output of the `value_transform_network`,</span>
+<span class="sd">            if applicable. Dropout probability must be between 0 and 1.</span>
+<span class="sd">        output_transform_network (string or :class:`~deepmatcher.modules.Transform` or callable):</span>
+<span class="sd">            For each word embedding in the input sequence, SelfAttention produces one</span>
+<span class="sd">            corresponding vector as output. This neural network specifies how to transform</span>
+<span class="sd">            each of these output vectors to obtain a hidden representation of size</span>
+<span class="sd">            `hidden_size`. Argument must be None or specify a :ref:`transform-op`</span>
+<span class="sd">            operation. If argument is None, and `heads` is 1, then the output vectors are</span>
+<span class="sd">            not transformed. If argument is None and `heads` is &gt; 1, then a 1 layer</span>
+<span class="sd">            highway network without any non-linearity is used.</span>
+<span class="sd">        output_dropout (float):</span>
+<span class="sd">            If non-zero, applies dropout to the output of the `output_transform_network`,</span>
+<span class="sd">            if applicable. Dropout probability must be between 0 and 1.</span>
+<span class="sd">        bypass_network (string or :class:`Bypass` or callable):</span>
+<span class="sd">            The bypass network (e.g. residual or highway network) to use. The input word</span>
+<span class="sd">            embedding sequence to this module is considered as the raw input to the bypass</span>
+<span class="sd">            network and the final output vector sequence (output of `value_merge` or</span>
+<span class="sd">            `output_transform_network` if applicable) is considered as the transformed</span>
+<span class="sd">            input. Argument must specify a :ref:`bypass-op` operation. If None, does not</span>
+<span class="sd">            use a bypass network.</span>
+<span class="sd">        input_size (int):</span>
+<span class="sd">            The number of features in the input to the module. This parameter will be</span>
+<span class="sd">            automatically specified by :class:`LazyModule`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+              <span class="n">heads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+              <span class="n">hidden_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">input_dropout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+              <span class="n">alignment_network</span><span class="o">=</span><span class="s1">&#39;decomposable&#39;</span><span class="p">,</span>
+              <span class="n">scale</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">score_dropout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+              <span class="n">value_transform_network</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">value_merge</span><span class="o">=</span><span class="s1">&#39;concat&#39;</span><span class="p">,</span>
+              <span class="n">transform_dropout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+              <span class="n">output_transform_network</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">output_dropout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+              <span class="n">bypass_network</span><span class="o">=</span><span class="s1">&#39;highway&#39;</span><span class="p">,</span>
+              <span class="n">input_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span> <span class="k">if</span> <span class="n">hidden_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">input_size</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">alignment_networks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">head</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">heads</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alignment_networks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">_alignment_module</span><span class="p">(</span><span class="n">alignment_network</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">value_transform_network</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">heads</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">value_transform_network</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span>
+                <span class="s1">&#39;1-layer-highway&#39;</span><span class="p">,</span> <span class="n">non_linearity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="n">hidden_size</span> <span class="o">//</span> <span class="n">heads</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_transform_network</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">_transform_module</span><span class="p">(</span>
+            <span class="n">value_transform_network</span><span class="p">,</span> <span class="n">hidden_size</span> <span class="o">//</span> <span class="n">heads</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_merge</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">_merge_module</span><span class="p">(</span><span class="n">value_merge</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">softmax</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">output_transform_network</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">heads</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">output_transform_network</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span>
+                <span class="s1">&#39;1-layer-highway&#39;</span><span class="p">,</span> <span class="n">non_linearity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_transform_network</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">_transform_module</span><span class="p">(</span>
+            <span class="n">output_transform_network</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">input_dropout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transform_dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">transform_dropout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score_dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">output_dropout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">output_dropout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bypass_network</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">_bypass_module</span><span class="p">(</span><span class="n">bypass_network</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">heads</span> <span class="o">=</span> <span class="n">heads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+
+    <span class="k">def</span> <span class="nf">_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_with_meta</span><span class="p">):</span>
+        <span class="nb">input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_dropout</span><span class="p">(</span><span class="n">input_with_meta</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="n">values_aligned</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">head</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heads</span><span class="p">):</span>
+            <span class="c1"># Dims: batch x len1 x len2</span>
+            <span class="n">alignment_scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">score_dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alignment_networks</span><span class="p">[</span><span class="n">head</span><span class="p">](</span><span class="nb">input</span><span class="p">,</span>
+                                                                                <span class="nb">input</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">:</span>
+                <span class="n">alignment_scores</span> <span class="o">=</span> <span class="n">alignment_scores</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">input_with_meta</span><span class="o">.</span><span class="n">lengths</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">sequence_mask</span><span class="p">(</span><span class="n">input_with_meta</span><span class="o">.</span><span class="n">lengths</span><span class="p">)</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Make it broadcastable.</span>
+                <span class="n">alignment_scores</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">masked_fill_</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask</span><span class="p">,</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))</span>
+
+            <span class="n">normalized_scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">alignment_scores</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_transform_network</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">values_transformed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform_dropout</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">value_transform_network</span><span class="p">(</span><span class="nb">input</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">values_transformed</span> <span class="o">=</span> <span class="nb">input</span>
+
+            <span class="c1"># Dims: batch x len1 x channels</span>
+            <span class="n">values_aligned</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">normalized_scores</span><span class="p">,</span> <span class="n">values_transformed</span><span class="p">))</span>
+
+        <span class="n">values_merged</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_merge</span><span class="p">(</span><span class="o">*</span><span class="n">values_aligned</span><span class="p">)</span>
+
+        <span class="n">output</span> <span class="o">=</span> <span class="n">values_merged</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_transform_network</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_transform_network</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dropout</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="n">final_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bypass_network</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">AttrTensor</span><span class="o">.</span><span class="n">from_old_metadata</span><span class="p">(</span><span class="n">final_output</span><span class="p">,</span> <span class="n">input_with_meta</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

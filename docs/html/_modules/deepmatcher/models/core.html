@@ -1,0 +1,1032 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.models.core &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>deepmatcher.models.core</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for deepmatcher.models.core</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Mapping</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">import</span> <span class="nn">deepmatcher</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">_utils</span>
+<span class="kn">from</span> <span class="nn">..data</span> <span class="k">import</span> <span class="n">MatchingDataset</span><span class="p">,</span> <span class="n">MatchingIterator</span>
+<span class="kn">from</span> <span class="nn">..runner</span> <span class="k">import</span> <span class="n">Runner</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">Bunch</span><span class="p">,</span> <span class="n">tally_parameters</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;deepmatcher.core&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="MatchingModel"><a class="viewcode-back" href="../../../index.html#deepmatcher.MatchingModel">[docs]</a><span class="k">class</span> <span class="nc">MatchingModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;A neural network model for entity matching.</span>
+
+<span class="sd">    Refer to the</span>
+<span class="sd">    `Matching Models tutorial &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb&gt;`_</span>
+<span class="sd">    for details on how to customize a `MatchingModel`. A brief intro is below:</span>
+
+<span class="sd">    This network consists of the following components:</span>
+
+<span class="sd">    #. Attribute Summarizers</span>
+
+<span class="sd">    #. Attribute Comparators</span>
+
+<span class="sd">    #. A Classifier</span>
+
+<span class="sd">    Creating a MatchingModel instance does not immediately construct the neural network.</span>
+<span class="sd">    The network will be constructed just before training based on metadata from the</span>
+<span class="sd">    training set:</span>
+
+<span class="sd">    #. For each attribute (e.g., Product Name, Address, etc.), an Attribute Summarizer is</span>
+<span class="sd">       constructed using the specified `attr_summarizer` template.</span>
+<span class="sd">    #. For each attribute, an Attribute Comparator is constructed using the specified</span>
+<span class="sd">       `attr_summarizer` template.</span>
+<span class="sd">    #. A Classifier is constructed based on the specified `classifier` template.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        attr_summarizer (string or :class:`AttrSummarizer` or callable):</span>
+<span class="sd">            The attribute summarizer. Takes in two word embedding sequences and summarizes</span>
+<span class="sd">            the information in them to produce two summary vectors as output.</span>
+<span class="sd">            Options `listed here &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#attr_summarizer-can-be-set-to-one-of-the-following:&gt;`__.</span>
+<span class="sd">            Defaults to &#39;hybrid&#39;, i.e., the :class:`~deepmatcher.attr_summarizers.Hybrid`</span>
+<span class="sd">            model.</span>
+<span class="sd">        attr_comparator (string or :class:`~deepmatcher.modules.Merge` or callable):</span>
+<span class="sd">            The attribute comparator. Takes as input the two summary vectors and applies a</span>
+<span class="sd">            comparison function over those summaries to obtain the final similarity</span>
+<span class="sd">            representation of the two attribute values. Argument must specify a</span>
+<span class="sd">            :ref:`merge-op` operation. Default is selected based on `attr_summarizer`</span>
+<span class="sd">            choice.</span>
+<span class="sd">        attr_condense_factor (string or int):</span>
+<span class="sd">            The factor by which to condense each attribute similarity vector. E.g. if</span>
+<span class="sd">            `attr_condense_factor` is set to 3 and the attribute similarity vector size is</span>
+<span class="sd">            300, then each attribute similarity vector is transformed to a 100 dimensional</span>
+<span class="sd">            vector using a linear transformation. The purpose of condensing is to reduce</span>
+<span class="sd">            the number of parameters in the classifier module. This parameter can be set</span>
+<span class="sd">            to a number or &#39;auto&#39;. If &#39;auto&#39;, then the condensing factor is set to be</span>
+<span class="sd">            equal to the number attributes, but if there are more than 6 attributes, then</span>
+<span class="sd">            the condensing factor is set to 6. Defaults to &#39;auto&#39;.</span>
+<span class="sd">        attr_merge (string or :class:`~deepmatcher.modules.Merge` or callable):</span>
+<span class="sd">            The operation used to merge the (optionally condensed) attribute similarity</span>
+<span class="sd">            vectors to obtain the input to the classifier. Argument must specify a</span>
+<span class="sd">            :ref:`merge-op` operation. Defaults to &#39;concat&#39;, i.e., concatenate all</span>
+<span class="sd">            attribute similarity vectors to form the classifier input.</span>
+<span class="sd">        classifier (string or :class:`Classifier` or callable):</span>
+<span class="sd">            The neural network to perform match / mismatch classification</span>
+<span class="sd">            based on attribute similarity representations.</span>
+<span class="sd">            Options `listed here &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#classifier-can-be-set-to-one-of-the-following:&gt;`__.</span>
+<span class="sd">            Defaults to &#39;2-layer-highway&#39;, i.e., use a two layer highway network followed</span>
+<span class="sd">            by a softmax layer for classification.</span>
+<span class="sd">        hidden_size (int):</span>
+<span class="sd">            The hidden size to use for the `attr_summarizer` and the `classifier` modules,</span>
+<span class="sd">            if they are string arguments. If a module or :attr:`callable` input is specified</span>
+<span class="sd">            for a component, this argument is ignored for that component.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">attr_summarizer</span><span class="o">=</span><span class="s1">&#39;hybrid&#39;</span><span class="p">,</span>
+                 <span class="n">attr_condense_factor</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+                 <span class="n">attr_comparator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">attr_merge</span><span class="o">=</span><span class="s1">&#39;concat&#39;</span><span class="p">,</span>
+                 <span class="n">classifier</span><span class="o">=</span><span class="s1">&#39;2-layer-highway&#39;</span><span class="p">,</span>
+                 <span class="n">hidden_size</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">MatchingModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizer</span> <span class="o">=</span> <span class="n">attr_summarizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attr_condense_factor</span> <span class="o">=</span> <span class="n">attr_condense_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attr_comparator</span> <span class="o">=</span> <span class="n">attr_comparator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attr_merge</span> <span class="o">=</span> <span class="n">attr_merge</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_train_buffers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialized</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="MatchingModel.run_train"><a class="viewcode-back" href="../../../index.html#deepmatcher.MatchingModel.run_train">[docs]</a>    <span class="k">def</span> <span class="nf">run_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;run_train(train_dataset, validation_dataset, best_save_path,epochs=30, \</span>
+<span class="sd">            criterion=None, optimizer=None, pos_neg_ratio=None, pos_weight=None, \</span>
+<span class="sd">            label_smoothing=0.05, save_every_prefix=None, save_every_freq=None, \</span>
+<span class="sd">            batch_size=32, device=None, progress_style=&#39;bar&#39;, log_freq=5, \</span>
+<span class="sd">            sort_in_buckets=None)</span>
+
+<span class="sd">        Train the model using the specified training set.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            train_dataset (:class:`~deepmatcher.data.MatchingDataset`):</span>
+<span class="sd">                The training dataset obtained using :func:`deepmatcher.data.process`.</span>
+<span class="sd">            validation_dataset (:class:`~deepmatcher.data.MatchingDataset`):</span>
+<span class="sd">                The validation dataset obtained using :func:`deepmatcher.data.process`.</span>
+<span class="sd">                This is used for `early stopping</span>
+<span class="sd">                &lt;https://en.wikipedia.org/wiki/Early_stopping&gt;`_.</span>
+<span class="sd">            best_save_path (string):</span>
+<span class="sd">                The path to save the best model to. At the end of each epoch, if the new</span>
+<span class="sd">                model accuracy (F1) is better than all previous epochs, then it is saved</span>
+<span class="sd">                to this location.</span>
+<span class="sd">            epochs (int):</span>
+<span class="sd">                Number of training epochs, i.e., number of times to cycle through the</span>
+<span class="sd">                entire training set. Defaults to 50.</span>
+<span class="sd">            criterion (:class:`torch.nn.Module`):</span>
+<span class="sd">                The loss function to use. Refer to the `losses section of the PyTorch API</span>
+<span class="sd">                &lt;https://pytorch.org/docs/master/nn.html#loss-functions&gt;`_ for options. By</span>
+<span class="sd">                default, `deepmatcher` will output a 2d tensor of shape (N, C) where N is</span>
+<span class="sd">                the batch size and C is 2 - the number of classes. Keep this in mind when</span>
+<span class="sd">                picking the loss. Defaults to :class:`~deepmatcher.optim.SoftNLLLoss` with</span>
+<span class="sd">                label smoothing.</span>
+<span class="sd">            optimizer (:class:`~deepmatcher.optim.Optimizer`):</span>
+<span class="sd">                The optimizer to use for updating the trainable parameters of the</span>
+<span class="sd">                :class:`~deepmatcher.MatchingModel` neural network after each iteration.</span>
+<span class="sd">                If not specified an :class:`~deepmatcher.optim.Optimizer` with Adam</span>
+<span class="sd">                optimizer will be constructed.</span>
+<span class="sd">            pos_neg_ratio (int):</span>
+<span class="sd">                The weight of the positive class (match) wrt the negative class</span>
+<span class="sd">                (non-match). This parameter must be specified if there is a significant</span>
+<span class="sd">                class imbalance in the dataset.</span>
+<span class="sd">            label_smoothing (float):</span>
+<span class="sd">                The `label_smoothing` parameter to constructor of</span>
+<span class="sd">                :class:`~deepmatcher.optim.SoftNLLLoss` criterion. Only used when</span>
+<span class="sd">                `criterion` param is None. Defaults to 0.05.</span>
+<span class="sd">            save_every_prefix (string):</span>
+<span class="sd">                Prefix of the path to save model to, after end of</span>
+<span class="sd">                every N epochs, where N is determined by `save_every_freq` param.</span>
+<span class="sd">                E.g. setting this to &quot;/path/to/saved/model&quot; will save models to</span>
+<span class="sd">                &quot;/path/to/saved/model_ep1.pth&quot;, &quot;/path/to/saved/model_ep2.pth&quot;, etc.</span>
+<span class="sd">                Models will not be saved periodically if this is None. Defaults to</span>
+<span class="sd">                None.</span>
+<span class="sd">            save_every_freq (int):</span>
+<span class="sd">                Determines the frequency (number of epochs) for saving models periodically</span>
+<span class="sd">                to the path specified by the `save_every_prefix` param (has no effect if</span>
+<span class="sd">                that param is not set). Defaults to 1.</span>
+<span class="sd">            batch_size (int):</span>
+<span class="sd">                Mini-batch size for SGD. For details on what this is</span>
+<span class="sd">                `see this video &lt;https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent&gt;`__.</span>
+<span class="sd">                Defaults to 32. This is a keyword only param.</span>
+<span class="sd">            device (int):</span>
+<span class="sd">                The device index of the GPU on which to train the model. Set to -1 to use</span>
+<span class="sd">                CPU only, even if GPU is available. If None, will use first available GPU,</span>
+<span class="sd">                or use CPU if no GPUs are available. Defaults to None.</span>
+<span class="sd">                This is a keyword only param.</span>
+<span class="sd">            progress_style (string):</span>
+<span class="sd">                Sets the progress update style. One of &#39;bar&#39; or &#39;log&#39;. If &#39;bar&#39;, uses a</span>
+<span class="sd">                progress bar, updated every N batches. If &#39;log&#39;, prints training stats</span>
+<span class="sd">                every N batches. N is determined by the `log_freq` param.</span>
+<span class="sd">                This is a keyword only param.</span>
+<span class="sd">            log_freq (int):</span>
+<span class="sd">                Number of batches between progress updates. Defaults to 5.</span>
+<span class="sd">                This is a keyword only param.</span>
+<span class="sd">            sort_in_buckets (bool):</span>
+<span class="sd">                Whether to batch examples of similar lengths together. If True, minimizes</span>
+<span class="sd">                amount of padding needed while producing freshly shuffled batches for each</span>
+<span class="sd">                new epoch. Implemented using :func:`torchtext.data.pool`.</span>
+<span class="sd">                Defaults to True. This is a keyword only param.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: The best F1 score obtained by the model on the validation dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Runner</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MatchingModel.run_eval"><a class="viewcode-back" href="../../../index.html#deepmatcher.MatchingModel.run_eval">[docs]</a>    <span class="k">def</span> <span class="nf">run_eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;run_eval(dataset, batch_size=32, device=None, progress_style=&#39;bar&#39;, \</span>
+<span class="sd">            log_freq=5, sort_in_buckets=None)</span>
+
+<span class="sd">        Evaluate the model on the specified dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dataset (:class:`~deepmatcher.data.MatchingDataset`): The evaluation dataset</span>
+<span class="sd">                obtained using :func:`deepmatcher.data.process`.</span>
+<span class="sd">            batch_size (int):</span>
+<span class="sd">                Mini-batch size for SGD. For details on what this is</span>
+<span class="sd">                `see this video &lt;https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent&gt;`__.</span>
+<span class="sd">                Defaults to 32. This is a keyword only param.</span>
+<span class="sd">            device (int):</span>
+<span class="sd">                The device index of the GPU on which to train the model. Set to -1 to use</span>
+<span class="sd">                CPU only, even if GPU is available. If None, will use first available GPU,</span>
+<span class="sd">                or use CPU if no GPUs are available. Defaults to None.</span>
+<span class="sd">                This is a keyword only param.</span>
+<span class="sd">            progress_style (string):</span>
+<span class="sd">                Sets the progress update style. One of &#39;bar&#39; or &#39;log&#39;. If &#39;bar&#39;, uses a</span>
+<span class="sd">                progress bar, updated every N batches. If &#39;log&#39;, prints training stats</span>
+<span class="sd">                every N batches. N is determined by the `log_freq` param.</span>
+<span class="sd">                This is a keyword only param.</span>
+<span class="sd">            log_freq (int):</span>
+<span class="sd">                Number of batches between progress updates. Defaults to 5.</span>
+<span class="sd">                This is a keyword only param.</span>
+<span class="sd">            sort_in_buckets (bool):</span>
+<span class="sd">                Whether to batch examples of similar lengths together. If True, minimizes</span>
+<span class="sd">                amount of padding needed while producing freshly shuffled batches for each</span>
+<span class="sd">                new epoch. Implemented using :func:`torchtext.data.pool`.</span>
+<span class="sd">                Defaults to True. This is a keyword only param.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: The F1 score obtained by the model on the dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Runner</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MatchingModel.run_prediction"><a class="viewcode-back" href="../../../index.html#deepmatcher.MatchingModel.run_prediction">[docs]</a>    <span class="k">def</span> <span class="nf">run_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;run_prediction(dataset, output_attributes=False, batch_size=32, device=None, \</span>
+<span class="sd">            progress_style=&#39;bar&#39;, log_freq=5, sort_in_buckets=None)</span>
+
+<span class="sd">        Use the model to obtain predictions, i.e., match scores on the specified dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dataset (:class:`~deepmatcher.data.MatchingDataset`): The dataset (labeled or</span>
+<span class="sd">                not) obtained using :func:`deepmatcher.data.process` or</span>
+<span class="sd">                :func:`deepmatcher.data.process_unlabeled`.</span>
+<span class="sd">            output_attributes (bool): Whether to include all attributes in the original</span>
+<span class="sd">                CSV file of the dataset in the returned pandas table.</span>
+<span class="sd">            batch_size (int):</span>
+<span class="sd">                Mini-batch size for SGD. For details on what this is</span>
+<span class="sd">                `see this video &lt;https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent&gt;`__.</span>
+<span class="sd">                Defaults to 32. This is a keyword only param.</span>
+<span class="sd">            device (int):</span>
+<span class="sd">                The device index of the GPU on which to train the model. Set to -1 to use</span>
+<span class="sd">                CPU only, even if GPU is available. If None, will use first available GPU,</span>
+<span class="sd">                or use CPU if no GPUs are available. Defaults to None.</span>
+<span class="sd">                This is a keyword only param.</span>
+<span class="sd">            progress_style (string):</span>
+<span class="sd">                Sets the progress update style. One of &#39;bar&#39; or &#39;log&#39;. If &#39;bar&#39;, uses a</span>
+<span class="sd">                progress bar, updated every N batches. If &#39;log&#39;, prints training stats</span>
+<span class="sd">                every N batches. N is determined by the `log_freq` param.</span>
+<span class="sd">                This is a keyword only param.</span>
+<span class="sd">            log_freq (int):</span>
+<span class="sd">                Number of batches between progress updates. Defaults to 5.</span>
+<span class="sd">                This is a keyword only param.</span>
+<span class="sd">            sort_in_buckets (bool):</span>
+<span class="sd">                Whether to batch examples of similar lengths together. If True, minimizes</span>
+<span class="sd">                amount of padding needed while producing freshly shuffled batches for each</span>
+<span class="sd">                new epoch. Implemented using :func:`torchtext.data.pool`.</span>
+<span class="sd">                Defaults to True. This is a keyword only param.</span>
+
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame: A pandas DataFrame containing tuple pair IDs (in the &quot;id&quot;</span>
+<span class="sd">                column) and the corresponding match score predictions (in the</span>
+<span class="sd">                &quot;match_score&quot; column). Will also include all attributes in the original</span>
+<span class="sd">                CSV file of the dataset if `output_attributes` is True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Runner</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MatchingModel.initialize"><a class="viewcode-back" href="../../../index.html#deepmatcher.MatchingModel.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">init_batch</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize (not lazily) the matching model given the actual training data.</span>
+
+<span class="sd">        Instantiates all sub-components and their trainable parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            train_dataset (:class:`~deepmatcher.data.MatchingDataset`):</span>
+<span class="sd">                The training dataset obtained using :func:`deepmatcher.data.process`.</span>
+<span class="sd">            init_batch (:class:`~deepmatcher.batch.MatchingBatch`):</span>
+<span class="sd">                A batch of data to forward propagate through the model. If None, a batch</span>
+<span class="sd">                is drawn from the training dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialized</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Copy over training info from train set for persistent state. But remove actual</span>
+        <span class="c1"># data examples.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="n">Bunch</span><span class="p">(</span><span class="o">**</span><span class="n">train_dataset</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span> <span class="s1">&#39;fields&#39;</span><span class="p">):</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">fields</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">examples</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_register_train_buffer</span><span class="p">(</span><span class="s1">&#39;state_meta&#39;</span><span class="p">,</span> <span class="n">Bunch</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">))</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_meta</span><span class="o">.</span><span class="n">metadata</span>  <span class="c1"># we only need `self.meta.orig_metadata` for state.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizers</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">ModuleMap</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizer</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">summarizer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizer</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">AttrSummarizer</span><span class="o">.</span><span class="n">_create</span><span class="p">(</span>
+                    <span class="n">summarizer</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">^</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">canonical_text_fields</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizer</span> <span class="o">=</span> <span class="n">AttrSummarizer</span><span class="o">.</span><span class="n">_create</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizer</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">canonical_text_fields</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizer</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_condense_factor</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attr_condense_factor</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">canonical_text_fields</span><span class="p">),</span> <span class="mi">6</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_condense_factor</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">attr_condense_factor</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_condense_factor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attr_condensors</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attr_condensors</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">ModuleMap</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">canonical_text_fields</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">attr_condensors</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span>
+                    <span class="s1">&#39;1-layer-highway&#39;</span><span class="p">,</span>
+                    <span class="n">non_linearity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">output_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_condense_factor</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">attr_comparators</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">ModuleMap</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_comparator</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_comparator</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">attr_comparators</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">_create_attr_comparator</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_comparators</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">^</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">canonical_text_fields</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizer</span><span class="p">,</span> <span class="n">AttrSummarizer</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">attr_comparator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_attr_comparator</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">attr_comparator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizer</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_comparator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;&quot;attr_comparator&quot; must be specified if &#39;</span>
+                                     <span class="s1">&#39;&quot;attr_summarizer&quot; is custom.&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">attr_comparator</span> <span class="o">=</span> <span class="n">_create_attr_comparator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_comparator</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">canonical_text_fields</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">attr_comparators</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_comparator</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">attr_merge</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">_merge_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_merge</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">get_module</span><span class="p">(</span>
+            <span class="n">Classifier</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_embeddings</span><span class="p">(</span><span class="n">train_dataset</span><span class="o">.</span><span class="n">vocabs</span><span class="p">)</span>
+
+        <span class="c1"># Instantiate all components using a small batch from training set.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">init_batch</span><span class="p">:</span>
+            <span class="n">run_iter</span> <span class="o">=</span> <span class="n">MatchingIterator</span><span class="p">(</span>
+                <span class="n">train_dataset</span><span class="p">,</span>
+                <span class="n">train_dataset</span><span class="p">,</span>
+                <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">sort_in_buckets</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">init_batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">run_iter</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">init_batch</span><span class="p">)</span>
+
+        <span class="c1"># Keep this init_batch for future initializations.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state_meta</span><span class="o">.</span><span class="n">init_batch</span> <span class="o">=</span> <span class="n">init_batch</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Successfully initialized MatchingModel with </span><span class="si">{:d}</span><span class="s1"> trainable &#39;</span>
+                    <span class="s1">&#39;parameters.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tally_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span></div>
+
+    <span class="k">def</span> <span class="nf">_reset_embeddings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocabs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">ModuleMap</span><span class="p">()</span>
+        <span class="n">field_vectors</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">all_text_fields</span><span class="p">:</span>
+            <span class="n">vectors</span> <span class="o">=</span> <span class="n">vocabs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">vectors</span>
+            <span class="k">if</span> <span class="n">vectors</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">field_vectors</span><span class="p">:</span>
+                <span class="n">vectors_size</span> <span class="o">=</span> <span class="n">vectors</span><span class="o">.</span><span class="n">shape</span>
+                <span class="n">embed</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vectors_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vectors_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">embed</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
+                <span class="n">embed</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">field_vectors</span><span class="p">[</span><span class="n">vectors</span><span class="p">]</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">NoMeta</span><span class="p">(</span><span class="n">embed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_vectors</span><span class="p">[</span><span class="n">vectors</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_get_attr_comparator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">attr_summarizer</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get the attribute comparator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arg (string):</span>
+<span class="sd">                The attribute comparator to use. Can be one of the supported style</span>
+<span class="sd">                arguments for :class:`~modules.Merge`, specifically, &#39;abs-diff&#39;, &#39;diff&#39;,</span>
+<span class="sd">                &#39;concat&#39;, &#39;concat-diff&#39;, &#39;concat-abs-diff&#39;, or &#39;mul&#39;. If not specified</span>
+<span class="sd">                uses &#39;abs-diff&#39; for SIF and RNN, &#39;concat&#39; for Attention, and &#39;concat-diff&#39;</span>
+<span class="sd">                for Hybrid&quot;.</span>
+<span class="sd">            attr_summarizer (:class:`deepmatcher.AttrSummarizer`):</span>
+<span class="sd">                The attribute summarizer object in :mod:`attr_summarizers` (i.e., it</span>
+<span class="sd">                should be one of &quot;SIF&quot;, &quot;RNN&quot;, &quot;Attention&quot;, and &quot;Hybrid&quot; defined in</span>
+<span class="sd">                :mod:`attr_summarizers`).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            string: Return the type of attribute comparator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">arg</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_summarizer</span><span class="p">,</span> <span class="n">dm</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="o">.</span><span class="n">SIF</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;abs-diff&#39;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_summarizer</span><span class="p">,</span> <span class="n">dm</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="o">.</span><span class="n">RNN</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;abs-diff&#39;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_summarizer</span><span class="p">,</span> <span class="n">dm</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="o">.</span><span class="n">Attention</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;concat&#39;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_summarizer</span><span class="p">,</span> <span class="n">dm</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="o">.</span><span class="n">Hybrid</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;concat-abs-diff&#39;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot infer attr comparator, please specify.&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MatchingModel.forward"><a class="viewcode-back" href="../../../index.html#deepmatcher.MatchingModel.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Performs a forward pass through the model.</span>
+
+<span class="sd">        Overrides :meth:`torch.nn.Module.forward`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input (:class:`~deepmatcher.batch.MatchingBatch`): A batch of tuple pairs</span>
+<span class="sd">                processed into tensors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">all_text_fields</span><span class="p">:</span>
+            <span class="n">attr_input</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">embeddings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="n">attr_input</span><span class="p">)</span>
+
+        <span class="n">attr_comparisons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">canonical_text_fields</span><span class="p">:</span>
+            <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">text_fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">left_summary</span><span class="p">,</span> <span class="n">right_summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="n">embeddings</span><span class="p">[</span><span class="n">left</span><span class="p">],</span>
+                                                                      <span class="n">embeddings</span><span class="p">[</span><span class="n">right</span><span class="p">])</span>
+
+            <span class="c1"># Remove metadata information at this point.</span>
+            <span class="n">left_summary</span><span class="p">,</span> <span class="n">right_summary</span> <span class="o">=</span> <span class="n">left_summary</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">right_summary</span><span class="o">.</span><span class="n">data</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_condensors</span><span class="p">:</span>
+                <span class="n">left_summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_condensors</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="n">left_summary</span><span class="p">)</span>
+                <span class="n">right_summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_condensors</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="n">right_summary</span><span class="p">)</span>
+            <span class="n">attr_comparisons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_comparators</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="n">left_summary</span><span class="p">,</span>
+                                                                <span class="n">right_summary</span><span class="p">))</span>
+
+        <span class="n">entity_comparison</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_merge</span><span class="p">(</span><span class="o">*</span><span class="n">attr_comparisons</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">entity_comparison</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_register_train_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Adds a persistent buffer containing training metadata to the module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_train_buffers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MatchingModel.save_state"><a class="viewcode-back" href="../../../index.html#deepmatcher.MatchingModel.save_state">[docs]</a>    <span class="k">def</span> <span class="nf">save_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">include_meta</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Save the model state to a certain path.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path (string): The path to save the model state to.</span>
+<span class="sd">            include_meta (bool): Whether to include training dataset metadata along with</span>
+<span class="sd">                the model parameters when saving. If False, the model will not be</span>
+<span class="sd">                automatically initialized upon loading - you will need to initialize</span>
+<span class="sd">                manually using :meth:`initialize`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()}</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_train_buffers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">include_meta</span> <span class="ow">or</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;state_meta&#39;</span><span class="p">:</span>
+                <span class="n">state</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MatchingModel.load_state"><a class="viewcode-back" href="../../../index.html#deepmatcher.MatchingModel.load_state">[docs]</a>    <span class="k">def</span> <span class="nf">load_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Load the model state from a file in a certain path.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path (string): The path to load the model state from.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;model&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_train_buffers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;state_meta&#39;</span><span class="p">):</span>
+            <span class="n">train_info</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_meta</span><span class="p">)</span>
+
+            <span class="c1"># Handle metadata manually.</span>
+            <span class="c1"># TODO (Sid): Make this cleaner.</span>
+            <span class="n">train_info</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">train_info</span><span class="o">.</span><span class="n">orig_metadata</span>
+            <span class="n">MatchingDataset</span><span class="o">.</span><span class="n">finalize_metadata</span><span class="p">(</span><span class="n">train_info</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">train_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_meta</span><span class="o">.</span><span class="n">init_batch</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="AttrSummarizer"><a class="viewcode-back" href="../../../index.html#deepmatcher.AttrSummarizer">[docs]</a><span class="k">class</span> <span class="nc">AttrSummarizer</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">LazyModule</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;__init__(word_contextualizer, word_comparator, word_aggregator, hidden_size=None)</span>
+
+<span class="sd">    The Attribute Summarizer.</span>
+
+<span class="sd">    Summarizes the two word embedding sequences of an attribute.</span>
+<span class="sd">    `Refer this tutorial &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.-Attribute-Summarization&gt;`__</span>
+<span class="sd">    for details. Sub-classes that implement various built-in options for this module are</span>
+<span class="sd">    defined in :mod:`deepmatcher.attr_summarizers`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        word_contextualizer (string or :class:`WordContextualizer` or callable):</span>
+<span class="sd">            Module that takes a word embedding sequence and produces a context-aware</span>
+<span class="sd">            word embedding sequence as output.</span>
+<span class="sd">            Options `listed here &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#word_contextualizer-can-be-set-to-one-of-the-following:&gt;`__.</span>
+<span class="sd">        word_comparator (string or :class:`WordComparator` or callable):</span>
+<span class="sd">            Module that takes two word embedding sequences, aligns words in the two</span>
+<span class="sd">            sequences, and performs a word by word comparison.</span>
+<span class="sd">            Options `listed here &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#word_comparator-can-be-set-to-one-of-the-following:&gt;`__.</span>
+<span class="sd">        word_aggregator (string or :class:`WordAggregator` or callable):</span>
+<span class="sd">            Module that takes a sequence of vectors and aggregates it into a single</span>
+<span class="sd">            vector.</span>
+<span class="sd">            Options `listed here &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#word_aggregator-can-be-set-to-one-of-the-following:&gt;`__.</span>
+<span class="sd">        hidden_size (int):</span>
+<span class="sd">            The hidden size used for the three sub-modules (i.e., word_contextualizer,</span>
+<span class="sd">            word_comparator, and word_aggregator). If None, uses the input size, i.e., the</span>
+<span class="sd">            size of the last dimension of the input to this module as the hidden size.</span>
+<span class="sd">            Defaults to None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+              <span class="n">word_contextualizer</span><span class="p">,</span>
+              <span class="n">word_comparator</span><span class="p">,</span>
+              <span class="n">word_aggregator</span><span class="p">,</span>
+              <span class="n">hidden_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">word_contextualizer</span> <span class="o">=</span> <span class="n">WordContextualizer</span><span class="o">.</span><span class="n">_create</span><span class="p">(</span>
+            <span class="n">word_contextualizer</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">word_comparator</span> <span class="o">=</span> <span class="n">WordComparator</span><span class="o">.</span><span class="n">_create</span><span class="p">(</span>
+            <span class="n">word_comparator</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">word_aggregator</span> <span class="o">=</span> <span class="n">WordAggregator</span><span class="o">.</span><span class="n">_create</span><span class="p">(</span>
+            <span class="n">word_aggregator</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_input</span><span class="p">,</span> <span class="n">right_input</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The forward function of attribute summarizer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">left_contextualized</span><span class="p">,</span> <span class="n">right_contextualized</span> <span class="o">=</span> <span class="n">left_input</span><span class="p">,</span> <span class="n">right_input</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_contextualizer</span><span class="p">:</span>
+            <span class="n">left_contextualized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_contextualizer</span><span class="p">(</span><span class="n">left_input</span><span class="p">)</span>
+            <span class="n">right_contextualized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_contextualizer</span><span class="p">(</span><span class="n">right_input</span><span class="p">)</span>
+
+        <span class="n">left_compared</span><span class="p">,</span> <span class="n">right_compared</span> <span class="o">=</span> <span class="n">left_contextualized</span><span class="p">,</span> <span class="n">right_contextualized</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_comparator</span><span class="p">:</span>
+            <span class="n">left_compared</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_comparator</span><span class="p">(</span>
+                <span class="n">left_contextualized</span><span class="p">,</span> <span class="n">right_contextualized</span><span class="p">,</span> <span class="n">left_input</span><span class="p">,</span> <span class="n">right_input</span><span class="p">)</span>
+            <span class="n">right_compared</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_comparator</span><span class="p">(</span>
+                <span class="n">right_contextualized</span><span class="p">,</span> <span class="n">left_contextualized</span><span class="p">,</span> <span class="n">right_input</span><span class="p">,</span> <span class="n">left_input</span><span class="p">)</span>
+
+        <span class="n">left_aggregator_context</span> <span class="o">=</span> <span class="n">right_input</span>
+        <span class="n">right_aggregator_context</span> <span class="o">=</span> <span class="n">left_input</span>
+
+        <span class="n">left_aggregated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_aggregator</span><span class="p">(</span><span class="n">left_compared</span><span class="p">,</span> <span class="n">left_aggregator_context</span><span class="p">)</span>
+        <span class="n">right_aggregated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_aggregator</span><span class="p">(</span><span class="n">right_compared</span><span class="p">,</span> <span class="n">right_aggregator_context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">left_aggregated</span><span class="p">,</span> <span class="n">right_aggregated</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create an attribute summarization object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arg (string or :mod:`deepmatcher.attr_summarizers` or callable):</span>
+<span class="sd">                Same as the `attr_summarizer` argument to the constructor of</span>
+<span class="sd">                :class:`MatchingModel`.</span>
+<span class="sd">            **kwargs:</span>
+<span class="sd">                Keyword arguments to the constructor of the AttrSummarizer sub-class.</span>
+<span class="sd">                For details on what these can be, please refer to the documentation of the</span>
+<span class="sd">                sub-classes in :mod:`deepmatcher.attr_summarizers`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="n">type_map</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;sif&#39;</span><span class="p">:</span> <span class="n">dm</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="o">.</span><span class="n">SIF</span><span class="p">,</span>
+                <span class="s1">&#39;rnn&#39;</span><span class="p">:</span> <span class="n">dm</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="o">.</span><span class="n">RNN</span><span class="p">,</span>
+                <span class="s1">&#39;attention&#39;</span><span class="p">:</span> <span class="n">dm</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="o">.</span><span class="n">Attention</span><span class="p">,</span>
+                <span class="s1">&#39;hybrid&#39;</span><span class="p">:</span> <span class="n">dm</span><span class="o">.</span><span class="n">attr_summarizers</span><span class="o">.</span><span class="n">Hybrid</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">type_map</span><span class="p">:</span>
+                <span class="n">asr</span> <span class="o">=</span> <span class="n">type_map</span><span class="p">[</span><span class="n">arg</span><span class="p">](</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown Attribute Summarizer name.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">asr</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">get_module</span><span class="p">(</span><span class="n">AttrSummarizer</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+
+        <span class="n">asr</span><span class="o">.</span><span class="n">expect_signature</span><span class="p">(</span><span class="s1">&#39;[AxBxC, AxDxC] -&gt; [AxE, AxE]&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">asr</span></div>
+
+
+<span class="k">def</span> <span class="nf">_create_attr_comparator</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create an attribute comparator object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        arg (string):</span>
+<span class="sd">            Same as the `attr_comparator` argument to the constructor of</span>
+<span class="sd">            :class:`MatchingModel`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">_merge_module</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+    <span class="n">module</span><span class="o">.</span><span class="n">expect_signature</span><span class="p">(</span><span class="s1">&#39;[AxB, AxB] -&gt; [AxC]&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">module</span>
+
+
+<div class="viewcode-block" id="WordContextualizer"><a class="viewcode-back" href="../../../index.html#deepmatcher.WordContextualizer">[docs]</a><span class="k">class</span> <span class="nc">WordContextualizer</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">LazyModule</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;__init__()</span>
+
+<span class="sd">    The Word Contextualizer.</span>
+
+<span class="sd">    Takes a word embedding sequence and produces a context-aware word embedding sequence.</span>
+<span class="sd">    `Refer this tutorial &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.1.-Word-Contextualizer&gt;`__</span>
+<span class="sd">    for details. Sub-classes that implement various options for this module are defined</span>
+<span class="sd">    in :mod:`deepmatcher.word_contextualizers`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create a word contextualizer object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arg (string or :mod:`deepmatcher.word_contextualizers` or callable):</span>
+<span class="sd">                Same as the `word_contextualizer` argument to the constructor of</span>
+<span class="sd">                :class:`AttrSummarizer`.</span>
+<span class="sd">            **kwargs:</span>
+<span class="sd">                Keyword arguments to the constructor of the WordContextualizer sub-class.</span>
+<span class="sd">                For details on what these can be, please refer to the documentation of the</span>
+<span class="sd">                sub-classes in :mod:`deepmatcher.word_contextualizers`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">dm</span><span class="o">.</span><span class="n">word_contextualizers</span><span class="o">.</span><span class="n">RNN</span><span class="o">.</span><span class="n">supports_style</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+                <span class="n">wc</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">word_contextualizers</span><span class="o">.</span><span class="n">RNN</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">arg</span> <span class="o">==</span> <span class="s1">&#39;self-attention&#39;</span><span class="p">:</span>
+                <span class="n">wc</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">word_contextualizers</span><span class="o">.</span><span class="n">SelfAttention</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown Word Contextualizer name.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wc</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">get_module</span><span class="p">(</span><span class="n">WordContextualizer</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">wc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">wc</span><span class="o">.</span><span class="n">expect_signature</span><span class="p">(</span><span class="s1">&#39;[AxBxC] -&gt; [AxBxD]&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">wc</span></div>
+
+
+<div class="viewcode-block" id="WordComparator"><a class="viewcode-back" href="../../../index.html#deepmatcher.WordComparator">[docs]</a><span class="k">class</span> <span class="nc">WordComparator</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">LazyModule</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;__init__()</span>
+
+<span class="sd">    The Word Comparator.</span>
+
+<span class="sd">    Takes two word embedding sequences, aligns words in the two sequences, and performs a</span>
+<span class="sd">    word by word comparison.</span>
+<span class="sd">    `Refer this tutorial &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.2.-Word-Comparator&gt;`__</span>
+<span class="sd">    for details. Sub-classes that implement various options for this module are defined</span>
+<span class="sd">    in :mod:`deepmatcher.word_comparators`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create a word comparator object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arg (string or :mod:`deepmatcher.word_comparators` or callable):</span>
+<span class="sd">                Same as the `word_comparator` argument to the constructor of</span>
+<span class="sd">                :class:`AttrSummarizer`.</span>
+<span class="sd">            **kwargs:</span>
+<span class="sd">                Keyword arguments to the constructor of the WordComparator sub-class.</span>
+<span class="sd">                For details on what these can be, please refer to the documentation of the</span>
+<span class="sd">                sub-classes in :mod:`deepmatcher.word_comparators`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;attention&#39;</span> <span class="ow">and</span>
+                    <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">AlignmentNetwork</span><span class="o">.</span><span class="n">supports_style</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="n">wc</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">word_comparators</span><span class="o">.</span><span class="n">Attention</span><span class="p">(</span><span class="n">alignment_network</span><span class="o">=</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown Word Comparator name.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wc</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">get_module</span><span class="p">(</span><span class="n">WordComparator</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">wc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">wc</span><span class="o">.</span><span class="n">expect_signature</span><span class="p">(</span><span class="s1">&#39;[AxBxC, AxDxC, AxBxE, AxDxE] -&gt; [AxBxF]&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">wc</span></div>
+
+
+<div class="viewcode-block" id="WordAggregator"><a class="viewcode-back" href="../../../index.html#deepmatcher.WordAggregator">[docs]</a><span class="k">class</span> <span class="nc">WordAggregator</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">LazyModule</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;__init__()</span>
+
+<span class="sd">    The Word Aggregator.</span>
+
+<span class="sd">    Takes a sequence of vectors and aggregates it into a single vector.</span>
+<span class="sd">    `Refer this tutorial &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.3.-Word-Aggregator&gt;`__</span>
+<span class="sd">    for details. Sub-classes that implement various options for this module are defined in</span>
+<span class="sd">    :mod:`deepmatcher.word_aggregators`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a word aggregator object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arg (string or :mod:`deepmatcher.word_aggregators` or callable):</span>
+<span class="sd">                Same as the `word_aggregator` argument to the constructor of</span>
+<span class="sd">                :class:`AttrSummarizer`.</span>
+<span class="sd">        **kwargs:</span>
+<span class="sd">            Keyword arguments to the constructor of the WordAggregator sub-class.</span>
+<span class="sd">            For details on what these can be, please refer to the documentation of the</span>
+<span class="sd">            sub-classes in :mod:`deepmatcher.word_aggregators`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pool&#39;</span> <span class="ow">and</span>
+                    <span class="n">dm</span><span class="o">.</span><span class="n">word_aggregators</span><span class="o">.</span><span class="n">Pool</span><span class="o">.</span><span class="n">supports_style</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))):</span>
+                <span class="n">seq</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">:</span> <span class="n">x1</span><span class="p">))</span>  <span class="c1"># Ignore the context.</span>
+                <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">word_aggregators</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
+
+                <span class="c1"># Make lazy module.</span>
+                <span class="n">wa</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">LazyModuleFn</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">MultiSequential</span><span class="p">(</span><span class="o">*</span><span class="n">seq</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">arg</span> <span class="o">==</span> <span class="s1">&#39;attention-with-rnn&#39;</span><span class="p">:</span>
+                <span class="n">wa</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">word_aggregators</span><span class="o">.</span><span class="n">AttentionWithRNN</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown Word Aggregator name.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wa</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">get_module</span><span class="p">(</span><span class="n">WordAggregator</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+
+        <span class="n">wa</span><span class="o">.</span><span class="n">expect_signature</span><span class="p">(</span><span class="s1">&#39;[AxBxC] -&gt; [AxD]&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wa</span></div>
+
+
+<div class="viewcode-block" id="Classifier"><a class="viewcode-back" href="../../../index.html#deepmatcher.Classifier">[docs]</a><span class="k">class</span> <span class="nc">Classifier</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;The Classifier Network.</span>
+
+<span class="sd">    Predicts whether a tuple pair matches or not given a representation of all the</span>
+<span class="sd">    attribute summarizations.</span>
+<span class="sd">    `Refer this tutorial &lt;https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#3.-Classifier&gt;`__</span>
+<span class="sd">    for details.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        transform_network (string or :class:`~deepmatcher.modules.Transform` or callable):</span>
+<span class="sd">            The neural network to transform the input vector of the classifier to a</span>
+<span class="sd">            hidden representation of size `hidden_size`. Argument must specify a</span>
+<span class="sd">            :ref:`transform-op` operation.</span>
+
+<span class="sd">        hidden_size (int):</span>
+<span class="sd">            The size of the hidden representation generated by the transformation network.</span>
+<span class="sd">            If None, uses the size of the input vector to this module as the hidden size.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform_network</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Classifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">transform_network</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span>
+                            <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">_transform_module</span><span class="p">(</span><span class="n">transform_network</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;softmax_transform&#39;</span><span class="p">,</span>
+                        <span class="n">dm</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">Transform</span><span class="p">(</span>
+                            <span class="s1">&#39;1-layer&#39;</span><span class="p">,</span> <span class="n">non_linearity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_size</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">LogSoftmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

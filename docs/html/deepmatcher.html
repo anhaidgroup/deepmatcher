@@ -1,0 +1,708 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deepmatcher.attr_summarizers" href="attr_summarizers.html" />
+    <link rel="prev" title="DeepMatcher documentation" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>deepmatcher</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/deepmatcher.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-deepmatcher">
+<span id="deepmatcher"></span><h1>deepmatcher<a class="headerlink" href="#module-deepmatcher" title="Permalink to this headline">¶</a></h1>
+<p>The deepmatcher package contains high level modules used in the construction of deep
+learning modules for entity matching.</p>
+<div class="section" id="main-modules">
+<h2>Main Modules<a class="headerlink" href="#main-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="matchingmodel">
+<h3><span class="hidden-section">MatchingModel</span><a class="headerlink" href="#matchingmodel" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.MatchingModel">
+<em class="property">class </em><code class="descclassname">deepmatcher.</code><code class="descname">MatchingModel</code><span class="sig-paren">(</span><em>attr_summarizer='hybrid'</em>, <em>attr_condense_factor='auto'</em>, <em>attr_comparator=None</em>, <em>attr_merge='concat'</em>, <em>classifier='2-layer-highway'</em>, <em>hidden_size=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#MatchingModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.MatchingModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A neural network model for entity matching.</p>
+<p>Refer to the
+<a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb">Matching Models tutorial</a>
+for details on how to customize a <cite>MatchingModel</cite>. A brief intro is below:</p>
+<p>This network consists of the following components:</p>
+<ol class="arabic simple">
+<li>Attribute Summarizers</li>
+<li>Attribute Comparators</li>
+<li>A Classifier</li>
+</ol>
+<p>Creating a MatchingModel instance does not immediately construct the neural network.
+The network will be constructed just before training based on metadata from the
+training set:</p>
+<ol class="arabic simple">
+<li>For each attribute (e.g., Product Name, Address, etc.), an Attribute Summarizer is
+constructed using the specified <cite>attr_summarizer</cite> template.</li>
+<li>For each attribute, an Attribute Comparator is constructed using the specified
+<cite>attr_summarizer</cite> template.</li>
+<li>A Classifier is constructed based on the specified <cite>classifier</cite> template.</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>attr_summarizer</strong> (string or <a class="reference internal" href="index.html#deepmatcher.AttrSummarizer" title="deepmatcher.AttrSummarizer"><code class="xref py py-class docutils literal"><span class="pre">AttrSummarizer</span></code></a> or callable) – The attribute summarizer. Takes in two word embedding sequences and summarizes
+the information in them to produce two summary vectors as output.
+Options <a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#attr_summarizer-can-be-set-to-one-of-the-following:">listed here</a>.
+Defaults to ‘hybrid’, i.e., the <a class="reference internal" href="attr_summarizers.html#deepmatcher.attr_summarizers.Hybrid" title="deepmatcher.attr_summarizers.Hybrid"><code class="xref py py-class docutils literal"><span class="pre">Hybrid</span></code></a>
+model.</li>
+<li><strong>attr_comparator</strong> (string or <a class="reference internal" href="modules.html#deepmatcher.modules.Merge" title="deepmatcher.modules.Merge"><code class="xref py py-class docutils literal"><span class="pre">Merge</span></code></a> or callable) – The attribute comparator. Takes as input the two summary vectors and applies a
+comparison function over those summaries to obtain the final similarity
+representation of the two attribute values. Argument must specify a
+<a class="reference internal" href="modules.html#merge-op"><span class="std std-ref">Merge</span></a> operation. Default is selected based on <cite>attr_summarizer</cite>
+choice.</li>
+<li><strong>attr_condense_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The factor by which to condense each attribute similarity vector. E.g. if
+<cite>attr_condense_factor</cite> is set to 3 and the attribute similarity vector size is
+300, then each attribute similarity vector is transformed to a 100 dimensional
+vector using a linear transformation. The purpose of condensing is to reduce
+the number of parameters in the classifier module. This parameter can be set
+to a number or ‘auto’. If ‘auto’, then the condensing factor is set to be
+equal to the number attributes, but if there are more than 6 attributes, then
+the condensing factor is set to 6. Defaults to ‘auto’.</li>
+<li><strong>attr_merge</strong> (string or <a class="reference internal" href="modules.html#deepmatcher.modules.Merge" title="deepmatcher.modules.Merge"><code class="xref py py-class docutils literal"><span class="pre">Merge</span></code></a> or callable) – The operation used to merge the (optionally condensed) attribute similarity
+vectors to obtain the input to the classifier. Argument must specify a
+<a class="reference internal" href="modules.html#merge-op"><span class="std std-ref">Merge</span></a> operation. Defaults to ‘concat’, i.e., concatenate all
+attribute similarity vectors to form the classifier input.</li>
+<li><strong>classifier</strong> (string or <a class="reference internal" href="index.html#deepmatcher.Classifier" title="deepmatcher.Classifier"><code class="xref py py-class docutils literal"><span class="pre">Classifier</span></code></a> or callable) – The neural network to perform match / mismatch classification
+based on attribute similarity representations.
+Options <a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#classifier-can-be-set-to-one-of-the-following:">listed here</a>.
+Defaults to ‘2-layer-highway’, i.e., use a two layer highway network followed
+by a softmax layer for classification.</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size to use for the <cite>attr_summarizer</cite> and the <cite>classifier</cite> modules,
+if they are string arguments. If a module or <code class="xref py py-attr docutils literal"><span class="pre">callable</span></code> input is specified
+for a component, this argument is ignored for that component.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="deepmatcher.MatchingModel.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>input</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#MatchingModel.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.MatchingModel.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a forward pass through the model.</p>
+<p>Overrides <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module.forward" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-meth docutils literal"><span class="pre">torch.nn.Module.forward()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input</strong> (<a class="reference internal" href="batch.html#deepmatcher.batch.MatchingBatch" title="deepmatcher.batch.MatchingBatch"><code class="xref py py-class docutils literal"><span class="pre">MatchingBatch</span></code></a>) – A batch of tuple pairs
+processed into tensors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.MatchingModel.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>train_dataset</em>, <em>init_batch=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#MatchingModel.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.MatchingModel.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize (not lazily) the matching model given the actual training data.</p>
+<p>Instantiates all sub-components and their trainable parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>train_dataset</strong> (<code class="xref py py-class docutils literal"><span class="pre">MatchingDataset</span></code>) – The training dataset obtained using <a class="reference internal" href="data.html#deepmatcher.data.process" title="deepmatcher.data.process"><code class="xref py py-func docutils literal"><span class="pre">deepmatcher.data.process()</span></code></a>.</li>
+<li><strong>init_batch</strong> (<a class="reference internal" href="batch.html#deepmatcher.batch.MatchingBatch" title="deepmatcher.batch.MatchingBatch"><code class="xref py py-class docutils literal"><span class="pre">MatchingBatch</span></code></a>) – A batch of data to forward propagate through the model. If None, a batch
+is drawn from the training dataset.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.MatchingModel.load_state">
+<code class="descname">load_state</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#MatchingModel.load_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.MatchingModel.load_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the model state from a file in a certain path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – The path to load the model state from.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.MatchingModel.run_eval">
+<code class="descname">run_eval</code><span class="sig-paren">(</span><em>dataset</em>, <em>batch_size=32</em>, <em>device=None</em>, <em>progress_style='bar'</em>, <em>log_freq=5</em>, <em>sort_in_buckets=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#MatchingModel.run_eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.MatchingModel.run_eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the model on the specified dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> (<code class="xref py py-class docutils literal"><span class="pre">MatchingDataset</span></code>) – The evaluation dataset
+obtained using <a class="reference internal" href="data.html#deepmatcher.data.process" title="deepmatcher.data.process"><code class="xref py py-func docutils literal"><span class="pre">deepmatcher.data.process()</span></code></a>.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Mini-batch size for SGD. For details on what this is
+<a class="reference external" href="https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent">see this video</a>.
+Defaults to 32. This is a keyword only param.</li>
+<li><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The device index of the GPU on which to train the model. Set to -1 to use
+CPU only, even if GPU is available. If None, will use first available GPU,
+or use CPU if no GPUs are available. Defaults to None.
+This is a keyword only param.</li>
+<li><strong>progress_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – Sets the progress update style. One of ‘bar’ or ‘log’. If ‘bar’, uses a
+progress bar, updated every N batches. If ‘log’, prints training stats
+every N batches. N is determined by the <cite>log_freq</cite> param.
+This is a keyword only param.</li>
+<li><strong>log_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of batches between progress updates. Defaults to 5.
+This is a keyword only param.</li>
+<li><strong>sort_in_buckets</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to batch examples of similar lengths together. If True, minimizes
+amount of padding needed while producing freshly shuffled batches for each
+new epoch. Implemented using <a class="reference external" href="http://torchtext.readthedocs.io/en/latest/data.html#torchtext.data.pool" title="(in torchtext v0.3.0)"><code class="xref py py-func docutils literal"><span class="pre">torchtext.data.pool()</span></code></a>.
+Defaults to True. This is a keyword only param.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The F1 score obtained by the model on the dataset.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.MatchingModel.run_prediction">
+<code class="descname">run_prediction</code><span class="sig-paren">(</span><em>dataset</em>, <em>output_attributes=False</em>, <em>batch_size=32</em>, <em>device=None</em>, <em>progress_style='bar'</em>, <em>log_freq=5</em>, <em>sort_in_buckets=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#MatchingModel.run_prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.MatchingModel.run_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the model to obtain predictions, i.e., match scores on the specified dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> (<code class="xref py py-class docutils literal"><span class="pre">MatchingDataset</span></code>) – The dataset (labeled or
+not) obtained using <a class="reference internal" href="data.html#deepmatcher.data.process" title="deepmatcher.data.process"><code class="xref py py-func docutils literal"><span class="pre">deepmatcher.data.process()</span></code></a> or
+<a class="reference internal" href="data.html#deepmatcher.data.process_unlabeled" title="deepmatcher.data.process_unlabeled"><code class="xref py py-func docutils literal"><span class="pre">deepmatcher.data.process_unlabeled()</span></code></a>.</li>
+<li><strong>output_attributes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to include all attributes in the original
+CSV file of the dataset in the returned pandas table.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Mini-batch size for SGD. For details on what this is
+<a class="reference external" href="https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent">see this video</a>.
+Defaults to 32. This is a keyword only param.</li>
+<li><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The device index of the GPU on which to train the model. Set to -1 to use
+CPU only, even if GPU is available. If None, will use first available GPU,
+or use CPU if no GPUs are available. Defaults to None.
+This is a keyword only param.</li>
+<li><strong>progress_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – Sets the progress update style. One of ‘bar’ or ‘log’. If ‘bar’, uses a
+progress bar, updated every N batches. If ‘log’, prints training stats
+every N batches. N is determined by the <cite>log_freq</cite> param.
+This is a keyword only param.</li>
+<li><strong>log_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of batches between progress updates. Defaults to 5.
+This is a keyword only param.</li>
+<li><strong>sort_in_buckets</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to batch examples of similar lengths together. If True, minimizes
+amount of padding needed while producing freshly shuffled batches for each
+new epoch. Implemented using <a class="reference external" href="http://torchtext.readthedocs.io/en/latest/data.html#torchtext.data.pool" title="(in torchtext v0.3.0)"><code class="xref py py-func docutils literal"><span class="pre">torchtext.data.pool()</span></code></a>.
+Defaults to True. This is a keyword only param.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>A pandas DataFrame containing tuple pair IDs (in the “id”</dt>
+<dd><p class="first last">column) and the corresponding match score predictions (in the
+“match_score” column). Will also include all attributes in the original
+CSV file of the dataset if <cite>output_attributes</cite> is True.</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.23.3)">pandas.DataFrame</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.MatchingModel.run_train">
+<code class="descname">run_train</code><span class="sig-paren">(</span><em>train_dataset</em>, <em>validation_dataset</em>, <em>best_save_path</em>, <em>epochs=30</em>, <em>criterion=None</em>, <em>optimizer=None</em>, <em>pos_neg_ratio=None</em>, <em>pos_weight=None</em>, <em>label_smoothing=0.05</em>, <em>save_every_prefix=None</em>, <em>save_every_freq=None</em>, <em>batch_size=32</em>, <em>device=None</em>, <em>progress_style='bar'</em>, <em>log_freq=5</em>, <em>sort_in_buckets=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#MatchingModel.run_train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.MatchingModel.run_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train the model using the specified training set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>train_dataset</strong> (<code class="xref py py-class docutils literal"><span class="pre">MatchingDataset</span></code>) – The training dataset obtained using <a class="reference internal" href="data.html#deepmatcher.data.process" title="deepmatcher.data.process"><code class="xref py py-func docutils literal"><span class="pre">deepmatcher.data.process()</span></code></a>.</li>
+<li><strong>validation_dataset</strong> (<code class="xref py py-class docutils literal"><span class="pre">MatchingDataset</span></code>) – The validation dataset obtained using <a class="reference internal" href="data.html#deepmatcher.data.process" title="deepmatcher.data.process"><code class="xref py py-func docutils literal"><span class="pre">deepmatcher.data.process()</span></code></a>.
+This is used for <a class="reference external" href="https://en.wikipedia.org/wiki/Early_stopping">early stopping</a>.</li>
+<li><strong>best_save_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – The path to save the best model to. At the end of each epoch, if the new
+model accuracy (F1) is better than all previous epochs, then it is saved
+to this location.</li>
+<li><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of training epochs, i.e., number of times to cycle through the
+entire training set. Defaults to 50.</li>
+<li><strong>criterion</strong> (<a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">torch.nn.Module</span></code></a>) – The loss function to use. Refer to the <a class="reference external" href="https://pytorch.org/docs/master/nn.html#loss-functions">losses section of the PyTorch API</a> for options. By
+default, <cite>deepmatcher</cite> will output a 2d tensor of shape (N, C) where N is
+the batch size and C is 2 - the number of classes. Keep this in mind when
+picking the loss. Defaults to <a class="reference internal" href="optim.html#deepmatcher.optim.SoftNLLLoss" title="deepmatcher.optim.SoftNLLLoss"><code class="xref py py-class docutils literal"><span class="pre">SoftNLLLoss</span></code></a> with
+label smoothing.</li>
+<li><strong>optimizer</strong> (<a class="reference internal" href="optim.html#deepmatcher.optim.Optimizer" title="deepmatcher.optim.Optimizer"><code class="xref py py-class docutils literal"><span class="pre">Optimizer</span></code></a>) – The optimizer to use for updating the trainable parameters of the
+<a class="reference internal" href="index.html#deepmatcher.MatchingModel" title="deepmatcher.MatchingModel"><code class="xref py py-class docutils literal"><span class="pre">MatchingModel</span></code></a> neural network after each iteration.
+If not specified an <a class="reference internal" href="optim.html#deepmatcher.optim.Optimizer" title="deepmatcher.optim.Optimizer"><code class="xref py py-class docutils literal"><span class="pre">Optimizer</span></code></a> with Adam
+optimizer will be constructed.</li>
+<li><strong>pos_neg_ratio</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The weight of the positive class (match) wrt the negative class
+(non-match). This parameter must be specified if there is a significant
+class imbalance in the dataset.</li>
+<li><strong>label_smoothing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The <cite>label_smoothing</cite> parameter to constructor of
+<a class="reference internal" href="optim.html#deepmatcher.optim.SoftNLLLoss" title="deepmatcher.optim.SoftNLLLoss"><code class="xref py py-class docutils literal"><span class="pre">SoftNLLLoss</span></code></a> criterion. Only used when
+<cite>criterion</cite> param is None. Defaults to 0.05.</li>
+<li><strong>save_every_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – Prefix of the path to save model to, after end of
+every N epochs, where N is determined by <cite>save_every_freq</cite> param.
+E.g. setting this to “/path/to/saved/model” will save models to
+“/path/to/saved/model_ep1.pth”, “/path/to/saved/model_ep2.pth”, etc.
+Models will not be saved periodically if this is None. Defaults to
+None.</li>
+<li><strong>save_every_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Determines the frequency (number of epochs) for saving models periodically
+to the path specified by the <cite>save_every_prefix</cite> param (has no effect if
+that param is not set). Defaults to 1.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Mini-batch size for SGD. For details on what this is
+<a class="reference external" href="https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent">see this video</a>.
+Defaults to 32. This is a keyword only param.</li>
+<li><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The device index of the GPU on which to train the model. Set to -1 to use
+CPU only, even if GPU is available. If None, will use first available GPU,
+or use CPU if no GPUs are available. Defaults to None.
+This is a keyword only param.</li>
+<li><strong>progress_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – Sets the progress update style. One of ‘bar’ or ‘log’. If ‘bar’, uses a
+progress bar, updated every N batches. If ‘log’, prints training stats
+every N batches. N is determined by the <cite>log_freq</cite> param.
+This is a keyword only param.</li>
+<li><strong>log_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of batches between progress updates. Defaults to 5.
+This is a keyword only param.</li>
+<li><strong>sort_in_buckets</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to batch examples of similar lengths together. If True, minimizes
+amount of padding needed while producing freshly shuffled batches for each
+new epoch. Implemented using <a class="reference external" href="http://torchtext.readthedocs.io/en/latest/data.html#torchtext.data.pool" title="(in torchtext v0.3.0)"><code class="xref py py-func docutils literal"><span class="pre">torchtext.data.pool()</span></code></a>.
+Defaults to True. This is a keyword only param.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The best F1 score obtained by the model on the validation dataset.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.MatchingModel.save_state">
+<code class="descname">save_state</code><span class="sig-paren">(</span><em>path</em>, <em>include_meta=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#MatchingModel.save_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.MatchingModel.save_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the model state to a certain path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – The path to save the model state to.</li>
+<li><strong>include_meta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to include training dataset metadata along with
+the model parameters when saving. If False, the model will not be
+automatically initialized upon loading - you will need to initialize
+manually using <a class="reference internal" href="index.html#deepmatcher.MatchingModel.initialize" title="deepmatcher.MatchingModel.initialize"><code class="xref py py-meth docutils literal"><span class="pre">initialize()</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="attrsummarizer">
+<h3><span class="hidden-section">AttrSummarizer</span><a class="headerlink" href="#attrsummarizer" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.AttrSummarizer">
+<em class="property">class </em><code class="descclassname">deepmatcher.</code><code class="descname">AttrSummarizer</code><span class="sig-paren">(</span><em>word_contextualizer</em>, <em>word_comparator</em>, <em>word_aggregator</em>, <em>hidden_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#AttrSummarizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.AttrSummarizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Attribute Summarizer.</p>
+<p>Summarizes the two word embedding sequences of an attribute.
+<a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.-Attribute-Summarization">Refer this tutorial</a>
+for details. Sub-classes that implement various built-in options for this module are
+defined in <a class="reference internal" href="attr_summarizers.html#module-deepmatcher.attr_summarizers" title="deepmatcher.attr_summarizers"><code class="xref py py-mod docutils literal"><span class="pre">deepmatcher.attr_summarizers</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>word_contextualizer</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordContextualizer" title="deepmatcher.WordContextualizer"><code class="xref py py-class docutils literal"><span class="pre">WordContextualizer</span></code></a> or callable) – Module that takes a word embedding sequence and produces a context-aware
+word embedding sequence as output.
+Options <a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#word_contextualizer-can-be-set-to-one-of-the-following:">listed here</a>.</li>
+<li><strong>word_comparator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordComparator" title="deepmatcher.WordComparator"><code class="xref py py-class docutils literal"><span class="pre">WordComparator</span></code></a> or callable) – Module that takes two word embedding sequences, aligns words in the two
+sequences, and performs a word by word comparison.
+Options <a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#word_comparator-can-be-set-to-one-of-the-following:">listed here</a>.</li>
+<li><strong>word_aggregator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordAggregator" title="deepmatcher.WordAggregator"><code class="xref py py-class docutils literal"><span class="pre">WordAggregator</span></code></a> or callable) – Module that takes a sequence of vectors and aggregates it into a single
+vector.
+Options <a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#word_aggregator-can-be-set-to-one-of-the-following:">listed here</a>.</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size used for the three sub-modules (i.e., word_contextualizer,
+word_comparator, and word_aggregator). If None, uses the input size, i.e., the
+size of the last dimension of the input to this module as the hidden size.
+Defaults to None.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="classifier">
+<h3><span class="hidden-section">Classifier</span><a class="headerlink" href="#classifier" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.Classifier">
+<em class="property">class </em><code class="descclassname">deepmatcher.</code><code class="descname">Classifier</code><span class="sig-paren">(</span><em>transform_network</em>, <em>hidden_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/core.html#Classifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.Classifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Classifier Network.</p>
+<p>Predicts whether a tuple pair matches or not given a representation of all the
+attribute summarizations.
+<a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#3.-Classifier">Refer this tutorial</a>
+for details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>transform_network</strong> (string or <a class="reference internal" href="modules.html#deepmatcher.modules.Transform" title="deepmatcher.modules.Transform"><code class="xref py py-class docutils literal"><span class="pre">Transform</span></code></a> or callable) – The neural network to transform the input vector of the classifier to a
+hidden representation of size <cite>hidden_size</cite>. Argument must specify a
+<a class="reference internal" href="modules.html#transform-op"><span class="std std-ref">Transform</span></a> operation.</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The size of the hidden representation generated by the transformation network.
+If None, uses the size of the input vector to this module as the hidden size.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="components-of-attribute-summarizer">
+<h2>Components of Attribute Summarizer<a class="headerlink" href="#components-of-attribute-summarizer" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="wordcontextualizer">
+<h3><span class="hidden-section">WordContextualizer</span><a class="headerlink" href="#wordcontextualizer" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.WordContextualizer">
+<em class="property">class </em><code class="descclassname">deepmatcher.</code><code class="descname">WordContextualizer</code><a class="reference internal" href="_modules/deepmatcher/models/core.html#WordContextualizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.WordContextualizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Word Contextualizer.</p>
+<p>Takes a word embedding sequence and produces a context-aware word embedding sequence.
+<a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.1.-Word-Contextualizer">Refer this tutorial</a>
+for details. Sub-classes that implement various options for this module are defined
+in <a class="reference internal" href="word_contextualizers.html#module-deepmatcher.word_contextualizers" title="deepmatcher.word_contextualizers"><code class="xref py py-mod docutils literal"><span class="pre">deepmatcher.word_contextualizers</span></code></a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="wordcomparator">
+<h3><span class="hidden-section">WordComparator</span><a class="headerlink" href="#wordcomparator" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.WordComparator">
+<em class="property">class </em><code class="descclassname">deepmatcher.</code><code class="descname">WordComparator</code><a class="reference internal" href="_modules/deepmatcher/models/core.html#WordComparator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.WordComparator" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Word Comparator.</p>
+<p>Takes two word embedding sequences, aligns words in the two sequences, and performs a
+word by word comparison.
+<a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.2.-Word-Comparator">Refer this tutorial</a>
+for details. Sub-classes that implement various options for this module are defined
+in <a class="reference internal" href="word_comparators.html#module-deepmatcher.word_comparators" title="deepmatcher.word_comparators"><code class="xref py py-mod docutils literal"><span class="pre">deepmatcher.word_comparators</span></code></a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="wordaggregator">
+<h3><span class="hidden-section">WordAggregator</span><a class="headerlink" href="#wordaggregator" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.WordAggregator">
+<em class="property">class </em><code class="descclassname">deepmatcher.</code><code class="descname">WordAggregator</code><a class="reference internal" href="_modules/deepmatcher/models/core.html#WordAggregator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.WordAggregator" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Word Aggregator.</p>
+<p>Takes a sequence of vectors and aggregates it into a single vector.
+<a class="reference external" href="https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.3.-Word-Aggregator">Refer this tutorial</a>
+for details. Sub-classes that implement various options for this module are defined in
+<a class="reference internal" href="word_aggregators.html#module-deepmatcher.word_aggregators" title="deepmatcher.word_aggregators"><code class="xref py py-mod docutils literal"><span class="pre">deepmatcher.word_aggregators</span></code></a>.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="attr_summarizers.html" class="btn btn-neutral float-right" title="deepmatcher.attr_summarizers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="DeepMatcher documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

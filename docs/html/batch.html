@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.batch &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="deepmatcher.data" href="data.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>deepmatcher.batch</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/batch.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-deepmatcher.batch">
+<span id="deepmatcher-batch"></span><h1>deepmatcher.batch<a class="headerlink" href="#module-deepmatcher.batch" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="attrtensor">
+<h2><span class="hidden-section">AttrTensor</span><a class="headerlink" href="#attrtensor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.batch.AttrTensor">
+<em class="property">class </em><code class="descclassname">deepmatcher.batch.</code><code class="descname">AttrTensor</code><a class="reference internal" href="_modules/deepmatcher/batch.html#AttrTensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.batch.AttrTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper around the batch tensor for a specific attribute.</p>
+<p>The purpose of having a wrapper around the tensor is to include attribute specific
+metadata along with it. Metadata include the following:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">lengths</span></code>: Lengths of each sequence (attribute value) in the batch.</li>
+<li><code class="docutils literal"><span class="pre">word_probs</span></code>: For each sequence in the batch, a list of word probabilities
+corresponding to words in the sequence.</li>
+<li><code class="docutils literal"><span class="pre">pc</span></code>: The first principal component of the sequence embeddings for all values of
+this attribute. For details on how this is computed refer documentation for
+<code class="xref py py-meth docutils literal"><span class="pre">compute_metadata()</span></code>. This is used for
+implementing the SIF model proposed in
+<a class="reference external" href="https://openreview.net/pdf?id=SyK00v5xx">this paper</a>.</li>
+</ul>
+<p>This class is essentially a <code class="xref py py-class docutils literal"><span class="pre">namedtuple</span></code>. The tensor containing the data and
+the associated metadata described above can be accessed as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">name_attr</span> <span class="o">=</span> <span class="n">AttrTensor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">word_probs</span><span class="p">,</span> <span class="n">pc</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">name_attr</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">data</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">name_attr</span><span class="o">.</span><span class="n">lengths</span> <span class="o">==</span> <span class="n">lengths</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">name_attr</span><span class="o">.</span><span class="n">word_probs</span> <span class="o">==</span> <span class="n">word_probs</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">name_attr</span><span class="o">.</span><span class="n">pc</span> <span class="o">==</span> <span class="n">pc</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="staticmethod">
+<dt id="deepmatcher.batch.AttrTensor.from_old_metadata">
+<em class="property">static </em><code class="descname">from_old_metadata</code><span class="sig-paren">(</span><em>data</em>, <em>old_attrtensor</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/batch.html#AttrTensor.from_old_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.batch.AttrTensor.from_old_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap a PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/tensors.html#torch.Tensor" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">torch.Tensor</span></code></a> into an <a class="reference internal" href="#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a>.</p>
+<p>The metadata information is (shallow) copied from a pre-existing
+<a class="reference internal" href="#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a>. This is useful when the data for an attribute is
+transformed by a neural network and we wish the wrap the result into an
+<a class="reference internal" href="#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a> for further processing by another module that requires
+access to metadata.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>old_attrtensor</strong> (<a class="reference internal" href="#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a>) – The pre-existing <a class="reference internal" href="#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a> to copy metadata from.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="matchingbatch">
+<h2><span class="hidden-section">MatchingBatch</span><a class="headerlink" href="#matchingbatch" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.batch.MatchingBatch">
+<em class="property">class </em><code class="descclassname">deepmatcher.batch.</code><code class="descname">MatchingBatch</code><span class="sig-paren">(</span><em>input</em>, <em>train_info</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/batch.html#MatchingBatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.batch.MatchingBatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>A batch of data and associated metadata for a text matching task.</p>
+<p>Consists of one <a class="reference internal" href="#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a> (containing the data and metadata) for each
+attribute. For example, the <a class="reference internal" href="#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a> s of a <a class="reference internal" href="#deepmatcher.batch.MatchingBatch" title="deepmatcher.batch.MatchingBatch"><code class="xref py py-class docutils literal"><span class="pre">MatchingBatch</span></code></a> object
+<code class="docutils literal"><span class="pre">mbatch</span></code> for a matching task with two attribtues <code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">category</span></code>, can be
+accessed as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">name_attr</span> <span class="o">=</span> <span class="n">mbatch</span><span class="o">.</span><span class="n">name</span>
+<span class="n">category_attr</span> <span class="o">=</span> <span class="n">mbatch</span><span class="o">.</span><span class="n">category</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="data.html" class="btn btn-neutral" title="deepmatcher.data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

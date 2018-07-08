@@ -1,0 +1,949 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.modules &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deepmatcher.optim" href="optim.html" />
+    <link rel="prev" title="deepmatcher.word_aggregators" href="word_aggregators.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="attr_summarizers.html">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="attr_summarizers.html#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>deepmatcher.modules</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-deepmatcher.modules">
+<span id="deepmatcher-modules"></span><h1>deepmatcher.modules<a class="headerlink" href="#module-deepmatcher.modules" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="standard-operations">
+<h2>Standard Operations<a class="headerlink" href="#standard-operations" title="Permalink to this headline">¶</a></h2>
+<p>Many components in DeepMatcher, e.g. AttentionWithRNN word aggregator, allow users to
+customize the behavior of operations performed by the component, such as alignment, vector
+transformation, pooling, etc., by setting a parameter that specifies the operation. Here
+we describe operations commonly used across the package, and show how to specify them.</p>
+<div class="section" id="transform">
+<span id="transform-op"></span><h3>Transform<a class="headerlink" href="#transform" title="Permalink to this headline">¶</a></h3>
+<p>The transform operation takes a single vector and performs transforms it to produce
+another vector as output. The transformation may be non-linear. A transform operation can
+be specified by using one of the following:</p>
+<ul class="simple">
+<li>A string: One of the <cite>styles</cite> supported by the <a class="reference internal" href="#deepmatcher.modules.Transform" title="deepmatcher.modules.Transform"><code class="xref py py-class docutils literal"><span class="pre">Transform</span></code></a> module.</li>
+<li>An instance of <a class="reference internal" href="#deepmatcher.modules.Transform" title="deepmatcher.modules.Transform"><code class="xref py py-class docutils literal"><span class="pre">Transform</span></code></a>.</li>
+<li>A <code class="xref py py-attr docutils literal"><span class="pre">callable</span></code>: A function that returns a PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a>. This
+module must have the same input and output shape signature as the <a class="reference internal" href="#deepmatcher.modules.Transform" title="deepmatcher.modules.Transform"><code class="xref py py-class docutils literal"><span class="pre">Transform</span></code></a>
+module.</li>
+</ul>
+<p>This operation is implemented by the <a class="reference internal" href="#deepmatcher.modules.Transform" title="deepmatcher.modules.Transform"><code class="xref py py-class docutils literal"><span class="pre">Transform</span></code></a> module:</p>
+<dl class="class">
+<dt id="deepmatcher.modules.Transform">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">Transform</code><span class="sig-paren">(</span><em>style</em>, <em>layers=1</em>, <em>bypass_network=None</em>, <em>non_linearity='leaky_relu'</em>, <em>hidden_size=None</em>, <em>output_size=None</em>, <em>input_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#Transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.Transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>A multi layered transformation module.</p>
+<p>Supports various non-linearities and bypass operations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>style</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – <p>A string containing one or more of the following 3 parts, separated by dashes
+(-):</p>
+<ul>
+<li>’<strong>&lt;N&gt;-layer</strong>’: Specifies the number of layers. &lt;N&gt; sets the <cite>layers</cite>
+parameter. E.g.: ‘<strong>2-layer</strong>-highway’.</li>
+<li>’<strong>&lt;nonlinearity&gt;</strong>’: Specifies the non-linearity used after each layer.
+Sets the <cite>non_linearity</cite> parameter, refer that for details.</li>
+<li>’<strong>&lt;bypass&gt;</strong>’ Specifies the <a class="reference internal" href="#bypass-op"><span class="std std-ref">Bypass</span></a> operation to use.
+Sets the <cite>bypass_network</cite> parameter. &lt;bypass&gt; is one of:<ul>
+<li>’residual’: Use <a class="reference internal" href="#deepmatcher.modules.Bypass" title="deepmatcher.modules.Bypass"><code class="xref py py-class docutils literal"><span class="pre">Bypass</span></code></a> with ‘residual’ <cite>style</cite>.</li>
+<li>’highway’: Use <a class="reference internal" href="#deepmatcher.modules.Bypass" title="deepmatcher.modules.Bypass"><code class="xref py py-class docutils literal"><span class="pre">Bypass</span></code></a> with ‘highway’ <cite>style</cite>.</li>
+</ul>
+</li>
+</ul>
+<p>If any of the 3 parts are missing, the default value for the corresponding
+parameter is used.</p>
+<dl class="docutils">
+<dt>Examples: Sample <cite>styles</cite></dt>
+<dd>‘3-layer-relu-highway’, ‘tanh-residual-2-layer’, ‘tanh’, ‘highway’,
+‘4-layer’.</dd>
+</dl>
+</li>
+<li><strong>layers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of linear transformation layers to use.</li>
+<li><strong>bypass_network</strong> (string or <a class="reference internal" href="#deepmatcher.modules.Bypass" title="deepmatcher.modules.Bypass"><code class="xref py py-class docutils literal"><span class="pre">Bypass</span></code></a> or callable) – The bypass network (e.g. residual or highway network) to apply every layer.
+The input to each linear layer is considered as the raw input to the bypass
+network and the output of the non-linearity operation is considered as the
+transformed input. Argument must specify a <a class="reference internal" href="#bypass-op"><span class="std std-ref">Bypass</span></a> operation. If
+None, does not use a bypass network.</li>
+<li><strong>non_linearity</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – <p>The non-linearity to use after each linear layer. One of:</p>
+<ul>
+<li>’<strong>leaky_relu</strong>’: Use PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.LeakyReLU" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">LeakyReLU</span></code></a>.</li>
+<li>’<strong>relu</strong>’: Use PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.ReLU" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">ReLU</span></code></a>.</li>
+<li>’<strong>elu</strong>’: Use PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.ELU" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">ELU</span></code></a>.</li>
+<li>’<strong>selu</strong>’: Use PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.SELU" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">SELU</span></code></a>.</li>
+<li>’<strong>glu</strong>’: Use PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.functional.glu" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-func docutils literal"><span class="pre">glu()</span></code></a>.</li>
+<li>’<strong>tanh</strong>’: Use PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Tanh" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Tanh</span></code></a>.</li>
+<li>’<strong>sigmoid</strong>’: Use PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Sigmoid" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Sigmoid</span></code></a>.</li>
+</ul>
+</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size of the linear transformation layers. If None, will be set
+to be equal to <cite>input_size</cite>.</li>
+<li><strong>output_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size of the last linear transformation layer. Will determine the
+number of features in the output of the module. If None, will be set to be
+equal to the <cite>hidden_size</cite>.</li>
+<li><strong>input_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of features in the input to the module. This parameter will be
+automatically specified by <a class="reference internal" href="#deepmatcher.modules.LazyModule" title="deepmatcher.modules.LazyModule"><code class="xref py py-class docutils literal"><span class="pre">LazyModule</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Input: An N-d tensor of shape <cite>(D1, D2, …, input_size)</cite>.</dt>
+<dd>N is 2 or more.</dd>
+<dt>Output: An N-d tensor of shape <cite>(D1, D2, …, output_size)</cite>.</dt>
+<dd><cite>output_size</cite> need not be the same as <cite>input_size</cite>, but all other dimensions will
+remain unchanged.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="pool">
+<span id="pool-op"></span><h3>Pool<a class="headerlink" href="#pool" title="Permalink to this headline">¶</a></h3>
+<p>The Pool operation takes a sequence of vectors and aggregates this sequence to produce a
+single vector as output. A Pool operation can be specified using one of the
+following:</p>
+<ul class="simple">
+<li>A string: One of the <cite>styles</cite> supported by the <a class="reference internal" href="#deepmatcher.modules.Pool" title="deepmatcher.modules.Pool"><code class="xref py py-class docutils literal"><span class="pre">Pool</span></code></a> module.</li>
+<li>An instance of <a class="reference internal" href="#deepmatcher.modules.Pool" title="deepmatcher.modules.Pool"><code class="xref py py-class docutils literal"><span class="pre">Pool</span></code></a>.</li>
+<li>A <code class="xref py py-attr docutils literal"><span class="pre">callable</span></code>: A function that returns a PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a>. This
+module must have the same input and output shape signature as the <a class="reference internal" href="#deepmatcher.modules.Pool" title="deepmatcher.modules.Pool"><code class="xref py py-class docutils literal"><span class="pre">Pool</span></code></a> module.</li>
+</ul>
+<p>This operation is implemented by the <a class="reference internal" href="#deepmatcher.modules.Pool" title="deepmatcher.modules.Pool"><code class="xref py py-class docutils literal"><span class="pre">Pool</span></code></a> module:</p>
+<dl class="class">
+<dt id="deepmatcher.modules.Pool">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">Pool</code><span class="sig-paren">(</span><em>style</em>, <em>alpha=0.001</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#Pool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.Pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module that aggregates a given sequence of vectors to produce a single vector.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>style</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – <p>One of the following strings:</p>
+<ul>
+<li>’<strong>avg</strong>’: Take the average of the input vectors. Given a sequence of
+vectors <span class="math">\(x_{1:N}\)</span> :<div class="math">
+\[Pool(x_{1:N}) = \frac{1}{N} \sum_1^N x_i\]</div>
+</li>
+<li>’<strong>divsqrt</strong>’: Take the sum of the input vectors <span class="math">\(x_{1:N}\)</span> and divide
+by <span class="math">\(\sqrt{N}\)</span> :<div class="math">
+\[Pool(x_{1:N}) = \frac{1}{\sqrt{N}} \sum_1^N x_i\]</div>
+</li>
+<li>’<strong>inv-freq-avg</strong>’: Take the smooth inverse frequency weighted sum of the
+<span class="math">\(N\)</span> input vectors and divide by <span class="math">\(\sqrt{N}\)</span>. This is similar to
+the ‘sif’ style but does not perform principal component removal. Given a
+sequence of vectors <span class="math">\(x_{1:N}\)</span> corresponding to words <span class="math">\(w_{1:N}\)</span>:<div class="math">
+\[Pool(x_{1:N}) = \frac{1}{\sqrt{N}}
+    \sum_1^N \frac{\alpha}{\alpha + P(w)} x_i\]</div>
+<p>where <span class="math">\(P(w)\)</span> is the unigram probability of word <span class="math">\(w\)</span> (computed
+over all values of this attribute over the entire training dataset) and
+<span class="math">\(\alpha\)</span> is a scalar (specified by the <cite>alpha</cite> parameter).
+<span class="math">\(P(w)\)</span> is computed in <code class="xref py py-class docutils literal"><span class="pre">MatchingDataset</span></code>, in
+the <code class="xref py py-meth docutils literal"><span class="pre">compute_metadata()</span></code> method.</p>
+</li>
+<li>’<strong>sif</strong>’: Compute the
+<a class="reference external" href="https://openreview.net/pdf?id=SyK00v5xx">SIF encoding</a> of the input
+vectors. Takes the smooth inverse frequency weighted sum of the <span class="math">\(N\)</span>
+input vectors and divides it by <span class="math">\(\sqrt{N}\)</span>. Also removes the
+projection of the resulting vector along the first principal component of
+all word embeddings (corresponding to words in this attribute in the
+training set). Given a sequence of vectors <span class="math">\(x_{1:N}\)</span> corresponding to
+words <span class="math">\(w_{1:N}\)</span>:<div class="math">
+\[ \begin{align}\begin{aligned}v_x = \frac{1}{\sqrt{N}} \sum_1^N \frac{\alpha}{\alpha + P(w)} x_i\\Pool(x_{1:N}) = v_x - u^T u v_x\end{aligned}\end{align} \]</div>
+<p>where <span class="math">\(u\)</span> is the first principal component as described earlier,
+<span class="math">\(P(w)\)</span> is the unigram probability of word <span class="math">\(w\)</span> (computed over all
+values of this attribute over the entire training dataset) and
+<span class="math">\(\alpha\)</span> is a scalar (specified by the <cite>alpha</cite> parameter). <span class="math">\(u\)</span>
+and <span class="math">\(P(w)\)</span> are computed in <code class="xref py py-class docutils literal"><span class="pre">MatchingDataset</span></code>,
+in the <code class="xref py py-meth docutils literal"><span class="pre">compute_metadata()</span></code> method.</p>
+</li>
+<li>’<strong>max</strong>’: Take the max of the input vector sequence along each input
+feature. If length metadata for each item in the input batch is available,
+ignores the padding vectors beyond the sequence length of each item when
+computing the max.</li>
+<li>’<strong>last</strong>’: Take the last vector in the input vector sequence. If length
+metadata for each item in the input batch is available, ignores the padding
+vectors beyond the sequence length of each item when taking the last vector.</li>
+<li>’<strong>last-simple</strong>’: Take the last vector in the input vector sequence. Does
+NOT take length metadata into account - simply takes the last vector for
+each input sequence in the batch.</li>
+<li>’<strong>birnn-last</strong>’: Treats the input sequence as the output from a
+bidirectional RNN and takes the last outputs from the forward and backward
+RNNs. The first half of each vector is assumed to be from the forward RNN
+and the second half is assumed to be from the bakward RNN. The output thus
+is the concatenation of first half of the last vector in the input sequence
+and the last half of the first vector in the sequence. If length
+metadata for each item in the input batch is available, ignores the padding
+vectors beyond the sequence length of each item when taking the last vectors
+for the forward RNN.</li>
+<li>’<strong>birnn-last-simple</strong>’: Treats the input sequence as the output from a
+bidirectional RNN and takes the last outputs from the forward and backward
+RNNs. Same as the ‘birnn-last’ style but does not consider length metadata
+even if available.</li>
+</ul>
+</li>
+<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The value used to smooth the inverse word frequencies. Used for
+‘inv-freq-avg’ and ‘sif’ <cite>styles</cite>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Input: A 3d tensor of shape <cite>(batch, seq_len, input_size)</cite>.</dt>
+<dd>The tensor should be wrapped within an <a class="reference internal" href="batch.html#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a>
+which contains metadata about the batch.</dd>
+<dt>Output: A 2d tensor of shape <cite>(batch, output_size)</cite>.</dt>
+<dd>This will be wrapped within an <a class="reference internal" href="batch.html#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a> (with
+metadata information unchanged). <cite>output_size</cite> need not be the same as
+<cite>input_size</cite>.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="merge">
+<span id="merge-op"></span><h3>Merge<a class="headerlink" href="#merge" title="Permalink to this headline">¶</a></h3>
+<p>The Merge operation takes two or more vectors and aggregates the information in them to
+produce a single vector as output. Unlike the case of <a class="reference internal" href="#pool-op"><span class="std std-ref">Pool</span></a> operation, the input
+vectors here are not considered to be sequential in nature. A Merge operation can be
+specified using one of the following:</p>
+<ul class="simple">
+<li>A string: One of the <cite>styles</cite> supported by the <a class="reference internal" href="#deepmatcher.modules.Merge" title="deepmatcher.modules.Merge"><code class="xref py py-class docutils literal"><span class="pre">Merge</span></code></a> module. Note that some
+styles only support two input vectors to be merged, while others allow multiple inputs.</li>
+<li>An instance of <a class="reference internal" href="#deepmatcher.modules.Merge" title="deepmatcher.modules.Merge"><code class="xref py py-class docutils literal"><span class="pre">Merge</span></code></a>.</li>
+<li>A <code class="xref py py-attr docutils literal"><span class="pre">callable</span></code>: A function that returns a PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a>. This
+module must have the same input and output shape signature as the
+<a class="reference internal" href="#deepmatcher.modules.Merge" title="deepmatcher.modules.Merge"><code class="xref py py-class docutils literal"><span class="pre">Merge</span></code></a> module.</li>
+</ul>
+<p>This operation is implemented by the <a class="reference internal" href="#deepmatcher.modules.Merge" title="deepmatcher.modules.Merge"><code class="xref py py-class docutils literal"><span class="pre">Merge</span></code></a> module:</p>
+<dl class="class">
+<dt id="deepmatcher.modules.Merge">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">Merge</code><span class="sig-paren">(</span><em>style</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#Merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.Merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module that takes two or more vectors and merges them produce a single vector.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>style</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – <p>One of the following strings:</p>
+<ul class="simple">
+<li>’<strong>concat</strong>’: Concatenate all the input vectors along the last dimension
+(-1).</li>
+<li>’<strong>diff</strong>’: Take the difference between two input vectors.</li>
+<li>’<strong>abs-diff</strong>’: Take the absolute difference between two input vectors.</li>
+<li>’<strong>concat-diff</strong>’: Concatenate the two input vectors, take the difference
+between the two vectors, and concatenate these two resulting vectors.</li>
+<li>’<strong>concat-abs-diff</strong>’: Concatenate the two input vectors, take the absolute
+difference between the two vectors, and concatenate these two resulting
+vectors.</li>
+<li>’<strong>mul</strong>’: Take the element-wise multiplication between the two input
+vectors.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Input: N K-d tensors of shape <cite>(D1, D2, …, input_size)</cite>.</dt>
+<dd>N and K are both 2 or more.</dd>
+<dt>Output: One K-d tensor of shape <cite>(D1, D2, …, output_size)</cite>.</dt>
+<dd><cite>output_size</cite> need not be the same as <cite>input_size</cite>, but all other dimensions will
+remain unchanged.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="align">
+<span id="align-op"></span><h3>Align<a class="headerlink" href="#align" title="Permalink to this headline">¶</a></h3>
+<p>The Align operation takes two sequences of vectors, aligns the words in them, and returns
+the corresponding alignment score matrix. For each word in the first sequence, the
+alignment matrix contains unnormalized scores indicating the degree to which each word in
+the second sequence aligns with it. For an example of one way to do this, take a look <a class="reference external" href="https://arxiv.org/abs/1606.01933">at
+this paper</a>. An Align operation can be specified
+using one of the following:</p>
+<ul class="simple">
+<li>A string: One of the <cite>styles</cite> supported by the <a class="reference internal" href="#deepmatcher.modules.AlignmentNetwork" title="deepmatcher.modules.AlignmentNetwork"><code class="xref py py-class docutils literal"><span class="pre">AlignmentNetwork</span></code></a> module.</li>
+<li>An instance of <a class="reference internal" href="#deepmatcher.modules.AlignmentNetwork" title="deepmatcher.modules.AlignmentNetwork"><code class="xref py py-class docutils literal"><span class="pre">AlignmentNetwork</span></code></a>.</li>
+<li>A <code class="xref py py-attr docutils literal"><span class="pre">callable</span></code>: A function that returns a PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a>. This
+module must have the same input and output shape signature as the
+<a class="reference internal" href="#deepmatcher.modules.AlignmentNetwork" title="deepmatcher.modules.AlignmentNetwork"><code class="xref py py-class docutils literal"><span class="pre">AlignmentNetwork</span></code></a> module.</li>
+</ul>
+<p>This operation is implemented by the <a class="reference internal" href="#deepmatcher.modules.AlignmentNetwork" title="deepmatcher.modules.AlignmentNetwork"><code class="xref py py-class docutils literal"><span class="pre">AlignmentNetwork</span></code></a> module:</p>
+<dl class="class">
+<dt id="deepmatcher.modules.AlignmentNetwork">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">AlignmentNetwork</code><span class="sig-paren">(</span><em>style='decomposable'</em>, <em>hidden_size=None</em>, <em>transform_network='2-layer-highway'</em>, <em>input_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#AlignmentNetwork"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.AlignmentNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neural network to compute alignment between two vector sequences.</p>
+<p>Takes two sequences of vectors, aligns the words in them, and returns
+the corresponding alignment matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>style</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – <p>One of the following strings:</p>
+<ul>
+<li>’<strong>decomposable</strong>’: Use decomposable attention. Alignment score between the
+<span class="math">\(i^{th}\)</span> vector in the first sequence <span class="math">\(a_i\)</span> , and the
+<span class="math">\(j^{th}\)</span> vector in the second sequence <span class="math">\(b_j\)</span> is computed as
+follows:<div class="math">
+\[score(a_i, b_j) = F(a_i)^T F(b_j)\]</div>
+<p>where <span class="math">\(F\)</span> is a <a class="reference internal" href="#transform-op"><span class="std std-ref">Transform</span></a> operation. Refer the
+<a class="reference external" href="https://arxiv.org/abs/1606.01933">decomposable attention paper</a> for more
+details.</p>
+</li>
+<li>’<strong>general</strong>’: Use general attention. Alignment score between the
+<span class="math">\(i^{th}\)</span> vector in the first sequence <span class="math">\(a_i\)</span> , and the
+<span class="math">\(j^{th}\)</span> vector in the second sequence <span class="math">\(b_j\)</span> is computed as
+follows:<div class="math">
+\[score(a_i, b_j) = a_i^T F(b_j)\]</div>
+<p>where <span class="math">\(F\)</span> is a <a class="reference internal" href="#transform-op"><span class="std std-ref">Transform</span></a> operation. Refer the <a class="reference external" href="https://arxiv.org/abs/1508.04025">Luong attention
+paper</a> for more details.</p>
+</li>
+<li>’<strong>dot</strong>’: Use dot product attention. Alignment score between the
+<span class="math">\(i^{th}\)</span> vector in the first sequence <span class="math">\(a_i\)</span> , and the
+<span class="math">\(j^{th}\)</span> vector in the second sequence <span class="math">\(b_j\)</span> is computed as
+follows:</li>
+</ul>
+<div class="math">
+\[score(a_i, b_j) = a_i^T b_j\]</div>
+</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size to use for the <a class="reference internal" href="#transform-op"><span class="std std-ref">Transform</span></a> operation, if applicable
+for the specified <cite>style</cite>.</li>
+<li><strong>transform_network</strong> (string or <a class="reference internal" href="#deepmatcher.modules.Transform" title="deepmatcher.modules.Transform"><code class="xref py py-class docutils literal"><span class="pre">Transform</span></code></a> or callable) – The neural network to transform the input vectors, if applicable for the
+specified <cite>style</cite>. Argument must specify a <a class="reference internal" href="#transform-op"><span class="std std-ref">Transform</span></a> operation.</li>
+<li><strong>input_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of features in the input to the module. This parameter will be
+automatically specified by <a class="reference internal" href="#deepmatcher.modules.LazyModule" title="deepmatcher.modules.LazyModule"><code class="xref py py-class docutils literal"><span class="pre">LazyModule</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Input: Two 3d tensors.</dt>
+<dd>Two 3d tensors of shape <cite>(batch, seq1_len, input_size)</cite> and
+<cite>(batch, seq2_len, input_size)</cite>.</dd>
+<dt>Output: One 3d tensor of shape <cite>(batch, seq1_len, seq2_len)</cite>.</dt>
+<dd>The output represents the alignment matrix and contains unnormalized scores.
+<cite>output_size</cite> need not be the same as <cite>input_size</cite>, but all other dimensions will
+remain unchanged.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="bypass">
+<span id="bypass-op"></span><h3>Bypass<a class="headerlink" href="#bypass" title="Permalink to this headline">¶</a></h3>
+<p>The Bypass operation takes two tensors, one corresponding to an input tensor and the other
+corresponding to a transformed version of the first tensor, applies a bypass network
+and returns one tensor of the same size as the transformed tensor. Examples of bypass
+networks include <a class="reference external" href="https://arxiv.org/abs/1512.03385">residual networks</a> and
+<a class="reference external" href="https://arxiv.org/abs/1505.00387">highway networks</a>.</p>
+<ul class="simple">
+<li>A string: One of the <cite>styles</cite> supported by the <a class="reference internal" href="#deepmatcher.modules.Bypass" title="deepmatcher.modules.Bypass"><code class="xref py py-class docutils literal"><span class="pre">Bypass</span></code></a> module.</li>
+<li>An instance of <a class="reference internal" href="#deepmatcher.modules.Bypass" title="deepmatcher.modules.Bypass"><code class="xref py py-class docutils literal"><span class="pre">Bypass</span></code></a>.</li>
+<li>A <code class="xref py py-attr docutils literal"><span class="pre">callable</span></code>: A function that returns a PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a>. This
+module must have the same input and output shape signature as the
+<a class="reference internal" href="#deepmatcher.modules.Bypass" title="deepmatcher.modules.Bypass"><code class="xref py py-class docutils literal"><span class="pre">Bypass</span></code></a> module.</li>
+</ul>
+<p>This operation is implemented by the <a class="reference internal" href="#deepmatcher.modules.Bypass" title="deepmatcher.modules.Bypass"><code class="xref py py-class docutils literal"><span class="pre">Bypass</span></code></a> module:</p>
+<dl class="class">
+<dt id="deepmatcher.modules.Bypass">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">Bypass</code><span class="sig-paren">(</span><em>style</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#Bypass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.Bypass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module that helps bypass a given transformation of an input.</p>
+<p>Supports residual and highway styles of bypass.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>style</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – <p>One of the following strings:</p>
+<ul class="simple">
+<li>’<strong>residual</strong>’: Uses a <a class="reference external" href="https://arxiv.org/abs/1512.03385">residual network</a>.</li>
+<li>’<strong>highway</strong>’: Uses a <a class="reference external" href="https://arxiv.org/abs/1505.00387">highway network</a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Input: Two N-d tensors.</dt>
+<dd>Two N-d tensors of shape <cite>(D1, D2, …, transformed_size)</cite> and
+<cite>(D1, D2, …, input_size)</cite>. The first tensor should corresponds to the
+transformed version of the second input.</dd>
+<dt>Output: One N-d tensor of shape <cite>(D1, D2, …, transformed_size)</cite>.</dt>
+<dd>Note that the shape of the output will match the shape of the first input tensor.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="rnn">
+<span id="rnn-op"></span><h3>RNN<a class="headerlink" href="#rnn" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes a sequence of vectors and produces a context-aware transformation of
+the input sequence as output. For an intro to RNNs, take a look at
+<a class="reference external" href="http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/">this article</a>.
+An RNN operation can be specified using one of the following:</p>
+<ul class="simple">
+<li>A string: One of the <cite>unit_types</cite> supported by the <a class="reference internal" href="#deepmatcher.modules.RNN" title="deepmatcher.modules.RNN"><code class="xref py py-class docutils literal"><span class="pre">RNN</span></code></a> module.</li>
+<li>An instance of <a class="reference internal" href="#deepmatcher.modules.RNN" title="deepmatcher.modules.RNN"><code class="xref py py-class docutils literal"><span class="pre">RNN</span></code></a>.</li>
+<li>A <code class="xref py py-attr docutils literal"><span class="pre">callable</span></code>: A function that returns a PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a>. This
+module must have the same input and output shape signature as the
+<a class="reference internal" href="#deepmatcher.modules.RNN" title="deepmatcher.modules.RNN"><code class="xref py py-class docutils literal"><span class="pre">RNN</span></code></a> module.</li>
+</ul>
+<p>This operation is implemented by the <a class="reference internal" href="#deepmatcher.modules.RNN" title="deepmatcher.modules.RNN"><code class="xref py py-class docutils literal"><span class="pre">RNN</span></code></a> module:</p>
+<dl class="class">
+<dt id="deepmatcher.modules.RNN">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">RNN</code><span class="sig-paren">(</span><em>unit_type='gru'</em>, <em>hidden_size=None</em>, <em>layers=1</em>, <em>bidirectional=True</em>, <em>dropout=0</em>, <em>input_dropout=0</em>, <em>last_layer_dropout=0</em>, <em>bypass_network=None</em>, <em>connect_num_layers=1</em>, <em>input_size=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#RNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.RNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>A multi layered RNN that supports dropout and residual / highway connections.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>unit_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.7)"><em>string</em></a>) – <p>One of the support RNN unit types:</p>
+<ul>
+<li>’<strong>gru</strong>’: Apply a gated recurrent unit (GRU) RNN. Uses PyTorch
+<a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.GRU" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">GRU</span></code></a> under the hood.</li>
+<li>’<strong>lstm</strong>’: Apply a long short-term memory unit (LSTM) RNN. Uses PyTorch
+<a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.LSTM" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">LSTM</span></code></a> under the hood.</li>
+<li>’<strong>rnn</strong>’: Apply an Elman RNN. Uses PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.RNN" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">RNN</span></code></a> under the
+hood.</li>
+</ul>
+</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size of all RNN layers.</li>
+<li><strong>layers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of RNN layers.</li>
+<li><strong>bidirectional</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to use bidirectional RNNs.</li>
+<li><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – If non-zero, applies dropout to the outputs of each RNN layer except the last
+layer. Dropout probability must be between 0 and 1.</li>
+<li><strong>input_dropout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – If non-zero, applies dropout to the input to this module. Dropout probability
+must be between 0 and 1.</li>
+<li><strong>last_layer_dropout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – If non-zero, applies dropout to the output of the last RNN layer. Dropout
+probability must be between 0 and 1.</li>
+<li><strong>bypass_network</strong> (string or <a class="reference internal" href="#deepmatcher.modules.Bypass" title="deepmatcher.modules.Bypass"><code class="xref py py-class docutils literal"><span class="pre">Bypass</span></code></a> or callable) – The bypass network (e.g. residual or highway network) to apply every
+<cite>connect_num_layers</cite> layers. Argument must specify a <a class="reference internal" href="#bypass-op"><span class="std std-ref">Bypass</span></a>
+operation. If None, does not use a bypass network.</li>
+<li><strong>connect_num_layers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of layers between each bypass operation. Note that the layers in
+which dropout is applied is also controlled by this. If <cite>layers</cite> is 6 and
+<cite>connect_num_layers</cite> is 2, then a bypass network is applied after the
+2nd, 4th and 6th layers. Further, if <cite>dropout</cite> is non-zero, it will only be
+applied after the 2nd and 4th layers.</li>
+<li><strong>input_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of features in the input to the module. This parameter will be
+automatically specified by <a class="reference internal" href="#deepmatcher.modules.LazyModule" title="deepmatcher.modules.LazyModule"><code class="xref py py-class docutils literal"><span class="pre">LazyModule</span></code></a>.</li>
+<li><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Additional keyword arguments are passed to the underlying PyTorch RNN module.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Input: One 3d tensor of shape <cite>(batch, seq_len, input_size)</cite>.</dt>
+<dd>The tensor should be wrapped within an <a class="reference internal" href="batch.html#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a>
+which contains metadata about the batch.</dd>
+<dt>Output: One 3d tensor of shape <cite>(batch, seq_len, output_size)</cite>.</dt>
+<dd>This will be wrapped within an <a class="reference internal" href="batch.html#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a> (with
+metadata information unchanged). <cite>output_size</cite> need not be the same as
+<cite>input_size</cite>.</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="utility-modules">
+<h2>Utility Modules<a class="headerlink" href="#utility-modules" title="Permalink to this headline">¶</a></h2>
+<p>Apart from standard operations, DeepMatcher also contains several utility modules to help
+glue together various components. These are listed below.</p>
+<div class="section" id="lambda">
+<h3><span class="hidden-section">Lambda</span><a class="headerlink" href="#lambda" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.modules.Lambda">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">Lambda</code><span class="sig-paren">(</span><em>lambd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#Lambda"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.Lambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper to convert a function to a module.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lambd</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#callable" title="(in Python v3.7)"><em>callable</em></a>) – The function to convert into a module. It must take in one or
+more Pytorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/tensors.html#torch.Tensor" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Tensor</span></code></a> s and return one or more
+<a class="reference external" href="https://pytorch.org/docs/0.3.1/tensors.html#torch.Tensor" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Tensor</span></code></a> s.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="multisequential">
+<h3><span class="hidden-section">MultiSequential</span><a class="headerlink" href="#multisequential" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.modules.MultiSequential">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">MultiSequential</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#MultiSequential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.MultiSequential" title="Permalink to this definition">¶</a></dt>
+<dd><p>A sequential container that supports multiple module inputs and outputs.</p>
+<p>This is an extenstion of PyTorch’s <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Sequential" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Sequential</span></code></a> module that allows
+each module to have multiple inputs and / or outputs.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="nometa">
+<h3><span class="hidden-section">NoMeta</span><a class="headerlink" href="#nometa" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.modules.NoMeta">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">NoMeta</code><span class="sig-paren">(</span><em>module</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#NoMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.NoMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper module to allow regular modules to take
+<a class="reference internal" href="batch.html#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a> s as input.</p>
+<p>A forward pass through this module, will perform the following:</p>
+<ul class="simple">
+<li>If the module input is an <a class="reference internal" href="batch.html#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a>, gets the data from
+it, and use as input.</li>
+<li>Perform a forward pass through wrapped module with the modified input.</li>
+<li>Using metadata information from the module input (if provided), wrap the result into
+an <a class="reference internal" href="batch.html#deepmatcher.batch.AttrTensor" title="deepmatcher.batch.AttrTensor"><code class="xref py py-class docutils literal"><span class="pre">AttrTensor</span></code></a> and return it.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>module</strong> (<a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a>) – The module to wrap.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="modulemap">
+<h3><span class="hidden-section">ModuleMap</span><a class="headerlink" href="#modulemap" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.modules.ModuleMap">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">ModuleMap</code><a class="reference internal" href="_modules/deepmatcher/models/modules.html#ModuleMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.ModuleMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds submodules in a map.</p>
+<p>Similar to <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.ModuleList" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">torch.nn.ModuleList</span></code></a>, but for maps.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">deepmatcher</span> <span class="k">as</span> <span class="nn">dm</span>
+
+<span class="k">class</span> <span class="nc">MyModule</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyModule</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">linears</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">ModuleMap</span><span class="p">()</span>
+        <span class="n">linears</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">linears</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linears</span> <span class="o">=</span> <span class="n">linears</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+        <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linears</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">linears</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="lazymodule">
+<h3><span class="hidden-section">LazyModule</span><a class="headerlink" href="#lazymodule" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.modules.LazyModule">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">LazyModule</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#LazyModule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.LazyModule" title="Permalink to this definition">¶</a></dt>
+<dd><p>A lazily initialized module. Base class for most DeepMatcher modules.</p>
+<p>This module is an extension of PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a> with the following
+property: constructing an instance this module does not immediately initialize it.
+This means that if the module has parameters, they will not be instantiated
+immediately after construction. The module is initialized the first time <cite>forward</cite> is
+called. This has the following benefits:</p>
+<ul class="simple">
+<li>Can be safely deep copied to create structural clones that do not share
+parameters. E.g. deep copying a <a class="reference internal" href="#deepmatcher.modules.LazyModule" title="deepmatcher.modules.LazyModule"><code class="xref py py-class docutils literal"><span class="pre">LazyModule</span></code></a> consisting of a 2 layer Linear
+NN will produce another <a class="reference internal" href="#deepmatcher.modules.LazyModule" title="deepmatcher.modules.LazyModule"><code class="xref py py-class docutils literal"><span class="pre">LazyModule</span></code></a> with 2 layer Linear NN that 1) do not
+share parameters and 2) have different weight initializations.</li>
+<li>Allows automatic input size inference. Refer to description of <cite>_init</cite> for details.</li>
+</ul>
+<p>This module also implements some additional goodies:</p>
+<ul class="simple">
+<li>Output shape verification: As part of initialization, this module verifies that
+all output tensors have correct output shapes, if the expected output shape is
+specified using <a class="reference internal" href="#deepmatcher.modules.LazyModule.expect_signature" title="deepmatcher.modules.LazyModule.expect_signature"><code class="xref py py-meth docutils literal"><span class="pre">expect_signature()</span></code></a>. This verification is done only once during
+initialization to avoid slowing down training.</li>
+<li>NaN checks: All module outputs are cheked for the presence of NaN values that may be
+difficult to trace down otherwise.</li>
+</ul>
+<p>Subclasses of this module are expected to override the following two methods:</p>
+<ul class="simple">
+<li>_init(): This is where the constructor of the module should be defined. During the
+first forward pass, this method will be called to initialize the module. Whatever
+you typically define in the __init__ function of a PyTorch module, you may define
+it here. This function may optionally take in an <cite>input_size</cite> parameter. If it does,
+<a class="reference internal" href="#deepmatcher.modules.LazyModule" title="deepmatcher.modules.LazyModule"><code class="xref py py-class docutils literal"><span class="pre">LazyModule</span></code></a> will set it to the size of the last dimension of the input.
+E.g., if the input is of size <cite>32 * 300</cite>, the <cite>input_size</cite> will be set to 300.
+Subclasses may choose not to override this method.</li>
+<li>_forward(): This is where the computation for the forward pass of the module must be
+defined. Whatever you typically define in the forward function of a PyTorch module,
+you may define it here. All subclasses must override this method.</li>
+</ul>
+<dl class="method">
+<dt id="deepmatcher.modules.LazyModule.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#LazyModule.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.LazyModule.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a <a class="reference internal" href="#deepmatcher.modules.LazyModule" title="deepmatcher.modules.LazyModule"><code class="xref py py-class docutils literal"><span class="pre">LazyModule</span></code></a>. DO NOT OVERRIDE this method.</p>
+<p>This does NOT initialize the module - construction simply saves the positional and
+keyword arguments for future initialization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>*args</strong> – Positional arguments to the constructor of the module defined in
+<code class="xref py py-meth docutils literal"><span class="pre">_init()</span></code>.</li>
+<li><strong>**kwargs</strong> – Keyword arguments to the constructor of the module defined in
+<code class="xref py py-meth docutils literal"><span class="pre">_init()</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.modules.LazyModule.expect_signature">
+<code class="descname">expect_signature</code><span class="sig-paren">(</span><em>signature</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#LazyModule.expect_signature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.LazyModule.expect_signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the expected module input / output signature.</p>
+<p>Note that this feature is currently not fully functional. More details will be
+added after implementation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="deepmatcher.modules.LazyModule.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>input</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#LazyModule.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.LazyModule.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a forward pass through the module. DO NOT OVERRIDE this method.</p>
+<p>If the module is not initialized yet, this method also performs initialization.
+Initialization involves the following:</p>
+<ol class="arabic simple">
+<li>Calling the <code class="xref py py-meth docutils literal"><span class="pre">_init()</span></code> method. Tries calling with the <cite>input_size</cite> keyword
+parameter set, along with the positional and keyword args specified during
+construction). If this fails with a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code></a> (i.e., the
+<code class="xref py py-meth docutils literal"><span class="pre">_init()</span></code> method does not have an <cite>input_size</cite> parameter), then retries
+initialization without setting <cite>input_size</cite>.</li>
+<li>Verifying the output shape, if <a class="reference internal" href="#deepmatcher.modules.LazyModule.expect_signature" title="deepmatcher.modules.LazyModule.expect_signature"><code class="xref py py-meth docutils literal"><span class="pre">expect_signature()</span></code></a> was called prior to
+the forward pass.</li>
+<li>Setting PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a> forward and backward hooks to check
+for NaNs in module outputs and gradients.</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>*args</strong> – Positional arguments to the forward function of the module defined in
+<code class="xref py py-meth docutils literal"><span class="pre">_forward()</span></code>.</li>
+<li><strong>**kwargs</strong> – Keyword arguments to the forward function of the module defined in
+<code class="xref py py-meth docutils literal"><span class="pre">_forward()</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="lazymodulefn">
+<h3><span class="hidden-section">LazyModuleFn</span><a class="headerlink" href="#lazymodulefn" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="deepmatcher.modules.LazyModuleFn">
+<em class="property">class </em><code class="descclassname">deepmatcher.modules.</code><code class="descname">LazyModuleFn</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/modules.html#LazyModuleFn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.modules.LazyModuleFn" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Lazy Module which simply wraps the <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a> returned by a
+specified function.</p>
+<p>This provides a way to convert a PyTorch <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a> into a
+<a class="reference internal" href="#deepmatcher.modules.LazyModule" title="deepmatcher.modules.LazyModule"><code class="xref py py-class docutils literal"><span class="pre">LazyModule</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#callable" title="(in Python v3.7)"><em>callable</em></a>) – Function that returns a <a class="reference external" href="https://pytorch.org/docs/0.3.1/nn.html#torch.nn.Module" title="(in PyTorch vmaster (0.3.1.post2 ))"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a>.</li>
+<li><strong>*args</strong> – Positional arguments to the function <cite>fn</cite>.</li>
+<li><strong>*kwargs</strong> – Keyword arguments to the function <cite>fn</cite>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="optim.html" class="btn btn-neutral float-right" title="deepmatcher.optim" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="word_aggregators.html" class="btn btn-neutral" title="deepmatcher.word_aggregators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

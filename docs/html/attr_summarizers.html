@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepmatcher.attr_summarizers &mdash; DeepMatcher 0.1.0rc1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deepmatcher.word_contextualizers" href="word_contextualizers.html" />
+    <link rel="prev" title="deepmatcher" href="deepmatcher.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepMatcher
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Package Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="deepmatcher.html">deepmatcher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#main-modules">Main Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#matchingmodel"><span class="hidden-section">MatchingModel</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#attrsummarizer"><span class="hidden-section">AttrSummarizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#classifier"><span class="hidden-section">Classifier</span></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deepmatcher.html#components-of-attribute-summarizer">Components of Attribute Summarizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcontextualizer"><span class="hidden-section">WordContextualizer</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordcomparator"><span class="hidden-section">WordComparator</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepmatcher.html#wordaggregator"><span class="hidden-section">WordAggregator</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">deepmatcher.attr_summarizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sif"><span class="hidden-section">SIF</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#attention"><span class="hidden-section">Attention</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hybrid"><span class="hidden-section">Hybrid</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_contextualizers.html">deepmatcher.word_contextualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#rnn"><span class="hidden-section">RNN</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_contextualizers.html#selfattention"><span class="hidden-section">SelfAttention</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="word_comparators.html">deepmatcher.word_comparators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="word_aggregators.html">deepmatcher.word_aggregators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#pool"><span class="hidden-section">Pool</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="word_aggregators.html#attentionwithrnn"><span class="hidden-section">AttentionWithRNN</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">deepmatcher.modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#standard-operations">Standard Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#transform">Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#pool">Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#align">Align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#bypass">Bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#rnn">RNN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#utility-modules">Utility Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lambda"><span class="hidden-section">Lambda</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#multisequential"><span class="hidden-section">MultiSequential</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#nometa"><span class="hidden-section">NoMeta</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#modulemap"><span class="hidden-section">ModuleMap</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodule"><span class="hidden-section">LazyModule</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html#lazymodulefn"><span class="hidden-section">LazyModuleFn</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">deepmatcher.optim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#softnllloss"><span class="hidden-section">SoftNLLLoss</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optim.html#optimizer"><span class="hidden-section">Optimizer</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">deepmatcher.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process"><span class="hidden-section">process</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html#process-unlabeled"><span class="hidden-section">process_unlabeled</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="batch.html">deepmatcher.batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#attrtensor"><span class="hidden-section">AttrTensor</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="batch.html#matchingbatch"><span class="hidden-section">MatchingBatch</span></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepMatcher</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>deepmatcher.attr_summarizers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/attr_summarizers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-deepmatcher.attr_summarizers">
+<span id="deepmatcher-attr-summarizers"></span><h1>deepmatcher.attr_summarizers<a class="headerlink" href="#module-deepmatcher.attr_summarizers" title="Permalink to this headline">¶</a></h1>
+<p>Defines built-in attribute summarizers.</p>
+<div class="section" id="sif">
+<h2><span class="hidden-section">SIF</span><a class="headerlink" href="#sif" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.attr_summarizers.SIF">
+<em class="property">class </em><code class="descclassname">deepmatcher.attr_summarizers.</code><code class="descname">SIF</code><span class="sig-paren">(</span><em>word_contextualizer=None</em>, <em>word_comparator=None</em>, <em>word_aggregator=None</em>, <em>hidden_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/attr_summarizers.html#SIF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.attr_summarizers.SIF" title="Permalink to this definition">¶</a></dt>
+<dd><p>The attribute summarizer for the SIF (Smooth Inverse Frequency) model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>word_contextualizer</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordContextualizer" title="deepmatcher.WordContextualizer"><code class="xref py py-class docutils literal"><span class="pre">WordContextualizer</span></code></a> or callable) – The
+word contextualizer module (refer to <a class="reference internal" href="index.html#deepmatcher.WordContextualizer" title="deepmatcher.WordContextualizer"><code class="xref py py-class docutils literal"><span class="pre">WordContextualizer</span></code></a> for
+details) to use for attribute summarization. The SIF model does not take word
+context information into account, hence this defaults to None.</li>
+<li><strong>word_comparator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordComparator" title="deepmatcher.WordComparator"><code class="xref py py-class docutils literal"><span class="pre">WordComparator</span></code></a> or callable) – The word
+comparator module (refer to <a class="reference internal" href="index.html#deepmatcher.WordComparator" title="deepmatcher.WordComparator"><code class="xref py py-class docutils literal"><span class="pre">WordComparator</span></code></a> for details) to use
+for attribute summarization. The SIF model does not perform word by word
+comparisons, hence this defaults to None.</li>
+<li><strong>word_aggregator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordAggregator" title="deepmatcher.WordAggregator"><code class="xref py py-class docutils literal"><span class="pre">WordAggregator</span></code></a> or callable) – The word
+aggregator module (refer to <a class="reference internal" href="index.html#deepmatcher.WordAggregator" title="deepmatcher.WordAggregator"><code class="xref py py-class docutils literal"><span class="pre">WordAggregator</span></code></a> for details) to use
+for attribute summarization. This model uses SIF-based weighted average
+aggregation over the  word embeddings of an input sequence, hence this
+defaults to ‘sif-pool’.</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size to use for all 3 attribute summarization
+sub-modules (i.e., word contextualizer, word comparator, and word aggregator),
+if they are customized. By default, the SIF model does not use this parameter.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="rnn">
+<h2><span class="hidden-section">RNN</span><a class="headerlink" href="#rnn" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.attr_summarizers.RNN">
+<em class="property">class </em><code class="descclassname">deepmatcher.attr_summarizers.</code><code class="descname">RNN</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/attr_summarizers.html#RNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.attr_summarizers.RNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>The attribute summarizer for the RNN model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>word_contextualizer</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordContextualizer" title="deepmatcher.WordContextualizer"><code class="xref py py-class docutils literal"><span class="pre">WordContextualizer</span></code></a> or callable) – The
+word contextualizer module (refer to <a class="reference internal" href="index.html#deepmatcher.WordContextualizer" title="deepmatcher.WordContextualizer"><code class="xref py py-class docutils literal"><span class="pre">WordContextualizer</span></code></a> for
+details) to use for attribute summarization. This model uses RNN to take into
+account the context information, and the default value is ‘gru’ (i.e., uses
+the bidirectional GRU model as the specific RNN instantiation.) Other options
+are ‘rnn’ (the vanilla bi-RNN) and ‘lstm’ (the bi-LSTM model).</li>
+<li><strong>word_comparator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordComparator" title="deepmatcher.WordComparator"><code class="xref py py-class docutils literal"><span class="pre">WordComparator</span></code></a> or callable) – The word
+comparator module (refer to <a class="reference internal" href="index.html#deepmatcher.WordComparator" title="deepmatcher.WordComparator"><code class="xref py py-class docutils literal"><span class="pre">WordComparator</span></code></a> for details) to use
+for attribute summarization. The RNN model does not perform word by word
+comparisons, hence this defaults to None.</li>
+<li><strong>word_aggregator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordAggregator" title="deepmatcher.WordAggregator"><code class="xref py py-class docutils literal"><span class="pre">WordAggregator</span></code></a> or callable) – The word
+aggregator module (refer to <a class="reference internal" href="index.html#deepmatcher.WordAggregator" title="deepmatcher.WordAggregator"><code class="xref py py-class docutils literal"><span class="pre">WordAggregator</span></code></a> for details) to use
+for attribute summarization. The RNN model uses bi-directional RNN and
+concatenates the last ouputs of the forward and backward RNNs, hence the
+default value is ‘birnn-last-pool’.</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size to use for the word contextualizer. This value
+will also be used as the hidden size for the other 2 attribute summarization
+sub-modules (i.e., word comparator, and word aggregator), if they are
+customized. If not specified, the hidden size for each component will be set
+to be the same as its input size. E.g. if the word embedding dimension is 300
+and hidden_size is None, the word contextualizer’s hidden size will be 300.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="attention">
+<h2><span class="hidden-section">Attention</span><a class="headerlink" href="#attention" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.attr_summarizers.Attention">
+<em class="property">class </em><code class="descclassname">deepmatcher.attr_summarizers.</code><code class="descname">Attention</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/attr_summarizers.html#Attention"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.attr_summarizers.Attention" title="Permalink to this definition">¶</a></dt>
+<dd><p>The attribute summarizer for the attention-based model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>word_contextualizer</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordContextualizer" title="deepmatcher.WordContextualizer"><code class="xref py py-class docutils literal"><span class="pre">WordContextualizer</span></code></a> or callable) – The
+word contextualizer module (refer to <a class="reference internal" href="index.html#deepmatcher.WordContextualizer" title="deepmatcher.WordContextualizer"><code class="xref py py-class docutils literal"><span class="pre">WordContextualizer</span></code></a> for
+details) to use for attribute summarization. The attention model does not take
+word context information into account, hence this defaults to None.</li>
+<li><strong>word_comparator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordComparator" title="deepmatcher.WordComparator"><code class="xref py py-class docutils literal"><span class="pre">WordComparator</span></code></a> or callable) – The word
+comparator module (refer to <a class="reference internal" href="index.html#deepmatcher.WordComparator" title="deepmatcher.WordComparator"><code class="xref py py-class docutils literal"><span class="pre">WordComparator</span></code></a> for details) to use
+for attribute summarization. The attention model performs word by word
+comparison with the decomposable attention mechanism, hence this defaults to
+‘decomposable-attention’.</li>
+<li><strong>word_aggregator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordAggregator" title="deepmatcher.WordAggregator"><code class="xref py py-class docutils literal"><span class="pre">WordAggregator</span></code></a> or callable) – The word
+aggregator module (refer to <a class="reference internal" href="index.html#deepmatcher.WordAggregator" title="deepmatcher.WordAggregator"><code class="xref py py-class docutils literal"><span class="pre">WordAggregator</span></code></a> for details) to use
+for attribute summarization. The Attention model performs the aggregation by
+summing over the comparison results from the word comparator, divided by the
+length of the input sequence (to get constant variance through the network
+flow). Hence this defaults to ‘divsqrt-pool’.</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size to use for the word comparator. This value
+will also be used as the hidden size for the other 2 attribute summarization
+sub-modules (i.e., word contextualizer, and word aggregator), if they are
+customized. If not specified, the hidden size for each component will be set
+to be the same as its input size. E.g. if the word embedding dimension is 300
+and hidden_size is None, the word contextualizer’s hidden size will be 300.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="hybrid">
+<h2><span class="hidden-section">Hybrid</span><a class="headerlink" href="#hybrid" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="deepmatcher.attr_summarizers.Hybrid">
+<em class="property">class </em><code class="descclassname">deepmatcher.attr_summarizers.</code><code class="descname">Hybrid</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepmatcher/models/attr_summarizers.html#Hybrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepmatcher.attr_summarizers.Hybrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The attribute summarizer for the hybrid model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>word_contextualizer</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordContextualizer" title="deepmatcher.WordContextualizer"><code class="xref py py-class docutils literal"><span class="pre">WordContextualizer</span></code></a> or callable) – The
+word contextualizer module (refer to <a class="reference internal" href="index.html#deepmatcher.WordContextualizer" title="deepmatcher.WordContextualizer"><code class="xref py py-class docutils literal"><span class="pre">WordContextualizer</span></code></a> for
+details) to use for attribute summarization. The hybrid model uses
+bidirectional GRU(a specific type of RNN) to take into account the context
+information. The default value is ‘gru’.</li>
+<li><strong>word_comparator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordComparator" title="deepmatcher.WordComparator"><code class="xref py py-class docutils literal"><span class="pre">WordComparator</span></code></a> or callable) – The word
+comparator module (refer to <a class="reference internal" href="index.html#deepmatcher.WordComparator" title="deepmatcher.WordComparator"><code class="xref py py-class docutils literal"><span class="pre">WordComparator</span></code></a> for details) to use
+for attribute summarization. The hybrid model performs word by word comparison
+over the raw input word embeddings (rather than the RNN hiddens states), hence
+this defaults to an Attention object with ‘decomposable’ as the attention
+mechanism on the raw input embeddings.</li>
+<li><strong>word_aggregator</strong> (string or <a class="reference internal" href="index.html#deepmatcher.WordAggregator" title="deepmatcher.WordAggregator"><code class="xref py py-class docutils literal"><span class="pre">WordAggregator</span></code></a> or callable) – The word
+aggregator module (refer to <a class="reference internal" href="index.html#deepmatcher.WordAggregator" title="deepmatcher.WordAggregator"><code class="xref py py-class docutils literal"><span class="pre">WordAggregator</span></code></a> for details) to use
+for attribute summarization. A second layer of attention has been used for the
+aggregation. Please consult the paper for more information. The default value
+is ‘concat-attention-with-rnn’.</li>
+<li><strong>hidden_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The hidden size to use for all 3 attribute summarization
+sub-modules (i.e., word contextualizer, word comparator, and word aggregator),
+if they are customized.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="word_contextualizers.html" class="btn btn-neutral float-right" title="deepmatcher.word_contextualizers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="deepmatcher.html" class="btn btn-neutral" title="deepmatcher" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sidharth Mudgal, Han Li.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0rc1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
