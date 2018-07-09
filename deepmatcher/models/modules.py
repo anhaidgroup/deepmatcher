@@ -234,7 +234,7 @@ class ModuleMap(nn.Module):
     """
 
     def __getitem__(self, name):
-        return getattr(self, name)
+        return self._modules[name]
 
     def __setitem__(self, name, module):
         setattr(self, name, module)
