@@ -109,8 +109,8 @@ API docs `are here`_.
 Support
 **********
 
-This package is under active development. If you run into any issues or have questions,
-please `file GitHub issues`_.
+Take a look at `the FAQ <FAQ.md>`___ for common issues. If you run into any issues or have questions not answered in the FAQ,
+please `file GitHub issues`_ and we will address them asap.
 
 The Team
 **********
