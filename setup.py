@@ -25,6 +25,10 @@ long_description = read('README.rst')
 # release on PyPI is out of date and has not been updated in over a year.
 # "fasttextmirror" is a clone of the "fasttext" repository as of June 5 2018 and is hosted
 # at https://github.com/sidharthms/fastText.
+
+# Specified the penultimate version of torchtext[0.2.3] because the latest version of torchtext[0.3.1]
+# causes conflicts  while importing deepmatcher.
+
 setup(
     name='deepmatcher',
     description='A deep learning package for entity matching',
@@ -37,6 +41,6 @@ setup(
     packages=['deepmatcher', 'deepmatcher.data', 'deepmatcher.models'],
     python_requires='>=3.5',
     install_requires=[
-        'torch==0.3.1', 'tqdm', 'pyprind', 'six', 'Cython', 'torchtext', 'nltk>=3.2.5',
+        'torch==0.3.1', 'tqdm', 'pyprind', 'six', 'Cython', 'torchtext==0.2.3', 'nltk>=3.2.5',
         'fasttextmirror', 'pandas'
     ])
