@@ -147,7 +147,6 @@ class Runner(object):
              criterion=None,
              optimizer=None,
              train=False,
-             device=None,
              batch_size=32,
              batch_callback=None,
              epoch_callback=None,
@@ -157,24 +156,29 @@ class Runner(object):
              return_predictions=False,
              **kwargs):
 
+        device = kwargs.pop('device', None)
+        if device is None:
+            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
         sort_in_buckets = train
+
         run_iter = MatchingIterator(
             dataset,
             model.meta,
             train,
-            batch_size=batch_size,
             device=device,
+            batch_size=batch_size,
             sort_in_buckets=sort_in_buckets)
 
-        if device == 'cpu':
+        if device == 'cpu' or device.type == 'cpu':
             model = model.cpu()
             if criterion:
                 criterion = criterion.cpu()
-        elif torch.cuda.is_available():
+        elif (device == 'cuda' or device.type == 'cuda') and torch.cuda.is_available():
             model = model.cuda()
             if criterion:
                 criterion = criterion.cuda()
-        elif device == 'gpu':
+        else:
             raise ValueError('No GPU available.')
 
         if train:
@@ -296,8 +300,11 @@ class Runner(object):
         Returns:
             float: The best F1 score obtained by the model on the validation dataset.
         """
+        device = kwargs.pop('device')
+        if device is None:
+            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-        model.initialize(train_dataset)
+        model.initialize(train_dataset, device)
 
         model._register_train_buffer('optimizer_state', None)
         model._register_train_buffer('best_score', None)
@@ -347,8 +354,8 @@ class Runner(object):
 
             new_best_found = False
             if score > model.best_score:
-                print('* Best F1:', score)
-                model.best_score = score
+                print('* Best F1:', score.item())
+                model.best_score = score.item()
                 new_best_found = True
 
                 if best_save_path and new_best_found:
@@ -365,7 +372,7 @@ class Runner(object):
             print('---------------------\n')
 
         print('Loading best model...')
-        model.load_state(best_save_path)
+        model.load_state(best_save_path, device)
         print('Training done.')
 
         return model.best_score

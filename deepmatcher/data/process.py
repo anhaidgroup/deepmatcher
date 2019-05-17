@@ -103,7 +103,8 @@ def process(path,
             left_prefix='left_',
             right_prefix='right_',
             use_magellan_convention=False,
-            pca=True):
+            pca=True,
+            **kwargs):
     """Creates dataset objects for multiple splits of a dataset.
 
     This involves the following steps (if data cannot be retrieved from the cache):
@@ -174,11 +175,20 @@ def process(path,
             Specifically, set them to be '_id', 'ltable_', and 'rtable_' respectively.
         pca (bool): Whether to compute PCA for each attribute (needed for SIF model).
             Defaults to False.
+        device (str or torch.device): The device type on which compute metadata of the model. 
+            Set to 'cpu' to use CPU only, even if GPU is available. 
+            If None, will use first available GPU, or use CPU if no GPUs are available. 
+            Defaults to None.
+            This is a keyword only param.
 
     Returns:
         Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in that
             order, if provided, or dataset for unlabeled, if provided.
     """
+    device = kwargs.pop('device', None)
+    if device is None:
+        device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
     if unlabeled is not None:
         raise ValueError('Parameter "unlabeled" has been deprecated, use '
                          '"deepmatcher.data.process_unlabeled" instead.')
@@ -217,7 +227,8 @@ def process(path,
         cache,
         check_cached_data,
         auto_rebuild_cache,
-        train_pca=pca)
+        train_pca=pca,
+        **kwargs)
 
     # Save additional information to train dataset.
     datasets[0].ignore_columns = ignore_columns

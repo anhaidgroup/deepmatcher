@@ -8,7 +8,6 @@ from ..batch import MatchingBatch
 
 logger = logging.getLogger(__name__)
 
-
 class MatchingIterator(data.BucketIterator):
 
     def __init__(self,
