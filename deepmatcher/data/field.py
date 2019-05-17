@@ -58,54 +58,54 @@ class FastTextBinary(vocab.Vectors):
     def __getitem__(self, token):
         return torch.Tensor(self.model.get_word_vector(token))
     
-    def __download_with_resume(self, url, destination):
-        # Don't download if the file exists
-        if os.path.exists(destination):
-            logger.info('\nFile already exists, no need to download')
-            return
-        logger.info('\nDownload from ' + url)
-        block_size = 1024**2 # 1MB
-        tmp_file_path = destination + '.part'
-        first_byte = os.path.getsize(tmp_file_path) if os.path.exists(tmp_file_path) else 0
-        file_mode = 'ab' if first_byte else 'wb'
-        logger.info('\nStarting download at %.1fMB' % (first_byte / block_size))
-        file_size = -1
-        try:
-            file_size = int(requests.head(url).headers['Content-length'])
-            logger.info('\nFile size is %.1fMB' % (file_size / block_size))
-            # Print how many bytes has been already downloaded
-            # Every '=' is 2%. In total there're 50 '='
-            done = int((first_byte / file_size) * 50)
-            for i in range(done):
-                sys.stdout.write('\r[%s%s] %d%%' % ('=' * done, ' ' * (50 - done), done * 2))
-                sys.stdout.flush()
-            # Set headers to resume download from where we've left 
-            headers = {"Range": "bytes=%s-" % first_byte}
-            start = time.time()
-            r = requests.get(url, headers=headers, stream=True)
-            with open(tmp_file_path, file_mode) as f:
-                for chunk in r.iter_content(chunk_size=block_size):
-                    if chunk: # filter out keep-alive new chunks
-                        first_byte += len(chunk)
-                        f.write(chunk)
-                        done = int(50 * first_byte / file_size)
-                        sys.stdout.write("\r[%s%s] %d%% %.1fKB/s" % (
-                            '=' * done, # How many chunk has been downloaded
-                            ' ' * (50 - done), # How many left
-                            done * 2, # Since the total percentage is computed on 50 '=', we multiply by 2 to rescale to 100
-                            (first_byte / 1024) / (time.time() - start)) # v(t) = delta_s / delta_t
-                        )
-                        sys.stdout.flush()
-                sys.stdout.write('\n')
-                sys.stdout.flush()
-        except IOError as e:
-            logger.info('\nIO Error - %s' % e)
-        finally:
-            # Rename the temp download file to the correct name if fully downloaded
-            if file_size == os.path.getsize(tmp_file_path):
-                shutil.move(tmp_file_path, destination)
-            elif file_size == -1:
-                raise Exception('Error getting Content-Length from server: %s' % url)
+    # def __download_with_resume(self, url, destination):
+    #     # Don't download if the file exists
+    #     if os.path.exists(destination):
+    #         logger.info('\nFile already exists, no need to download')
+    #         return
+    #     logger.info('\nDownload from ' + url)
+    #     block_size = 1024**2 # 1MB
+    #     tmp_file_path = destination + '.part'
+    #     first_byte = os.path.getsize(tmp_file_path) if os.path.exists(tmp_file_path) else 0
+    #     file_mode = 'ab' if first_byte else 'wb'
+    #     logger.info('\nStarting download at %.1fMB' % (first_byte / block_size))
+    #     file_size = -1
+    #     try:
+    #         file_size = int(requests.head(url).headers['Content-length'])
+    #         logger.info('\nFile size is %.1fMB' % (file_size / block_size))
+    #         # Print how many bytes has been already downloaded
+    #         # Every '=' is 2%. In total there're 50 '='
+    #         done = int((first_byte / file_size) * 50)
+    #         for i in range(done):
+    #             sys.stdout.write('\r[%s%s] %d%%' % ('=' * done, ' ' * (50 - done), done * 2))
+    #             sys.stdout.flush()
+    #         # Set headers to resume download from where we've left 
+    #         headers = {"Range": "bytes=%s-" % first_byte}
+    #         start = time.time()
+    #         r = requests.get(url, headers=headers, stream=True)
+    #         with open(tmp_file_path, file_mode) as f:
+    #             for chunk in r.iter_content(chunk_size=block_size):
+    #                 if chunk: # filter out keep-alive new chunks
+    #                     first_byte += len(chunk)
+    #                     f.write(chunk)
+    #                     done = int(50 * first_byte / file_size)
+    #                     sys.stdout.write("\r[%s%s] %d%% %.1fKB/s" % (
+    #                         '=' * done, # How many chunk has been downloaded
+    #                         ' ' * (50 - done), # How many left
+    #                         done * 2, # Since the total percentage is computed on 50 '=', we multiply by 2 to rescale to 100
+    #                         (first_byte / 1024) / (time.time() - start)) # v(t) = delta_s / delta_t
+    #                     )
+    #                     sys.stdout.flush()
+    #             sys.stdout.write('\n')
+    #             sys.stdout.flush()
+    #     except IOError as e:
+    #         logger.info('\nIO Error - %s' % e)
+    #     finally:
+    #         # Rename the temp download file to the correct name if fully downloaded
+    #         if file_size == os.path.getsize(tmp_file_path):
+    #             shutil.move(tmp_file_path, destination)
+    #         elif file_size == -1:
+    #             raise Exception('Error getting Content-Length from server: %s' % url)
     
     def cache(self, name, cache, url=None):
         path = os.path.join(cache, name)
@@ -114,7 +114,8 @@ class FastTextBinary(vocab.Vectors):
             if not os.path.exists(cache):
                 os.makedirs(cache)
             if not os.path.isfile(self.destination):
-                self.__download_with_resume(url, self.destination)
+                # self.__download_with_resume(url, self.destination)
+                download_from_url(url, self.destination)
             logger.info('Extracting vectors into {}'.format(cache))
             ext = os.path.splitext(self.destination)[1][1:]
             if ext == 'zip':
