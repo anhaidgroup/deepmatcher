@@ -156,7 +156,7 @@ class Runner(object):
              return_predictions=False,
              **kwargs):
 
-        device = kwargs.pop('device', None)
+        device = kwargs.get('device', None)
         if device is None:
             device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
@@ -181,6 +181,8 @@ class Runner(object):
         # else:
         #     raise ValueError('No GPU available.')
         model.to(device)
+        if criterion:
+            criterion.to(device)
 
         if train:
             model.train()
@@ -301,11 +303,11 @@ class Runner(object):
         Returns:
             float: The best F1 score obtained by the model on the validation dataset.
         """
-        device = kwargs.pop('device')
+        device = kwargs.get('device')
         if device is None:
             device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-        model.initialize(train_dataset, device)
+        model.initialize(train_dataset, device=device)
 
         model._register_train_buffer('optimizer_state', None)
         model._register_train_buffer('best_score', None)

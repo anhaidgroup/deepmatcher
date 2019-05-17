@@ -37,7 +37,7 @@ class MatchingIterator(data.BucketIterator):
                 iterator class being used.
         """
         if batch_sizes is None:
-            batch_sizes = [kwargs.pop('batch_size')] * len(datasets)
+            batch_sizes = [kwargs.get('batch_size')] * len(datasets)
         ret = []
         for i in range(len(datasets)):
             ret.append(
