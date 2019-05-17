@@ -156,7 +156,7 @@ class Runner(object):
              return_predictions=False,
              **kwargs):
 
-        device = kwargs.get('device', None)
+        device = kwargs.get('device')
         if device is None:
             device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 

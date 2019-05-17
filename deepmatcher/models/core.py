@@ -283,7 +283,7 @@ class MatchingModel(nn.Module):
                 Defaults to None.
                 This is a keyword only param.
         """
-        device = kwargs.get('device', None)
+        device = kwargs.get('device')
         if device is None:
             device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
