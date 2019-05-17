@@ -170,16 +170,17 @@ class Runner(object):
             batch_size=batch_size,
             sort_in_buckets=sort_in_buckets)
 
-        if device == 'cpu' or device.type == 'cpu':
-            model = model.cpu()
-            if criterion:
-                criterion = criterion.cpu()
-        elif (device == 'cuda' or device.type == 'cuda') and torch.cuda.is_available():
-            model = model.cuda()
-            if criterion:
-                criterion = criterion.cuda()
-        else:
-            raise ValueError('No GPU available.')
+        # if device == 'cpu' or device.type == 'cpu':
+        #     model = model.cpu()
+        #     if criterion:
+        #         criterion = criterion.cpu()
+        # elif (device == 'cuda' or device.type == 'cuda') and torch.cuda.is_available():
+        #     model = model.cuda()
+        #     if criterion:
+        #         criterion = criterion.cuda()
+        # else:
+        #     raise ValueError('No GPU available.')
+        model.to(device)
 
         if train:
             model.train()

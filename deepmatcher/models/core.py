@@ -369,10 +369,8 @@ class MatchingModel(nn.Module):
                 sort_in_buckets=False)
             init_batch = next(run_iter.__iter__())
             
-        if (device == 'cuda' or device.type == 'cuda') and torch.cuda.is_available():
-            self.cuda()
-        else:
-            raise ValueError('No GPU available')
+        # if (device == 'cuda' or device.type == 'cuda') and torch.cuda.is_available():
+        self.to(device)
         self.forward(init_batch)
 
         # Keep this init_batch for future initializations.
