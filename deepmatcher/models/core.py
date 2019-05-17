@@ -497,7 +497,7 @@ class MatchingModel(nn.Module):
             train_info.metadata = train_info.orig_metadata
             MatchingDataset.finalize_metadata(train_info)
 
-            self.initialize(train_info, self.state_meta.init_batch, device)
+            self.initialize(train_info, self.state_meta.init_batch, device=device)
 
         self.load_state_dict(state['model'])
 
