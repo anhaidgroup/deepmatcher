@@ -1,5 +1,6 @@
 import os
 import shutil
+import torch
 import unittest
 from collections import Counter
 from test import test_dir_path

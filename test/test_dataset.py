@@ -1,5 +1,6 @@
 import io
 import os
+import torch
 import shutil
 import unittest
 from test import test_dir_path

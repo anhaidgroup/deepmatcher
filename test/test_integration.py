@@ -2,6 +2,7 @@ from nose.tools import *
 
 import io
 import os
+import torch
 import shutil
 import pandas as pd
 import torch
