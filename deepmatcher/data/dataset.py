@@ -24,7 +24,6 @@ from .iterator import MatchingIterator
 
 logger = logging.getLogger(__name__)
 
-
 def split(table,
           path,
           train_prefix,
@@ -203,7 +202,7 @@ class MatchingDataset(data.Dataset):
         self.label_field = self.column_naming['label']
         self.id_field = self.column_naming['id']
 
-    def compute_metadata(self, pca=False):
+    def compute_metadata(self, pca=False, device=None):
         r"""Computes metadata about the dataset.
 
         Computes the following metadata about the dataset:
@@ -220,12 +219,20 @@ class MatchingDataset(data.Dataset):
 
         Arguments:
             pca (bool): Whether to compute the ``pc`` metadata.
+            device (str or torch.device): The device type on which compute metadata of the model. 
+                Set to 'cpu' to use CPU only, even if GPU is available. 
+                If None, will use first available GPU, or use CPU if no GPUs are available. 
+                Defaults to None.
+                This is a keyword only param.
         """
+        if device is None:
+            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+        
         self.metadata = {}
 
         # Create an iterator over the entire dataset.
         train_iter = MatchingIterator(
-            self, self, train=False, batch_size=1024, device=-1, sort_in_buckets=False)
+            self, self, train=False, batch_size=1024, sort_in_buckets=False, device=device)
         counter = defaultdict(Counter)
 
         # For each attribute, find the number of times each word id occurs in the dataset.
@@ -233,7 +240,7 @@ class MatchingDataset(data.Dataset):
         for batch in pyprind.prog_bar(train_iter, title='\nBuilding vocabulary'):
             for name in self.all_text_fields:
                 attr_input = getattr(batch, name)
-                counter[name].update(attr_input.data.data.view(-1))
+                counter[name].update(attr_input.data.data.view(-1).tolist())
 
         word_probs = {}
         totals = {}
@@ -270,7 +277,7 @@ class MatchingDataset(data.Dataset):
 
         # Create an iterator over the entire dataset.
         train_iter = MatchingIterator(
-            self, self, train=False, batch_size=1024, device=-1, sort_in_buckets=False)
+            self, self, train=False, batch_size=1024, sort_in_buckets=False, device=device)
         attr_embeddings = defaultdict(list)
 
         # Run the constructed neural network to compute weighted sequence embeddings
@@ -524,11 +531,19 @@ class MatchingDataset(data.Dataset):
             filter_pred (callable or None): Use only examples for which
                 filter_pred(example) is True, or use all examples if None.
                 Default is None. This is a keyword-only parameter.
+            device (str or torch.device): The device type on which compute metadata of the model. 
+                Set to 'cpu' to use CPU only, even if GPU is available. 
+                If None, will use first available GPU, or use CPU if no GPUs are available. 
+                Defaults to None.
+                This is a keyword only param.
 
         Returns:
             Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in
                 that order, if provided.
         """
+        device = kwargs.pop('device', None)
+        if device is None:
+            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
         fields_dict = dict(fields)
         state_args = {'train_pca': train_pca}
@@ -578,7 +593,7 @@ class MatchingDataset(data.Dataset):
             logger.info('Vocab construction time: {}s'.format(after_vocab - after_load))
 
             if train:
-                datasets[0].compute_metadata(train_pca)
+                datasets[0].compute_metadata(train_pca, device)
             after_metadata = timer()
             logger.info(
                 'Metadata computation time: {}s'.format(after_metadata - after_vocab))

@@ -860,7 +860,7 @@ class Bypass(LazyModule):
                 res *= math.sqrt(0.5)
             return res
         elif self.style == 'highway':
-            transform_gate = F.sigmoid(self.highway_gate(raw) + self.highway_bias)
+            transform_gate = torch.sigmoid(self.highway_gate(raw) + self.highway_bias)
             carry_gate = 1 - transform_gate
             return transform_gate * transformed + carry_gate * adjusted_raw
 

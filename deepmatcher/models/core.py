@@ -15,7 +15,6 @@ from ..utils import Bunch, tally_parameters
 
 logger = logging.getLogger('deepmatcher.core')
 
-
 class MatchingModel(nn.Module):
     r"""A neural network model for entity matching.
 
@@ -158,10 +157,11 @@ class MatchingModel(nn.Module):
                 Mini-batch size for SGD. For details on what this is
                 `see this video <https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent>`__.
                 Defaults to 32. This is a keyword only param.
-            device (int):
-                The device index of the GPU on which to train the model. Set to -1 to use
-                CPU only, even if GPU is available. If None, will use first available GPU,
-                or use CPU if no GPUs are available. Defaults to None.
+            device (str or torch.device):
+                The device type on which compute metadata of the model. 
+                Set to 'cpu' to use CPU only, even if GPU is available. 
+                If None, will use first available GPU, or use CPU if no GPUs are available. 
+                Defaults to None.
                 This is a keyword only param.
             progress_style (string):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
@@ -195,10 +195,11 @@ class MatchingModel(nn.Module):
                 Mini-batch size for SGD. For details on what this is
                 `see this video <https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent>`__.
                 Defaults to 32. This is a keyword only param.
-            device (int):
-                The device index of the GPU on which to train the model. Set to -1 to use
-                CPU only, even if GPU is available. If None, will use first available GPU,
-                or use CPU if no GPUs are available. Defaults to None.
+            device (str or torch.device):
+                The device type on which compute metadata of the model. 
+                Set to 'cpu' to use CPU only, even if GPU is available. 
+                If None, will use first available GPU, or use CPU if no GPUs are available. 
+                Defaults to None.
                 This is a keyword only param.
             progress_style (string):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
@@ -235,10 +236,11 @@ class MatchingModel(nn.Module):
                 Mini-batch size for SGD. For details on what this is
                 `see this video <https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent>`__.
                 Defaults to 32. This is a keyword only param.
-            device (int):
-                The device index of the GPU on which to train the model. Set to -1 to use
-                CPU only, even if GPU is available. If None, will use first available GPU,
-                or use CPU if no GPUs are available. Defaults to None.
+            device (str or torch.device):
+                The device type on which compute metadata of the model. 
+                Set to 'cpu' to use CPU only, even if GPU is available. 
+                If None, will use first available GPU, or use CPU if no GPUs are available. 
+                Defaults to None.
                 This is a keyword only param.
             progress_style (string):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
@@ -263,7 +265,7 @@ class MatchingModel(nn.Module):
         """
         return Runner.predict(self, *args, **kwargs)
 
-    def initialize(self, train_dataset, init_batch=None):
+    def initialize(self, train_dataset, init_batch=None, **kwargs):
         r"""Initialize (not lazily) the matching model given the actual training data.
 
         Instantiates all sub-components and their trainable parameters.
@@ -274,7 +276,16 @@ class MatchingModel(nn.Module):
             init_batch (:class:`~deepmatcher.batch.MatchingBatch`):
                 A batch of data to forward propagate through the model. If None, a batch
                 is drawn from the training dataset.
+            device (str or torch.device):
+                The device type on which compute metadata of the model. 
+                Set to 'cpu' to use CPU only, even if GPU is available. 
+                If None, will use first available GPU, or use CPU if no GPUs are available. 
+                Defaults to None.
+                This is a keyword only param.
         """
+        device = kwargs.get('device')
+        if device is None:
+            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
         if self._initialized:
             return
@@ -344,6 +355,9 @@ class MatchingModel(nn.Module):
 
         self._reset_embeddings(train_dataset.vocabs)
 
+        if not isinstance(device, torch.device):
+            device = torch.device(device)
+
         # Instantiate all components using a small batch from training set.
         if not init_batch:
             run_iter = MatchingIterator(
@@ -351,9 +365,12 @@ class MatchingModel(nn.Module):
                 train_dataset,
                 train=False,
                 batch_size=4,
-                device=-1,
-                sort_in_buckets=False)
+                sort_in_buckets=False,
+                device=device)
             init_batch = next(run_iter.__iter__())
+            
+        # if (device == 'cuda' or device.type == 'cuda') and torch.cuda.is_available():
+        self.to(device)
         self.forward(init_batch)
 
         # Keep this init_batch for future initializations.
@@ -460,7 +477,7 @@ class MatchingModel(nn.Module):
                 state[k] = getattr(self, k)
         torch.save(state, path)
 
-    def load_state(self, path):
+    def load_state(self, path, device=None):
         r"""Load the model state from a file in a certain path.
 
         Args:
@@ -480,7 +497,7 @@ class MatchingModel(nn.Module):
             train_info.metadata = train_info.orig_metadata
             MatchingDataset.finalize_metadata(train_info)
 
-            self.initialize(train_info, self.state_meta.init_batch)
+            self.initialize(train_info, self.state_meta.init_batch, device=device)
 
         self.load_state_dict(state['model'])
 
