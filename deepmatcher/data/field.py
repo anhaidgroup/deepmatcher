@@ -91,6 +91,8 @@ class FastTextBinary(vocab.Vectors):
             # Content-length not set
             logger.info('Cannot retrieve Content-length from server')
             total = None
+        if file_size < 0:
+            raise Exception('Error getting file from server: %s' % url)
 
         logger.info('Download from ' + url)
         logger.info('Starting download at %.1fMB' % (first_byte / chunk_size))
