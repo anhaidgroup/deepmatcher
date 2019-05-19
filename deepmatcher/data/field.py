@@ -104,10 +104,7 @@ class FastTextBinary(vocab.Vectors):
                         pbar.update(len(chunk))
 
         # Rename the temp download file to the correct name if fully downloaded
-        if file_size == os.path.getsize(tmp_file):
-            shutil.move(tmp_file, destination)
-        else:
-            raise Exception('Error getting file from server: %s' % url)
+        shutil.move(tmp_file, destination)
     
     def cache(self, name, cache, url=None):
         path = os.path.join(cache, name)
