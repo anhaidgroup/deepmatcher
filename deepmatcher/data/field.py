@@ -60,45 +60,48 @@ class FastTextBinary(vocab.Vectors):
         return torch.Tensor(self.model.get_word_vector(token))
     
     def __download_with_resume(self, url, destination):
-        from urllib.parse import urlparse
+        # Since requests doesn't support local file reading
+        # we check if protocol is file://
         if url.startswith('file://'):
-            url_no_protocol = urlparse(url).path
+            url_no_protocol = url.replace('file://', '', count=1)
             if os.path.exists(url_no_protocol):
-                logger.info('\nFile already exists, no need to download')
+                logger.info('File already exists, no need to download')
                 return
             else:
                 raise Exception('File not found at %s' % url_no_protocol)
+
         # Don't download if the file exists
         if os.path.exists(destination):
             logger.info('\nFile already exists, no need to download')
             return
-        logger.info('\nDownload from ' + url)
-        block_size = 1024**2 # 1MB
-        tmp_file_path = destination + '.part'
-        first_byte = os.path.getsize(tmp_file_path) if os.path.exists(tmp_file_path) else 0
+
+        tmp_file = destination + '.part'
+        first_byte = os.path.getsize(tmp_file) if os.path.exists(tmp_file) else 0
+        chunk_size = 1024 ** 2  # 1MB
         file_mode = 'ab' if first_byte else 'wb'
-        logger.info('\nStarting download at %.1fMB' % (first_byte / block_size))
-        file_size = -1
-        try:
-            file_size = int(requests.head(url).headers['Content-length'])
-            logger.info('\nFile size is %.1fMB' % (file_size / block_size))
-            # Set headers to resume download from where we've left 
-            headers = {"Range": "bytes=%s-" % first_byte}
-            r = requests.get(url, headers=headers, stream=True)
-            with tqdm(initial=first_byte, total=file_size, unit='bit', unit_scale=True) as pbar:
-                with open(tmp_file_path, file_mode) as f:
-                    for chunk in r.iter_content(chunk_size=block_size):
-                        if chunk: # filter out keep-alive new chunks
-                            f.write(chunk)
-                            pbar.update(len(chunk))
-        except IOError as e:
-            logger.info('\nIO Error - %s' % e)
-        finally:
-            # Rename the temp download file to the correct name if fully downloaded
-            if file_size == os.path.getsize(tmp_file_path):
-                shutil.move(tmp_file_path, destination)
-            elif file_size == -1:
-                raise Exception('Error getting Content-Length from server: %s' % url)
+        # Set headers to resume download from where we've left 
+        headers = {"Range": "bytes=%s-" % first_byte}
+        r = requests.get(url, headers=headers, stream=True)
+        file_size = len(r.content)
+        if file_size < 0:
+            raise Exception('Error getting file from server: %s' % url)
+
+        logger.info('Download from ' + url)
+        logger.info('Starting download at %.1fMB' % (first_byte / chunk_size))
+        logger.info('File size is %.1fMB' % (file_size / chunk_size))
+
+        with tqdm(initial=first_byte, total=file_size, unit_scale=True) as pbar:
+            with open(tmp_file, file_mode) as f:
+                for chunk in r.iter_content(chunk_size=chunk_size):
+                    if chunk: # filter out keep-alive new chunks
+                        f.write(chunk)
+                        pbar.update(len(chunk))
+
+        # Rename the temp download file to the correct name if fully downloaded
+        if file_size == os.path.getsize(tmp_file):
+            shutil.move(tmp_file, destination)
+        else:
+            raise Exception('Error getting file from server: %s' % url)
     
     def cache(self, name, cache, url=None):
         path = os.path.join(cache, name)

@@ -355,8 +355,8 @@ class MatchingModel(nn.Module):
 
         self._reset_embeddings(train_dataset.vocabs)
 
-        if not isinstance(device, torch.device):
-            device = torch.device(device)
+        """ if not isinstance(device, torch.device):
+            device = torch.device(device) """
 
         # Instantiate all components using a small batch from training set.
         if not init_batch:
