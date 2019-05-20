@@ -60,43 +60,47 @@ class FastTextBinary(vocab.Vectors):
         return torch.Tensor(self.model.get_word_vector(token))
     
     def __download_with_resume(self, url, destination):
+        # Check if the requested url is ok, i.e. 200 <= status_code < 400
+        head = requests.head(url)
+        if not head.ok:
+            head.raise_for_status()
+
         # Since requests doesn't support local file reading
         # we check if protocol is file://
         if url.startswith('file://'):
             url_no_protocol = url.replace('file://', '', count=1)
             if os.path.exists(url_no_protocol):
-                logger.info('File already exists, no need to download')
+                print('File already exists, no need to download')
                 return
             else:
                 raise Exception('File not found at %s' % url_no_protocol)
-
+        
         # Don't download if the file exists
-        if os.path.exists(destination):
-            logger.info('\nFile already exists, no need to download')
+        if os.path.exists(os.path.expanduser(destination)):
+            print('File already exists, no need to download')
             return
 
         tmp_file = destination + '.part'
         first_byte = os.path.getsize(tmp_file) if os.path.exists(tmp_file) else 0
-        chunk_size = 1024 ** 2  # 1MB
+        chunk_size = 1024 ** 2  # 1 MB
         file_mode = 'ab' if first_byte else 'wb'
+
         # Set headers to resume download from where we've left 
         headers = {"Range": "bytes=%s-" % first_byte}
         r = requests.get(url, headers=headers, stream=True)
-        file_size = int(r.headers.get('Content-length', 0))
-        if file_size != 0:
+        file_size = int(r.headers.get('Content-length', -1))
+        if file_size >= 0:
             # Content-length set
             file_size += first_byte
             total = file_size
         else:
             # Content-length not set
-            logger.info('Cannot retrieve Content-length from server')
+            print('Cannot retrieve Content-length from server')
             total = None
-        if file_size < 0:
-            raise Exception('Error getting file from server: %s' % url)
 
-        logger.info('Download from ' + url)
-        logger.info('Starting download at %.1fMB' % (first_byte / chunk_size))
-        logger.info('File size is %.1fMB' % (file_size / chunk_size))
+        print('Download from ' + url)
+        print('Starting download at %.1fMB' % (first_byte / (10 ** 6)))
+        print('File size is %.1fMB' % (file_size / (10 ** 6)))
 
         with tqdm(initial=first_byte, total=total, unit_scale=True) as pbar:
             with open(tmp_file, file_mode) as f:
