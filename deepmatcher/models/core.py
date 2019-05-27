@@ -290,6 +290,9 @@ class MatchingModel(nn.Module):
         if self._initialized:
             return
 
+        # if (device == 'cuda' or device.type == 'cuda') and torch.cuda.is_available():
+        self.to(device)
+
         # Copy over training info from train set for persistent state. But remove actual
         # data examples.
         self.meta = Bunch(**train_dataset.__dict__)
@@ -369,8 +372,6 @@ class MatchingModel(nn.Module):
                 device=device)
             init_batch = next(run_iter.__iter__())
             
-        # if (device == 'cuda' or device.type == 'cuda') and torch.cuda.is_available():
-        self.to(device)
         self.forward(init_batch)
 
         # Keep this init_batch for future initializations.
