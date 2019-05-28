@@ -14,7 +14,7 @@ from torchtext.utils import download_from_url
 import os
 import time
 import shutil
-import tqdm
+from tqdm import tqdm
 import requests
 
 logger = logging.getLogger(__name__)
