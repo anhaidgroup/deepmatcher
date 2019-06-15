@@ -419,6 +419,7 @@ class Runner(object):
         if output_attributes:
             raw_table = pd.read_csv(dataset.path).set_index(dataset.id_field)
             raw_table.index = raw_table.index.astype('str')
-            pred_table = pred_table.join(raw_table)
+            # pred_table = pred_table.join(raw_table)
+            pred_table = pred_table + raw_table
 
         return pred_table
