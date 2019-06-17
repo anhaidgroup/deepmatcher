@@ -420,6 +420,6 @@ class Runner(object):
             raw_table = pd.read_csv(dataset.path).set_index(dataset.id_field)
             raw_table.index = raw_table.index.astype('str')
             # pred_table = pred_table.join(raw_table)
-            pred_table = pd.concat([pred_table, raw_table], axis=1)
+            pred_table = pd.merge(pred_table, raw_table)
 
         return pred_table
