@@ -253,11 +253,8 @@ def process_unlabeled(path, trained_model, ignore_columns=None):
         ignore_columns (list):
             A list of columns to ignore in the unlabeled CSV file.
     """
-    if isinstance(path, str):
-        with io.open(path, encoding="utf8") as f:
-            header = next(unicode_csv_reader(f))
-    else:
-        header = path.columns.tolist()
+    with io.open(path, encoding="utf8") as f:
+        header = next(unicode_csv_reader(f))
 
     train_info = trained_model.meta
     if ignore_columns is None:

@@ -490,7 +490,7 @@ class MatchingModel(nn.Module):
         Args:
             path (string): The path to load the model state from.
         """
-        state = torch.load(path)
+        state = torch.load(path, map_location=device)
         for k, v in six.iteritems(state):
             if k != 'model':
                 self._train_buffers.add(k)
