@@ -6,7 +6,7 @@ import zipfile
 import nltk
 import six
 
-import fastText
+import fastext
 import torch
 from torchtext import data, vocab
 from torchtext.utils import download_from_url
@@ -40,7 +40,7 @@ class FastTextBinary(vocab.Vectors):
     def __init__(self, language='en', url_base=None, cache=None):
         """
         Arguments:
-           language: Language of fastText pre-trained embedding model
+           language: Language of fastext pre-trained embedding model
            cache: directory for cached model
          """
         cache = os.path.expanduser(cache)
@@ -132,7 +132,7 @@ class FastTextBinary(vocab.Vectors):
         if not os.path.isfile(path):
             raise RuntimeError('no vectors found at {}'.format(path))
 
-        self.model = fastText.load_model(path)
+        self.model = fastext.load_model(path)
         self.dim = len(self['a'])
 
 
