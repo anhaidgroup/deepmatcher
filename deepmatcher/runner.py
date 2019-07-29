@@ -166,7 +166,7 @@ class Runner(object):
             device=device,
             sort_in_buckets=sort_in_buckets)
 
-        if device == 'cpu':
+        if device == -1:
             model = model.cpu()
             if criterion:
                 criterion = criterion.cpu()
@@ -174,7 +174,7 @@ class Runner(object):
             model = model.cuda()
             if criterion:
                 criterion = criterion.cuda()
-        elif device == 'gpu':
+        else:
             raise ValueError('No GPU available.')
 
         if train:
