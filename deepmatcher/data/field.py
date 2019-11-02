@@ -16,7 +16,7 @@ class FastText(vocab.Vectors):
     def __init__(
         self,
         suffix="wiki-news-300d-1M.vec.zip",
-        url_base="https://s3-us-west-1.amazonaws.com/fasttext-vectors/",
+        url_base="https://dl.fbaipublicfiles.com/fasttext/vectors-english/",
         **kwargs
     ):
         url = url_base + suffix
@@ -28,7 +28,7 @@ class FastText(vocab.Vectors):
 class FastTextBinary(vocab.Vectors):
 
     name_base = "wiki.{}.bin"
-    _direct_en_url = "https://drive.google.com/uc?export=download&id=1Vih8gAmgBnuYDxfblbT94P6WjB7s1ZSh"
+    _direct_en_url = "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.zip"
 
     def __init__(self, language="en", url_base=None, cache=None):
         """The init function.
@@ -43,7 +43,7 @@ class FastTextBinary(vocab.Vectors):
         else:
             if url_base is None:
                 url_base = (
-                    "https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki.{}.zip"
+                    "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.{}.zip"
                 )
             url = url_base.format(language)
             self.destination = os.path.join(cache, "wiki." + language + ".zip")
@@ -70,6 +70,7 @@ class FastTextBinary(vocab.Vectors):
             elif ext == "gz":
                 with tarfile.open(self.destination, "r:gz") as tar:
                     tar.extractall(path=cache)
+
         if not os.path.isfile(path):
             raise RuntimeError("no vectors found at {}".format(path))
 

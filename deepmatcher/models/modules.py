@@ -741,13 +741,13 @@ class Pool(LazyModule):
             if input_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
-                inputs.data.masked_fill_(1 - mask, -float("inf"))
+                inputs.data.masked_fill_(~mask, -float("inf"))
             output = inputs.max(dim=1)[0]
         else:
             if input_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
-                inputs.data.masked_fill_(1 - mask, 0)
+                inputs.data.masked_fill_(~mask, 0)
 
             lengths = input_with_meta.lengths.clamp(min=1).unsqueeze(1).float()
             if self.style == "avg":

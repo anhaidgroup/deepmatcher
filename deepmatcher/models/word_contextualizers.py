@@ -159,7 +159,7 @@ class SelfAttention(WordContextualizer):
             if input_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(1)  # Make it broadcastable.
-                alignment_scores.data.masked_fill_(1 - mask, -float("inf"))
+                alignment_scores.data.masked_fill_(~mask, -float("inf"))
 
             normalized_scores = self.softmax(alignment_scores)
 

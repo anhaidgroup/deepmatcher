@@ -179,7 +179,7 @@ class Attention(WordComparator):
             if context_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(context_with_meta.lengths)
                 mask = mask.unsqueeze(1)  # Make it broadcastable.
-                alignment_scores.data.masked_fill_(1 - mask, -float("inf"))
+                alignment_scores.data.masked_fill_(~mask, -float("inf"))
 
             # Make values along dim 2 sum to 1.
             normalized_scores = self.softmax(alignment_scores)
