@@ -1,16 +1,16 @@
-from nose.tools import *
-
 import io
 import os
 import shutil
+import unittest
+from test import test_dir_path
+
 import pandas as pd
 import torch
-import unittest
+from nose.tools import *
 
-from deepmatcher import attr_summarizers
-from deepmatcher.data.field import MatchingField, FastText
+from deepmatcher import MatchingModel, attr_summarizers
+from deepmatcher.data.field import FastText, MatchingField
 from deepmatcher.data.process import process, process_unlabeled
-from deepmatcher import MatchingModel
 
 try:
     from urllib.parse import urljoin
@@ -19,7 +19,6 @@ except ImportError:
     from urlparse import urljoin
     from urllib import path2pathname2url
 
-from test import test_dir_path
 
 class ModelTrainSaveLoadTest(unittest.TestCase):
     def setUp(self):

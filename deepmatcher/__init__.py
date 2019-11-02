@@ -4,15 +4,14 @@ learning modules for entity matching.
 """
 
 import logging
-import warnings
 import sys
+import warnings
 
 from .data import process as data_process
-from .models import modules
-from .models.core import (MatchingModel, AttrSummarizer, WordContextualizer,
-                          WordComparator, WordAggregator, Classifier)
-from .models import (attr_summarizers, word_aggregators, word_comparators,
-                     word_contextualizers)
+from .models import (attr_summarizers, modules, word_aggregators,
+                     word_comparators, word_contextualizers)
+from .models.core import (AttrSummarizer, Classifier, MatchingModel,
+                          WordAggregator, WordComparator, WordContextualizer)
 
 # Register these as submodules of deepmatcher. This helps organize files better while
 # permitting an easier way to access these modules.

@@ -3,10 +3,9 @@ import os
 import tarfile
 import zipfile
 
+import fasttext
 import nltk
 import six
-
-import fasttext
 import torch
 from torchtext import data, vocab
 from torchtext.utils import download_from_url

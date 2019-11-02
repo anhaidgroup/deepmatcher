@@ -3,15 +3,15 @@ import logging
 from collections import Mapping
 
 import six
-
-import deepmatcher as dm
 import torch
 import torch.nn as nn
 
-from . import _utils
+import deepmatcher as dm
+
 from ..data import MatchingDataset, MatchingIterator
 from ..runner import Runner
 from ..utils import Bunch, tally_parameters
+from . import _utils
 
 logger = logging.getLogger('deepmatcher.core')
 

@@ -10,10 +10,9 @@ from timeit import default_timer as timer
 import pandas as pd
 import pyprind
 import six
-from sklearn.decomposition import TruncatedSVD
-
 import torch
 import torch.nn as nn
+from sklearn.decomposition import TruncatedSVD
 from torchtext import data
 from torchtext.data.example import Example
 from torchtext.utils import unicode_csv_reader

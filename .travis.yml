@@ -4,12 +4,12 @@ python:
 cache: pip
 
 install:
-  - pip install -r requirements/ci.txt
-  - pip install .
+  - make install
   - python -m nltk.downloader perluniprops nonbreaking_prefixes punkt
 
 script:
-  - nosetests -v
+  - make lint || travis_terminate 1
+  - make test
 
 branches:
   only:

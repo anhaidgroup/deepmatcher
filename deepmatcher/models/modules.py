@@ -5,15 +5,15 @@ import logging
 import math
 
 import six
-
-import deepmatcher as dm
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 
-from . import _utils
+import deepmatcher as dm
+
 from ..batch import AttrTensor
+from . import _utils
 
 logger = logging.getLogger('deepmatcher.modules')
 

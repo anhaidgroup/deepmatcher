@@ -1,14 +1,14 @@
-from nose.tools import *
-
 import os
-import torch
 import shutil
 import unittest
-from deepmatcher.data.field import FastText
-from deepmatcher.data.process import process
-from deepmatcher.data.iterator import MatchingIterator
-
 from test import test_dir_path
+
+import torch
+from nose.tools import *
+
+from deepmatcher.data.field import FastText
+from deepmatcher.data.iterator import MatchingIterator
+from deepmatcher.data.process import process
 
 try:
     from urllib.parse import urljoin

@@ -1,7 +1,6 @@
 # DeepMatcher
 
 [![image](https://travis-ci.org/anhaidgroup/deepmatcher.svg?branch=master)](https://travis-ci.org/anhaidgroup/deepmatcher)
-
 [![image](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 DeepMatcher is a Python package for performing entity and text matching

@@ -5,11 +5,12 @@ import unittest
 from test import test_dir_path
 
 from nose.tools import *
-
-from deepmatcher.data.field import FastText
-from deepmatcher.data.process import _check_header, _make_fields, process, process_unlabeled
 from torchtext.utils import unicode_csv_reader
+
 from deepmatcher import MatchingModel
+from deepmatcher.data.field import FastText
+from deepmatcher.data.process import (_check_header, _make_fields, process,
+                                      process_unlabeled)
 
 try:
     from urllib.parse import urljoin

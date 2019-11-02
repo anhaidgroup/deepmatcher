@@ -5,13 +5,13 @@ import unittest
 from test import test_dir_path
 
 import pandas as pd
-from nose.tools import *
-
 import torch
+from nose.tools import *
+from torchtext.utils import unicode_csv_reader
+
 from deepmatcher.data.dataset import *
 from deepmatcher.data.field import FastText, MatchingField
 from deepmatcher.data.process import _make_fields, process
-from torchtext.utils import unicode_csv_reader
 
 try:
     from urllib.parse import urljoin
