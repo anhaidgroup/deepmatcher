@@ -2,12 +2,14 @@ import torch
 import torch.nn as nn
 
 import deepmatcher as dm
+from deepmatcher.models.core import WordContextualizer
+from deepmatcher.models.modules import RNN as ModuleRNN
 
 from ..batch import AttrTensor
 from . import _utils
 
 
-class RNN(dm.modules.RNN, dm.WordContextualizer):
+class RNN(ModuleRNN, WordContextualizer):
     """Multi layered RNN based Word Contextualizer.
 
     Supports dropout and residual / highway connections. Takes the same parameters as the
@@ -17,7 +19,7 @@ class RNN(dm.modules.RNN, dm.WordContextualizer):
     pass
 
 
-class SelfAttention(dm.WordContextualizer):
+class SelfAttention(WordContextualizer):
     """Self Attention based Word Contextualizer.
 
     Supports `vanilla self attention <https://arxiv.org/abs/1606.01933>`__ and `multi-head

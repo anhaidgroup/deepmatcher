@@ -2,7 +2,6 @@ import os
 import shutil
 import unittest
 from collections import Counter
-from test import test_dir_path
 from urllib.parse import urljoin
 from urllib.request import pathname2url
 
@@ -18,6 +17,7 @@ from deepmatcher.data.field import (
     MatchingVocab,
     reset_vector_cache,
 )
+from tests import test_dir_path
 
 # import nltk
 # nltk.download('perluniprops')

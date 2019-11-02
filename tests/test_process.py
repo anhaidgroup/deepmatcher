@@ -2,7 +2,6 @@ import io
 import os
 import shutil
 import unittest
-from test import test_dir_path
 from urllib.parse import urljoin
 from urllib.request import pathname2url
 
@@ -17,6 +16,7 @@ from deepmatcher.data.process import (
     process,
     process_unlabeled,
 )
+from tests import test_dir_path
 
 
 class CheckHeaderTestCases(unittest.TestCase):

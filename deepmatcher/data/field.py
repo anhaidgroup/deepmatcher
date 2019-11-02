@@ -108,9 +108,9 @@ class MatchingField(data.Field):
 
     _cached_vec_data = {}
 
-    def __init__(self, tokenize="nltk", is_id=False, **kwargs):
+    def __init__(self, tokenize="nltk", id=False, **kwargs):  # noqa: A002
         self.tokenizer_arg = tokenize
-        self.is_id = is_id
+        self.is_id = id
         tokenize = MatchingField._get_tokenizer(tokenize)
         super(MatchingField, self).__init__(tokenize=tokenize, **kwargs)
 

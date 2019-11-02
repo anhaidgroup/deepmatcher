@@ -2,12 +2,14 @@ import torch
 import torch.nn as nn
 
 import deepmatcher as dm
+from deepmatcher.models.core import WordAggregator
+from deepmatcher.models.modules import Pool as ModulePool
 
 from ..batch import AttrTensor
 from . import _utils
 
 
-class Pool(dm.modules.Pool, dm.WordAggregator):
+class Pool(ModulePool, WordAggregator):
     """Pooling based Word Aggregator.
 
     Takes the same parameters as the :class:`~deepmatcher.modules.Pool` module.
@@ -16,7 +18,7 @@ class Pool(dm.modules.Pool, dm.WordAggregator):
     pass
 
 
-class AttentionWithRNN(dm.WordAggregator):
+class AttentionWithRNN(WordAggregator):
     r"""Attention and RNN based Word Aggregator.
 
     This class can be used when the
@@ -90,7 +92,7 @@ class AttentionWithRNN(dm.WordAggregator):
         self.rnn = _utils.get_module(dm.modules.RNN, rnn, hidden_size=hidden_size)
         self.rnn.expect_signature("[AxBxC] -> [AxBx{D}]".format(D=hidden_size))
 
-        self.rnn_pool = dm.modules.Pool(rnn_pool_style)
+        self.rnn_pool = ModulePool(rnn_pool_style)
 
         self.input_context_comparison_network = dm.modules._transform_module(
             input_context_comparison_network, hidden_size=hidden_size

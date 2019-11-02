@@ -1,9 +1,10 @@
 """Defines built-in attribute summarizers."""
 
-import deepmatcher as dm
+from deepmatcher.models.core import AttrSummarizer
+from deepmatcher.models.word_comparators import Attention as ComparatorAttention
 
 
-class SIF(dm.AttrSummarizer):
+class SIF(AttrSummarizer):
     """The attribute summarizer for the SIF (Smooth Inverse Frequency) model.
 
     Args:
@@ -42,7 +43,7 @@ class SIF(dm.AttrSummarizer):
         )
 
 
-class RNN(dm.AttrSummarizer):
+class RNN(AttrSummarizer):
     r"""The attribute summarizer for the RNN model.
 
     Args:
@@ -87,7 +88,7 @@ class RNN(dm.AttrSummarizer):
         )
 
 
-class Attention(dm.AttrSummarizer):
+class Attention(AttrSummarizer):
     r"""The attribute summarizer for the attention-based model.
 
     Args:
@@ -132,7 +133,7 @@ class Attention(dm.AttrSummarizer):
         )
 
 
-class Hybrid(dm.AttrSummarizer):
+class Hybrid(AttrSummarizer):
     r"""The attribute summarizer for the hybrid model.
 
     Args:
@@ -166,7 +167,7 @@ class Hybrid(dm.AttrSummarizer):
         hidden_size=None,
     ):
         word_contextualizer = word_contextualizer or "gru"
-        word_comparator = word_comparator or dm.word_comparators.Attention(
+        word_comparator = word_comparator or ComparatorAttention(
             alignment_network="decomposable", raw_alignment=True
         )
         word_aggregator = word_aggregator or "attention-with-rnn"

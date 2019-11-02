@@ -2,12 +2,12 @@ import torch
 import torch.nn as nn
 
 import deepmatcher as dm
+from deepmatcher.batch import AttrTensor
+from deepmatcher.models import _utils
+from deepmatcher.models.core import WordComparator
 
-from ..batch import AttrTensor
-from . import _utils
 
-
-class Attention(dm.WordComparator):
+class Attention(WordComparator):
     r"""Attention based Word Comparator with `multi-head <https://arxiv.org/abs/1706.03762>`__ support.
 
     This module does the following:

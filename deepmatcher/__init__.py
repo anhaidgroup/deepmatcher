@@ -1,7 +1,6 @@
 """The deepmatcher package contains high level modules used in the construction of deep learning modules for entity matching."""
 
 import logging
-import sys
 import warnings
 
 from .data import process as data_process
@@ -20,14 +19,6 @@ from .models.core import (
     WordComparator,
     WordContextualizer,
 )
-
-# Register these as submodules of deepmatcher. This helps organize files better while
-# permitting an easier way to access these modules.
-sys.modules["deepmatcher.attr_summarizers"] = attr_summarizers
-sys.modules["deepmatcher.word_contextualizers"] = word_contextualizers
-sys.modules["deepmatcher.word_comparators"] = word_comparators
-sys.modules["deepmatcher.word_aggregators"] = word_aggregators
-sys.modules["deepmatcher.modules"] = modules
 
 warnings.filterwarnings("always", module="deepmatcher")
 

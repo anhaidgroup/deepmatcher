@@ -2,7 +2,6 @@ import io
 import os
 import shutil
 import unittest
-from test import test_dir_path
 from urllib.parse import urljoin
 from urllib.request import pathname2url
 
@@ -13,6 +12,7 @@ from torchtext.utils import unicode_csv_reader
 from deepmatcher.data.dataset import MatchingDataset, split
 from deepmatcher.data.field import FastText, MatchingField
 from deepmatcher.data.process import _make_fields, process
+from tests import test_dir_path
 
 # import nltk
 # nltk.download('perluniprops')

@@ -48,6 +48,7 @@ def split(
 
     """
     assert len(split_ratio) == 3
+    split_ratio = list(split_ratio)
 
     if not isinstance(table, pd.DataFrame):
         table = pd.read_csv(table)

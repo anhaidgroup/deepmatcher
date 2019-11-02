@@ -7,11 +7,12 @@ import torch
 import torch.nn as nn
 
 import deepmatcher as dm
+from deepmatcher.models import _utils
+from deepmatcher.models.modules import LazyModule, LazyModuleFn
 
 from ..data import MatchingDataset, MatchingIterator
 from ..runner import Runner
 from ..utils import Bunch, tally_parameters
-from . import _utils
 
 logger = logging.getLogger("deepmatcher.core")
 
@@ -504,7 +505,7 @@ class MatchingModel(nn.Module):
         self.load_state_dict(state["model"])
 
 
-class AttrSummarizer(dm.modules.LazyModule):
+class AttrSummarizer(LazyModule):
     r"""The Attribute Summarizer.
 
     Summarizes the two word embedding sequences of an attribute.
@@ -617,7 +618,7 @@ def _create_attr_comparator(arg):
     return module
 
 
-class WordContextualizer(dm.modules.LazyModule):
+class WordContextualizer(LazyModule):
     r"""The Word Contextualizer.
 
     Takes a word embedding sequence and produces a context-aware word embedding sequence.
@@ -655,7 +656,7 @@ class WordContextualizer(dm.modules.LazyModule):
         return wc
 
 
-class WordComparator(dm.modules.LazyModule):
+class WordComparator(LazyModule):
     r"""The Word Comparator.
 
     Takes two word embedding sequences, aligns words in the two sequences, and performs a
@@ -696,7 +697,7 @@ class WordComparator(dm.modules.LazyModule):
         return wc
 
 
-class WordAggregator(dm.modules.LazyModule):
+class WordAggregator(LazyModule):
     r"""The Word Aggregator.
 
     Takes a sequence of vectors and aggregates it into a single vector.
@@ -729,7 +730,7 @@ class WordAggregator(dm.modules.LazyModule):
                 seq.append(dm.word_aggregators.Pool(style="-".join(parts[:-1])))
 
                 # Make lazy module.
-                wa = dm.modules.LazyModuleFn(lambda: dm.modules.MultiSequential(*seq))
+                wa = LazyModuleFn(lambda: dm.modules.MultiSequential(*seq))
             elif arg == "attention-with-rnn":
                 wa = dm.word_aggregators.AttentionWithRNN(**kwargs)
             else:
