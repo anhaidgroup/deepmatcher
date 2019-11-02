@@ -1,29 +1,8 @@
 matrix:
   include:
-  # - os: linux
-  #   python: 2.7
-  #   env: PYTHON_VERSION=2.7
-  - os: linux
-    python: 3.5
-    env: PYTHON_VERSION=3.5
   - os: linux
     python: 3.6
     env: PYTHON_VERSION=3.6
-  # - os: osx
-  #   language: generic
-  #   env:
-  #   - PYTHON_VERSION=2.7
-  - os: osx
-    language: generic
-    env:
-    - PYTHON_VERSION=3.5
-  - os: osx
-    language: generic
-    env:
-    - PYTHON_VERSION=3.6
-
-notifications:
-  email: false
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" && "$PYTHON_VERSION" == 2.* ]]; then wget http://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh; fi
