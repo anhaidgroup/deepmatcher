@@ -20,7 +20,7 @@ logger = logging.getLogger("deepmatcher.modules")
 
 @six.add_metaclass(abc.ABCMeta)
 class LazyModule(nn.Module):
-    r"""A lazily initialized module. Base class for most DeepMatcher modules.
+    """A lazily initialized module. Base class for most DeepMatcher modules.
 
     This module is an extension of PyTorch :class:`~torch.nn.Module` with the following
     property: constructing an instance this module does not immediately initialize it.
@@ -68,6 +68,7 @@ class LazyModule(nn.Module):
                 :meth:`_init`.
             **kwargs: Keyword arguments to the constructor of the module defined in
                 :meth:`_init`.
+
         """
         super(LazyModule, self).__init__()
         self._init_args = args
@@ -76,7 +77,7 @@ class LazyModule(nn.Module):
         self._fns = []
         self.signature = None
 
-    def forward(self, input, *args, **kwargs):
+    def forward(self, inputs, *args, **kwargs):
         """Perform a forward pass through the module. DO NOT OVERRIDE this method.
 
         If the module is not initialized yet, this method also performs initialization.
@@ -97,12 +98,13 @@ class LazyModule(nn.Module):
                 :meth:`_forward`.
             **kwargs: Keyword arguments to the forward function of the module defined in
                 :meth:`_forward`.
+
         """
         if not self._initialized:
             try:
                 self._init(
                     *self._init_args,
-                    input_size=self._get_input_size(input, *args, **kwargs),
+                    input_size=self._get_input_size(inputs, *args, **kwargs),
                     **self._init_kwargs
                 )
             except TypeError as e:
@@ -112,7 +114,7 @@ class LazyModule(nn.Module):
                 super(LazyModule, self)._apply(fn)
 
             if self.signature is not None:
-                self._verify_signature(input, *args)
+                self._verify_signature(inputs, *args)
 
             if dm._check_nan:
                 self.register_forward_hook(LazyModule._check_nan_hook)
@@ -120,7 +122,7 @@ class LazyModule(nn.Module):
 
             self._initialized = True
 
-        return self._forward(input, *args, **kwargs)
+        return self._forward(inputs, *args, **kwargs)
 
     def expect_signature(self, signature):
         """Set the expected module input / output signature.
@@ -136,7 +138,7 @@ class LazyModule(nn.Module):
 
     def _get_input_size(self, *args, **kwargs):
         if len(args) > 1:
-            return [self._get_input_size(input) for input in args]
+            return [self._get_input_size(inputs) for inputs in args]
         elif isinstance(args[0], (AttrTensor, Variable)):
             return args[0].data.size(-1)
         else:
@@ -161,8 +163,7 @@ class LazyModule(nn.Module):
 
 
 class NoMeta(nn.Module):
-    r"""A wrapper module to allow regular modules to take
-    :class:`~deepmatcher.batch.AttrTensor` s as input.
+    """A wrapper module to allow regular modules to take :class:`~deepmatcher.batch.AttrTensor` s as input.
 
     A forward pass through this module, will perform the following:
 
@@ -174,6 +175,7 @@ class NoMeta(nn.Module):
 
     Args:
         module (:class:`~torch.nn.Module`): The module to wrap.
+
     """
 
     def __init__(self, module):
@@ -251,6 +253,7 @@ class MultiSequential(nn.Sequential):
 
     This is an extenstion of PyTorch's :class:`~torch.nn.Sequential` module that allows
     each module to have multiple inputs and / or outputs.
+
     """
 
     def forward(self, *inputs):
@@ -265,8 +268,7 @@ class MultiSequential(nn.Sequential):
 
 
 class LazyModuleFn(LazyModule):
-    """A Lazy Module which simply wraps the :class:`~torch.nn.Module` returned by a
-    specified function.
+    """A Lazy Module which simply wraps the :class:`~torch.nn.Module` returned by a specified function.
 
     This provides a way to convert a PyTorch :class:`~torch.nn.Module` into a
     :class:`LazyModule`.
@@ -280,6 +282,7 @@ class LazyModuleFn(LazyModule):
 
         *kwargs:
             Keyword arguments to the function `fn`.
+
     """
 
     def _init(self, fn, *args, **kwargs):
@@ -290,9 +293,7 @@ class LazyModuleFn(LazyModule):
 
 
 class RNN(LazyModule):
-    r"""__init__(unit_type='gru', hidden_size=None, layers=1, bidirectional=True, dropout=0, input_dropout=0, last_layer_dropout=0, bypass_network=None, connect_num_layers=1, input_size=None, **kwargs)
-
-    A multi layered RNN that supports dropout and residual / highway connections.
+    r"""A multi layered RNN that supports dropout and residual / highway connections.
 
     Args:
         unit_type (string):
@@ -352,6 +353,7 @@ class RNN(LazyModule):
         This will be wrapped within an :class:`~deepmatcher.batch.AttrTensor` (with
         metadata information unchanged). `output_size` need not be the same as
         `input_size`.
+
     """
     _supported_styles = ["rnn", "gru", "lstm"]
 
@@ -397,7 +399,7 @@ class RNN(LazyModule):
             "dropout",
             "bidirectional",
         ]
-        assert not any([a in kwargs for a in bad_args])
+        assert not any(a in kwargs for a in bad_args)
 
         self.rnn_groups = nn.ModuleList()
         self.dropouts = nn.ModuleList()
@@ -448,9 +450,7 @@ class RNN(LazyModule):
 
 
 class AlignmentNetwork(LazyModule):
-    r"""__init__(style='decomposable', hidden_size=None, transform_network='2-layer-highway', input_size=None)
-
-    Neural network to compute alignment between two vector sequences.
+    r"""Neural network to compute alignment between two vector sequences.
 
     Takes two sequences of vectors, aligns the words in them, and returns
     the corresponding alignment matrix.
@@ -512,6 +512,7 @@ class AlignmentNetwork(LazyModule):
         The output represents the alignment matrix and contains unnormalized scores.
         `output_size` need not be the same as `input_size`, but all other dimensions will
         remain unchanged.
+
     """
 
     _supported_styles = ["dot", "general", "decomposable"]
@@ -546,19 +547,19 @@ class AlignmentNetwork(LazyModule):
 
         self.style = style
 
-    def _forward(self, input, context):
+    def _forward(self, inputs, context):
         if self.style == "dot":
             return torch.bmm(
-                input, context.transpose(1, 2)  # batch x len1 x input_size
+                inputs, context.transpose(1, 2)  # batch x len1 x input_size
             )  # batch x ch x input_size
         elif self.style == "general":
             return torch.bmm(
-                input,  # batch x len1 x input_size
+                inputs,  # batch x len1 x input_size
                 self.transform(context).transpose(1, 2),
             )  # batch x input_size x len2
         elif self.style == "decomposable":
             return torch.bmm(
-                self.transform(input),  # batch x hidden_size x len2
+                self.transform(inputs),  # batch x hidden_size x len2
                 self.transform(context).transpose(1, 2),
             )  # batch x hidden_size x len2
         # elif self.style in ['concat', 'concat_dot']:
@@ -580,12 +581,13 @@ class AlignmentNetwork(LazyModule):
 
 
 class Lambda(nn.Module):
-    r"""Wrapper to convert a function to a module.
+    """Wrapper to convert a function to a module.
 
     Args:
         lambd (callable): The function to convert into a module. It must take in one or
             more Pytorch :class:`~torch.Tensor` s and return one or more
             :class:`~torch.Tensor` s.
+
     """
 
     def __init__(self, lambd):
@@ -597,9 +599,7 @@ class Lambda(nn.Module):
 
 
 class Pool(LazyModule):
-    r"""__init__(style, alpha=0.001)
-
-    Module that aggregates a given sequence of vectors to produce a single vector.
+    r"""Module that aggregates a given sequence of vectors to produce a single vector.
 
     Args:
         style (string): One of the following strings:
@@ -696,6 +696,7 @@ class Pool(LazyModule):
         This will be wrapped within an :class:`~deepmatcher.batch.AttrTensor` (with
         metadata information unchanged). `output_size` need not be the same as
         `input_size`.
+
     """
 
     _supported_styles = [
@@ -720,54 +721,54 @@ class Pool(LazyModule):
         self.register_buffer("alpha", torch.Tensor([alpha]))
 
     def _forward(self, input_with_meta):
-        input = input_with_meta.data
+        inputs = input_with_meta.data
 
         if self.style == "last":
             lengths = input_with_meta.lengths
-            lasts = Variable(lengths.view(-1, 1, 1).repeat(1, 1, input.size(2))) - 1
-            output = torch.gather(input, 1, lasts).squeeze(1).float()
+            lasts = Variable(lengths.view(-1, 1, 1).repeat(1, 1, inputs.size(2))) - 1
+            output = torch.gather(inputs, 1, lasts).squeeze(1).float()
         elif self.style == "last-simple":
-            output = input[:, input.size(1), :]
+            output = inputs[:, inputs.size(1), :]
         elif self.style == "birnn-last":
-            hsize = input.size(2) // 2
+            hsize = inputs.size(2) // 2
             lengths = input_with_meta.lengths
             lasts = Variable(lengths.view(-1, 1, 1).repeat(1, 1, hsize)) - 1
 
-            forward_outputs = input.narrow(2, 0, input.size(2) // 2)
+            forward_outputs = inputs.narrow(2, 0, inputs.size(2) // 2)
             forward_last = forward_outputs.gather(1, lasts).squeeze(1)
 
-            backward_last = input[:, 0, hsize:]
+            backward_last = inputs[:, 0, hsize:]
             output = torch.cat((forward_last, backward_last), 1)
         elif self.style == "birnn-last-simple":
-            forward_last = input[:, input.size(1), :hsize]
-            backward_last = input[:, 0, hsize:]
+            forward_last = inputs[:, inputs.size(1), :hsize]
+            backward_last = inputs[:, 0, hsize:]
             output = torch.cat((forward_last, backward_last), 1)
         elif self.style == "max":
             if input_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
-                input.data.masked_fill_(1 - mask, -float("inf"))
-            output = input.max(dim=1)[0]
+                inputs.data.masked_fill_(1 - mask, -float("inf"))
+            output = inputs.max(dim=1)[0]
         else:
             if input_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
-                input.data.masked_fill_(1 - mask, 0)
+                inputs.data.masked_fill_(1 - mask, 0)
 
             lengths = Variable(
                 input_with_meta.lengths.clamp(min=1).unsqueeze(1).float()
             )
             if self.style == "avg":
-                output = input.sum(1) / lengths
+                output = inputs.sum(1) / lengths
             elif self.style == "divsqrt":
-                output = input.sum(1) / lengths.sqrt()
+                output = inputs.sum(1) / lengths.sqrt()
             elif self.style == "inv-freq-avg":
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
-                weighted = input * Variable(inv_probs.unsqueeze(2))
+                weighted = inputs * Variable(inv_probs.unsqueeze(2))
                 output = weighted.sum(1) / lengths.sqrt()
             elif self.style == "sif":
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
-                weighted = input * Variable(inv_probs.unsqueeze(2))
+                weighted = inputs * Variable(inv_probs.unsqueeze(2))
                 v = weighted.sum(1) / lengths.sqrt()
                 pc = Variable(input_with_meta.pc).unsqueeze(0).repeat(v.shape[0], 1)
                 proj_v_on_pc = (
@@ -781,9 +782,7 @@ class Pool(LazyModule):
 
 
 class Merge(LazyModule):
-    r"""__init__(style)
-
-    Module that takes two or more vectors and merges them produce a single vector.
+    """Module that takes two or more vectors and merges them produce a single vector.
 
     Args:
         style (string): One of the following strings:
@@ -806,6 +805,7 @@ class Merge(LazyModule):
     Output: One K-d tensor of shape `(D1, D2, ..., output_size)`.
         `output_size` need not be the same as `input_size`, but all other dimensions will
         remain unchanged.
+
     """
 
     _style_map = {
@@ -832,9 +832,7 @@ class Merge(LazyModule):
 
 
 class Bypass(LazyModule):
-    r"""__init__(style)
-
-    Module that helps bypass a given transformation of an input.
+    """Module that helps bypass a given transformation of an input.
 
     Supports residual and highway styles of bypass.
 
@@ -851,6 +849,7 @@ class Bypass(LazyModule):
 
     Output: One N-d tensor of shape `(D1, D2, ..., transformed_size)`.
         Note that the shape of the output will match the shape of the first input tensor.
+
     """
 
     _supported_styles = ["residual", "highway"]
@@ -899,9 +898,7 @@ class Bypass(LazyModule):
 
 
 class Transform(LazyModule):
-    r"""__init__(style, layers=1, bypass_network=None, non_linearity='leaky_relu', hidden_size=None, output_size=None, input_size=None)
-
-    A multi layered transformation module.
+    """A multi layered transformation module.
 
     Supports various non-linearities and bypass operations.
 
@@ -969,6 +966,7 @@ class Transform(LazyModule):
     Output: An N-d tensor of shape `(D1, D2, ..., output_size)`.
         `output_size` need not be the same as `input_size`, but all other dimensions will
         remain unchanged.
+
     """
 
     _supported_nonlinearities = [
@@ -1024,8 +1022,8 @@ class Transform(LazyModule):
             self.bypass_networks.append(_bypass_module(bypass_network))
             transform_in_size = transform_out_size
 
-    def _forward(self, input):
-        output = input
+    def _forward(self, inputs):
+        output = inputs
 
         for transform, bypass in zip(self.transforms, self.bypass_networks):
             new_output = transform(output)
