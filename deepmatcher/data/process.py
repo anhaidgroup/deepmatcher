@@ -4,7 +4,6 @@ import logging
 import os
 from timeit import default_timer as timer
 
-import six
 from torchtext.utils import unicode_csv_reader
 
 from .dataset import MatchingDataset
@@ -46,8 +45,7 @@ def _check_header(
 def _make_fields(
     header, id_attr, label_attr, ignore_columns, lower, tokenize, include_lengths
 ):
-    r"""Create field metadata, i.e., attribute processing specification for each
-    attribute.
+    """Create field metadata, i.e., attribute processing specification for each attribute.
 
     This includes fields for label and ID columns.
 
@@ -55,6 +53,7 @@ def _make_fields(
         list(tuple(str, MatchingField)): A list of tuples containing column name
             (e.g. "left_address") and corresponding :class:`~data.MatchingField` pairs,
             in the same order that the columns occur in the CSV file.
+
     """
 
     text_field = MatchingField(
@@ -96,7 +95,6 @@ def process(
     train=None,
     validation=None,
     test=None,
-    unlabeled=None,
     cache="cacheddata.pth",
     check_cached_data=True,
     auto_rebuild_cache=True,
@@ -113,7 +111,7 @@ def process(
     use_magellan_convention=False,
     pca=True,
 ):
-    """Creates dataset objects for multiple splits of a dataset.
+    r"""Creates dataset objects for multiple splits of a dataset.
 
     This involves the following steps (if data cannot be retrieved from the cache):
     #. Read CSV header of a data file and verify header is sane.
@@ -142,9 +140,9 @@ def process(
             cache was constructed and that relevant field options haven't changed.
         auto_rebuild_cache (bool): Automatically rebuild the cache if the data files
             are modified or if the field options change. Defaults to False.
+        tokenize (str): Which tokenizer to use
         lowercase (bool): Whether to lowercase all words in all attributes.
         embeddings (str or list): One or more of the following strings:
-
             * `fasttext.{lang}.bin`:
                 This uses sub-word level word embeddings based on binary models from "wiki
                 word vectors" released by FastText. {lang} is 'en' or any other 2 letter
@@ -187,13 +185,8 @@ def process(
     Returns:
         Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in that
             order, if provided, or dataset for unlabeled, if provided.
-    """
-    if unlabeled is not None:
-        raise ValueError(
-            'Parameter "unlabeled" has been deprecated, use '
-            '"deepmatcher.data.process_unlabeled" instead.'
-        )
 
+    """
     if use_magellan_convention:
         id_attr = "_id"
         left_prefix = "ltable_"
@@ -255,14 +248,13 @@ def process_unlabeled(path, trained_model, ignore_columns=None):
     """Creates a dataset object for an unlabeled dataset.
 
     Args:
-        path (string):
-            The full path to the unlabeled data file (not just the directory).
-        trained_model (:class:`~deepmatcher.MatchingModel`):
-            The trained model. The model is aware of the configuration of the training
+        path (str): The full path to the unlabeled data file (not just the directory).
+        trained_model (:class:`~deepmatcher.MatchingModel`): The trained model.
+            The model is aware of the configuration of the training
             data on which it was trained, and so this method reuses the same
             configuration for the unlabeled data.
-        ignore_columns (list):
-            A list of columns to ignore in the unlabeled CSV file.
+        ignore_columns (list): A list of columns to ignore in the unlabeled CSV file.
+
     """
     with io.open(path, encoding="utf8") as f:
         header = next(unicode_csv_reader(f))
@@ -293,7 +285,7 @@ def process_unlabeled(path, trained_model, ignore_columns=None):
     after_load = timer()
     logger.info("Data load time: {}s".format(after_load - begin))
 
-    reverse_fields_dict = dict((pair[1], pair[0]) for pair in fields)
+    reverse_fields_dict = {pair[1]: pair[0] for pair in fields}
     for field, name in reverse_fields_dict.items():
         if field is not None and field.use_vocab:
             # Copy over vocab from original train data.
