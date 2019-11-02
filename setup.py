@@ -19,7 +19,7 @@ def find_version(*file_paths):
 
 
 VERSION = find_version('deepmatcher', '__init__.py')
-long_description = read('README.rst')
+long_description = read('README.md')
 
 # Deepmatcher lists "fasttextmirror" as a dependency because the official "fasttext"
 # release on PyPI is out of date and has not been updated in over a year.
