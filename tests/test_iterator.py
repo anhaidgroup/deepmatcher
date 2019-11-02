@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 from urllib.request import pathname2url
 
 from deepmatcher.data.field import FastText
-from deepmatcher.data.iterator import MatchingIterator
+from deepmatcher.data.iterator import create_matching_splits
 from deepmatcher.data.process import process
 from tests import test_dir_path
 
@@ -44,11 +44,11 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
             pca=False,
         )
 
-        splits = MatchingIterator.splits(datasets, batch_size=16)
+        splits = create_matching_splits(datasets, batch_size=16)
         self.assertEqual(splits[0].batch_size, 16)
         self.assertEqual(splits[1].batch_size, 16)
         self.assertEqual(splits[2].batch_size, 16)
-        splits_sorted = MatchingIterator.splits(
+        splits_sorted = create_matching_splits(
             datasets, batch_sizes=[16, 32, 64], sort_in_buckets=False
         )
         self.assertEqual(splits_sorted[0].batch_size, 16)
@@ -94,11 +94,11 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
             pca=False,
         )
 
-        splits = MatchingIterator.splits(datasets, batch_size=16)
+        splits = create_matching_splits(datasets, batch_size=16)
         batch_splits = [split.create_batches() for split in splits]
         assert batch_splits
 
-        sorted_splits = MatchingIterator.splits(
+        sorted_splits = create_matching_splits(
             datasets, batch_sizes=[16, 32, 64], sort_in_buckets=False
         )
         batch_sorted_splits = [
