@@ -1,7 +1,4 @@
-r"""
-The deepmatcher package contains high level modules used in the construction of deep
-learning modules for entity matching.
-"""
+"""The deepmatcher package contains high level modules used in the construction of deep learning modules for entity matching."""
 
 import logging
 import sys
@@ -66,11 +63,3 @@ __all__ = [
 ]
 
 _check_nan = True
-
-
-def disable_nan_checks():
-    _check_nan = False
-
-
-def enable_nan_checks():
-    _check_nan = True

@@ -32,6 +32,7 @@ class MatchingIterator(data.BucketIterator):
                 or None to use the same batch_size for all splits.
             Remaining keyword arguments: Passed to the constructor of the
                 iterator class being used.
+
         """
         if batch_sizes is None:
             batch_sizes = [kwargs.pop("batch_size")] * len(datasets)

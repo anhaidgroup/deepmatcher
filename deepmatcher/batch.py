@@ -72,6 +72,7 @@ class AttrTensor(AttrTensor_):
         Args:
             old_attrtensor (:class:`AttrTensor`):
                 The pre-existing :class:`AttrTensor` to copy metadata from.
+
         """
         return AttrTensor(data, *old_attrtensor[1:])
 
@@ -88,14 +89,16 @@ class MatchingBatch(object):
         category_attr = mbatch.category
     """
 
-    def __init__(self, input, train_info):
+    def __init__(self, inputs, train_info):
         copy_fields = train_info.all_text_fields
         for name in copy_fields:
             setattr(
                 self,
                 name,
-                AttrTensor(name=name, attr=getattr(input, name), train_info=train_info),
+                AttrTensor(
+                    name=name, attr=getattr(inputs, name), train_info=train_info
+                ),
             )
         for name in [train_info.label_field, train_info.id_field]:
-            if name is not None and hasattr(input, name):
-                setattr(self, name, getattr(input, name))
+            if name is not None and hasattr(inputs, name):
+                setattr(self, name, getattr(inputs, name))

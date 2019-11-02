@@ -32,11 +32,11 @@ class FastTextBinary(vocab.Vectors):
     _direct_en_url = "https://drive.google.com/uc?export=download&id=1Vih8gAmgBnuYDxfblbT94P6WjB7s1ZSh"
 
     def __init__(self, language="en", url_base=None, cache=None):
+        """The init function.
+
+        language: Language of fasttext pre-trained embedding model
+        cache: directory for cached model
         """
-        Arguments:
-           language: Language of fasttext pre-trained embedding model
-           cache: directory for cached model
-         """
         cache = os.path.expanduser(cache)
         if language == "en" and url_base is None:
             url = FastTextBinary._direct_en_url
@@ -108,9 +108,9 @@ class MatchingField(data.Field):
 
     _cached_vec_data = {}
 
-    def __init__(self, tokenize="nltk", id=False, **kwargs):
+    def __init__(self, tokenize="nltk", is_id=False, **kwargs):
         self.tokenizer_arg = tokenize
-        self.is_id = id
+        self.is_id = is_id
         tokenize = MatchingField._get_tokenizer(tokenize)
         super(MatchingField, self).__init__(tokenize=tokenize, **kwargs)
 
