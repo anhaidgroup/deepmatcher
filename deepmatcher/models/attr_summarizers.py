@@ -28,17 +28,20 @@ class SIF(dm.AttrSummarizer):
             if they are customized. By default, the SIF model does not use this parameter.
     """
 
-    def _init(self,
-              word_contextualizer=None,
-              word_comparator=None,
-              word_aggregator=None,
-              hidden_size=None):
-        word_aggregator = word_aggregator or 'sif-pool'
+    def _init(
+        self,
+        word_contextualizer=None,
+        word_comparator=None,
+        word_aggregator=None,
+        hidden_size=None,
+    ):
+        word_aggregator = word_aggregator or "sif-pool"
         super(SIF, self)._init(
             word_contextualizer=word_contextualizer,
             word_comparator=word_comparator,
             word_aggregator=word_aggregator,
-            hidden_size=hidden_size)
+            hidden_size=hidden_size,
+        )
 
 
 class RNN(dm.AttrSummarizer):
@@ -68,18 +71,21 @@ class RNN(dm.AttrSummarizer):
             and hidden_size is None, the word contextualizer's hidden size will be 300.
     """
 
-    def _init(self,
-              word_contextualizer=None,
-              word_comparator=None,
-              word_aggregator=None,
-              hidden_size=None):
-        word_contextualizer = word_contextualizer or 'gru'
-        word_aggregator = word_aggregator or 'birnn-last-pool'
+    def _init(
+        self,
+        word_contextualizer=None,
+        word_comparator=None,
+        word_aggregator=None,
+        hidden_size=None,
+    ):
+        word_contextualizer = word_contextualizer or "gru"
+        word_aggregator = word_aggregator or "birnn-last-pool"
         super(RNN, self)._init(
             word_contextualizer=word_contextualizer,
             word_comparator=word_comparator,
             word_aggregator=word_aggregator,
-            hidden_size=hidden_size)
+            hidden_size=hidden_size,
+        )
 
 
 class Attention(dm.AttrSummarizer):
@@ -109,18 +115,21 @@ class Attention(dm.AttrSummarizer):
             and hidden_size is None, the word contextualizer's hidden size will be 300.
     """
 
-    def _init(self,
-              word_contextualizer=None,
-              word_comparator=None,
-              word_aggregator=None,
-              hidden_size=None):
-        word_comparator = word_comparator or 'decomposable-attention'
-        word_aggregator = word_aggregator or 'divsqrt-pool'
+    def _init(
+        self,
+        word_contextualizer=None,
+        word_comparator=None,
+        word_aggregator=None,
+        hidden_size=None,
+    ):
+        word_comparator = word_comparator or "decomposable-attention"
+        word_aggregator = word_aggregator or "divsqrt-pool"
         super(Attention, self)._init(
             word_contextualizer=word_contextualizer,
             word_comparator=word_comparator,
             word_aggregator=word_aggregator,
-            hidden_size=hidden_size)
+            hidden_size=hidden_size,
+        )
 
 
 class Hybrid(dm.AttrSummarizer):
@@ -148,17 +157,21 @@ class Hybrid(dm.AttrSummarizer):
             if they are customized.
     """
 
-    def _init(self,
-              word_contextualizer=None,
-              word_comparator=None,
-              word_aggregator=None,
-              hidden_size=None):
-        word_contextualizer = word_contextualizer or 'gru'
+    def _init(
+        self,
+        word_contextualizer=None,
+        word_comparator=None,
+        word_aggregator=None,
+        hidden_size=None,
+    ):
+        word_contextualizer = word_contextualizer or "gru"
         word_comparator = word_comparator or dm.word_comparators.Attention(
-            alignment_network='decomposable', raw_alignment=True)
-        word_aggregator = word_aggregator or 'attention-with-rnn'
+            alignment_network="decomposable", raw_alignment=True
+        )
+        word_aggregator = word_aggregator or "attention-with-rnn"
         super(Hybrid, self)._init(
             word_contextualizer=word_contextualizer,
             word_comparator=word_comparator,
             word_aggregator=word_aggregator,
-            hidden_size=hidden_size)
+            hidden_size=hidden_size,
+        )

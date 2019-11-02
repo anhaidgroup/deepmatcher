@@ -95,44 +95,51 @@ class Attention(dm.WordComparator):
             automatically specified by :class:`LazyModule`.
     """
 
-    def _init(self,
-              heads=1,
-              hidden_size=None,
-              raw_alignment=False,
-              input_dropout=0,
-              alignment_network='decomposable',
-              scale=False,
-              score_dropout=0,
-              value_transform_network=None,
-              input_transform_network=None,
-              value_merge='concat',
-              transform_dropout=0,
-              comparison_merge='concat',
-              comparison_network='2-layer-highway',
-              input_size=None):
+    def _init(
+        self,
+        heads=1,
+        hidden_size=None,
+        raw_alignment=False,
+        input_dropout=0,
+        alignment_network="decomposable",
+        scale=False,
+        score_dropout=0,
+        value_transform_network=None,
+        input_transform_network=None,
+        value_merge="concat",
+        transform_dropout=0,
+        comparison_merge="concat",
+        comparison_network="2-layer-highway",
+        input_size=None,
+    ):
         hidden_size = hidden_size if hidden_size is not None else input_size[0]
 
         self.alignment_networks = nn.ModuleList()
         for head in range(heads):
             self.alignment_networks.append(
-                dm.modules._alignment_module(alignment_network, hidden_size))
+                dm.modules._alignment_module(alignment_network, hidden_size)
+            )
 
         if value_transform_network is None and heads > 1:
             value_transform_network = dm.modules.Transform(
-                '1-layer-highway', non_linearity=None, hidden_size=hidden_size // heads)
+                "1-layer-highway", non_linearity=None, hidden_size=hidden_size // heads
+            )
         self.value_transform_network = dm.modules._transform_module(
-            value_transform_network, hidden_size // heads)
+            value_transform_network, hidden_size // heads
+        )
 
         if input_transform_network is None:
             self.input_transform_network = self.value_transform_network
         else:
             self.input_transform_network = dm.modules._transform_module(
-                input_transform_network, hidden_size // heads)
+                input_transform_network, hidden_size // heads
+            )
 
         self.value_merge = dm.modules._merge_module(value_merge)
         self.comparison_merge = dm.modules._merge_module(comparison_merge)
-        self.comparison_network = dm.modules._transform_module(comparison_network,
-                                                               hidden_size)
+        self.comparison_network = dm.modules._transform_module(
+            comparison_network, hidden_size
+        )
 
         self.input_dropout = nn.Dropout(input_dropout)
         self.transform_dropout = nn.Dropout(transform_dropout)
@@ -143,11 +150,13 @@ class Attention(dm.WordComparator):
         self.heads = heads
         self.scale = scale
 
-    def _forward(self,
-                 input_with_meta,
-                 context_with_meta,
-                 raw_input_with_meta=None,
-                 raw_context_with_meta=None):
+    def _forward(
+        self,
+        input_with_meta,
+        context_with_meta,
+        raw_input_with_meta=None,
+        raw_context_with_meta=None,
+    ):
         input = self.input_dropout(input_with_meta.data)
         context = self.input_dropout(context_with_meta.data)
         raw_input = self.input_dropout(raw_input_with_meta.data)
@@ -164,25 +173,28 @@ class Attention(dm.WordComparator):
         values_aligned = []
         for head in range(self.heads):
             # Dims: batch x len1 x len2
-            alignment_scores = self.score_dropout(self.alignment_networks[head](queries,
-                                                                                keys))
+            alignment_scores = self.score_dropout(
+                self.alignment_networks[head](queries, keys)
+            )
             if self.scale:
                 alignment_scores = alignment_scores / torch.sqrt(hidden_size)
 
             if context_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(context_with_meta.lengths)
                 mask = mask.unsqueeze(1)  # Make it broadcastable.
-                alignment_scores.data.masked_fill_(1 - mask, -float('inf'))
+                alignment_scores.data.masked_fill_(1 - mask, -float("inf"))
 
             # Make values along dim 2 sum to 1.
             normalized_scores = self.softmax(alignment_scores)
 
             if self.input_transform_network is not None:
                 inputs_transformed.append(
-                    self.transform_dropout(self.input_transform_network(input)))
+                    self.transform_dropout(self.input_transform_network(input))
+                )
             if self.value_transform_network is not None:
                 values_transformed = self.transform_dropout(
-                    self.value_transform_network(values))
+                    self.value_transform_network(values)
+                )
             else:
                 values_transformed = values
 

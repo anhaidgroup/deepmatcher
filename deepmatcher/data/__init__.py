@@ -4,6 +4,11 @@ from .iterator import MatchingIterator
 from .process import process, process_unlabeled
 
 __all__ = [
-    'MatchingField', 'MatchingDataset', 'MatchingIterator', 'process', 'process_unlabeled', 'split',
-    'reset_vector_cache'
+    "MatchingField",
+    "MatchingDataset",
+    "MatchingIterator",
+    "process",
+    "process_unlabeled",
+    "split",
+    "reset_vector_cache",
 ]

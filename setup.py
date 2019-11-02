@@ -18,25 +18,34 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
-VERSION = find_version('deepmatcher', '__init__.py')
-long_description = read('README.md')
+VERSION = find_version("deepmatcher", "__init__.py")
+long_description = read("README.md")
 
 # Deepmatcher lists "fasttextmirror" as a dependency because the official "fasttext"
 # release on PyPI is out of date and has not been updated in over a year.
 # "fasttextmirror" is a clone of the "fasttext" repository as of June 5 2018 and is hosted
 # at https://github.com/sidharthms/fastText.
 setup(
-    name='deepmatcher',
-    description='A deep learning package for entity matching',
+    name="deepmatcher",
+    description="A deep learning package for entity matching",
     long_description=long_description,
     version=VERSION,
-    author='Sidharth Mudgal, Han Li',
-    author_email='uwmagellan@gmail.com',
-    url='http://deepmatcher.ml',
-    license='BSD',
-    packages=['deepmatcher', 'deepmatcher.data', 'deepmatcher.models'],
-    python_requires='>=3.5',
+    author="Sidharth Mudgal, Han Li",
+    author_email="uwmagellan@gmail.com",
+    url="http://deepmatcher.ml",
+    license="BSD",
+    packages=["deepmatcher", "deepmatcher.data", "deepmatcher.models"],
+    python_requires=">=3.5",
     install_requires=[
-        'torch==0.3.1', 'tqdm', 'pyprind', 'six', 'Cython', 'torchtext==0.2.3', 'nltk>=3.2.5',
-        'fasttext', 'pandas', "sklearn"
-    ])
+        "torch==0.3.1",
+        "tqdm",
+        "pyprind",
+        "six",
+        "Cython",
+        "torchtext==0.2.3",
+        "nltk>=3.2.5",
+        "fasttext",
+        "pandas",
+        "sklearn",
+    ],
+)

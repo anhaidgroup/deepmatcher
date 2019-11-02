@@ -14,37 +14,40 @@ logger = logging.getLogger(__name__)
 
 
 class FastText(vocab.Vectors):
-
-    def __init__(self,
-                 suffix='wiki-news-300d-1M.vec.zip',
-                 url_base='https://s3-us-west-1.amazonaws.com/fasttext-vectors/',
-                 **kwargs):
+    def __init__(
+        self,
+        suffix="wiki-news-300d-1M.vec.zip",
+        url_base="https://s3-us-west-1.amazonaws.com/fasttext-vectors/",
+        **kwargs
+    ):
         url = url_base + suffix
         base, ext = os.path.splitext(suffix)
-        name = suffix if ext == '.vec' else base
+        name = suffix if ext == ".vec" else base
         super(FastText, self).__init__(name, url=url, **kwargs)
 
 
 class FastTextBinary(vocab.Vectors):
 
-    name_base = 'wiki.{}.bin'
-    _direct_en_url = 'https://drive.google.com/uc?export=download&id=1Vih8gAmgBnuYDxfblbT94P6WjB7s1ZSh'
+    name_base = "wiki.{}.bin"
+    _direct_en_url = "https://drive.google.com/uc?export=download&id=1Vih8gAmgBnuYDxfblbT94P6WjB7s1ZSh"
 
-    def __init__(self, language='en', url_base=None, cache=None):
+    def __init__(self, language="en", url_base=None, cache=None):
         """
         Arguments:
            language: Language of fasttext pre-trained embedding model
            cache: directory for cached model
          """
         cache = os.path.expanduser(cache)
-        if language == 'en' and url_base is None:
+        if language == "en" and url_base is None:
             url = FastTextBinary._direct_en_url
-            self.destination = os.path.join(cache, 'wiki.' + language + '.bin')
+            self.destination = os.path.join(cache, "wiki." + language + ".bin")
         else:
             if url_base is None:
-                url_base = 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki.{}.zip'
+                url_base = (
+                    "https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki.{}.zip"
+                )
             url = url_base.format(language)
-            self.destination = os.path.join(cache, 'wiki.' + language + '.zip')
+            self.destination = os.path.join(cache, "wiki." + language + ".zip")
         name = FastTextBinary.name_base.format(language)
 
         self.cache(name, cache, url=url)
@@ -55,28 +58,27 @@ class FastTextBinary(vocab.Vectors):
     def cache(self, name, cache, url=None):
         path = os.path.join(cache, name)
         if not os.path.isfile(path) and url:
-            logger.info('Downloading vectors from {}'.format(url))
+            logger.info("Downloading vectors from {}".format(url))
             if not os.path.exists(cache):
                 os.makedirs(cache)
             if not os.path.isfile(self.destination):
                 download_from_url(url, self.destination)
-            logger.info('Extracting vectors into {}'.format(cache))
+            logger.info("Extracting vectors into {}".format(cache))
             ext = os.path.splitext(self.destination)[1][1:]
-            if ext == 'zip':
+            if ext == "zip":
                 with zipfile.ZipFile(self.destination, "r") as zf:
                     zf.extractall(cache)
-            elif ext == 'gz':
-                with tarfile.open(self.destination, 'r:gz') as tar:
+            elif ext == "gz":
+                with tarfile.open(self.destination, "r:gz") as tar:
                     tar.extractall(path=cache)
         if not os.path.isfile(path):
-            raise RuntimeError('no vectors found at {}'.format(path))
+            raise RuntimeError("no vectors found at {}".format(path))
 
         self.model = fasttext.load_model(path)
-        self.dim = len(self['a'])
+        self.dim = len(self["a"])
 
 
 class MatchingVocab(vocab.Vocab):
-
     def extend_vectors(self, tokens, vectors):
         tot_dim = sum(v.dim for v in vectors)
         prev_len = len(self.itos)
@@ -98,7 +100,7 @@ class MatchingVocab(vocab.Vocab):
                 end_dim = start_dim + v.dim
                 self.vectors[i][start_dim:end_dim] = v[token.strip()]
                 start_dim = end_dim
-            assert (start_dim == tot_dim)
+            assert start_dim == tot_dim
 
 
 class MatchingField(data.Field):
@@ -106,7 +108,7 @@ class MatchingField(data.Field):
 
     _cached_vec_data = {}
 
-    def __init__(self, tokenize='nltk', id=False, **kwargs):
+    def __init__(self, tokenize="nltk", id=False, **kwargs):
         self.tokenizer_arg = tokenize
         self.is_id = id
         tokenize = MatchingField._get_tokenizer(tokenize)
@@ -114,14 +116,19 @@ class MatchingField(data.Field):
 
     @staticmethod
     def _get_tokenizer(tokenizer):
-        if tokenizer == 'nltk':
+        if tokenizer == "nltk":
             return nltk.word_tokenize
         return tokenizer
 
     def preprocess_args(self):
         attrs = [
-            'sequential', 'init_token', 'eos_token', 'unk_token', 'preprocessing',
-            'lower', 'tokenizer_arg'
+            "sequential",
+            "init_token",
+            "eos_token",
+            "unk_token",
+            "preprocessing",
+            "lower",
+            "tokenizer_arg",
         ]
         args_dict = {attr: getattr(self, attr) for attr in attrs}
         for param, arg in list(six.iteritems(args_dict)):
@@ -140,16 +147,18 @@ class MatchingField(data.Field):
                 vec_name = vec
                 vec_data = cls._cached_vec_data.get(vec_name)
                 if vec_data is None:
-                    parts = vec_name.split('.')
-                    if parts[0] == 'fasttext':
-                        if parts[2] == 'bin':
+                    parts = vec_name.split(".")
+                    if parts[0] == "fasttext":
+                        if parts[2] == "bin":
                             vec_data = FastTextBinary(language=parts[1], cache=cache)
-                        elif parts[2] == 'vec' and parts[1] == 'wiki':
+                        elif parts[2] == "vec" and parts[1] == "wiki":
                             vec_data = FastText(
-                                suffix='wiki-news-300d-1M.vec.zip', cache=cache)
-                        elif parts[2] == 'vec' and parts[1] == 'crawl':
+                                suffix="wiki-news-300d-1M.vec.zip", cache=cache
+                            )
+                        elif parts[2] == "vec" and parts[1] == "crawl":
                             vec_data = FastText(
-                                suffix='crawl-300d-2M.vec.zip', cache=cache)
+                                suffix="crawl-300d-2M.vec.zip", cache=cache
+                            )
                 if vec_data is None:
                     vec_data = vocab.pretrained_aliases[vec_name](cache=cache)
                 cls._cached_vec_data[vec_name] = vec_data

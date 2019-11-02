@@ -1,5 +1,6 @@
 # DeepMatcher
 
+[![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 [![image](https://travis-ci.org/anhaidgroup/deepmatcher.svg?branch=master)](https://travis-ci.org/anhaidgroup/deepmatcher)
 [![image](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 

@@ -16,6 +16,7 @@ class Pool(dm.modules.Pool, dm.WordAggregator):
 
     Takes the same parameters as the :class:`~deepmatcher.modules.Pool` module.
     """
+
     pass
 
 
@@ -72,31 +73,35 @@ class AttentionWithRNN(dm.WordAggregator):
             automatically specified by :class:`LazyModule`.
     """
 
-    def _init(self,
-              hidden_size=None,
-              input_dropout=0,
-              rnn='gru',
-              rnn_pool_style='birnn-last',
-              score_dropout=0,
-              input_context_comparison_network='1-layer-highway',
-              value_transform_network=None,
-              transform_dropout=0,
-              input_size=None):
+    def _init(
+        self,
+        hidden_size=None,
+        input_dropout=0,
+        rnn="gru",
+        rnn_pool_style="birnn-last",
+        score_dropout=0,
+        input_context_comparison_network="1-layer-highway",
+        value_transform_network=None,
+        transform_dropout=0,
+        input_size=None,
+    ):
 
         # self.alignment_network = dm.modules._alignment_module(
         #     alignment_network, hidden_size=hidden_size)
 
         assert rnn is not None
         self.rnn = _utils.get_module(dm.modules.RNN, rnn, hidden_size=hidden_size)
-        self.rnn.expect_signature('[AxBxC] -> [AxBx{D}]'.format(D=hidden_size))
+        self.rnn.expect_signature("[AxBxC] -> [AxBx{D}]".format(D=hidden_size))
 
         self.rnn_pool = dm.modules.Pool(rnn_pool_style)
 
         self.input_context_comparison_network = dm.modules._transform_module(
-            input_context_comparison_network, hidden_size=hidden_size)
-        self.scoring_network = dm.modules._transform_module('1-layer', hidden_size=1)
+            input_context_comparison_network, hidden_size=hidden_size
+        )
+        self.scoring_network = dm.modules._transform_module("1-layer", hidden_size=1)
         self.value_transform_network = dm.modules._transform_module(
-            value_transform_network, hidden_size=hidden_size)
+            value_transform_network, hidden_size=hidden_size
+        )
 
         self.input_dropout = nn.Dropout(input_dropout)
         self.transform_dropout = nn.Dropout(transform_dropout)
@@ -118,7 +123,8 @@ class AttentionWithRNN(dm.WordAggregator):
         context = self.input_dropout(context_with_meta.data)
 
         context_rnn_output = self.rnn(
-            AttrTensor.from_old_metadata(context, context_with_meta))
+            AttrTensor.from_old_metadata(context, context_with_meta)
+        )
 
         # Dims: batch x 1 x hidden_size
         context_pool_output = self.rnn_pool(context_rnn_output).data.unsqueeze(1)
@@ -131,13 +137,14 @@ class AttentionWithRNN(dm.WordAggregator):
 
         # Dims: batch x len1
         raw_scores = self.scoring_network(
-            self.input_context_comparison_network(concatenated)).squeeze(2)
+            self.input_context_comparison_network(concatenated)
+        ).squeeze(2)
 
         alignment_scores = self.score_dropout(raw_scores)
 
         if input_with_meta.lengths is not None:
             mask = _utils.sequence_mask(input_with_meta.lengths)
-            alignment_scores.data.masked_fill_(1 - mask, -float('inf'))
+            alignment_scores.data.masked_fill_(1 - mask, -float("inf"))
 
         # Make values along dim 2 sum to 1.
         normalized_scores = self.softmax(alignment_scores)

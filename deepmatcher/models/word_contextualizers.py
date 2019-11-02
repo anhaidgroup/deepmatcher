@@ -15,6 +15,7 @@ class RNN(dm.modules.RNN, dm.WordContextualizer):
     Supports dropout and residual / highway connections. Takes the same parameters as the
     :class:`~deepmatcher.modules.RNN` module.
     """
+
     pass
 
 
@@ -93,32 +94,37 @@ class SelfAttention(dm.WordContextualizer):
             automatically specified by :class:`LazyModule`.
     """
 
-    def _init(self,
-              heads=1,
-              hidden_size=None,
-              input_dropout=0,
-              alignment_network='decomposable',
-              scale=False,
-              score_dropout=0,
-              value_transform_network=None,
-              value_merge='concat',
-              transform_dropout=0,
-              output_transform_network=None,
-              output_dropout=0,
-              bypass_network='highway',
-              input_size=None):
+    def _init(
+        self,
+        heads=1,
+        hidden_size=None,
+        input_dropout=0,
+        alignment_network="decomposable",
+        scale=False,
+        score_dropout=0,
+        value_transform_network=None,
+        value_merge="concat",
+        transform_dropout=0,
+        output_transform_network=None,
+        output_dropout=0,
+        bypass_network="highway",
+        input_size=None,
+    ):
         hidden_size = hidden_size if hidden_size is not None else input_size
 
         self.alignment_networks = nn.ModuleList()
         for head in range(heads):
             self.alignment_networks.append(
-                dm.modules._alignment_module(alignment_network, hidden_size))
+                dm.modules._alignment_module(alignment_network, hidden_size)
+            )
 
         if value_transform_network is None and heads > 1:
             value_transform_network = dm.modules.Transform(
-                '1-layer-highway', non_linearity=None, hidden_size=hidden_size // heads)
+                "1-layer-highway", non_linearity=None, hidden_size=hidden_size // heads
+            )
         self.value_transform_network = dm.modules._transform_module(
-            value_transform_network, hidden_size // heads)
+            value_transform_network, hidden_size // heads
+        )
 
         self.value_merge = dm.modules._merge_module(value_merge)
 
@@ -126,9 +132,11 @@ class SelfAttention(dm.WordContextualizer):
 
         if output_transform_network is None and heads > 1:
             output_transform_network = dm.modules.Transform(
-                '1-layer-highway', non_linearity=None, hidden_size=hidden_size)
+                "1-layer-highway", non_linearity=None, hidden_size=hidden_size
+            )
         self.output_transform_network = dm.modules._transform_module(
-            output_transform_network, hidden_size)
+            output_transform_network, hidden_size
+        )
 
         self.input_dropout = nn.Dropout(input_dropout)
         self.transform_dropout = nn.Dropout(transform_dropout)
@@ -147,8 +155,9 @@ class SelfAttention(dm.WordContextualizer):
         values_aligned = []
         for head in range(self.heads):
             # Dims: batch x len1 x len2
-            alignment_scores = self.score_dropout(self.alignment_networks[head](input,
-                                                                                input))
+            alignment_scores = self.score_dropout(
+                self.alignment_networks[head](input, input)
+            )
 
             if self.scale:
                 alignment_scores = alignment_scores / torch.sqrt(self.hidden_size)
@@ -156,13 +165,14 @@ class SelfAttention(dm.WordContextualizer):
             if input_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(1)  # Make it broadcastable.
-                alignment_scores.data.masked_fill_(1 - mask, -float('inf'))
+                alignment_scores.data.masked_fill_(1 - mask, -float("inf"))
 
             normalized_scores = self.softmax(alignment_scores)
 
             if self.value_transform_network is not None:
                 values_transformed = self.transform_dropout(
-                    self.value_transform_network(input))
+                    self.value_transform_network(input)
+                )
             else:
                 values_transformed = input
 

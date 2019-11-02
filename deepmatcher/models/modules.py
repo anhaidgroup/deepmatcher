@@ -15,7 +15,7 @@ import deepmatcher as dm
 from ..batch import AttrTensor
 from . import _utils
 
-logger = logging.getLogger('deepmatcher.modules')
+logger = logging.getLogger("deepmatcher.modules")
 
 
 @six.add_metaclass(abc.ABCMeta)
@@ -103,9 +103,10 @@ class LazyModule(nn.Module):
                 self._init(
                     *self._init_args,
                     input_size=self._get_input_size(input, *args, **kwargs),
-                    **self._init_kwargs)
+                    **self._init_kwargs
+                )
             except TypeError as e:
-                logger.debug('Got exception when passing input size: ' + str(e))
+                logger.debug("Got exception when passing input size: " + str(e))
                 self._init(*self._init_args, **self._init_kwargs)
             for fn in self._fns:
                 super(LazyModule, self)._apply(fn)
@@ -194,14 +195,16 @@ class NoMeta(nn.Module):
 
             if len(results) != len(args) and len(results) != 1 and len(args) != 1:
                 raise ValueError(
-                    'Number of inputs must equal number of outputs, or '
-                    'number of inputs must be 1 or number of outputs must be 1.')
+                    "Number of inputs must equal number of outputs, or "
+                    "number of inputs must be 1 or number of outputs must be 1."
+                )
 
             results_with_meta = []
             for i in range(len(results)):
                 arg_i = min(i, len(args) - 1)
                 results_with_meta.append(
-                    AttrTensor.from_old_metadata(results[i], args[arg_i]))
+                    AttrTensor.from_old_metadata(results[i], args[arg_i])
+                )
 
             if len(results_with_meta) == 1:
                 return results_with_meta[0]
@@ -350,26 +353,30 @@ class RNN(LazyModule):
         metadata information unchanged). `output_size` need not be the same as
         `input_size`.
     """
-    _supported_styles = ['rnn', 'gru', 'lstm']
+    _supported_styles = ["rnn", "gru", "lstm"]
 
     @classmethod
     def supports_style(cls, style):
         return style.lower() in cls._supported_styles
 
-    def _init(self,
-              unit_type='gru',
-              hidden_size=None,
-              layers=1,
-              bidirectional=True,
-              dropout=0,
-              input_dropout=0,
-              last_layer_dropout=0,
-              bypass_network=None,
-              connect_num_layers=1,
-              input_size=None,
-              **kwargs):
+    def _init(
+        self,
+        unit_type="gru",
+        hidden_size=None,
+        layers=1,
+        bidirectional=True,
+        dropout=0,
+        input_dropout=0,
+        last_layer_dropout=0,
+        bypass_network=None,
+        connect_num_layers=1,
+        input_size=None,
+        **kwargs
+    ):
         hidden_size = input_size if hidden_size is None else hidden_size
-        last_layer_dropout = dropout if last_layer_dropout is None else last_layer_dropout
+        last_layer_dropout = (
+            dropout if last_layer_dropout is None else last_layer_dropout
+        )
 
         if bidirectional:
             hidden_size //= 2
@@ -383,8 +390,12 @@ class RNN(LazyModule):
             layers_per_group = layers
 
         bad_args = [
-            'input_size', 'input_size', 'num_layers', 'batch_first', 'dropout',
-            'bidirectional'
+            "input_size",
+            "input_size",
+            "num_layers",
+            "batch_first",
+            "dropout",
+            "bidirectional",
         ]
         assert not any([a in kwargs for a in bad_args])
 
@@ -404,7 +415,9 @@ class RNN(LazyModule):
                     batch_first=True,
                     dropout=dropout,
                     bidirectional=bidirectional,
-                    **kwargs))
+                    **kwargs
+                )
+            )
 
             if g != rnn_groups:
                 self.dropouts.append(nn.Dropout(dropout))
@@ -420,8 +433,9 @@ class RNN(LazyModule):
     def _forward(self, input_with_meta):
         output = self.input_dropout(input_with_meta.data)
 
-        for rnn, dropout, bypass in zip(self.rnn_groups, self.dropouts,
-                                        self.bypass_networks):
+        for rnn, dropout, bypass in zip(
+            self.rnn_groups, self.dropouts, self.bypass_networks
+        ):
             new_output = dropout(rnn(output)[0])
             if bypass:
                 new_output = bypass(new_output, output)
@@ -500,19 +514,21 @@ class AlignmentNetwork(LazyModule):
         remain unchanged.
     """
 
-    _supported_styles = ['dot', 'general', 'decomposable']
+    _supported_styles = ["dot", "general", "decomposable"]
 
     @classmethod
     def supports_style(cls, style):
         return style.lower() in cls._supported_styles
 
-    def _init(self,
-              style='decomposable',
-              hidden_size=None,
-              transform_network='2-layer-highway',
-              input_size=None):
-        if style in ['general', 'decomposable']:
-            if style == 'general':
+    def _init(
+        self,
+        style="decomposable",
+        hidden_size=None,
+        transform_network="2-layer-highway",
+        input_size=None,
+    ):
+        if style in ["general", "decomposable"]:
+            if style == "general":
                 assert hidden_size is None or hidden_size == input_size
             self.transform = _transform_module(transform_network, hidden_size)
         # elif style in ['concat', 'concat_dot']:
@@ -525,24 +541,26 @@ class AlignmentNetwork(LazyModule):
         #     if style == 'concat_dot':
         #         self.output_transform = Transform(
         #             '1-layer', non_linearity=None, output_size=1)
-        elif style != 'dot':
-            raise ValueError('Unknown AlignmentNetwork style')
+        elif style != "dot":
+            raise ValueError("Unknown AlignmentNetwork style")
 
         self.style = style
 
     def _forward(self, input, context):
-        if self.style == 'dot':
+        if self.style == "dot":
+            return torch.bmm(
+                input, context.transpose(1, 2)  # batch x len1 x input_size
+            )  # batch x ch x input_size
+        elif self.style == "general":
             return torch.bmm(
                 input,  # batch x len1 x input_size
-                context.transpose(1, 2))  # batch x ch x input_size
-        elif self.style == 'general':
-            return torch.bmm(
-                input,  # batch x len1 x input_size
-                self.transform(context).transpose(1, 2))  # batch x input_size x len2
-        elif self.style == 'decomposable':
+                self.transform(context).transpose(1, 2),
+            )  # batch x input_size x len2
+        elif self.style == "decomposable":
             return torch.bmm(
                 self.transform(input),  # batch x hidden_size x len2
-                self.transform(context).transpose(1, 2))  # batch x hidden_size x len2
+                self.transform(context).transpose(1, 2),
+            )  # batch x hidden_size x len2
         # elif self.style in ['concat', 'concat_dot']:
         #     # batch x len1 x 1 x output_size
         #     input_transformed = self.input_transform(input).unsqueeze(2)
@@ -681,8 +699,15 @@ class Pool(LazyModule):
     """
 
     _supported_styles = [
-        'avg', 'divsqrt', 'inv-freq-avg', 'sif', 'max', 'last', 'last-simple',
-        'birnn-last', 'birnn-last-simple'
+        "avg",
+        "divsqrt",
+        "inv-freq-avg",
+        "sif",
+        "max",
+        "last",
+        "last-simple",
+        "birnn-last",
+        "birnn-last-simple",
     ]
 
     @classmethod
@@ -692,18 +717,18 @@ class Pool(LazyModule):
     def _init(self, style, alpha=0.001):
         assert self.supports_style(style)
         self.style = style.lower()
-        self.register_buffer('alpha', torch.Tensor([alpha]))
+        self.register_buffer("alpha", torch.Tensor([alpha]))
 
     def _forward(self, input_with_meta):
         input = input_with_meta.data
 
-        if self.style == 'last':
+        if self.style == "last":
             lengths = input_with_meta.lengths
             lasts = Variable(lengths.view(-1, 1, 1).repeat(1, 1, input.size(2))) - 1
             output = torch.gather(input, 1, lasts).squeeze(1).float()
-        elif self.style == 'last-simple':
+        elif self.style == "last-simple":
             output = input[:, input.size(1), :]
-        elif self.style == 'birnn-last':
+        elif self.style == "birnn-last":
             hsize = input.size(2) // 2
             lengths = input_with_meta.lengths
             lasts = Variable(lengths.view(-1, 1, 1).repeat(1, 1, hsize)) - 1
@@ -713,15 +738,15 @@ class Pool(LazyModule):
 
             backward_last = input[:, 0, hsize:]
             output = torch.cat((forward_last, backward_last), 1)
-        elif self.style == 'birnn-last-simple':
+        elif self.style == "birnn-last-simple":
             forward_last = input[:, input.size(1), :hsize]
             backward_last = input[:, 0, hsize:]
             output = torch.cat((forward_last, backward_last), 1)
-        elif self.style == 'max':
+        elif self.style == "max":
             if input_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
-                input.data.masked_fill_(1 - mask, -float('inf'))
+                input.data.masked_fill_(1 - mask, -float("inf"))
             output = input.max(dim=1)[0]
         else:
             if input_with_meta.lengths is not None:
@@ -729,24 +754,28 @@ class Pool(LazyModule):
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
                 input.data.masked_fill_(1 - mask, 0)
 
-            lengths = Variable(input_with_meta.lengths.clamp(min=1).unsqueeze(1).float())
-            if self.style == 'avg':
+            lengths = Variable(
+                input_with_meta.lengths.clamp(min=1).unsqueeze(1).float()
+            )
+            if self.style == "avg":
                 output = input.sum(1) / lengths
-            elif self.style == 'divsqrt':
+            elif self.style == "divsqrt":
                 output = input.sum(1) / lengths.sqrt()
-            elif self.style == 'inv-freq-avg':
+            elif self.style == "inv-freq-avg":
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
                 weighted = input * Variable(inv_probs.unsqueeze(2))
                 output = weighted.sum(1) / lengths.sqrt()
-            elif self.style == 'sif':
+            elif self.style == "sif":
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
                 weighted = input * Variable(inv_probs.unsqueeze(2))
-                v = (weighted.sum(1) / lengths.sqrt())
+                v = weighted.sum(1) / lengths.sqrt()
                 pc = Variable(input_with_meta.pc).unsqueeze(0).repeat(v.shape[0], 1)
-                proj_v_on_pc = torch.bmm(v.unsqueeze(1), pc.unsqueeze(2)).squeeze(2) * pc
+                proj_v_on_pc = (
+                    torch.bmm(v.unsqueeze(1), pc.unsqueeze(2)).squeeze(2) * pc
+                )
                 output = v - proj_v_on_pc
             else:
-                raise NotImplementedError(self.style + ' is not implemented.')
+                raise NotImplementedError(self.style + " is not implemented.")
 
         return AttrTensor.from_old_metadata(output, input_with_meta)
 
@@ -780,12 +809,14 @@ class Merge(LazyModule):
     """
 
     _style_map = {
-        'concat': lambda *args: torch.cat(args, args[0].dim() - 1),
-        'diff': lambda x, y: x - y,
-        'abs-diff': lambda x, y: torch.abs(x - y),
-        'concat-diff': lambda x, y: torch.cat((x, y, x - y), x.dim() - 1),
-        'concat-abs-diff': lambda x, y: torch.cat((x, y, torch.abs(x - y)), x.dim() - 1),
-        'mul': lambda x, y: torch.mul(x, y)
+        "concat": lambda *args: torch.cat(args, args[0].dim() - 1),
+        "diff": lambda x, y: x - y,
+        "abs-diff": lambda x, y: torch.abs(x - y),
+        "concat-diff": lambda x, y: torch.cat((x, y, x - y), x.dim() - 1),
+        "concat-abs-diff": lambda x, y: torch.cat(
+            (x, y, torch.abs(x - y)), x.dim() - 1
+        ),
+        "mul": lambda x, y: torch.mul(x, y),
     }
 
     @classmethod
@@ -822,7 +853,7 @@ class Bypass(LazyModule):
         Note that the shape of the output will match the shape of the first input tensor.
     """
 
-    _supported_styles = ['residual', 'highway']
+    _supported_styles = ["residual", "highway"]
 
     @classmethod
     def supports_style(cls, style):
@@ -848,18 +879,20 @@ class Bypass(LazyModule):
             else:
                 padded = raw
             adjusted_raw = padded.view(*raw.shape[:-1], -1, tsize).sum(-2) * math.sqrt(
-                tsize / rsize)
+                tsize / rsize
+            )
         elif tsize > rsize:
             multiples = math.ceil(tsize / rsize)
             adjusted_raw = raw.repeat(*([1] * (raw.dim() - 1)), multiples).narrow(
-                -1, 0, tsize)
+                -1, 0, tsize
+            )
 
-        if self.style == 'residual':
+        if self.style == "residual":
             res = transformed + adjusted_raw
             if self.residual_scale:
                 res *= math.sqrt(0.5)
             return res
-        elif self.style == 'highway':
+        elif self.style == "highway":
             transform_gate = F.sigmoid(self.highway_gate(raw) + self.highway_bias)
             carry_gate = 1 - transform_gate
             return transform_gate * transformed + carry_gate * adjusted_raw
@@ -939,28 +972,36 @@ class Transform(LazyModule):
     """
 
     _supported_nonlinearities = [
-        'sigmoid', 'tanh', 'relu', 'elu', 'selu', 'glu', 'leaky_relu'
+        "sigmoid",
+        "tanh",
+        "relu",
+        "elu",
+        "selu",
+        "glu",
+        "leaky_relu",
     ]
 
     @classmethod
     def supports_nonlinearity(cls, nonlin):
         return nonlin.lower() in cls._supported_nonlinearities
 
-    def _init(self,
-              style,
-              layers=1,
-              bypass_network=None,
-              non_linearity='leaky_relu',
-              hidden_size=None,
-              output_size=None,
-              input_size=None):
+    def _init(
+        self,
+        style,
+        layers=1,
+        bypass_network=None,
+        non_linearity="leaky_relu",
+        hidden_size=None,
+        output_size=None,
+        input_size=None,
+    ):
         hidden_size = hidden_size or input_size
         output_size = output_size or hidden_size
 
-        parts = style.split('-')
+        parts = style.split("-")
 
-        if 'layer' in parts:
-            layers = int(parts[parts.index('layer') - 1])
+        if "layer" in parts:
+            layers = int(parts[parts.index("layer") - 1])
 
         for part in parts:
             if Bypass.supports_style(part):
@@ -971,7 +1012,7 @@ class Transform(LazyModule):
         self.transforms = nn.ModuleList()
         self.bypass_networks = nn.ModuleList()
 
-        assert (non_linearity is None or self.supports_nonlinearity(non_linearity))
+        assert non_linearity is None or self.supports_nonlinearity(non_linearity)
         self.non_linearity = non_linearity.lower() if non_linearity else None
 
         transform_in_size = input_size
@@ -1000,29 +1041,31 @@ class Transform(LazyModule):
 def _merge_module(op):
     module = _utils.get_module(Merge, op)
     if module:
-        module.expect_signature('[AxB, AxB] -> [AxC]')
+        module.expect_signature("[AxB, AxB] -> [AxC]")
     return module
 
 
 def _bypass_module(op):
     module = _utils.get_module(Bypass, op)
     if module:
-        module.expect_signature('[AxB, AxC] -> [AxB]')
+        module.expect_signature("[AxB, AxC] -> [AxB]")
     return module
 
 
 def _transform_module(op, hidden_size, output_size=None):
     output_size = output_size or hidden_size
     module = _utils.get_module(
-        Transform, op, hidden_size=hidden_size, output_size=output_size)
+        Transform, op, hidden_size=hidden_size, output_size=output_size
+    )
     if module:
-        module.expect_signature('[AxB] -> [AxC]')
-        module.expect_signature('[AxBxC] -> [AxBxD]')
+        module.expect_signature("[AxB] -> [AxC]")
+        module.expect_signature("[AxBxC] -> [AxBxD]")
     return module
 
 
 def _alignment_module(op, hidden_size):
     module = _utils.get_module(
-        AlignmentNetwork, op, hidden_size=hidden_size, required=True)
-    module.expect_signature('[AxBxC, AxDxC] -> [AxBxD]')
+        AlignmentNetwork, op, hidden_size=hidden_size, required=True
+    )
+    module.expect_signature("[AxBxC, AxDxC] -> [AxBxD]")
     return module

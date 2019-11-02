@@ -9,3 +9,4 @@ test:
 install:
 	pip install -r requirements/ci.txt
 	pip install -e .
+	pre-commit install

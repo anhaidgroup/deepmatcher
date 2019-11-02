@@ -13,7 +13,9 @@ from .field import MatchingField
 logger = logging.getLogger(__name__)
 
 
-def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns):
+def _check_header(
+    header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns
+):
     r"""Verify CSV file header.
 
     Checks that:
@@ -30,17 +32,20 @@ def _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore
     for attr in header:
         if attr not in (id_attr, label_attr) and attr not in ignore_columns:
             if not attr.startswith(left_prefix) and not attr.startswith(right_prefix):
-                raise ValueError('Attribute ' + attr + ' is not a left or a right table '
-                                 'column, not a label or id and is not ignored. Not sure '
-                                 'what it is...')
+                raise ValueError(
+                    "Attribute " + attr + " is not a left or a right table "
+                    "column, not a label or id and is not ignored. Not sure "
+                    "what it is..."
+                )
 
     num_left = sum(attr.startswith(left_prefix) for attr in header)
     num_right = sum(attr.startswith(right_prefix) for attr in header)
     assert num_left == num_right
 
 
-def _make_fields(header, id_attr, label_attr, ignore_columns, lower, tokenize,
-                 include_lengths):
+def _make_fields(
+    header, id_attr, label_attr, ignore_columns, lower, tokenize, include_lengths
+):
     r"""Create field metadata, i.e., attribute processing specification for each
     attribute.
 
@@ -55,12 +60,14 @@ def _make_fields(header, id_attr, label_attr, ignore_columns, lower, tokenize,
     text_field = MatchingField(
         lower=lower,
         tokenize=tokenize,
-        init_token='<<<',
-        eos_token='>>>',
+        init_token="<<<",
+        eos_token=">>>",
         batch_first=True,
-        include_lengths=include_lengths)
+        include_lengths=include_lengths,
+    )
     numeric_field = MatchingField(
-        sequential=False, preprocessing=lambda x: int(x), use_vocab=False)
+        sequential=False, preprocessing=lambda x: int(x), use_vocab=False
+    )
     id_field = MatchingField(sequential=False, use_vocab=False, id=True)
 
     fields = []
@@ -78,31 +85,34 @@ def _make_fields(header, id_attr, label_attr, ignore_columns, lower, tokenize,
 
 def _maybe_download_nltk_data():
     import nltk
-    nltk.download('perluniprops', quiet=True)
-    nltk.download('nonbreaking_prefixes', quiet=True)
-    nltk.download('punkt', quiet=True)
+
+    nltk.download("perluniprops", quiet=True)
+    nltk.download("nonbreaking_prefixes", quiet=True)
+    nltk.download("punkt", quiet=True)
 
 
-def process(path,
-            train=None,
-            validation=None,
-            test=None,
-            unlabeled=None,
-            cache='cacheddata.pth',
-            check_cached_data=True,
-            auto_rebuild_cache=True,
-            tokenize='nltk',
-            lowercase=True,
-            embeddings='fasttext.en.bin',
-            embeddings_cache_path='~/.vector_cache',
-            ignore_columns=(),
-            include_lengths=True,
-            id_attr='id',
-            label_attr='label',
-            left_prefix='left_',
-            right_prefix='right_',
-            use_magellan_convention=False,
-            pca=True):
+def process(
+    path,
+    train=None,
+    validation=None,
+    test=None,
+    unlabeled=None,
+    cache="cacheddata.pth",
+    check_cached_data=True,
+    auto_rebuild_cache=True,
+    tokenize="nltk",
+    lowercase=True,
+    embeddings="fasttext.en.bin",
+    embeddings_cache_path="~/.vector_cache",
+    ignore_columns=(),
+    include_lengths=True,
+    id_attr="id",
+    label_attr="label",
+    left_prefix="left_",
+    right_prefix="right_",
+    use_magellan_convention=False,
+    pca=True,
+):
     """Creates dataset objects for multiple splits of a dataset.
 
     This involves the following steps (if data cannot be retrieved from the cache):
@@ -179,29 +189,42 @@ def process(path,
             order, if provided, or dataset for unlabeled, if provided.
     """
     if unlabeled is not None:
-        raise ValueError('Parameter "unlabeled" has been deprecated, use '
-                         '"deepmatcher.data.process_unlabeled" instead.')
+        raise ValueError(
+            'Parameter "unlabeled" has been deprecated, use '
+            '"deepmatcher.data.process_unlabeled" instead.'
+        )
 
     if use_magellan_convention:
-        id_attr = '_id'
-        left_prefix = 'ltable_'
-        right_prefix = 'rtable_'
+        id_attr = "_id"
+        left_prefix = "ltable_"
+        right_prefix = "rtable_"
 
     # TODO(Sid): check for all datasets to make sure the files exist and have the same schema
     a_dataset = train or validation or test
-    with io.open(os.path.expanduser(os.path.join(path, a_dataset)), encoding="utf8") as f:
+    with io.open(
+        os.path.expanduser(os.path.join(path, a_dataset)), encoding="utf8"
+    ) as f:
         header = next(unicode_csv_reader(f))
 
     _maybe_download_nltk_data()
-    _check_header(header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns)
-    fields = _make_fields(header, id_attr, label_attr, ignore_columns, lowercase,
-                          tokenize, include_lengths)
+    _check_header(
+        header, id_attr, left_prefix, right_prefix, label_attr, ignore_columns
+    )
+    fields = _make_fields(
+        header,
+        id_attr,
+        label_attr,
+        ignore_columns,
+        lowercase,
+        tokenize,
+        include_lengths,
+    )
 
     column_naming = {
-        'id': id_attr,
-        'left': left_prefix,
-        'right': right_prefix,
-        'label': label_attr
+        "id": id_attr,
+        "left": left_prefix,
+        "right": right_prefix,
+        "label": label_attr,
     }
 
     datasets = MatchingDataset.splits(
@@ -216,7 +239,8 @@ def process(path,
         cache,
         check_cached_data,
         auto_rebuild_cache,
-        train_pca=pca)
+        train_pca=pca,
+    )
 
     # Save additional information to train dataset.
     datasets[0].ignore_columns = ignore_columns
@@ -247,21 +271,27 @@ def process_unlabeled(path, trained_model, ignore_columns=None):
     if ignore_columns is None:
         ignore_columns = train_info.ignore_columns
     column_naming = dict(train_info.column_naming)
-    column_naming['label'] = None
+    column_naming["label"] = None
 
-    fields = _make_fields(header, column_naming['id'], column_naming['label'],
-                          ignore_columns, train_info.lowercase, train_info.tokenize,
-                          train_info.include_lengths)
+    fields = _make_fields(
+        header,
+        column_naming["id"],
+        column_naming["label"],
+        ignore_columns,
+        train_info.lowercase,
+        train_info.tokenize,
+        train_info.include_lengths,
+    )
 
     begin = timer()
-    dataset_args = {'fields': fields, 'column_naming': column_naming}
+    dataset_args = {"fields": fields, "column_naming": column_naming}
     dataset = MatchingDataset(path=path, **dataset_args)
 
     # Make sure we have the same attributes.
     assert set(dataset.all_text_fields) == set(train_info.all_text_fields)
 
     after_load = timer()
-    logger.info('Data load time: {}s'.format(after_load - begin))
+    logger.info("Data load time: {}s".format(after_load - begin))
 
     reverse_fields_dict = dict((pair[1], pair[0]) for pair in fields)
     for field, name in reverse_fields_dict.items():
@@ -270,14 +300,16 @@ def process_unlabeled(path, trained_model, ignore_columns=None):
             field.vocab = copy.deepcopy(train_info.vocabs[name])
             # Then extend the vocab.
             field.extend_vocab(
-                dataset, vectors=train_info.embeddings, cache=train_info.embeddings_cache)
+                dataset,
+                vectors=train_info.embeddings,
+                cache=train_info.embeddings_cache,
+            )
 
     dataset.vocabs = {
-        name: dataset.fields[name].vocab
-        for name in train_info.all_text_fields
+        name: dataset.fields[name].vocab for name in train_info.all_text_fields
     }
 
     after_vocab = timer()
-    logger.info('Vocab update time: {}s'.format(after_vocab - after_load))
+    logger.info("Vocab update time: {}s".format(after_vocab - after_load))
 
     return dataset
