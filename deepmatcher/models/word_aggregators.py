@@ -1,7 +1,5 @@
-import six
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 
 import deepmatcher as dm
 
@@ -19,9 +17,9 @@ class Pool(dm.modules.Pool, dm.WordAggregator):
 
 
 class AttentionWithRNN(dm.WordAggregator):
-    r"""__init__(hidden_size=None, input_dropout=0, rnn='gru', rnn_pool_style='birnn-last', score_dropout=0, input_context_comparison_network='1-layer-highway', value_transform_network=None, transform_dropout=0, input_size=None)
+    r"""Attention and RNN based Word Aggregator.
 
-    Attention and RNN based Word Aggregator. This class can be used when the
+    This class can be used when the
     aggregation on the primary input also needs the information from the context.
     Specifically, the :class:`~deepmatcher.attr_summarizers.Hybrid` attribute summarizer
     uses this aggregation approach by default. This module takes a primary input sequence
@@ -69,6 +67,7 @@ class AttentionWithRNN(dm.WordAggregator):
         input_size (int):
             The number of features in the input to the module. This parameter will be
             automatically specified by :class:`LazyModule`.
+
     """
 
     def _init(
@@ -108,16 +107,16 @@ class AttentionWithRNN(dm.WordAggregator):
         self.softmax = nn.Softmax(dim=1)
 
     def _forward(self, input_with_meta, context_with_meta):
-        r"""
-        The forward function of the attention-with-RNN netowrk.
+        r"""The forward function of the attention-with-RNN netowrk.
 
         Args:
         input_with_meta ():
             The input sequence with metadata information.
         context_with_meta ():
             The context sequence with metadata information.
+
         """
-        input = self.input_dropout(input_with_meta.data)
+        inputs = self.input_dropout(input_with_meta.data)
         context = self.input_dropout(context_with_meta.data)
 
         context_rnn_output = self.rnn(
@@ -128,10 +127,10 @@ class AttentionWithRNN(dm.WordAggregator):
         context_pool_output = self.rnn_pool(context_rnn_output).data.unsqueeze(1)
 
         # Dims: batch x len1 x hidden_size
-        context_pool_repeated = context_pool_output.repeat(1, input.size(1), 1)
+        context_pool_repeated = context_pool_output.repeat(1, inputs.size(1), 1)
 
         # Dims: batch x len1 x (hidden_size * 2)
-        concatenated = torch.cat((input, context_pool_repeated), dim=2)
+        concatenated = torch.cat((inputs, context_pool_repeated), dim=2)
 
         # Dims: batch x len1
         raw_scores = self.scoring_network(
@@ -147,9 +146,9 @@ class AttentionWithRNN(dm.WordAggregator):
         # Make values along dim 2 sum to 1.
         normalized_scores = self.softmax(alignment_scores)
 
-        transformed = input
+        transformed = inputs
         if self.value_transform_network is not None:
-            transformed = self.transform_dropout(self.value_transform_network(input))
+            transformed = self.transform_dropout(self.value_transform_network(inputs))
 
         weighted_sum = torch.bmm(normalized_scores.unsqueeze(1), transformed).squeeze(1)
         return AttrTensor.from_old_metadata(weighted_sum, input_with_meta)

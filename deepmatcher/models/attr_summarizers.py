@@ -4,10 +4,7 @@ import deepmatcher as dm
 
 
 class SIF(dm.AttrSummarizer):
-    """__init__(word_contextualizer=None, word_comparator=None, word_aggregator=None, \
-        hidden_size=None)
-
-    The attribute summarizer for the SIF (Smooth Inverse Frequency) model.
+    """The attribute summarizer for the SIF (Smooth Inverse Frequency) model.
 
     Args:
         word_contextualizer (string or :class:`~deepmatcher.WordContextualizer` or callable): The
@@ -26,6 +23,7 @@ class SIF(dm.AttrSummarizer):
         hidden_size (int): The hidden size to use for all 3 attribute summarization
             sub-modules (i.e., word contextualizer, word comparator, and word aggregator),
             if they are customized. By default, the SIF model does not use this parameter.
+
     """
 
     def _init(
@@ -69,6 +67,7 @@ class RNN(dm.AttrSummarizer):
             customized. If not specified, the hidden size for each component will be set
             to be the same as its input size. E.g. if the word embedding dimension is 300
             and hidden_size is None, the word contextualizer's hidden size will be 300.
+
     """
 
     def _init(
@@ -113,6 +112,7 @@ class Attention(dm.AttrSummarizer):
             customized. If not specified, the hidden size for each component will be set
             to be the same as its input size. E.g. if the word embedding dimension is 300
             and hidden_size is None, the word contextualizer's hidden size will be 300.
+
     """
 
     def _init(
@@ -155,6 +155,7 @@ class Hybrid(dm.AttrSummarizer):
         hidden_size (int): The hidden size to use for all 3 attribute summarization
             sub-modules (i.e., word contextualizer, word comparator, and word aggregator),
             if they are customized.
+
     """
 
     def _init(

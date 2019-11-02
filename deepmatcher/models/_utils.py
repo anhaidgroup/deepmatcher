@@ -8,9 +8,7 @@ from ..batch import AttrTensor
 
 # From onmt-py
 def sequence_mask(lengths, max_len=None):
-    """
-    Creates a boolean mask from sequence lengths.
-    """
+    """Creates a boolean mask from sequence lengths."""
     batch_size = lengths.numel()
     max_len = max_len or lengths.max()
     return (
