@@ -3,19 +3,9 @@ python:
   - "3.6"
 cache: pip
 
-before_install:
-  - wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - conda config --add channels conda-forge
-  - echo $PYTHON_VERSION
-  - conda create -n testenv python=$PYTHON_VERSION  --yes
-  - source activate testenv
-
 install:
-  - conda install --yes python=$PYTHON_VERSION pip scikit-learn nose
-  - pip install --process-dependency-links git+https://github.com/suzil/deepmatcher | cat
-  - pip install nltk
+  - pip install -r requirements/ci.txt
+  - pip install .
   - python -m nltk.downloader perluniprops nonbreaking_prefixes punkt
 
 script:
