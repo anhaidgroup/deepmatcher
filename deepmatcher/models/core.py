@@ -42,19 +42,19 @@ class MatchingModel(nn.Module):
     #. A Classifier is constructed based on the specified `classifier` template.
 
     Args:
-        attr_summarizer (string or :class:`AttrSummarizer` or callable):
+        attr_summarizer (str or :class:`AttrSummarizer` or callable):
             The attribute summarizer. Takes in two word embedding sequences and summarizes
             the information in them to produce two summary vectors as output.
             Options `listed here <https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#attr_summarizer-can-be-set-to-one-of-the-following:>`__.
             Defaults to 'hybrid', i.e., the :class:`~deepmatcher.attr_summarizers.Hybrid`
             model.
-        attr_comparator (string or :class:`~deepmatcher.modules.Merge` or callable):
+        attr_comparator (str or :class:`~deepmatcher.modules.Merge` or callable):
             The attribute comparator. Takes as input the two summary vectors and applies a
             comparison function over those summaries to obtain the final similarity
             representation of the two attribute values. Argument must specify a
             :ref:`merge-op` operation. Default is selected based on `attr_summarizer`
             choice.
-        attr_condense_factor (string or int):
+        attr_condense_factor (str or int):
             The factor by which to condense each attribute similarity vector. E.g. if
             `attr_condense_factor` is set to 3 and the attribute similarity vector size is
             300, then each attribute similarity vector is transformed to a 100 dimensional
@@ -63,12 +63,12 @@ class MatchingModel(nn.Module):
             to a number or 'auto'. If 'auto', then the condensing factor is set to be
             equal to the number attributes, but if there are more than 6 attributes, then
             the condensing factor is set to 6. Defaults to 'auto'.
-        attr_merge (string or :class:`~deepmatcher.modules.Merge` or callable):
+        attr_merge (str or :class:`~deepmatcher.modules.Merge` or callable):
             The operation used to merge the (optionally condensed) attribute similarity
             vectors to obtain the input to the classifier. Argument must specify a
             :ref:`merge-op` operation. Defaults to 'concat', i.e., concatenate all
             attribute similarity vectors to form the classifier input.
-        classifier (string or :class:`Classifier` or callable):
+        classifier (str or :class:`Classifier` or callable):
             The neural network to perform match / mismatch classification
             based on attribute similarity representations.
             Options `listed here <https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#classifier-can-be-set-to-one-of-the-following:>`__.
@@ -76,8 +76,9 @@ class MatchingModel(nn.Module):
             by a softmax layer for classification.
         hidden_size (int):
             The hidden size to use for the `attr_summarizer` and the `classifier` modules,
-            if they are string arguments. If a module or :attr:`callable` input is specified
+            if they are str arguments. If a module or :attr:`callable` input is specified
             for a component, this argument is ignored for that component.
+
     """
 
     def __init__(
@@ -103,13 +104,7 @@ class MatchingModel(nn.Module):
         self._initialized = False
 
     def run_train(self, *args, **kwargs):
-        """run_train(train_dataset, validation_dataset, best_save_path,epochs=30, \
-            criterion=None, optimizer=None, pos_neg_ratio=None, pos_weight=None, \
-            label_smoothing=0.05, save_every_prefix=None, save_every_freq=None, \
-            batch_size=32, device=None, progress_style='bar', log_freq=5, \
-            sort_in_buckets=None)
-
-        Train the model using the specified training set.
+        """Train the model using the specified training set.
 
         Args:
             train_dataset (:class:`~deepmatcher.data.MatchingDataset`):
@@ -118,7 +113,7 @@ class MatchingModel(nn.Module):
                 The validation dataset obtained using :func:`deepmatcher.data.process`.
                 This is used for `early stopping
                 <https://en.wikipedia.org/wiki/Early_stopping>`_.
-            best_save_path (string):
+            best_save_path (str):
                 The path to save the best model to. At the end of each epoch, if the new
                 model accuracy (F1) is better than all previous epochs, then it is saved
                 to this location.
@@ -145,7 +140,7 @@ class MatchingModel(nn.Module):
                 The `label_smoothing` parameter to constructor of
                 :class:`~deepmatcher.optim.SoftNLLLoss` criterion. Only used when
                 `criterion` param is None. Defaults to 0.05.
-            save_every_prefix (string):
+            save_every_prefix (str):
                 Prefix of the path to save model to, after end of
                 every N epochs, where N is determined by `save_every_freq` param.
                 E.g. setting this to "/path/to/saved/model" will save models to
@@ -165,7 +160,7 @@ class MatchingModel(nn.Module):
                 CPU only, even if GPU is available. If None, will use first available GPU,
                 or use CPU if no GPUs are available. Defaults to None.
                 This is a keyword only param.
-            progress_style (string):
+            progress_style (str):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
                 progress bar, updated every N batches. If 'log', prints training stats
                 every N batches. N is determined by the `log_freq` param.
@@ -181,14 +176,12 @@ class MatchingModel(nn.Module):
 
         Returns:
             float: The best F1 score obtained by the model on the validation dataset.
+
         """
         return Runner.train(self, *args, **kwargs)
 
     def run_eval(self, *args, **kwargs):
-        """run_eval(dataset, batch_size=32, device=None, progress_style='bar', \
-            log_freq=5, sort_in_buckets=None)
-
-        Evaluate the model on the specified dataset.
+        """Evaluate the model on the specified dataset.
 
         Args:
             dataset (:class:`~deepmatcher.data.MatchingDataset`): The evaluation dataset
@@ -202,7 +195,7 @@ class MatchingModel(nn.Module):
                 CPU only, even if GPU is available. If None, will use first available GPU,
                 or use CPU if no GPUs are available. Defaults to None.
                 This is a keyword only param.
-            progress_style (string):
+            progress_style (str):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
                 progress bar, updated every N batches. If 'log', prints training stats
                 every N batches. N is determined by the `log_freq` param.
@@ -218,14 +211,12 @@ class MatchingModel(nn.Module):
 
         Returns:
             float: The F1 score obtained by the model on the dataset.
+
         """
         return Runner.eval(self, *args, **kwargs)
 
     def run_prediction(self, *args, **kwargs):
-        """run_prediction(dataset, output_attributes=False, batch_size=32, device=None, \
-            progress_style='bar', log_freq=5, sort_in_buckets=None)
-
-        Use the model to obtain predictions, i.e., match scores on the specified dataset.
+        """Use the model to obtain predictions, i.e., match scores on the specified dataset.
 
         Args:
             dataset (:class:`~deepmatcher.data.MatchingDataset`): The dataset (labeled or
@@ -242,7 +233,7 @@ class MatchingModel(nn.Module):
                 CPU only, even if GPU is available. If None, will use first available GPU,
                 or use CPU if no GPUs are available. Defaults to None.
                 This is a keyword only param.
-            progress_style (string):
+            progress_style (str):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
                 progress bar, updated every N batches. If 'log', prints training stats
                 every N batches. N is determined by the `log_freq` param.
@@ -262,11 +253,12 @@ class MatchingModel(nn.Module):
                 column) and the corresponding match score predictions (in the
                 "match_score" column). Will also include all attributes in the original
                 CSV file of the dataset if `output_attributes` is True.
+
         """
         return Runner.predict(self, *args, **kwargs)
 
     def initialize(self, train_dataset, init_batch=None):
-        r"""Initialize (not lazily) the matching model given the actual training data.
+        """Initialize (not lazily) the matching model given the actual training data.
 
         Instantiates all sub-components and their trainable parameters.
 
@@ -276,8 +268,8 @@ class MatchingModel(nn.Module):
             init_batch (:class:`~deepmatcher.batch.MatchingBatch`):
                 A batch of data to forward propagate through the model. If None, a batch
                 is drawn from the training dataset.
-        """
 
+        """
         if self._initialized:
             return
 
@@ -402,7 +394,7 @@ class MatchingModel(nn.Module):
         r"""Get the attribute comparator.
 
         Args:
-            arg (string):
+            arg (str):
                 The attribute comparator to use. Can be one of the supported style
                 arguments for :class:`~modules.Merge`, specifically, 'abs-diff', 'diff',
                 'concat', 'concat-diff', 'concat-abs-diff', or 'mul'. If not specified
@@ -414,7 +406,8 @@ class MatchingModel(nn.Module):
                 :mod:`attr_summarizers`).
 
         Returns:
-            string: Return the type of attribute comparator.
+            str: Return the type of attribute comparator.
+
         """
         if arg is not None:
             return arg
@@ -428,18 +421,19 @@ class MatchingModel(nn.Module):
             return "concat-abs-diff"
         raise ValueError("Cannot infer attr comparator, please specify.")
 
-    def forward(self, input):
-        r"""Performs a forward pass through the model.
+    def forward(self, inputs):
+        """Performs a forward pass through the model.
 
         Overrides :meth:`torch.nn.Module.forward`.
 
         Args:
-            input (:class:`~deepmatcher.batch.MatchingBatch`): A batch of tuple pairs
+            inputs (:class:`~deepmatcher.batch.MatchingBatch`): A batch of tuple pairs
                 processed into tensors.
+
         """
         embeddings = {}
         for name in self.meta.all_text_fields:
-            attr_input = getattr(input, name)
+            attr_input = getattr(inputs, name)
             embeddings[name] = self.embed[name](attr_input)
 
         attr_comparisons = []
@@ -463,20 +457,20 @@ class MatchingModel(nn.Module):
         return self.classifier(entity_comparison)
 
     def _register_train_buffer(self, name, value):
-        r"""Adds a persistent buffer containing training metadata to the module.
-        """
+        """Adds a persistent buffer containing training metadata to the module."""
         self._train_buffers.add(name)
         setattr(self, name, value)
 
     def save_state(self, path, include_meta=True):
-        r"""Save the model state to a certain path.
+        """Save the model state to a certain path.
 
         Args:
-            path (string): The path to save the model state to.
+            path (str): The path to save the model state to.
             include_meta (bool): Whether to include training dataset metadata along with
                 the model parameters when saving. If False, the model will not be
                 automatically initialized upon loading - you will need to initialize
                 manually using :meth:`initialize`.
+
         """
         state = {"model": self.state_dict()}
         for k in self._train_buffers:
@@ -485,10 +479,11 @@ class MatchingModel(nn.Module):
         torch.save(state, path)
 
     def load_state(self, path):
-        r"""Load the model state from a file in a certain path.
+        """Load the model state from a file in a certain path.
 
         Args:
-            path (string): The path to load the model state from.
+            path (str): The path to load the model state from.
+
         """
         state = torch.load(path)
         for k, v in six.iteritems(state):
@@ -510,9 +505,7 @@ class MatchingModel(nn.Module):
 
 
 class AttrSummarizer(dm.modules.LazyModule):
-    r"""__init__(word_contextualizer, word_comparator, word_aggregator, hidden_size=None)
-
-    The Attribute Summarizer.
+    r"""The Attribute Summarizer.
 
     Summarizes the two word embedding sequences of an attribute.
     `Refer this tutorial <https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.-Attribute-Summarization>`__
@@ -520,15 +513,15 @@ class AttrSummarizer(dm.modules.LazyModule):
     defined in :mod:`deepmatcher.attr_summarizers`.
 
     Args:
-        word_contextualizer (string or :class:`WordContextualizer` or callable):
+        word_contextualizer (str or :class:`WordContextualizer` or callable):
             Module that takes a word embedding sequence and produces a context-aware
             word embedding sequence as output.
             Options `listed here <https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#word_contextualizer-can-be-set-to-one-of-the-following:>`__.
-        word_comparator (string or :class:`WordComparator` or callable):
+        word_comparator (str or :class:`WordComparator` or callable):
             Module that takes two word embedding sequences, aligns words in the two
             sequences, and performs a word by word comparison.
             Options `listed here <https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#word_comparator-can-be-set-to-one-of-the-following:>`__.
-        word_aggregator (string or :class:`WordAggregator` or callable):
+        word_aggregator (str or :class:`WordAggregator` or callable):
             Module that takes a sequence of vectors and aggregates it into a single
             vector.
             Options `listed here <https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#word_aggregator-can-be-set-to-one-of-the-following:>`__.
@@ -537,6 +530,7 @@ class AttrSummarizer(dm.modules.LazyModule):
             word_comparator, and word_aggregator). If None, uses the input size, i.e., the
             size of the last dimension of the input to this module as the hidden size.
             Defaults to None.
+
     """
 
     def _init(
@@ -553,8 +547,7 @@ class AttrSummarizer(dm.modules.LazyModule):
         )
 
     def _forward(self, left_input, right_input):
-        r"""The forward function of attribute summarizer.
-        """
+        """The forward function of attribute summarizer."""
         left_contextualized, right_contextualized = left_input, right_input
         if self.word_contextualizer:
             left_contextualized = self.word_contextualizer(left_input)
@@ -583,13 +576,14 @@ class AttrSummarizer(dm.modules.LazyModule):
         r"""Create an attribute summarization object.
 
         Args:
-            arg (string or :mod:`deepmatcher.attr_summarizers` or callable):
+            arg (str or :mod:`deepmatcher.attr_summarizers` or callable):
                 Same as the `attr_summarizer` argument to the constructor of
                 :class:`MatchingModel`.
             **kwargs:
                 Keyword arguments to the constructor of the AttrSummarizer sub-class.
                 For details on what these can be, please refer to the documentation of the
                 sub-classes in :mod:`deepmatcher.attr_summarizers`.
+
         """
         assert arg is not None
         if isinstance(arg, six.string_types):
@@ -614,9 +608,8 @@ def _create_attr_comparator(arg):
     r"""Create an attribute comparator object.
 
     Args:
-        arg (string):
-            Same as the `attr_comparator` argument to the constructor of
-            :class:`MatchingModel`.
+        arg (str): Same as the `attr_comparator` argument to the constructor of :class:`MatchingModel`.
+
     """
     assert arg is not None
     module = dm.modules._merge_module(arg)
@@ -625,14 +618,11 @@ def _create_attr_comparator(arg):
 
 
 class WordContextualizer(dm.modules.LazyModule):
-    r"""__init__()
-
-    The Word Contextualizer.
+    r"""The Word Contextualizer.
 
     Takes a word embedding sequence and produces a context-aware word embedding sequence.
     `Refer this tutorial <https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.1.-Word-Contextualizer>`__
-    for details. Sub-classes that implement various options for this module are defined
-    in :mod:`deepmatcher.word_contextualizers`.
+    for details. Sub-classes that implement various options for this module are defined in :mod:`deepmatcher.word_contextualizers`.
     """
 
     @classmethod
@@ -640,13 +630,14 @@ class WordContextualizer(dm.modules.LazyModule):
         r"""Create a word contextualizer object.
 
         Args:
-            arg (string or :mod:`deepmatcher.word_contextualizers` or callable):
+            arg (str or :mod:`deepmatcher.word_contextualizers` or callable):
                 Same as the `word_contextualizer` argument to the constructor of
                 :class:`AttrSummarizer`.
             **kwargs:
                 Keyword arguments to the constructor of the WordContextualizer sub-class.
                 For details on what these can be, please refer to the documentation of the
                 sub-classes in :mod:`deepmatcher.word_contextualizers`.
+
         """
         if isinstance(arg, six.string_types):
             if dm.word_contextualizers.RNN.supports_style(arg):
@@ -665,9 +656,7 @@ class WordContextualizer(dm.modules.LazyModule):
 
 
 class WordComparator(dm.modules.LazyModule):
-    r"""__init__()
-
-    The Word Comparator.
+    r"""The Word Comparator.
 
     Takes two word embedding sequences, aligns words in the two sequences, and performs a
     word by word comparison.
@@ -681,13 +670,14 @@ class WordComparator(dm.modules.LazyModule):
         r"""Create a word comparator object.
 
         Args:
-            arg (string or :mod:`deepmatcher.word_comparators` or callable):
+            arg (str or :mod:`deepmatcher.word_comparators` or callable):
                 Same as the `word_comparator` argument to the constructor of
                 :class:`AttrSummarizer`.
             **kwargs:
                 Keyword arguments to the constructor of the WordComparator sub-class.
                 For details on what these can be, please refer to the documentation of the
                 sub-classes in :mod:`deepmatcher.word_comparators`.
+
         """
         if isinstance(arg, six.string_types):
             parts = arg.split("-")
@@ -707,29 +697,26 @@ class WordComparator(dm.modules.LazyModule):
 
 
 class WordAggregator(dm.modules.LazyModule):
-    r"""__init__()
-
-    The Word Aggregator.
+    r"""The Word Aggregator.
 
     Takes a sequence of vectors and aggregates it into a single vector.
     `Refer this tutorial <https://nbviewer.jupyter.org/github/sidharthms/deepmatcher/blob/master/examples/matching_models.ipynb#2.1.3.-Word-Aggregator>`__
-    for details. Sub-classes that implement various options for this module are defined in
-    :mod:`deepmatcher.word_aggregators`.
+    for details. Sub-classes that implement various options for this module are defined in :mod:`deepmatcher.word_aggregators`.
     """
 
     @classmethod
     def _create(cls, arg, **kwargs):
-        r"""
-        Create a word aggregator object.
+        r"""Create a word aggregator object.
 
         Args:
-            arg (string or :mod:`deepmatcher.word_aggregators` or callable):
+            arg (str or :mod:`deepmatcher.word_aggregators` or callable):
                 Same as the `word_aggregator` argument to the constructor of
                 :class:`AttrSummarizer`.
         **kwargs:
             Keyword arguments to the constructor of the WordAggregator sub-class.
             For details on what these can be, please refer to the documentation of the
             sub-classes in :mod:`deepmatcher.word_aggregators`.
+
         """
         assert arg is not None
         if isinstance(arg, six.string_types):
@@ -763,7 +750,7 @@ class Classifier(nn.Sequential):
     for details.
 
     Args:
-        transform_network (string or :class:`~deepmatcher.modules.Transform` or callable):
+        transform_network (str or :class:`~deepmatcher.modules.Transform` or callable):
             The neural network to transform the input vector of the classifier to a
             hidden representation of size `hidden_size`. Argument must specify a
             :ref:`transform-op` operation.
@@ -771,6 +758,7 @@ class Classifier(nn.Sequential):
         hidden_size (int):
             The size of the hidden representation generated by the transformation network.
             If None, uses the size of the input vector to this module as the hidden size.
+
     """
 
     def __init__(self, transform_network, hidden_size=None):
