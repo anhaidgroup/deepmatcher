@@ -37,6 +37,6 @@ setup(
     packages=['deepmatcher', 'deepmatcher.data', 'deepmatcher.models'],
     python_requires='>=3.5',
     install_requires=[
-        'torch==0.3.1', 'tqdm', 'pyprind', 'six', 'Cython', 'torchtext', 'nltk>=3.2.5',
-        'fasttextmirror', 'pandas'
+        'torch==0.3.1', 'tqdm', 'pyprind', 'six', 'Cython', 'torchtext==0.2.3', 'nltk>=3.2.5',
+        'fasttext', 'pandas', "sklearn"
     ])
