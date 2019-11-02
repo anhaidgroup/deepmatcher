@@ -58,7 +58,7 @@ class SoftNLLLoss(nn.NLLLoss):
 
 
 # This class is based on the Optimizer class in the ONMT-py project.
-class Optimizer(object):
+class Optimizer:
     """Controller class for optimization.
 
     Mostly a thin wrapper for `optim`, but also useful for implementing learning rate

@@ -22,7 +22,7 @@ except NameError:
 logger = logging.getLogger(__name__)
 
 
-class Statistics(object):
+class Statistics:
     """Accumulator for loss statistics, inspired by ONMT.
 
     Keeps track of the following metrics:
@@ -71,7 +71,7 @@ class Statistics(object):
         return self.examples / (time.time() - self.start_time)
 
 
-class Runner(object):
+class Runner:
     """Experiment runner.
 
     This class implements routines to train, evaluate and make predictions from models.

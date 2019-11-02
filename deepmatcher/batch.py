@@ -77,7 +77,7 @@ class AttrTensor(AttrTensor_):
         return AttrTensor(data, *old_attrtensor[1:])
 
 
-class MatchingBatch(object):
+class MatchingBatch:
     """A batch of data and associated metadata for a text matching task.
 
     Consists of one :class:`AttrTensor` (containing the data and metadata) for each
