@@ -27,7 +27,7 @@ def split(
     train_prefix,
     validation_prefix,
     test_prefix,
-    split_ratio=[0.6, 0.2, 0.2],
+    split_ratio=(0.6, 0.2, 0.2),
     stratified=False,
     strata_field="label",
 ):
@@ -36,15 +36,16 @@ def split(
     Args:
         table (pandas.Dataframe or string): The pandas dataframe or CSV file to split.
         path (string): The directory to save the train, validation and test CSV files to.
-        train: Suffix to add to `path` to get the training set save path.
-        validation: Suffix to add to `path` to get the validation set save path.
-        test: Suffix to add to `path` to get the test set save path.
+        train_prefix: Suffix to add to `path` to get the training set save path.
+        validation_prefix: Suffix to add to `path` to get the validation set save path.
+        test_prefix: Suffix to add to `path` to get the test set save path.
         split_ratio (List of floats): a list of 3 numbers denoting the relative sizes of
             train, test and valid splits respectively. Default is [0.6, 0.2, 0.2].
         stratified (bool): whether the sampling should be stratified.
             Default is False.
         strata_field (str): name of the examples Field stratified over.
-            Default is 'label' for the conventional label field.
+            Default is 'label' for the conventional label field
+
     """
     assert len(split_ratio) == 3
 
@@ -71,7 +72,7 @@ def split(
 
 
 class MatchingDataset(data.Dataset):
-    r"""Represents dataset with associated metadata.
+    """Represents dataset with associated metadata.
 
     Holds all information about one split of a dataset (e.g. training set).
 
@@ -94,11 +95,12 @@ class MatchingDataset(data.Dataset):
         canonical_text_fields (list): A list of all canonical attribute names.
         label_field (str): Name of the column containing labels.
         id_field (str): Name of the column containing tuple pair ids.
+
     """
 
     class CacheStaleException(Exception):
-        r"""Raised when the dataset cache is stale and no fallback behavior is specified.
-        """
+        """Raised when the dataset cache is stale and no fallback behavior is specified."""
+
         pass
 
     def __init__(
@@ -106,12 +108,12 @@ class MatchingDataset(data.Dataset):
         fields,
         column_naming,
         path=None,
-        format="csv",
+        out_format="csv",
         examples=None,
         metadata=None,
         **kwargs
     ):
-        r"""Creates a MatchingDataset.
+        """Creates a MatchingDataset.
 
         Creates a MatchingDataset by performing the following, if `examples` parameter is
         not specified:
@@ -135,7 +137,7 @@ class MatchingDataset(data.Dataset):
                 * ``left``: The prefix for attribute names belonging to the left table.
                 * ``right``: The prefix for attribute names belonging to the right table.
             path (str): Path to the data file. Must be specified if `examples` is None.
-            format (str): The format of the data file. One of "CSV" or "TSV".
+            out_format (str): The format of the data file. One of "CSV" or "TSV".
             examples (list): A list containing all the examples (labeled tuple pairs) in
                 this dataset. Must be specified if `path` is None.
             metadata (dict): Metadata about the dataset (e.g. word probabilities).
@@ -143,6 +145,7 @@ class MatchingDataset(data.Dataset):
             filter_pred (callable or None): Use only examples for which
                 filter_pred(example) is True, or use all examples if None.
                 Default is None. This is a keyword-only parameter.
+
         """
         if examples is None:
             make_example = {
@@ -150,7 +153,7 @@ class MatchingDataset(data.Dataset):
                 "dict": Example.fromdict,
                 "tsv": Example.fromCSV,
                 "csv": Example.fromCSV,
-            }[format.lower()]
+            }[out_format.lower()]
 
             lines = 0
             with open(os.path.expanduser(path), encoding="utf8") as f:
@@ -158,9 +161,9 @@ class MatchingDataset(data.Dataset):
                     lines += 1
 
             with open(os.path.expanduser(path), encoding="utf8") as f:
-                if format == "csv":
+                if out_format == "csv":
                     reader = unicode_csv_reader(f)
-                elif format == "tsv":
+                elif out_format == "tsv":
                     reader = unicode_csv_reader(f, delimiter="\t")
                 else:
                     reader = f
@@ -186,8 +189,7 @@ class MatchingDataset(data.Dataset):
         self._set_attributes()
 
     def _set_attributes(self):
-        """Sets attributes by inferring mapping between left and right table attributes.
-        """
+        """Sets attributes by inferring mapping between left and right table attributes."""
         self.corresponding_field = {}
         self.text_fields = {}
 
@@ -215,7 +217,7 @@ class MatchingDataset(data.Dataset):
         self.id_field = self.column_naming["id"]
 
     def compute_metadata(self, pca=False):
-        r"""Computes metadata about the dataset.
+        """Computes metadata about the dataset.
 
         Computes the following metadata about the dataset:
 
@@ -231,6 +233,7 @@ class MatchingDataset(data.Dataset):
 
         Arguments:
             pca (bool): Whether to compute the ``pc`` metadata.
+
         """
         self.metadata = {}
 
@@ -312,7 +315,6 @@ class MatchingDataset(data.Dataset):
         This allows performing modifications to metadata that cannot be serialized into
         the cache.
         """
-
         self.orig_metadata = copy.deepcopy(self.metadata)
         for name in self.all_text_fields:
             self.metadata["word_probs"][name] = defaultdict(
@@ -327,7 +329,7 @@ class MatchingDataset(data.Dataset):
         using the whitespace delimiter.
         """
         rows = []
-        columns = list(name for name, field in six.iteritems(self.fields) if field)
+        columns = [name for name, field in six.iteritems(self.fields) if field]
         for ex in self.examples:
             row = []
             for attr in columns:
@@ -344,8 +346,8 @@ class MatchingDataset(data.Dataset):
         r"""Sort key for dataset examples.
 
         A key to use for sorting dataset examples for batching together examples with
-        similar lengths to minimize padding."""
-
+        similar lengths to minimize padding.
+        """
         return interleave_keys(
             [len(getattr(ex, attr)) for attr in self.all_text_fields]
         )
@@ -369,6 +371,7 @@ class MatchingDataset(data.Dataset):
                 `__init__` for details.
             state_args (dict): A `dict` containing other information about the state under
                 which the cache was created.
+
         """
         examples = [dataset.examples for dataset in datasets]
         train_metadata = datasets[0].metadata
@@ -433,6 +436,7 @@ class MatchingDataset(data.Dataset):
             :class:`~data.MatchingField` include callable arguments (e.g. lambdas or
             functions) these arguments cannot be serialized and hence will not be checked
             for modifications.
+
         """
         cached_data = torch.load(cachefile)
         cache_stale_cause = set()
@@ -521,7 +525,7 @@ class MatchingDataset(data.Dataset):
         train_pca=False,
         **kwargs
     ):
-        r"""Create Dataset objects for multiple splits of a dataset.
+        """Create Dataset objects for multiple splits of a dataset.
 
         Args:
             path (str): Common prefix of the splits' file paths.
@@ -552,14 +556,14 @@ class MatchingDataset(data.Dataset):
         Returns:
             Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in
                 that order, if provided.
-        """
 
+        """
         fields_dict = dict(fields)
         state_args = {"train_pca": train_pca}
 
         datasets = None
         if cache:
-            datafiles = list(f for f in (train, validation, test) if f is not None)
+            datafiles = [f for f in (train, validation, test) if f is not None]
             datafiles = [os.path.expanduser(os.path.join(path, d)) for d in datafiles]
             cachefile = os.path.expanduser(os.path.join(path, cache))
             try:
