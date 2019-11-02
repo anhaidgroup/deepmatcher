@@ -1,10 +1,7 @@
-from __future__ import division
-
 import abc
 import logging
 import math
 
-import six
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -17,7 +14,6 @@ from deepmatcher.models import _utils
 logger = logging.getLogger("deepmatcher.modules")
 
 
-@six.add_metaclass(abc.ABCMeta)
 class LazyModule(nn.Module):
     """A lazily initialized module. Base class for most DeepMatcher modules.
 

@@ -5,7 +5,6 @@ import zipfile
 
 import fasttext
 import nltk
-import six
 import torch
 from torchtext import data, vocab
 from torchtext.utils import download_from_url
@@ -131,8 +130,8 @@ class MatchingField(data.Field):
             "tokenizer_arg",
         ]
         args_dict = {attr: getattr(self, attr) for attr in attrs}
-        for param, arg in list(six.iteritems(args_dict)):
-            if six.callable(arg):
+        for param, arg in list(args_dict.items()):
+            if callable(arg):
                 del args_dict[param]
         return args_dict
 
