@@ -9,9 +9,9 @@ import pandas as pd
 import pyprind
 import torch
 
-from .data import MatchingIterator
-from .optim import Optimizer, SoftNLLLoss
-from .utils import tally_parameters
+from deepmatcher.data import MatchingIterator
+from deepmatcher.optim import Optimizer, SoftNLLLoss
+from deepmatcher.utils import tally_parameters
 
 try:
     get_ipython

@@ -14,9 +14,9 @@ from torchtext import data
 from torchtext.data.example import Example
 from torchtext.utils import unicode_csv_reader
 
-from ..models.modules import NoMeta, Pool
-from .field import MatchingField
-from .iterator import MatchingIterator
+from deepmatcher.data.field import MatchingField
+from deepmatcher.data.iterator import MatchingIterator
+from deepmatcher.models.modules import NoMeta, Pool
 
 logger = logging.getLogger(__name__)
 

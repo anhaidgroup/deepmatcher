@@ -7,12 +7,11 @@ import torch
 import torch.nn as nn
 
 import deepmatcher as dm
+from deepmatcher.data import MatchingDataset, MatchingIterator
 from deepmatcher.models import _utils
 from deepmatcher.models.modules import LazyModule, LazyModuleFn
-
-from ..data import MatchingDataset, MatchingIterator
-from ..runner import Runner
-from ..utils import Bunch, tally_parameters
+from deepmatcher.runner import Runner
+from deepmatcher.utils import Bunch, tally_parameters
 
 logger = logging.getLogger("deepmatcher.core")
 

@@ -11,9 +11,8 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 
 import deepmatcher as dm
-
-from ..batch import AttrTensor
-from . import _utils
+from deepmatcher.batch import AttrTensor
+from deepmatcher.models import _utils
 
 logger = logging.getLogger("deepmatcher.modules")
 

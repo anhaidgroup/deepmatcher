@@ -1,7 +1,7 @@
-from .dataset import MatchingDataset, split
-from .field import MatchingField, reset_vector_cache
-from .iterator import MatchingIterator
-from .process import process, process_unlabeled
+from deepmatcher.data.dataset import MatchingDataset, split
+from deepmatcher.data.field import MatchingField, reset_vector_cache
+from deepmatcher.data.iterator import MatchingIterator
+from deepmatcher.data.process import process, process_unlabeled
 
 __all__ = [
     "MatchingField",

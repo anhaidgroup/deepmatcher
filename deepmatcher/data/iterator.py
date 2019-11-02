@@ -4,7 +4,7 @@ import logging
 
 from torchtext import data
 
-from ..batch import MatchingBatch
+from deepmatcher.batch import MatchingBatch
 
 logger = logging.getLogger(__name__)
 

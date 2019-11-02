@@ -6,8 +6,8 @@ from timeit import default_timer as timer
 
 from torchtext.utils import unicode_csv_reader
 
-from .dataset import MatchingDataset
-from .field import MatchingField
+from deepmatcher.data.dataset import MatchingDataset
+from deepmatcher.data.field import MatchingField
 
 logger = logging.getLogger(__name__)
 

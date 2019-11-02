@@ -3,15 +3,15 @@
 import logging
 import warnings
 
-from .data import process as data_process
-from .models import (
+from deepmatcher.data import process as data_process
+from deepmatcher.models import (
     attr_summarizers,
     modules,
     word_aggregators,
     word_comparators,
     word_contextualizers,
 )
-from .models.core import (
+from deepmatcher.models.core import (
     AttrSummarizer,
     Classifier,
     MatchingModel,

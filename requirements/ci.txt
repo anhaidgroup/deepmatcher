@@ -1,5 +1,6 @@
 black
 flake8
+flake8-absolute-import
 flake8-blind-except
 flake8-builtins
 flake8-comprehensions

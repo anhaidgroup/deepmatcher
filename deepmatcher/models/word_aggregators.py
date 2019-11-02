@@ -2,11 +2,10 @@ import torch
 import torch.nn as nn
 
 import deepmatcher as dm
+from deepmatcher.batch import AttrTensor
+from deepmatcher.models import _utils
 from deepmatcher.models.core import WordAggregator
 from deepmatcher.models.modules import Pool as ModulePool
-
-from ..batch import AttrTensor
-from . import _utils
 
 
 class Pool(ModulePool, WordAggregator):

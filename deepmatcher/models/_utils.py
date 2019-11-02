@@ -2,8 +2,7 @@ import six
 import torch
 
 import deepmatcher as dm
-
-from ..batch import AttrTensor
+from deepmatcher.batch import AttrTensor
 
 
 # From onmt-py
