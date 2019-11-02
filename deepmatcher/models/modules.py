@@ -5,7 +5,6 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.autograd import Variable
 
 import deepmatcher as dm
 from deepmatcher.batch import AttrTensor
@@ -134,7 +133,7 @@ class LazyModule(nn.Module):
     def _get_input_size(self, *args, **kwargs):
         if len(args) > 1:
             return [self._get_input_size(inputs) for inputs in args]
-        elif isinstance(args[0], (AttrTensor, Variable)):
+        elif isinstance(args[0], (AttrTensor, torch.Tensor)):
             return args[0].data.size(-1)
         else:
             return None
@@ -720,14 +719,14 @@ class Pool(LazyModule):
 
         if self.style == "last":
             lengths = input_with_meta.lengths
-            lasts = Variable(lengths.view(-1, 1, 1).repeat(1, 1, inputs.size(2))) - 1
+            lasts = lengths.view(-1, 1, 1).repeat(1, 1, inputs.size(2)) - 1
             output = torch.gather(inputs, 1, lasts).squeeze(1).float()
         elif self.style == "last-simple":
             output = inputs[:, inputs.size(1), :]
         elif self.style == "birnn-last":
             hsize = inputs.size(2) // 2
             lengths = input_with_meta.lengths
-            lasts = Variable(lengths.view(-1, 1, 1).repeat(1, 1, hsize)) - 1
+            lasts = lengths.view(-1, 1, 1).repeat(1, 1, hsize) - 1
 
             forward_outputs = inputs.narrow(2, 0, inputs.size(2) // 2)
             forward_last = forward_outputs.gather(1, lasts).squeeze(1)
@@ -750,22 +749,20 @@ class Pool(LazyModule):
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
                 inputs.data.masked_fill_(1 - mask, 0)
 
-            lengths = Variable(
-                input_with_meta.lengths.clamp(min=1).unsqueeze(1).float()
-            )
+            lengths = input_with_meta.lengths.clamp(min=1).unsqueeze(1).float()
             if self.style == "avg":
                 output = inputs.sum(1) / lengths
             elif self.style == "divsqrt":
                 output = inputs.sum(1) / lengths.sqrt()
             elif self.style == "inv-freq-avg":
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
-                weighted = inputs * Variable(inv_probs.unsqueeze(2))
+                weighted = inputs * inv_probs.unsqueeze(2)
                 output = weighted.sum(1) / lengths.sqrt()
             elif self.style == "sif":
                 inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
-                weighted = inputs * Variable(inv_probs.unsqueeze(2))
+                weighted = inputs * inv_probs.unsqueeze(2)
                 v = weighted.sum(1) / lengths.sqrt()
-                pc = Variable(input_with_meta.pc).unsqueeze(0).repeat(v.shape[0], 1)
+                pc = input_with_meta.pc.unsqueeze(0).repeat(v.shape[0], 1)
                 proj_v_on_pc = (
                     torch.bmm(v.unsqueeze(1), pc.unsqueeze(2)).squeeze(2) * pc
                 )

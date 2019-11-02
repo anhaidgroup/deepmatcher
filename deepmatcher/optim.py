@@ -3,7 +3,6 @@ import logging
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.autograd import Variable
 from torch.nn.utils import clip_grad_norm
 
 logger = logging.getLogger("deepmatcher.optim")
@@ -40,7 +39,7 @@ class SoftNLLLoss(nn.NLLLoss):
         self.label_smoothing = label_smoothing
         self.confidence = 1 - self.label_smoothing
         self.num_classes = num_classes
-        self.register_buffer("weight", Variable(weight))
+        self.register_buffer("weight", weight)
 
         assert label_smoothing >= 0.0 and label_smoothing <= 1.0
 
