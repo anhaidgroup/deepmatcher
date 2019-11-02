@@ -260,7 +260,7 @@ class MatchingDataset(data.Dataset):
 
             field_word_probs = {}
             for word, freq in attr_counter.items():
-                field_word_probs[word] = freq / total
+                field_word_probs[int(word)] = freq / total
             word_probs[name] = field_word_probs
         self.metadata["word_probs"] = word_probs
         self.metadata["totals"] = totals

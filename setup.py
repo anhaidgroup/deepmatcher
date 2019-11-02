@@ -34,9 +34,9 @@ setup(
     url="http://deepmatcher.ml",
     license="BSD",
     packages=["deepmatcher", "deepmatcher.data", "deepmatcher.models"],
-    python_requires=">=3.5",
+    python_requires=">=3.6",
     install_requires=[
-        "torch==0.3.1",
+        "torch==0.4.0",
         "tqdm",
         "pyprind",
         "six",

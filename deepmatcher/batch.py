@@ -48,7 +48,7 @@ class AttrTensor(AttrTensor_):
             if "word_probs" in train_info.metadata:
                 raw_word_probs = train_info.metadata["word_probs"][name]
                 word_probs = torch.Tensor(
-                    [[raw_word_probs[w] for w in b] for b in data.data]
+                    [[raw_word_probs[int(w)] for w in b] for b in data.data]
                 )
                 if data.is_cuda:
                     word_probs = word_probs.cuda()
