@@ -213,7 +213,7 @@ class MatchingModel(nn.Module):
             float: The F1 score obtained by the model on the dataset.
 
         """
-        return Runner.eval(self, *args, **kwargs)
+        return Runner.evaluate(self, *args, **kwargs)
 
     def run_prediction(self, *args, **kwargs):
         """Use the model to obtain predictions, i.e., match scores on the specified dataset.

@@ -1,23 +1,13 @@
-import io
 import os
 import shutil
 import unittest
 from test import test_dir_path
-
-import pandas as pd
-import torch
-from nose.tools import *
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
 from deepmatcher import MatchingModel, attr_summarizers
-from deepmatcher.data.field import FastText, MatchingField
+from deepmatcher.data.field import FastText
 from deepmatcher.data.process import process, process_unlabeled
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
 
 
 class ModelTrainSaveLoadTest(unittest.TestCase):
@@ -235,7 +225,7 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
         pred_unlabeled = model.run_prediction(unlabeled)
 
         self.assertEqual(
-            sorted([tup[1] for tup in pred_test]),
+            sorted(tup[1] for tup in pred_test),
             sorted(list(pred_unlabeled["match_score"])),
         )
 
@@ -264,7 +254,7 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
         pred_unlabeled = model.run_prediction(unlabeled)
 
         self.assertEqual(
-            sorted([tup[1] for tup in pred_test]),
+            sorted(tup[1] for tup in pred_test),
             sorted(list(pred_unlabeled["match_score"])),
         )
 
@@ -293,7 +283,7 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
         pred_unlabeled = model.run_prediction(unlabeled)
 
         self.assertEqual(
-            sorted([tup[1] for tup in pred_test]),
+            sorted(tup[1] for tup in pred_test),
             sorted(list(pred_unlabeled["match_score"])),
         )
 
@@ -322,7 +312,7 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
         pred_unlabeled = model.run_prediction(unlabeled)
 
         self.assertEqual(
-            sorted([tup[1] for tup in pred_test]),
+            sorted(tup[1] for tup in pred_test),
             sorted(list(pred_unlabeled["match_score"])),
         )
 

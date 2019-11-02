@@ -32,6 +32,7 @@ class SoftNLLLoss(nn.NLLLoss):
             By default, the losses are averaged for each minibatch over observations **as
             well as** over dimensions. However, if ``False`` the losses are instead
             summed. This is a keyword only parameter.
+
     """
 
     def __init__(self, label_smoothing=0, weight=None, num_classes=2, **kwargs):
@@ -45,15 +46,15 @@ class SoftNLLLoss(nn.NLLLoss):
 
         self.criterion = nn.KLDivLoss(**kwargs)
 
-    def forward(self, input, target):
-        one_hot = torch.zeros_like(input)
+    def forward(self, inputs, target):
+        one_hot = torch.zeros_like(inputs)
         one_hot.fill_(self.label_smoothing / (self.num_classes - 1))
         one_hot.scatter_(1, target.unsqueeze(1).long(), self.confidence)
 
         if self.weight is not None:
             one_hot.mul_(self.weight)
 
-        return self.criterion(input, one_hot)
+        return self.criterion(inputs, one_hot)
 
 
 # This class is based on the Optimizer class in the ONMT-py project.
@@ -78,6 +79,7 @@ class Optimizer(object):
             Hyperarameters for adam.
         adagrad_accum (float, optional):
             Initialization hyperparameter for adagrad.
+
     """
 
     def __init__(
@@ -112,6 +114,7 @@ class Optimizer(object):
             params:
                 Dictionary of named model parameters. Parameters that do not require
                 gradients will be filtered out for optimization.
+
         """
         self.params = []
         for k, p in params:
@@ -161,6 +164,7 @@ class Optimizer(object):
                 The accuracy score on the validation set.
             epoch:
                 The current epoch number.
+
         """
 
         if self.start_decay_at is not None and epoch >= self.start_decay_at:

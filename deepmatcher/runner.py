@@ -79,8 +79,7 @@ class Runner(object):
 
     @staticmethod
     def _print_stats(name, epoch, batch, n_batches, stats, cum_stats):
-        """Write out batch statistics to stdout.
-        """
+        """Write out batch statistics to stdout."""
         logger.info(
             (
                 " | {name} | [{epoch}][{batch:4d}/{n_batches}] || Loss: {loss:7.4f} |"
@@ -105,8 +104,7 @@ class Runner(object):
 
     @staticmethod
     def _print_final_stats(epoch, runtime, datatime, stats):
-        """Write out epoch statistics to stdout.
-        """
+        """Write out epoch statistics to stdout."""
         logger.info(
             (
                 "Finished Epoch {epoch} || Run Time: {runtime:6.1f} | "
@@ -245,8 +243,8 @@ class Runner(object):
             stats.update(float(loss), *scores)
 
             if return_predictions:
-                for idx, id in enumerate(getattr(batch, id_attr)):
-                    predictions.append((id, float(output[idx, 1].exp())))
+                for idx, id_ in enumerate(getattr(batch, id_attr)):
+                    predictions.append((id_, float(output[idx, 1].exp())))
 
             if (batch_idx + 1) % log_freq == 0:
                 if progress_style == "log":
@@ -399,7 +397,7 @@ class Runner(object):
 
         return model.best_score
 
-    def eval(model, dataset, **kwargs):
+    def evaluate(model, dataset, **kwargs):
         """Evaluate a :class:`deepmatcher.MatchingModel` on the specified dataset.
 
         Refer to :meth:`deepmatcher.MatchingModel.run_eval` for details on parameters.

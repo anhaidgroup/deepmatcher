@@ -3,8 +3,10 @@ import os
 import shutil
 import unittest
 from test import test_dir_path
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
-from nose.tools import *
+from nose.tools import raises
 from torchtext.utils import unicode_csv_reader
 
 from deepmatcher import MatchingModel
@@ -15,13 +17,6 @@ from deepmatcher.data.process import (
     process,
     process_unlabeled,
 )
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
 
 
 class CheckHeaderTestCases(unittest.TestCase):

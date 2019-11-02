@@ -3,23 +3,16 @@ import os
 import shutil
 import unittest
 from test import test_dir_path
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
 import pandas as pd
-import torch
-from nose.tools import *
+from nose.tools import raises
 from torchtext.utils import unicode_csv_reader
 
-from deepmatcher.data.dataset import *
+from deepmatcher.data.dataset import MatchingDataset, split
 from deepmatcher.data.field import FastText, MatchingField
 from deepmatcher.data.process import _make_fields, process
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
-
 
 # import nltk
 # nltk.download('perluniprops')
@@ -84,6 +77,7 @@ class MatchingDatasetSplitsTestCases(unittest.TestCase):
             self.cache_name,
             train_pca=False,
         )
+        assert datasets
 
     @raises(MatchingDataset.CacheStaleException)
     def test_splits_2(self):
@@ -99,6 +93,7 @@ class MatchingDatasetSplitsTestCases(unittest.TestCase):
             self.cache_name,
             train_pca=False,
         )
+        assert datasets
 
         datasets_2 = MatchingDataset.splits(
             self.data_dir,
@@ -114,6 +109,7 @@ class MatchingDatasetSplitsTestCases(unittest.TestCase):
             False,
             train_pca=False,
         )
+        assert datasets_2
 
     def test_splits_3(self):
         datasets = MatchingDataset.splits(
@@ -128,6 +124,7 @@ class MatchingDatasetSplitsTestCases(unittest.TestCase):
             self.cache_name,
             train_pca=False,
         )
+        assert datasets
 
         datasets_2 = MatchingDataset.splits(
             self.data_dir,
@@ -143,6 +140,7 @@ class MatchingDatasetSplitsTestCases(unittest.TestCase):
             False,
             train_pca=False,
         )
+        assert datasets_2
 
 
 class DataframeSplitTestCases(unittest.TestCase):

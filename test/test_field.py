@@ -3,9 +3,11 @@ import shutil
 import unittest
 from collections import Counter
 from test import test_dir_path
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
 import torch
-from nose.tools import *
+from nose.tools import raises
 from torchtext.vocab import Vectors
 
 from deepmatcher.data.dataset import MatchingDataset
@@ -16,13 +18,6 @@ from deepmatcher.data.field import (
     MatchingVocab,
     reset_vector_cache,
 )
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
 
 # import nltk
 # nltk.download('perluniprops')
@@ -57,6 +52,7 @@ class ClassFastTextBinaryTestCases(unittest.TestCase):
         filename = "fasttext_sample.vec.zip"
         url_base = urljoin("file:", pathname2url(os.path.join(pathdir, filename)))
         mftb = FastTextBinary(filename, url_base=url_base, cache=vectors_cache_dir)
+        assert mftb
 
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
@@ -71,6 +67,7 @@ class ClassFastTextBinaryTestCases(unittest.TestCase):
         filename = "fasttext_sample_not_exist.vec.zip"
         url_base = urljoin("file:", pathname2url(os.path.join(pathdir, filename)))
         mftb = FastTextBinary(filename, url_base=url_base, cache=vectors_cache_dir)
+        assert mftb
 
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
@@ -85,6 +82,7 @@ class ClassFastTextBinaryTestCases(unittest.TestCase):
         filename = "fasttext_sample_not_exist.gz"
         url_base = urljoin("file:", pathname2url(os.path.join(pathdir, filename)))
         mftb = FastTextBinary(filename, url_base=url_base, cache=vectors_cache_dir)
+        assert mftb
 
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
@@ -115,6 +113,7 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
     @raises(ValueError)
     def test_init_3(self):
         mf = MatchingField(tokenize="random string")
+        assert mf
 
     def test_preprocess_args_1(self):
         mf = MatchingField()
@@ -142,6 +141,7 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
         vector_file_name = "fasttext.wiki_test.vec"
         cache_dir = os.path.join(test_dir_path, "test_datasets")
         vec_data = mf.build_vocab(vectors=vector_file_name, cache=cache_dir)
+        assert vec_data
 
     @raises(KeyError)
     def test_build_vocab_3(self):

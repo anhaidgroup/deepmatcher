@@ -2,20 +2,12 @@ import os
 import shutil
 import unittest
 from test import test_dir_path
-
-import torch
-from nose.tools import *
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
 from deepmatcher.data.field import FastText
 from deepmatcher.data.iterator import MatchingIterator
 from deepmatcher.data.process import process
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
 
 
 class ClassMatchingIteratorTestCases(unittest.TestCase):
@@ -104,6 +96,7 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
 
         splits = MatchingIterator.splits(datasets, batch_size=16)
         batch_splits = [split.create_batches() for split in splits]
+        assert batch_splits
 
         sorted_splits = MatchingIterator.splits(
             datasets, batch_sizes=[16, 32, 64], sort_in_buckets=False
@@ -111,6 +104,8 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
         batch_sorted_splits = [
             sorted_split.create_batches() for sorted_split in sorted_splits
         ]
+        assert batch_sorted_splits
+
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 

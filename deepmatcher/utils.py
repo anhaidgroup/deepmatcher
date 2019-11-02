@@ -4,4 +4,4 @@ class Bunch:
 
 
 def tally_parameters(model):
-    return sum([p.nelement() for p in model.parameters() if p.requires_grad])
+    return sum(p.nelement() for p in model.parameters() if p.requires_grad)
