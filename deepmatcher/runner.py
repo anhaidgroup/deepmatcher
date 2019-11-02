@@ -8,7 +8,6 @@ from collections import OrderedDict
 import pandas as pd
 import pyprind
 import torch
-from tqdm import tqdm
 
 from .data import MatchingIterator
 from .optim import Optimizer, SoftNLLLoss
@@ -82,7 +81,7 @@ class Runner(object):
     def _print_stats(name, epoch, batch, n_batches, stats, cum_stats):
         """Write out batch statistics to stdout.
         """
-        print(
+        logger.info(
             (
                 " | {name} | [{epoch}][{batch:4d}/{n_batches}] || Loss: {loss:7.4f} |"
                 " F1: {f1:7.2f} | Prec: {prec:7.2f} | Rec: {rec:7.2f} ||"
@@ -108,7 +107,7 @@ class Runner(object):
     def _print_final_stats(epoch, runtime, datatime, stats):
         """Write out epoch statistics to stdout.
         """
-        print(
+        logger.info(
             (
                 "Finished Epoch {epoch} || Run Time: {runtime:6.1f} | "
                 "Load Time: {datatime:6.1f} || F1: {f1:6.2f} | Prec: {prec:6.2f} | "
@@ -206,10 +205,10 @@ class Runner(object):
         label_attr = model.meta.label_field
 
         if train and epoch == 0:
-            print("* Number of trainable parameters:", tally_parameters(model))
+            logger.info("* Number of trainable parameters:", tally_parameters(model))
 
         epoch_str = "Epoch {0:d}".format(epoch + 1)
-        print("===> ", run_type, epoch_str)
+        logger.info("===> ", run_type, epoch_str)
         batch_end = time.time()
 
         # The tqdm-bar for Jupyter notebook is under development.
@@ -232,7 +231,6 @@ class Runner(object):
 
             # from torchviz import make_dot, make_dot_from_trace
             # dot = make_dot(output.mean(), params=dict(model.named_parameters()))
-            # pdb.set_trace()
 
             loss = float("NaN")
             if criterion:
@@ -306,18 +304,13 @@ class Runner(object):
         save_every_freq=1,
         **kwargs
     ):
-        """run_train(model, train_dataset, validation_dataset, best_save_path,epochs=30, \
-            criterion=None, optimizer=None, pos_neg_ratio=None, pos_weight=None, \
-            label_smoothing=0.05, save_every_prefix=None, save_every_freq=None, \
-            batch_size=32, device=None, progress_style='bar', log_freq=5, \
-            sort_in_buckets=None)
+        """Train a :class:`deepmatcher.MatchingModel` using the specified training set.
 
-        Train a :class:`deepmatcher.MatchingModel` using the specified training set.
-        Refer to :meth:`deepmatcher.MatchingModel.run_train` for details on
-        parameters.
+        Refer to :meth:`deepmatcher.MatchingModel.run_train` for details on parameters.
 
         Returns:
             float: The best F1 score obtained by the model on the validation dataset.
+
         """
 
         model.initialize(train_dataset)
@@ -382,55 +375,50 @@ class Runner(object):
 
             new_best_found = False
             if score > model.best_score:
-                print("* Best F1:", score)
+                logger.info("* Best F1:", score)
                 model.best_score = score
                 new_best_found = True
 
                 if best_save_path and new_best_found:
-                    print("Saving best model...")
+                    logger.info("Saving best model...")
                     model.save_state(best_save_path)
-                    print("Done.")
+                    logger.info("Done.")
 
             if save_every_prefix is not None and (epoch + 1) % save_every_freq == 0:
-                print("Saving epoch model...")
+                logger.info("Saving epoch model...")
                 save_path = "{prefix}_ep{epoch}.pth".format(
                     prefix=save_every_prefix, epoch=epoch + 1
                 )
                 model.save_state(save_path)
-                print("Done.")
-            print("---------------------\n")
+                logger.info("Done.")
+            logger.info("---------------------\n")
 
-        print("Loading best model...")
+        logger.info("Loading best model...")
         model.load_state(best_save_path)
-        print("Training done.")
+        logger.info("Training done.")
 
         return model.best_score
 
     def eval(model, dataset, **kwargs):
-        """eval(model, dataset, device=None, batch_size=32, progress_style='bar', log_freq=5,
-            sort_in_buckets=None)
+        """Evaluate a :class:`deepmatcher.MatchingModel` on the specified dataset.
 
-        Evaluate a :class:`deepmatcher.MatchingModel` on the specified dataset.
-        Refer to :meth:`deepmatcher.MatchingModel.run_eval` for details on
-        parameters.
+        Refer to :meth:`deepmatcher.MatchingModel.run_eval` for details on parameters.
 
         Returns:
             float: The F1 score obtained by the model on the dataset.
+
         """
         return Runner._run("EVAL", model, dataset, **kwargs)
 
     def predict(model, dataset, output_attributes=False, **kwargs):
-        """predict(model, dataset, output_attributes=False, device=None, batch_size=32, \
-            progress_style='bar', log_freq=5, sort_in_buckets=None)
-
-        Use a :class:`deepmatcher.MatchingModel` to obtain predictions, i.e., match scores
-        on the specified dataset.
+        r"""Use a :class:`deepmatcher.MatchingModel` to obtain predictions, i.e., match scores on the specified dataset.
 
         Returns:
             pandas.DataFrame: A pandas DataFrame containing tuple pair IDs (in the "id"
                 column) and the corresponding match score predictions (in the
                 "match_score" column). Will also include all attributes in the original
                 CSV file of the dataset if `output_attributes` is True.
+
         """
         # Create a shallow copy of the model and reset embeddings to use vocab and
         # embeddings from new dataset.

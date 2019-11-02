@@ -1,5 +1,3 @@
-import pdb
-
 import six
 import torch
 
@@ -48,5 +46,4 @@ def check_nan(*values):
         if isinstance(value, AttrTensor):
             value = value.data
         if isinstance(value, torch.Tensor) and (value != value).any():
-            print("NaN detected!!!")
-            pdb.set_trace()
+            raise ValueError("NaN detected!")
