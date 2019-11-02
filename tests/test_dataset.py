@@ -2,21 +2,15 @@ import io
 import os
 import shutil
 import unittest
-from urllib.parse import urljoin
-from urllib.request import pathname2url
 
 import pandas as pd
 from nose.tools import raises
 from torchtext.utils import unicode_csv_reader
 
 from deepmatcher.data.dataset import MatchingDataset, split
-from deepmatcher.data.field import FastText, MatchingField
+from deepmatcher.data.field import MatchingField
 from deepmatcher.data.process import _make_fields, process
-from tests import test_dir_path
-
-# import nltk
-# nltk.download('perluniprops')
-# nltk.download('nonbreaking_prefixes')
+from tests import embeddings, test_dir_path
 
 
 class ClassMatchingDatasetTestCases(unittest.TestCase):
@@ -217,16 +211,11 @@ class GetRawTableTestCases(unittest.TestCase):
         if os.path.exists(data_cache_path):
             os.remove(data_cache_path)
 
-        vec_dir = os.path.abspath(os.path.join(test_dir_path, "test_datasets"))
-        filename = "fasttext_sample.vec.zip"
-        url_base = urljoin("file:", pathname2url(vec_dir)) + os.path.sep
-        ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
-
         train = process(
             path=os.path.join(test_dir_path, "test_datasets"),
             train="sample_table_small.csv",
             id_attr="id",
-            embeddings=ft,
+            embeddings=embeddings,
             embeddings_cache_path="",
             pca=False,
         )

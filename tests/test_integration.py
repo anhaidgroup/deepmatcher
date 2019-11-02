@@ -1,13 +1,10 @@
 import os
 import shutil
 import unittest
-from urllib.parse import urljoin
-from urllib.request import pathname2url
 
 from deepmatcher import MatchingModel, attr_summarizers
-from deepmatcher.data.field import FastText
 from deepmatcher.data.process import process, process_unlabeled
-from tests import test_dir_path
+from tests import embeddings, test_dir_path
 
 
 class ModelTrainSaveLoadTest(unittest.TestCase):
@@ -22,18 +19,13 @@ class ModelTrainSaveLoadTest(unittest.TestCase):
         if os.path.exists(self.data_cache_path):
             os.remove(self.data_cache_path)
 
-        vec_dir = os.path.abspath(os.path.join(test_dir_path, "test_datasets"))
-        filename = "fasttext_sample.vec.zip"
-        url_base = urljoin("file:", pathname2url(vec_dir)) + os.path.sep
-        ft = FastText(filename, url_base=url_base, cache=self.vectors_cache_dir)
-
         self.train, self.valid, self.test = process(
             path=os.path.join(test_dir_path, "test_datasets"),
             cache="train_cache.pth",
             train="test_train.csv",
             validation="test_valid.csv",
             test="test_test.csv",
-            embeddings=ft,
+            embeddings=embeddings,
             embeddings_cache_path="",
             ignore_columns=("left_id", "right_id"),
         )
@@ -180,18 +172,13 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
         if os.path.exists(self.data_cache_path):
             os.remove(self.data_cache_path)
 
-        vec_dir = os.path.abspath(os.path.join(test_dir_path, "test_datasets"))
-        filename = "fasttext_sample.vec.zip"
-        url_base = urljoin("file:", pathname2url(vec_dir)) + os.path.sep
-        ft = FastText(filename, url_base=url_base, cache=self.vectors_cache_dir)
-
         self.train, self.valid, self.test = process(
             path=os.path.join(test_dir_path, "test_datasets"),
             cache="train_cache.pth",
             train="test_train.csv",
             validation="test_valid.csv",
             test="test_test.csv",
-            embeddings=ft,
+            embeddings=embeddings,
             embeddings_cache_path="",
             ignore_columns=("left_id", "right_id"),
         )

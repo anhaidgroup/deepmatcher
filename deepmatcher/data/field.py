@@ -1,81 +1,11 @@
 import logging
 import os
-import tarfile
-import zipfile
 
-import fasttext
 import nltk
-import torch
 from torchtext import data, vocab
-from torchtext.utils import download_from_url
+from torchtext.vocab import FastText
 
 logger = logging.getLogger(__name__)
-
-
-class FastText(vocab.Vectors):
-    def __init__(
-        self,
-        suffix="wiki-news-300d-1M.vec.zip",
-        url_base="https://dl.fbaipublicfiles.com/fasttext/vectors-english/",
-        **kwargs
-    ):
-        url = url_base + suffix
-        base, ext = os.path.splitext(suffix)
-        name = suffix if ext == ".vec" else base
-        super(FastText, self).__init__(name, url=url, **kwargs)
-
-
-class FastTextBinary(vocab.Vectors):
-
-    name_base = "wiki.{}.bin"
-    _direct_en_url = "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.zip"
-
-    def __init__(self, language="en", url_base=None, cache=None):
-        """The init function.
-
-        language: Language of fasttext pre-trained embedding model
-        cache: directory for cached model
-        """
-        cache = os.path.expanduser(cache)
-        if language == "en" and url_base is None:
-            url = FastTextBinary._direct_en_url
-            self.destination = os.path.join(cache, "wiki." + language + ".bin")
-        else:
-            if url_base is None:
-                url_base = (
-                    "https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.{}.zip"
-                )
-            url = url_base.format(language)
-            self.destination = os.path.join(cache, "wiki." + language + ".zip")
-        name = FastTextBinary.name_base.format(language)
-
-        self.cache(name, cache, url=url)
-
-    def __getitem__(self, token):
-        return torch.Tensor(self.model.get_word_vector(token))
-
-    def cache(self, name, cache, url=None):
-        path = os.path.join(cache, name)
-        if not os.path.isfile(path) and url:
-            logger.info("Downloading vectors from {}".format(url))
-            if not os.path.exists(cache):
-                os.makedirs(cache)
-            if not os.path.isfile(self.destination):
-                download_from_url(url, self.destination)
-            logger.info("Extracting vectors into {}".format(cache))
-            ext = os.path.splitext(self.destination)[1][1:]
-            if ext == "zip":
-                with zipfile.ZipFile(self.destination, "r") as zf:
-                    zf.extractall(cache)
-            elif ext == "gz":
-                with tarfile.open(self.destination, "r:gz") as tar:
-                    tar.extractall(path=cache)
-
-        if not os.path.isfile(path):
-            raise RuntimeError("no vectors found at {}".format(path))
-
-        self.model = fasttext.load_model(path)
-        self.dim = len(self["a"])
 
 
 class MatchingVocab(vocab.Vocab):
@@ -149,16 +79,7 @@ class MatchingField(data.Field):
                 if vec_data is None:
                     parts = vec_name.split(".")
                     if parts[0] == "fasttext":
-                        if parts[2] == "bin":
-                            vec_data = FastTextBinary(language=parts[1], cache=cache)
-                        elif parts[2] == "vec" and parts[1] == "wiki":
-                            vec_data = FastText(
-                                suffix="wiki-news-300d-1M.vec.zip", cache=cache
-                            )
-                        elif parts[2] == "vec" and parts[1] == "crawl":
-                            vec_data = FastText(
-                                suffix="crawl-300d-2M.vec.zip", cache=cache
-                            )
+                        vec_data = FastText(language=parts[1])
                 if vec_data is None:
                     vec_data = vocab.pretrained_aliases[vec_name](cache=cache)
                 cls._cached_vec_data[vec_name] = vec_data

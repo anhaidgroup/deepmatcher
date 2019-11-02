@@ -123,3 +123,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Cached embeddings
+.vector_cache/
+
+# Temporary files
+*.pth

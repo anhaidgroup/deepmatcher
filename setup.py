@@ -43,7 +43,6 @@ setup(
         "Cython",
         "torchtext",
         "nltk>=3.2.5",
-        "fasttext",
         "pandas",
         "sklearn",
     ],

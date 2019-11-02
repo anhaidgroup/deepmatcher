@@ -1,13 +1,10 @@
 import os
 import shutil
 import unittest
-from urllib.parse import urljoin
-from urllib.request import pathname2url
 
-from deepmatcher.data.field import FastText
 from deepmatcher.data.iterator import create_matching_splits
 from deepmatcher.data.process import process
-from tests import test_dir_path
+from tests import embeddings, test_dir_path
 
 
 class ClassMatchingIteratorTestCases(unittest.TestCase):
@@ -25,18 +22,13 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
         if os.path.exists(cache_path):
             os.remove(cache_path)
 
-        pathdir = os.path.abspath(os.path.join(test_dir_path, "test_datasets"))
-        filename = "fasttext_sample.vec.zip"
-        url_base = urljoin("file:", pathname2url(pathdir)) + os.path.sep
-        ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
-
         datasets = process(
             data_dir,
             train=train_path,
             validation=valid_path,
             test=test_path,
             cache=cache_file,
-            embeddings=ft,
+            embeddings=embeddings,
             id_attr="_id",
             left_prefix="ltable_",
             right_prefix="rtable_",
@@ -75,18 +67,13 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
         if os.path.exists(cache_path):
             os.remove(cache_path)
 
-        pathdir = os.path.abspath(os.path.join(test_dir_path, "test_datasets"))
-        filename = "fasttext_sample.vec.zip"
-        url_base = urljoin("file:", pathname2url(pathdir)) + os.path.sep
-        ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
-
         datasets = process(
             data_dir,
             train=train_path,
             validation=valid_path,
             test=test_path,
             cache=cache_file,
-            embeddings=ft,
+            embeddings=embeddings,
             id_attr="_id",
             left_prefix="ltable_",
             right_prefix="rtable_",
