@@ -1,7 +1,5 @@
-import six
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 
 import deepmatcher as dm
 
@@ -10,10 +8,9 @@ from . import _utils
 
 
 class Attention(dm.WordComparator):
-    r"""__init__(heads=1, hidden_size=None, raw_alignment=False, input_dropout=0, alignment_network='decomposable', scale=False, score_dropout=0, value_transform_network=None, input_transform_network=None, value_merge='concat', transform_dropout=0, comparison_merge='concat', comparison_network='2-layer-highway', input_size=None)
+    r"""Attention based Word Comparator with `multi-head <https://arxiv.org/abs/1706.03762>`__ support.
 
-    Attention based Word Comparator with `multi-head <https://arxiv.org/abs/1706.03762>`__
-    support. This module does the following:
+    This module does the following:
 
     1. Computes an alignment matrix between the primary input sequence and the context
        input sequence.
@@ -91,6 +88,7 @@ class Attention(dm.WordComparator):
         input_size (int):
             The number of features in the input to the module. This parameter will be
             automatically specified by :class:`LazyModule`.
+
     """
 
     def _init(
@@ -155,27 +153,28 @@ class Attention(dm.WordComparator):
         raw_input_with_meta=None,
         raw_context_with_meta=None,
     ):
-        input = self.input_dropout(input_with_meta.data)
+        inputs = self.input_dropout(input_with_meta.data)
         context = self.input_dropout(context_with_meta.data)
-        raw_input = self.input_dropout(raw_input_with_meta.data)
+        raw_inputs = self.input_dropout(raw_input_with_meta.data)
         raw_context = self.input_dropout(raw_context_with_meta.data)
 
-        queries = input
+        queries = inputs
         keys = context
         values = context
         if self.raw_alignment:
-            queries = raw_input
+            queries = raw_inputs
             keys = raw_context
 
         inputs_transformed = []
         values_aligned = []
+
         for head in range(self.heads):
             # Dims: batch x len1 x len2
             alignment_scores = self.score_dropout(
                 self.alignment_networks[head](queries, keys)
             )
             if self.scale:
-                alignment_scores = alignment_scores / torch.sqrt(hidden_size)
+                alignment_scores = alignment_scores / torch.sqrt(queries.size(2))
 
             if context_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(context_with_meta.lengths)
@@ -187,7 +186,7 @@ class Attention(dm.WordComparator):
 
             if self.input_transform_network is not None:
                 inputs_transformed.append(
-                    self.transform_dropout(self.input_transform_network(input))
+                    self.transform_dropout(self.input_transform_network(inputs))
                 )
             if self.value_transform_network is not None:
                 values_transformed = self.transform_dropout(
@@ -199,7 +198,7 @@ class Attention(dm.WordComparator):
             # Dims: batch x len1 x channels
             values_aligned.append(torch.bmm(normalized_scores, values_transformed))
 
-        inputs_merged = input
+        inputs_merged = inputs
         if inputs_transformed:
             inputs_merged = self.value_merge(*inputs_transformed)
         values_merged = self.value_merge(*values_aligned)

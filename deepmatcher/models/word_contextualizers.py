@@ -1,7 +1,5 @@
-import six
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 
 import deepmatcher as dm
 
@@ -19,14 +17,8 @@ class RNN(dm.modules.RNN, dm.WordContextualizer):
     pass
 
 
-# class CNN(dm.WordContextualizer):
-#     pass
-
-
 class SelfAttention(dm.WordContextualizer):
-    """__init__(heads=1, hidden_size=None, input_dropout=0, alignment_network='decomposable', scale=False, score_dropout=0, value_transform_network=None, value_merge='concat', transform_dropout=0, output_transform_network=None, output_dropout=0, bypass_network='highway', input_size=None)
-
-    Self Attention based Word Contextualizer.
+    """Self Attention based Word Contextualizer.
 
     Supports `vanilla self attention <https://arxiv.org/abs/1606.01933>`__ and `multi-head
     self attention <https://arxiv.org/abs/1706.03762>`__.
@@ -92,6 +84,7 @@ class SelfAttention(dm.WordContextualizer):
         input_size (int):
             The number of features in the input to the module. This parameter will be
             automatically specified by :class:`LazyModule`.
+
     """
 
     def _init(
@@ -150,13 +143,13 @@ class SelfAttention(dm.WordContextualizer):
         self.hidden_size = hidden_size
 
     def _forward(self, input_with_meta):
-        input = self.input_dropout(input_with_meta.data)
+        inputs = self.input_dropout(input_with_meta.data)
 
         values_aligned = []
         for head in range(self.heads):
             # Dims: batch x len1 x len2
             alignment_scores = self.score_dropout(
-                self.alignment_networks[head](input, input)
+                self.alignment_networks[head](inputs, inputs)
             )
 
             if self.scale:
@@ -171,10 +164,10 @@ class SelfAttention(dm.WordContextualizer):
 
             if self.value_transform_network is not None:
                 values_transformed = self.transform_dropout(
-                    self.value_transform_network(input)
+                    self.value_transform_network(inputs)
                 )
             else:
-                values_transformed = input
+                values_transformed = inputs
 
             # Dims: batch x len1 x channels
             values_aligned.append(torch.bmm(normalized_scores, values_transformed))
@@ -186,6 +179,6 @@ class SelfAttention(dm.WordContextualizer):
             output = self.output_transform_network(output)
         output = self.output_dropout(output)
 
-        final_output = self.bypass_network(output, input)
+        final_output = self.bypass_network(output, inputs)
 
         return AttrTensor.from_old_metadata(final_output, input_with_meta)
