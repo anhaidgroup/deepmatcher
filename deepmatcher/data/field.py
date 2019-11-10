@@ -37,7 +37,7 @@ class FastTextBinary(vocab.Vectors):
     name_base = 'wiki.{}.bin'
     _direct_en_url = 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.zip'
 
-    def __init__(self, language='en', url_base=None, cache=None):
+    def __init__(self, language='en', url_base=None, cache=None, vectors_type=None):
         """
         Arguments:
            language: Language of fasttext pre-trained embedding model
@@ -51,8 +51,14 @@ class FastTextBinary(vocab.Vectors):
             if url_base is None:
                 url_base = 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.{}.zip'
             url = url_base.format(language)
-            self.destination = os.path.join(cache, 'wiki.' + language + '.zip')
-        name = FastTextBinary.name_base.format(language)
+            if vector_type is None:
+                self.destination = os.path.join(cache, 'wiki.' + language + '.zip')
+            else:
+                self.destination = os.path.join(cache, 'wiki_cc.' + language + '.bin.gz')
+        if vectors_type is None:
+            name = FastTextBinary.name_base.format(language)
+        else:
+            name = 'wiki_cc.{}.bin'.format(language)
 
         self.cache(name, cache, url=url)
 
@@ -203,7 +209,9 @@ class MatchingField(data.Field):
                 if vec_data is None:
                     parts = vec_name.split('.')
                     if parts[0] == 'fasttext':
-                        if parts[2] == 'bin':
+                        if parts[1] == 'cc':
+                            vec_data = FastTextBinary(language=parts[2], cache=cache, url_base='https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.{}.300.bin.gz', vectors_type=parts[1])  
+                        elif parts[2] == 'bin':
                             vec_data = FastTextBinary(language=parts[1], cache=cache)
                         elif parts[2] == 'vec' and parts[1] == 'wiki':
                             vec_data = FastText(
