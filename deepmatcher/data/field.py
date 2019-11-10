@@ -51,7 +51,7 @@ class FastTextBinary(vocab.Vectors):
             if url_base is None:
                 url_base = 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.{}.zip'
             url = url_base.format(language)
-            if vector_type is None:
+            if vectors_type is None:
                 self.destination = os.path.join(cache, 'wiki.' + language + '.zip')
             else:
                 self.destination = os.path.join(cache, 'wiki_cc.' + language + '.bin.gz')
