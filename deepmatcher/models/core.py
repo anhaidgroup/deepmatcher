@@ -351,7 +351,7 @@ class MatchingModel(nn.Module):
                 train_dataset,
                 train=False,
                 batch_size=4,
-                device=-1,
+                device='cpu',
                 sort_in_buckets=False)
             init_batch = next(run_iter.__iter__())
         self.forward(init_batch)

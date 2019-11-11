@@ -12,13 +12,8 @@ from deepmatcher.data.dataset import *
 from deepmatcher.data.field import FastText, MatchingField
 from deepmatcher.data.process import _make_fields, process
 from torchtext.utils import unicode_csv_reader
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
 
 # import nltk
