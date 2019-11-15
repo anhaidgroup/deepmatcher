@@ -439,10 +439,16 @@ class MatchingModel(nn.Module):
             input (:class:`~deepmatcher.batch.MatchingBatch`): A batch of tuple pairs
                 processed into tensors.
         """
+
+        def kmax_pooling(x, dim, k):
+            index = x.topk(k, dim = dim)[1].sort(dim = dim)[0]
+            return x.gather(dim, index)
+
         embeddings = {}
         for name in self.meta.all_text_fields:
             attr_input = getattr(input, name)
             embeddings[name] = self.embed[name](attr_input)
+            print(embeddings[name].shape, embeddings[name].dtype)
 
         attr_comparisons = []
         for name in self.meta.canonical_text_fields:
