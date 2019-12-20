@@ -373,7 +373,8 @@ class MatchingModel(nn.Module):
         self.to(device)
         self.attr_comparators.to(device)
         self.attr_summarizers.to(device)  
-        self.attr_condensors.to(device)
+        if self.attr_condensors is not None:
+            self.attr_condensors.to(device)
         self.embed.to(device)  
         self.attr_comparator.to(device)
         self.attr_merge.to(device) 
