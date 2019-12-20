@@ -31,7 +31,9 @@ def split(table,
           test_prefix,
           split_ratio=[0.6, 0.2, 0.2],
           stratified=False,
-          strata_field='label'):
+          strata_field='label',
+          random_state=None):
+
     """Split a pandas dataframe or CSV file into train / validation / test data sets.
 
     Args:
@@ -46,6 +48,8 @@ def split(table,
             Default is False.
         strata_field (str): name of the examples Field stratified over.
             Default is 'label' for the conventional label field.
+        random_state (tuple): the random seed used for shuffling.
+            A return value of random.getstate()
     """
     assert len(split_ratio) == 3
 
@@ -57,7 +61,7 @@ def split(table,
     examples = list(table.itertuples(index=False))
     fields = [(col, None) for col in list(table)]
     dataset = data.Dataset(examples, fields)
-    train, valid, test = dataset.split(split_ratio, stratified, strata_field)
+    train, valid, test = dataset.split(split_ratio, stratified, strata_field, random_state=random_state)
 
     tables = (pd.DataFrame(train.examples), pd.DataFrame(valid.examples),
               pd.DataFrame(test.examples))
@@ -65,7 +69,10 @@ def split(table,
 
     for i in range(len(tables)):
         tables[i].columns = table.columns
-        tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
+        if path is not None:
+            tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
+    
+    return tables
 
 
 class MatchingDataset(data.Dataset):
