@@ -449,7 +449,6 @@ class MatchingModel(nn.Module):
         for name in self.meta.all_text_fields:
             attr_input = getattr(input, name)
             embeddings[name] = self.embed[name](attr_input)
-            print(embeddings[name].shape, embeddings[name].dtype)
 
         attr_comparisons = []
         for name in self.meta.canonical_text_fields:
