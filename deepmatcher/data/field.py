@@ -6,10 +6,16 @@ import zipfile
 import nltk
 import six
 
-import fastText
+import fasttext
 import torch
 from torchtext import data, vocab
 from torchtext.utils import download_from_url
+
+import os
+import time
+import shutil
+from tqdm import tqdm
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +24,7 @@ class FastText(vocab.Vectors):
 
     def __init__(self,
                  suffix='wiki-news-300d-1M.vec.zip',
-                 url_base='https://s3-us-west-1.amazonaws.com/fasttext-vectors/',
+                 url_base='https://dl.fbaipublicfiles.com/fasttext/vectors-english/',
                  **kwargs):
         url = url_base + suffix
         base, ext = os.path.splitext(suffix)
@@ -29,12 +35,12 @@ class FastText(vocab.Vectors):
 class FastTextBinary(vocab.Vectors):
 
     name_base = 'wiki.{}.bin'
-    _direct_en_url = 'https://drive.google.com/uc?export=download&id=1Vih8gAmgBnuYDxfblbT94P6WjB7s1ZSh'
+    _direct_en_url = 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.zip'
 
-    def __init__(self, language='en', url_base=None, cache=None):
+    def __init__(self, language='en', url_base=None, cache=None, vectors_type=None):
         """
         Arguments:
-           language: Language of fastText pre-trained embedding model
+           language: Language of fasttext pre-trained embedding model
            cache: directory for cached model
          """
         cache = os.path.expanduser(cache)
@@ -43,16 +49,75 @@ class FastTextBinary(vocab.Vectors):
             self.destination = os.path.join(cache, 'wiki.' + language + '.bin')
         else:
             if url_base is None:
-                url_base = 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki.{}.zip'
+                url_base = 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.{}.zip'
             url = url_base.format(language)
-            self.destination = os.path.join(cache, 'wiki.' + language + '.zip')
-        name = FastTextBinary.name_base.format(language)
+            if vectors_type is None:
+                self.destination = os.path.join(cache, 'wiki.' + language + '.zip')
+            else:
+                self.destination = os.path.join(cache, 'wiki_cc.' + language + '.bin.gz')
+        if vectors_type is None:
+            name = FastTextBinary.name_base.format(language)
+        else:
+            name = 'wiki_cc.{}.bin'.format(language)
 
         self.cache(name, cache, url=url)
 
     def __getitem__(self, token):
         return torch.Tensor(self.model.get_word_vector(token))
+    
+    def __download_with_resume(self, url, destination):
+        # Check if the requested url is ok, i.e. 200 <= status_code < 400
+        head = requests.head(url)
+        if not head.ok:
+            head.raise_for_status()
 
+        # Since requests doesn't support local file reading
+        # we check if protocol is file://
+        if url.startswith('file://'):
+            url_no_protocol = url.replace('file://', '', count=1)
+            if os.path.exists(url_no_protocol):
+                print('File already exists, no need to download')
+                return
+            else:
+                raise Exception('File not found at %s' % url_no_protocol)
+        
+        # Don't download if the file exists
+        if os.path.exists(os.path.expanduser(destination)):
+            print('File already exists, no need to download')
+            return
+
+        tmp_file = destination + '.part'
+        first_byte = os.path.getsize(tmp_file) if os.path.exists(tmp_file) else 0
+        chunk_size = 1024 ** 2  # 1 MB
+        file_mode = 'ab' if first_byte else 'wb'
+
+        # Set headers to resume download from where we've left 
+        headers = {"Range": "bytes=%s-" % first_byte}
+        r = requests.get(url, headers=headers, stream=True)
+        file_size = int(r.headers.get('Content-length', -1))
+        if file_size >= 0:
+            # Content-length set
+            file_size += first_byte
+            total = file_size
+        else:
+            # Content-length not set
+            print('Cannot retrieve Content-length from server')
+            total = None
+
+        print('Download from ' + url)
+        print('Starting download at %.1fMB' % (first_byte / (10 ** 6)))
+        print('File size is %.1fMB' % (file_size / (10 ** 6)))
+
+        with tqdm(initial=first_byte, total=total, unit_scale=True) as pbar:
+            with open(tmp_file, file_mode) as f:
+                for chunk in r.iter_content(chunk_size=chunk_size):
+                    if chunk: # filter out keep-alive new chunks
+                        f.write(chunk)
+                        pbar.update(len(chunk))
+
+        # Rename the temp download file to the correct name if fully downloaded
+        shutil.move(tmp_file, destination)
+    
     def cache(self, name, cache, url=None):
         path = os.path.join(cache, name)
         if not os.path.isfile(path) and url:
@@ -60,7 +125,8 @@ class FastTextBinary(vocab.Vectors):
             if not os.path.exists(cache):
                 os.makedirs(cache)
             if not os.path.isfile(self.destination):
-                download_from_url(url, self.destination)
+                # self.__download_with_resume(url, self.destination)
+                self.__download_with_resume(url, self.destination)
             logger.info('Extracting vectors into {}'.format(cache))
             ext = os.path.splitext(self.destination)[1][1:]
             if ext == 'zip':
@@ -72,7 +138,7 @@ class FastTextBinary(vocab.Vectors):
         if not os.path.isfile(path):
             raise RuntimeError('no vectors found at {}'.format(path))
 
-        self.model = fastText.load_model(path)
+        self.model = fasttext.load_model(path)
         self.dim = len(self['a'])
 
 
@@ -143,7 +209,9 @@ class MatchingField(data.Field):
                 if vec_data is None:
                     parts = vec_name.split('.')
                     if parts[0] == 'fasttext':
-                        if parts[2] == 'bin':
+                        if parts[1] == 'cc':
+                            vec_data = FastTextBinary(language=parts[2], cache=cache, url_base='https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.{}.300.bin.gz', vectors_type=parts[1])  
+                        elif parts[2] == 'bin':
                             vec_data = FastTextBinary(language=parts[1], cache=cache)
                         elif parts[2] == 'vec' and parts[1] == 'wiki':
                             vec_data = FastText(

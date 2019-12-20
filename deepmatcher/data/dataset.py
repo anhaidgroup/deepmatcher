@@ -24,7 +24,6 @@ from .iterator import MatchingIterator
 
 logger = logging.getLogger(__name__)
 
-
 def split(table,
           path,
           train_prefix,
@@ -32,7 +31,9 @@ def split(table,
           test_prefix,
           split_ratio=[0.6, 0.2, 0.2],
           stratified=False,
-          strata_field='label'):
+          strata_field='label',
+          random_state=None):
+
     """Split a pandas dataframe or CSV file into train / validation / test data sets.
 
     Args:
@@ -47,8 +48,10 @@ def split(table,
             Default is False.
         strata_field (str): name of the examples Field stratified over.
             Default is 'label' for the conventional label field.
+        random_state (tuple): the random seed used for shuffling.
+            A return value of random.getstate()
     """
-    assert len(split_ratio) == 3
+    assert (isinstance(split_ratio, list) and len(split_ratio) <= 3) or (split_ratio >= 0 and split_ratio <= 1)
 
     if not isinstance(table, pd.DataFrame):
         table = pd.read_csv(table)
@@ -58,15 +61,29 @@ def split(table,
     examples = list(table.itertuples(index=False))
     fields = [(col, None) for col in list(table)]
     dataset = data.Dataset(examples, fields)
-    train, valid, test = dataset.split(split_ratio, stratified, strata_field)
+    if isinstance(split_ratio, list) and len(split_ratio) == 3:
+        train, valid, test = dataset.split(split_ratio, stratified, strata_field, random_state=random_state)
 
-    tables = (pd.DataFrame(train.examples), pd.DataFrame(valid.examples),
-              pd.DataFrame(test.examples))
-    prefixes = (train_prefix, validation_prefix, test_prefix)
+        tables = (pd.DataFrame(train.examples), pd.DataFrame(valid.examples),
+                pd.DataFrame(test.examples))
+        prefixes = (train_prefix, validation_prefix, test_prefix)
 
-    for i in range(len(tables)):
-        tables[i].columns = table.columns
-        tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
+        for i in range(len(tables)):
+            tables[i].columns = table.columns
+            if path is not None:
+                tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
+    else:
+        train, test = dataset.split(split_ratio, stratified, strata_field, random_state=random_state)
+
+        tables = (pd.DataFrame(train.examples), pd.DataFrame(test.examples))
+        prefixes = (train_prefix, test_prefix)
+
+        for i in range(len(tables)):
+            tables[i].columns = table.columns
+            if path is not None:
+                tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
+    
+    return tables
 
 
 class MatchingDataset(data.Dataset):
@@ -203,7 +220,7 @@ class MatchingDataset(data.Dataset):
         self.label_field = self.column_naming['label']
         self.id_field = self.column_naming['id']
 
-    def compute_metadata(self, pca=False):
+    def compute_metadata(self, pca=False, device=None):
         r"""Computes metadata about the dataset.
 
         Computes the following metadata about the dataset:
@@ -220,12 +237,20 @@ class MatchingDataset(data.Dataset):
 
         Arguments:
             pca (bool): Whether to compute the ``pc`` metadata.
+            device (str or torch.device): The device type on which compute metadata of the model. 
+                Set to 'cpu' to use CPU only, even if GPU is available. 
+                If None, will use first available GPU, or use CPU if no GPUs are available. 
+                Defaults to None.
+                This is a keyword only param.
         """
+        if device is None:
+            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+        
         self.metadata = {}
 
         # Create an iterator over the entire dataset.
         train_iter = MatchingIterator(
-            self, self, train=False, batch_size=1024, device=-1, sort_in_buckets=False)
+            self, self, train=False, batch_size=1024, sort_in_buckets=False, device=device)
         counter = defaultdict(Counter)
 
         # For each attribute, find the number of times each word id occurs in the dataset.
@@ -233,7 +258,7 @@ class MatchingDataset(data.Dataset):
         for batch in pyprind.prog_bar(train_iter, title='\nBuilding vocabulary'):
             for name in self.all_text_fields:
                 attr_input = getattr(batch, name)
-                counter[name].update(attr_input.data.data.view(-1))
+                counter[name].update(attr_input.data.data.view(-1).tolist())
 
         word_probs = {}
         totals = {}
@@ -270,7 +295,7 @@ class MatchingDataset(data.Dataset):
 
         # Create an iterator over the entire dataset.
         train_iter = MatchingIterator(
-            self, self, train=False, batch_size=1024, device=-1, sort_in_buckets=False)
+            self, self, train=False, batch_size=1024, sort_in_buckets=False, device=device)
         attr_embeddings = defaultdict(list)
 
         # Run the constructed neural network to compute weighted sequence embeddings
@@ -524,11 +549,19 @@ class MatchingDataset(data.Dataset):
             filter_pred (callable or None): Use only examples for which
                 filter_pred(example) is True, or use all examples if None.
                 Default is None. This is a keyword-only parameter.
+            device (str or torch.device): The device type on which compute metadata of the model. 
+                Set to 'cpu' to use CPU only, even if GPU is available. 
+                If None, will use first available GPU, or use CPU if no GPUs are available. 
+                Defaults to None.
+                This is a keyword only param.
 
         Returns:
             Tuple[MatchingDataset]: Datasets for (train, validation, and test) splits in
                 that order, if provided.
         """
+        device = kwargs.pop('device', None)
+        if device is None:
+            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
         fields_dict = dict(fields)
         state_args = {'train_pca': train_pca}
@@ -578,7 +611,7 @@ class MatchingDataset(data.Dataset):
             logger.info('Vocab construction time: {}s'.format(after_vocab - after_load))
 
             if train:
-                datasets[0].compute_metadata(train_pca)
+                datasets[0].compute_metadata(train_pca, device)
             after_metadata = timer()
             logger.info(
                 'Metadata computation time: {}s'.format(after_metadata - after_vocab))
