@@ -51,7 +51,7 @@ def split(table,
         random_state (tuple): the random seed used for shuffling.
             A return value of random.getstate()
     """
-    assert len(split_ratio) == 3
+    assert (isinstance(split_ratio, list) and len(split_ratio) <= 3) or (split_ratio >= 0 and split_ratio <= 1)
 
     if not isinstance(table, pd.DataFrame):
         table = pd.read_csv(table)
@@ -61,16 +61,27 @@ def split(table,
     examples = list(table.itertuples(index=False))
     fields = [(col, None) for col in list(table)]
     dataset = data.Dataset(examples, fields)
-    train, valid, test = dataset.split(split_ratio, stratified, strata_field, random_state=random_state)
+    if isinstance(split_ratio, list) and len(split_ratio) == 3:
+        train, valid, test = dataset.split(split_ratio, stratified, strata_field, random_state=random_state)
 
-    tables = (pd.DataFrame(train.examples), pd.DataFrame(valid.examples),
-              pd.DataFrame(test.examples))
-    prefixes = (train_prefix, validation_prefix, test_prefix)
+        tables = (pd.DataFrame(train.examples), pd.DataFrame(valid.examples),
+                pd.DataFrame(test.examples))
+        prefixes = (train_prefix, validation_prefix, test_prefix)
 
-    for i in range(len(tables)):
-        tables[i].columns = table.columns
-        if path is not None:
-            tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
+        for i in range(len(tables)):
+            tables[i].columns = table.columns
+            if path is not None:
+                tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
+    else:
+        train, test = dataset.split(split_ratio, stratified, strata_field, random_state=random_state)
+
+        tables = (pd.DataFrame(train.examples), pd.DataFrame(test.examples))
+        prefixes = (train_prefix, test_prefix)
+
+        for i in range(len(tables)):
+            tables[i].columns = table.columns
+            if path is not None:
+                tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
     
     return tables
 
