@@ -39,9 +39,7 @@ before_install:
 
 install:
   - conda install --yes python=$PYTHON_VERSION pip scikit-learn nose
-  - ls
-  - pwd
-  - pip install -e deepmatcher | cat
+  - pip install -e . | cat
   - python -m nltk.downloader perluniprops nonbreaking_prefixes punkt
 
 script:
