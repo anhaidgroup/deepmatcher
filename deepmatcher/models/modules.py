@@ -721,13 +721,13 @@ class Pool(LazyModule):
             if input_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
-                input.data.masked_fill_(1 - mask, -float('inf'))
+                input.data.masked_fill_(~mask, -float('inf'))
             output = input.max(dim=1)[0]
         else:
             if input_with_meta.lengths is not None:
                 mask = _utils.sequence_mask(input_with_meta.lengths)
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
-                input.data.masked_fill_(1 - mask, 0)
+                input.data.masked_fill_(~mask, 0)
 
             lengths = Variable(input_with_meta.lengths.clamp(min=1).unsqueeze(1).float())
             if self.style == 'avg':
@@ -860,7 +860,7 @@ class Bypass(LazyModule):
                 res *= math.sqrt(0.5)
             return res
         elif self.style == 'highway':
-            transform_gate = F.sigmoid(self.highway_gate(raw) + self.highway_bias)
+            transform_gate = torch.sigmoid(self.highway_gate(raw) + self.highway_bias)
             carry_gate = 1 - transform_gate
             return transform_gate * transformed + carry_gate * adjusted_raw
 

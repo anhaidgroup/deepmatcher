@@ -225,7 +225,7 @@ class MatchingDataset(data.Dataset):
 
         # Create an iterator over the entire dataset.
         train_iter = MatchingIterator(
-            self, self, train=False, batch_size=1024, device=-1, sort_in_buckets=False)
+            self, self, train=False, batch_size=1024, device='cpu', sort_in_buckets=False)
         counter = defaultdict(Counter)
 
         # For each attribute, find the number of times each word id occurs in the dataset.
@@ -233,7 +233,7 @@ class MatchingDataset(data.Dataset):
         for batch in pyprind.prog_bar(train_iter, title='\nBuilding vocabulary'):
             for name in self.all_text_fields:
                 attr_input = getattr(batch, name)
-                counter[name].update(attr_input.data.data.view(-1))
+                counter[name].update(attr_input.data.data.view(-1).tolist())
 
         word_probs = {}
         totals = {}
@@ -270,7 +270,7 @@ class MatchingDataset(data.Dataset):
 
         # Create an iterator over the entire dataset.
         train_iter = MatchingIterator(
-            self, self, train=False, batch_size=1024, device=-1, sort_in_buckets=False)
+            self, self, train=False, batch_size=1024, device='cpu', sort_in_buckets=False)
         attr_embeddings = defaultdict(list)
 
         # Run the constructed neural network to compute weighted sequence embeddings
