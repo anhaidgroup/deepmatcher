@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.autograd import Variable
-from torch.nn.utils import clip_grad_norm
+from torch.nn.utils import clip_grad_norm_
 
 logger = logging.getLogger('deepmatcher.optim')
 
@@ -143,7 +143,7 @@ class Optimizer(object):
         self._step += 1
 
         if self.max_grad_norm:
-            clip_grad_norm(self.params, self.max_grad_norm)
+            clip_grad_norm_(self.params, self.max_grad_norm)
         self.base_optimizer.step()
 
     def update_learning_rate(self, acc, epoch):

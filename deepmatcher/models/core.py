@@ -2,6 +2,7 @@ import copy
 import logging
 from collections import Mapping
 
+import dill
 import six
 
 import deepmatcher as dm
@@ -158,10 +159,9 @@ class MatchingModel(nn.Module):
                 Mini-batch size for SGD. For details on what this is
                 `see this video <https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent>`__.
                 Defaults to 32. This is a keyword only param.
-            device (int):
-                The device index of the GPU on which to train the model. Set to -1 to use
-                CPU only, even if GPU is available. If None, will use first available GPU,
-                or use CPU if no GPUs are available. Defaults to None.
+            device (string):
+                The device on which to train the model ('cpu' or 'cuda'). If None, will use
+                first available GPU, or use CPU if no GPUs are available. Defaults to None.
                 This is a keyword only param.
             progress_style (string):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
@@ -195,10 +195,9 @@ class MatchingModel(nn.Module):
                 Mini-batch size for SGD. For details on what this is
                 `see this video <https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent>`__.
                 Defaults to 32. This is a keyword only param.
-            device (int):
-                The device index of the GPU on which to train the model. Set to -1 to use
-                CPU only, even if GPU is available. If None, will use first available GPU,
-                or use CPU if no GPUs are available. Defaults to None.
+            device (string):
+                The device on which to train the model ('cpu' or 'cuda'). If None, will use
+                first available GPU, or use CPU if no GPUs are available. Defaults to None.
                 This is a keyword only param.
             progress_style (string):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
@@ -235,10 +234,9 @@ class MatchingModel(nn.Module):
                 Mini-batch size for SGD. For details on what this is
                 `see this video <https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent>`__.
                 Defaults to 32. This is a keyword only param.
-            device (int):
-                The device index of the GPU on which to train the model. Set to -1 to use
-                CPU only, even if GPU is available. If None, will use first available GPU,
-                or use CPU if no GPUs are available. Defaults to None.
+            device (string):
+                The device on which to train the model ('cpu' or 'cuda'). If None, will use
+                first available GPU, or use CPU if no GPUs are available. Defaults to None.
                 This is a keyword only param.
             progress_style (string):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
@@ -351,7 +349,7 @@ class MatchingModel(nn.Module):
                 train_dataset,
                 train=False,
                 batch_size=4,
-                device=-1,
+                device='cpu',
                 sort_in_buckets=False)
             init_batch = next(run_iter.__iter__())
         self.forward(init_batch)
@@ -458,7 +456,7 @@ class MatchingModel(nn.Module):
         for k in self._train_buffers:
             if include_meta or k != 'state_meta':
                 state[k] = getattr(self, k)
-        torch.save(state, path)
+        torch.save(state, path, pickle_module=dill)
 
     def load_state(self, path):
         r"""Load the model state from a file in a certain path.
@@ -466,7 +464,7 @@ class MatchingModel(nn.Module):
         Args:
             path (string): The path to load the model state from.
         """
-        state = torch.load(path)
+        state = torch.load(path, pickle_module=dill)
         for k, v in six.iteritems(state):
             if k != 'model':
                 self._train_buffers.add(k)

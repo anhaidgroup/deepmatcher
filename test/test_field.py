@@ -11,13 +11,8 @@ from deepmatcher.data.dataset import MatchingDataset
 from deepmatcher.data.field import (FastText, FastTextBinary, MatchingField,
                                     MatchingVocab, reset_vector_cache)
 from torchtext.vocab import Vectors
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
 # import nltk
 # nltk.download('perluniprops')
@@ -226,10 +221,10 @@ class ClassMatchingVocabTestCases(unittest.TestCase):
         v.unk_init = torch.Tensor.zero_
         tokens = {'hello', 'world'}
         v.extend_vectors(tokens, vec_data)
-        self.assertEqual(len(v.itos), 3)
-        self.assertEqual(v.vectors.size(), torch.Size([3, 300]))
-        self.assertEqual(list(v.vectors[1][0:10]), [0.0] * 10)
+        self.assertEqual(len(v.itos), 4)
+        self.assertEqual(v.vectors.size(), torch.Size([4, 300]))
         self.assertEqual(list(v.vectors[2][0:10]), [0.0] * 10)
+        self.assertEqual(list(v.vectors[3][0:10]), [0.0] * 10)
 
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)

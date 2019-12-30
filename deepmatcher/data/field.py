@@ -10,6 +10,7 @@ import fastText
 import torch
 from torchtext import data, vocab
 from torchtext.utils import download_from_url
+from urllib.request import urlretrieve
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ class FastText(vocab.Vectors):
         url = url_base + suffix
         base, ext = os.path.splitext(suffix)
         name = suffix if ext == '.vec' else base
+        print('Fasttext url b', url_base)
         super(FastText, self).__init__(name, url=url, **kwargs)
 
 
@@ -60,7 +62,10 @@ class FastTextBinary(vocab.Vectors):
             if not os.path.exists(cache):
                 os.makedirs(cache)
             if not os.path.isfile(self.destination):
-                download_from_url(url, self.destination)
+                if 'drive.google.com' in url:
+                    download_from_url(url, self.destination)
+                else:
+                    urlretrieve(url, self.destination)
             logger.info('Extracting vectors into {}'.format(cache))
             ext = os.path.splitext(self.destination)[1][1:]
             if ext == 'zip':

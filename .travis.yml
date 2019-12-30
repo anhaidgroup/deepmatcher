@@ -1,26 +1,19 @@
 matrix:
   include:
-  # - os: linux
-  #   python: 2.7
-  #   env: PYTHON_VERSION=2.7
-  - os: linux
-    python: 3.5
-    env: PYTHON_VERSION=3.5
   - os: linux
     python: 3.6
     env: PYTHON_VERSION=3.6
-  # - os: osx
-  #   language: generic
-  #   env:
-  #   - PYTHON_VERSION=2.7
-  - os: osx
-    language: generic
-    env:
-    - PYTHON_VERSION=3.5
+  - os: linux
+    python: 3.7
+    env: PYTHON_VERSION=3.7
   - os: osx
     language: generic
     env:
     - PYTHON_VERSION=3.6
+  - os: osx
+    language: generic
+    env:
+    - PYTHON_VERSION=3.7
 
 notifications:
   email: false
@@ -39,7 +32,7 @@ before_install:
 
 install:
   - conda install --yes python=$PYTHON_VERSION pip scikit-learn nose
-  - pip install --process-dependency-links git+https://github.com/anhaidgroup/deepmatcher | cat
+  - pip install -e . | cat
   - python -m nltk.downloader perluniprops nonbreaking_prefixes punkt
 
 script:

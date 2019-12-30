@@ -11,13 +11,8 @@ from deepmatcher import attr_summarizers
 from deepmatcher.data.field import MatchingField, FastText
 from deepmatcher.data.process import process, process_unlabeled
 from deepmatcher import MatchingModel
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
 from test import test_dir_path
 

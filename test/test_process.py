@@ -10,13 +10,8 @@ from deepmatcher.data.field import FastText
 from deepmatcher.data.process import _check_header, _make_fields, process, process_unlabeled
 from torchtext.utils import unicode_csv_reader
 from deepmatcher import MatchingModel
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
 
 class CheckHeaderTestCases(unittest.TestCase):

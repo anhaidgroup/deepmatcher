@@ -9,13 +9,8 @@ from deepmatcher.data.process import process
 from deepmatcher.data.iterator import MatchingIterator
 
 from test import test_dir_path
-
-try:
-    from urllib.parse import urljoin
-    from urllib.request import pathname2url
-except ImportError:
-    from urlparse import urljoin
-    from urllib import path2pathname2url
+from urllib.parse import urljoin
+from urllib.request import pathname2url
 
 class ClassMatchingIteratorTestCases(unittest.TestCase):
     def test_splits_1(self):
