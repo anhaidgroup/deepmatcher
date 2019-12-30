@@ -158,10 +158,9 @@ class MatchingModel(nn.Module):
                 Mini-batch size for SGD. For details on what this is
                 `see this video <https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent>`__.
                 Defaults to 32. This is a keyword only param.
-            device (int):
-                The device index of the GPU on which to train the model. Set to -1 to use
-                CPU only, even if GPU is available. If None, will use first available GPU,
-                or use CPU if no GPUs are available. Defaults to None.
+            device (string):
+                The device on which to train the model ('cpu' or 'cuda'). If None, will use
+                first available GPU, or use CPU if no GPUs are available. Defaults to None.
                 This is a keyword only param.
             progress_style (string):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
@@ -195,10 +194,9 @@ class MatchingModel(nn.Module):
                 Mini-batch size for SGD. For details on what this is
                 `see this video <https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent>`__.
                 Defaults to 32. This is a keyword only param.
-            device (int):
-                The device index of the GPU on which to train the model. Set to -1 to use
-                CPU only, even if GPU is available. If None, will use first available GPU,
-                or use CPU if no GPUs are available. Defaults to None.
+            device (string):
+                The device on which to train the model ('cpu' or 'cuda'). If None, will use
+                first available GPU, or use CPU if no GPUs are available. Defaults to None.
                 This is a keyword only param.
             progress_style (string):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
@@ -235,10 +233,9 @@ class MatchingModel(nn.Module):
                 Mini-batch size for SGD. For details on what this is
                 `see this video <https://www.coursera.org/learn/machine-learning/lecture/9zJUs/mini-batch-gradient-descent>`__.
                 Defaults to 32. This is a keyword only param.
-            device (int):
-                The device index of the GPU on which to train the model. Set to -1 to use
-                CPU only, even if GPU is available. If None, will use first available GPU,
-                or use CPU if no GPUs are available. Defaults to None.
+            device (string):
+                The device on which to train the model ('cpu' or 'cuda'). If None, will use
+                first available GPU, or use CPU if no GPUs are available. Defaults to None.
                 This is a keyword only param.
             progress_style (string):
                 Sets the progress update style. One of 'bar' or 'log'. If 'bar', uses a
