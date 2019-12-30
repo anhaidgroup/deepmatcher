@@ -39,7 +39,7 @@ before_install:
 
 install:
   - conda install --yes python=$PYTHON_VERSION pip scikit-learn nose
-  - pip install --process-dependency-links git+https://github.com/anhaidgroup/deepmatcher | cat
+  - pip install git+https://github.com/anhaidgroup/deepmatcher
   - python -m nltk.downloader perluniprops nonbreaking_prefixes punkt
 
 script:
