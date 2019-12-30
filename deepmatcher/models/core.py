@@ -2,6 +2,7 @@ import copy
 import logging
 from collections import Mapping
 
+import dill
 import six
 
 import deepmatcher as dm
@@ -455,7 +456,7 @@ class MatchingModel(nn.Module):
         for k in self._train_buffers:
             if include_meta or k != 'state_meta':
                 state[k] = getattr(self, k)
-        torch.save(state, path)
+        torch.save(state, path, pickle_module=dill)
 
     def load_state(self, path):
         r"""Load the model state from a file in a certain path.
@@ -463,7 +464,7 @@ class MatchingModel(nn.Module):
         Args:
             path (string): The path to load the model state from.
         """
-        state = torch.load(path)
+        state = torch.load(path, pickle_module=dill)
         for k, v in six.iteritems(state):
             if k != 'model':
                 self._train_buffers.add(k)
