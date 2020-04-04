@@ -6,7 +6,7 @@ import zipfile
 import nltk
 import six
 
-import fastText
+import fasttext
 import torch
 from torchtext import data, vocab
 from torchtext.utils import download_from_url
@@ -77,7 +77,7 @@ class FastTextBinary(vocab.Vectors):
         if not os.path.isfile(path):
             raise RuntimeError('no vectors found at {}'.format(path))
 
-        self.model = fastText.load_model(path)
+        self.model = fasttext.load_model(path)
         self.dim = len(self['a'])
 
 
