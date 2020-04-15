@@ -20,10 +20,14 @@ class MatchingIterator(data.BucketIterator):
                  **kwargs):
         if sort_in_buckets is None:
             sort_in_buckets = train
+        if kwargs.pop('device', None) == 'cpu':
+            device = -1
+        else:
+            device = None
         self.sort_in_buckets = sort_in_buckets
         self.train_info = train_info
         super(MatchingIterator, self).__init__(
-            dataset, batch_size, train=train, repeat=False, sort=False, **kwargs)
+            dataset, batch_size, train=train, repeat=False, sort=False, device=device, **kwargs)
 
     @classmethod
     def splits(cls, datasets, batch_sizes=None, **kwargs):
