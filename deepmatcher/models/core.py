@@ -458,13 +458,13 @@ class MatchingModel(nn.Module):
                 state[k] = getattr(self, k)
         torch.save(state, path, pickle_module=dill)
 
-    def load_state(self, path):
+    def load_state(self, path, map_location=None):
         r"""Load the model state from a file in a certain path.
 
         Args:
             path (string): The path to load the model state from.
         """
-        state = torch.load(path, pickle_module=dill)
+        state = torch.load(path, pickle_module=dill, map_location=map_location)
         for k, v in six.iteritems(state):
             if k != 'model':
                 self._train_buffers.add(k)
