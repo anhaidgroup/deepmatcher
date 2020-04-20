@@ -17,13 +17,10 @@ class MatchingIterator(data.BucketIterator):
                  train,
                  batch_size,
                  sort_in_buckets=None,
+                 device=None,
                  **kwargs):
         if sort_in_buckets is None:
             sort_in_buckets = train
-        if kwargs.pop('device', None) == 'cpu':
-            device = -1
-        else:
-            device = None
         self.sort_in_buckets = sort_in_buckets
         self.train_info = train_info
         super(MatchingIterator, self).__init__(
