@@ -16,6 +16,7 @@ from urllib.request import pathname2url
 
 from test import test_dir_path
 
+
 class ModelTrainSaveLoadTest(unittest.TestCase):
     def setUp(self):
         self.vectors_cache_dir = '.cache'
@@ -23,14 +24,16 @@ class ModelTrainSaveLoadTest(unittest.TestCase):
             shutil.rmtree(self.vectors_cache_dir)
 
         self.data_cache_path = os.path.join(test_dir_path, 'test_datasets',
-            'train_cache.pth')
+                                            'train_cache.pth')
         if os.path.exists(self.data_cache_path):
             os.remove(self.data_cache_path)
 
         vec_dir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec.zip'
         url_base = urljoin('file:', pathname2url(vec_dir)) + os.path.sep
-        ft = FastText(filename, url_base=url_base, cache=self.vectors_cache_dir)
+        ft = FastText(filename,
+                      url_base=url_base,
+                      cache=self.vectors_cache_dir)
 
         self.train, self.valid, self.test = process(
             path=os.path.join(test_dir_path, 'test_datasets'),
@@ -52,13 +55,12 @@ class ModelTrainSaveLoadTest(unittest.TestCase):
     def test_sif(self):
         model_save_path = 'sif_model.pth'
         model = MatchingModel(attr_summarizer='sif')
-        model.run_train(
-            self.train,
-            self.valid,
-            epochs=1,
-            batch_size=8,
-            best_save_path= model_save_path,
-            pos_neg_ratio=3)
+        model.run_train(self.train,
+                        self.valid,
+                        epochs=1,
+                        batch_size=8,
+                        best_save_path=model_save_path,
+                        pos_neg_ratio=3)
         s1 = model.run_eval(self.test)
 
         model2 = MatchingModel(attr_summarizer='sif')
@@ -73,13 +75,12 @@ class ModelTrainSaveLoadTest(unittest.TestCase):
     def test_rnn(self):
         model_save_path = 'rnn_model.pth'
         model = MatchingModel(attr_summarizer='rnn')
-        model.run_train(
-            self.train,
-            self.valid,
-            epochs=1,
-            batch_size=8,
-            best_save_path= model_save_path,
-            pos_neg_ratio=3)
+        model.run_train(self.train,
+                        self.valid,
+                        epochs=1,
+                        batch_size=8,
+                        best_save_path=model_save_path,
+                        pos_neg_ratio=3)
         s1 = model.run_eval(self.test)
 
         model2 = MatchingModel(attr_summarizer='rnn')
@@ -94,13 +95,12 @@ class ModelTrainSaveLoadTest(unittest.TestCase):
     def test_attention(self):
         model_save_path = 'attention_model.pth'
         model = MatchingModel(attr_summarizer='attention')
-        model.run_train(
-            self.train,
-            self.valid,
-            epochs=1,
-            batch_size=8,
-            best_save_path= model_save_path,
-            pos_neg_ratio=3)
+        model.run_train(self.train,
+                        self.valid,
+                        epochs=1,
+                        batch_size=8,
+                        best_save_path=model_save_path,
+                        pos_neg_ratio=3)
 
         s1 = model.run_eval(self.test)
 
@@ -116,13 +116,12 @@ class ModelTrainSaveLoadTest(unittest.TestCase):
     def test_hybrid(self):
         model_save_path = 'hybrid_model.pth'
         model = MatchingModel(attr_summarizer='hybrid')
-        model.run_train(
-            self.train,
-            self.valid,
-            epochs=1,
-            batch_size=8,
-            best_save_path= model_save_path,
-            pos_neg_ratio=3)
+        model.run_train(self.train,
+                        self.valid,
+                        epochs=1,
+                        batch_size=8,
+                        best_save_path=model_save_path,
+                        pos_neg_ratio=3)
 
         s1 = model.run_eval(self.test)
 
@@ -137,23 +136,20 @@ class ModelTrainSaveLoadTest(unittest.TestCase):
 
     def test_hybrid_self_attention(self):
         model_save_path = 'self_att_hybrid_model.pth'
-        model = MatchingModel(
-            attr_summarizer=attr_summarizers.Hybrid(
-                word_contextualizer='self-attention'))
+        model = MatchingModel(attr_summarizer=attr_summarizers.Hybrid(
+            word_contextualizer='self-attention'))
 
-        model.run_train(
-            self.train,
-            self.valid,
-            epochs=1,
-            batch_size=8,
-            best_save_path= model_save_path,
-            pos_neg_ratio=3)
+        model.run_train(self.train,
+                        self.valid,
+                        epochs=1,
+                        batch_size=8,
+                        best_save_path=model_save_path,
+                        pos_neg_ratio=3)
 
         s1 = model.run_eval(self.test)
 
-        model2 = MatchingModel(
-            attr_summarizer=attr_summarizers.Hybrid(
-                word_contextualizer='self-attention'))
+        model2 = MatchingModel(attr_summarizer=attr_summarizers.Hybrid(
+            word_contextualizer='self-attention'))
         model2.load_state(model_save_path)
         s2 = model2.run_eval(self.test)
 
@@ -170,14 +166,16 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
             shutil.rmtree(self.vectors_cache_dir)
 
         self.data_cache_path = os.path.join(test_dir_path, 'test_datasets',
-            'train_cache.pth')
+                                            'train_cache.pth')
         if os.path.exists(self.data_cache_path):
             os.remove(self.data_cache_path)
 
         vec_dir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec.zip'
         url_base = urljoin('file:', pathname2url(vec_dir)) + os.path.sep
-        ft = FastText(filename, url_base=url_base, cache=self.vectors_cache_dir)
+        ft = FastText(filename,
+                      url_base=url_base,
+                      cache=self.vectors_cache_dir)
 
         self.train, self.valid, self.test = process(
             path=os.path.join(test_dir_path, 'test_datasets'),
@@ -199,18 +197,17 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
     def test_sif(self):
         model_save_path = 'sif_model.pth'
         model = MatchingModel(attr_summarizer='sif')
-        model.run_train(
-            self.train,
-            self.valid,
-            epochs=1,
-            batch_size=8,
-            best_save_path= model_save_path,
-            pos_neg_ratio=3)
+        model.run_train(self.train,
+                        self.valid,
+                        epochs=1,
+                        batch_size=8,
+                        best_save_path=model_save_path,
+                        pos_neg_ratio=3)
 
-        unlabeled = process_unlabeled(
-            path=os.path.join(test_dir_path, 'test_datasets', 'test_unlabeled.csv'),
-            trained_model=model,
-            ignore_columns=('left_id', 'right_id'))
+        unlabeled = process_unlabeled(path=os.path.join(
+            test_dir_path, 'test_datasets', 'test_unlabeled.csv'),
+                                      trained_model=model,
+                                      ignore_columns=('left_id', 'right_id'))
 
         pred_test = model.run_eval(self.test, return_predictions=True)
         pred_unlabeled = model.run_prediction(unlabeled)
@@ -224,13 +221,12 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
     def test_rnn(self):
         model_save_path = 'rnn_model.pth'
         model = MatchingModel(attr_summarizer='rnn')
-        model.run_train(
-            self.train,
-            self.valid,
-            epochs=1,
-            batch_size=8,
-            best_save_path= model_save_path,
-            pos_neg_ratio=3)
+        model.run_train(self.train,
+                        self.valid,
+                        epochs=1,
+                        batch_size=8,
+                        best_save_path=model_save_path,
+                        pos_neg_ratio=3)
 
         unlabeled = process_unlabeled(
             path=os.path.join(test_dir_path, 'test_datasets', 'test_test.csv'),
@@ -249,18 +245,17 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
     def test_attention(self):
         model_save_path = 'attention_model.pth'
         model = MatchingModel(attr_summarizer='attention')
-        model.run_train(
-            self.train,
-            self.valid,
-            epochs=1,
-            batch_size=8,
-            best_save_path= model_save_path,
-            pos_neg_ratio=3)
+        model.run_train(self.train,
+                        self.valid,
+                        epochs=1,
+                        batch_size=8,
+                        best_save_path=model_save_path,
+                        pos_neg_ratio=3)
 
-        unlabeled = process_unlabeled(
-            path=os.path.join(test_dir_path, 'test_datasets', 'test_unlabeled.csv'),
-            trained_model=model,
-            ignore_columns=('left_id', 'right_id'))
+        unlabeled = process_unlabeled(path=os.path.join(
+            test_dir_path, 'test_datasets', 'test_unlabeled.csv'),
+                                      trained_model=model,
+                                      ignore_columns=('left_id', 'right_id'))
 
         pred_test = model.run_eval(self.test, return_predictions=True)
         pred_unlabeled = model.run_prediction(unlabeled)
@@ -274,18 +269,17 @@ class ModelPredictUnlabeledTest(unittest.TestCase):
     def test_hybrid(self):
         model_save_path = 'hybrid_model.pth'
         model = MatchingModel(attr_summarizer='hybrid')
-        model.run_train(
-            self.train,
-            self.valid,
-            epochs=1,
-            batch_size=8,
-            best_save_path= model_save_path,
-            pos_neg_ratio=3)
+        model.run_train(self.train,
+                        self.valid,
+                        epochs=1,
+                        batch_size=8,
+                        best_save_path=model_save_path,
+                        pos_neg_ratio=3)
 
-        unlabeled = process_unlabeled(
-            path=os.path.join(test_dir_path, 'test_datasets', 'test_unlabeled.csv'),
-            trained_model=model,
-            ignore_columns=('left_id', 'right_id'))
+        unlabeled = process_unlabeled(path=os.path.join(
+            test_dir_path, 'test_datasets', 'test_unlabeled.csv'),
+                                      trained_model=model,
+                                      ignore_columns=('left_id', 'right_id'))
 
         pred_test = model.run_eval(self.test, return_predictions=True)
         pred_unlabeled = model.run_prediction(unlabeled)

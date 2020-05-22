@@ -33,7 +33,6 @@ class Statistics(object):
     * Recall
     * Accuracy
     """
-
     def __init__(self):
         self.loss_sum = 0
         self.examples = 0
@@ -78,42 +77,42 @@ class Runner(object):
 
     This class implements routines to train, evaluate and make predictions from models.
     """
-
     @staticmethod
     def _print_stats(name, epoch, batch, n_batches, stats, cum_stats):
         """Write out batch statistics to stdout.
         """
-        print((' | {name} | [{epoch}][{batch:4d}/{n_batches}] || Loss: {loss:7.4f} |'
-               ' F1: {f1:7.2f} | Prec: {prec:7.2f} | Rec: {rec:7.2f} ||'
-               ' Cum. F1: {cf1:7.2f} | Cum. Prec: {cprec:7.2f} | Cum. Rec: {crec:7.2f} ||'
-               ' Ex/s: {eps:6.1f}').format(
-                   name=name,
-                   epoch=epoch,
-                   batch=batch,
-                   n_batches=n_batches,
-                   loss=stats.loss(),
-                   f1=stats.f1(),
-                   prec=stats.precision(),
-                   rec=stats.recall(),
-                   cf1=cum_stats.f1(),
-                   cprec=cum_stats.precision(),
-                   crec=cum_stats.recall(),
-                   eps=cum_stats.examples_per_sec()))
+        print((
+            ' | {name} | [{epoch}][{batch:4d}/{n_batches}] || Loss: {loss:7.4f} |'
+            ' F1: {f1:7.2f} | Prec: {prec:7.2f} | Rec: {rec:7.2f} ||'
+            ' Cum. F1: {cf1:7.2f} | Cum. Prec: {cprec:7.2f} | Cum. Rec: {crec:7.2f} ||'
+            ' Ex/s: {eps:6.1f}').format(name=name,
+                                        epoch=epoch,
+                                        batch=batch,
+                                        n_batches=n_batches,
+                                        loss=stats.loss(),
+                                        f1=stats.f1(),
+                                        prec=stats.precision(),
+                                        rec=stats.recall(),
+                                        cf1=cum_stats.f1(),
+                                        cprec=cum_stats.precision(),
+                                        crec=cum_stats.recall(),
+                                        eps=cum_stats.examples_per_sec()))
 
     @staticmethod
     def _print_final_stats(epoch, runtime, datatime, stats):
         """Write out epoch statistics to stdout.
         """
-        print(('Finished Epoch {epoch} || Run Time: {runtime:6.1f} | '
-               'Load Time: {datatime:6.1f} || F1: {f1:6.2f} | Prec: {prec:6.2f} | '
-               'Rec: {rec:6.2f} || Ex/s: {eps:6.2f}\n').format(
-                   epoch=epoch,
-                   runtime=runtime,
-                   datatime=datatime,
-                   f1=stats.f1(),
-                   prec=stats.precision(),
-                   rec=stats.recall(),
-                   eps=stats.examples_per_sec()))
+        print((
+            'Finished Epoch {epoch} || Run Time: {runtime:6.1f} | '
+            'Load Time: {datatime:6.1f} || F1: {f1:6.2f} | Prec: {prec:6.2f} | '
+            'Rec: {rec:6.2f} || Ex/s: {eps:6.2f}\n').format(
+                epoch=epoch,
+                runtime=runtime,
+                datatime=datatime,
+                f1=stats.f1(),
+                prec=stats.precision(),
+                rec=stats.recall(),
+                eps=stats.examples_per_sec()))
 
     @staticmethod
     def _set_pbar_status(pbar, stats, cum_stats):
@@ -163,13 +162,12 @@ class Runner(object):
             device = 'cuda'
 
         sort_in_buckets = train
-        run_iter = MatchingIterator(
-            dataset,
-            model.meta,
-            train,
-            batch_size=batch_size,
-            device=device,
-            sort_in_buckets=sort_in_buckets)
+        run_iter = MatchingIterator(dataset,
+                                    model.meta,
+                                    train,
+                                    batch_size=batch_size,
+                                    device=device,
+                                    sort_in_buckets=sort_in_buckets)
 
         model = model.to(device)
         if criterion:
@@ -198,14 +196,15 @@ class Runner(object):
 
         # The tqdm-bar for Jupyter notebook is under development.
         if progress_style == 'tqdm-bar':
-            pbar = tqdm(
-                total=len(run_iter) // log_freq,
-                bar_format='{l_bar}{bar}{postfix}',
-                file=sys.stdout)
+            pbar = tqdm(total=len(run_iter) // log_freq,
+                        bar_format='{l_bar}{bar}{postfix}',
+                        file=sys.stdout)
 
         # Use the pyprind bar as the default progress bar.
         if progress_style == 'bar':
-            pbar = pyprind.ProgBar(len(run_iter) // log_freq, bar_char='█', width=30)
+            pbar = pyprind.ProgBar(len(run_iter) // log_freq,
+                                   bar_char='█',
+                                   width=30)
 
         for batch_idx, batch in enumerate(run_iter):
             batch_start = time.time()
@@ -222,7 +221,8 @@ class Runner(object):
                 loss = criterion(output, getattr(batch, label_attr))
 
             if hasattr(batch, label_attr):
-                scores = Runner._compute_scores(output, getattr(batch, label_attr))
+                scores = Runner._compute_scores(output,
+                                                getattr(batch, label_attr))
             else:
                 scores = [0] * 4
 
@@ -235,8 +235,8 @@ class Runner(object):
 
             if (batch_idx + 1) % log_freq == 0:
                 if progress_style == 'log':
-                    Runner._print_stats(run_type, epoch + 1, batch_idx + 1, len(run_iter),
-                                        stats, cum_stats)
+                    Runner._print_stats(run_type, epoch + 1, batch_idx + 1,
+                                        len(run_iter), stats, cum_stats)
                 elif progress_style == 'tqdm-bar':
                     pbar.update()
                     Runner._set_pbar_status(pbar, stats, cum_stats)
@@ -304,9 +304,10 @@ class Runner(object):
         if criterion is None:
             if pos_weight is not None:
                 assert pos_weight < 2
-                warnings.warn('"pos_weight" parameter is deprecated and will be removed '
-                              'in a later release, please use "pos_neg_ratio" instead',
-                              DeprecationWarning)
+                warnings.warn(
+                    '"pos_weight" parameter is deprecated and will be removed '
+                    'in a later release, please use "pos_neg_ratio" instead',
+                    DeprecationWarning)
                 assert pos_neg_ratio is None
             else:
                 if pos_neg_ratio is None:
@@ -322,7 +323,8 @@ class Runner(object):
 
         optimizer = optimizer or Optimizer()
         if model.optimizer_state is not None:
-            model.optimizer.base_optimizer.load_state_dict(model.optimizer_state)
+            model.optimizer.base_optimizer.load_state_dict(
+                model.optimizer_state)
 
         if model.epoch is None:
             epochs_range = range(epochs)
@@ -335,10 +337,19 @@ class Runner(object):
 
         for epoch in epochs_range:
             model.epoch = epoch
-            Runner._run(
-                'TRAIN', model, train_dataset, criterion, optimizer, train=True, **kwargs)
+            Runner._run('TRAIN',
+                        model,
+                        train_dataset,
+                        criterion,
+                        optimizer,
+                        train=True,
+                        **kwargs)
 
-            score = Runner._run('EVAL', model, validation_dataset, train=False, **kwargs)
+            score = Runner._run('EVAL',
+                                model,
+                                validation_dataset,
+                                train=False,
+                                **kwargs)
 
             optimizer.update_learning_rate(score, epoch + 1)
             model.optimizer_state = optimizer.base_optimizer.state_dict()
@@ -354,7 +365,8 @@ class Runner(object):
                     model.save_state(best_save_path)
                     print('Done.')
 
-            if save_every_prefix is not None and (epoch + 1) % save_every_freq == 0:
+            if save_every_prefix is not None and (epoch +
+                                                  1) % save_every_freq == 0:
                 print('Saving epoch model...')
                 save_path = '{prefix}_ep{epoch}.pth'.format(
                     prefix=save_every_prefix, epoch=epoch + 1)
@@ -399,9 +411,13 @@ class Runner(object):
         model = copy.deepcopy(model)
         model._reset_embeddings(dataset.vocabs)
 
-        predictions = Runner._run(
-            'PREDICT', model, dataset, return_predictions=True, **kwargs)
-        pred_table = pd.DataFrame(predictions, columns=(dataset.id_field, 'match_score'))
+        predictions = Runner._run('PREDICT',
+                                  model,
+                                  dataset,
+                                  return_predictions=True,
+                                  **kwargs)
+        pred_table = pd.DataFrame(predictions,
+                                  columns=(dataset.id_field, 'match_score'))
         pred_table = pred_table.set_index(dataset.id_field)
 
         if output_attributes:

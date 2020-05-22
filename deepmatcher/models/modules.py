@@ -56,7 +56,6 @@ class LazyModule(nn.Module):
       defined. Whatever you typically define in the forward function of a PyTorch module,
       you may define it here. All subclasses must override this method.
     """
-
     def __init__(self, *args, **kwargs):
         """Construct a :class:`LazyModule`. DO NOT OVERRIDE this method.
 
@@ -100,12 +99,12 @@ class LazyModule(nn.Module):
         """
         if not self._initialized:
             try:
-                self._init(
-                    *self._init_args,
-                    input_size=self._get_input_size(input, *args, **kwargs),
-                    **self._init_kwargs)
+                self._init(*self._init_args,
+                           input_size=self._get_input_size(
+                               input, *args, **kwargs),
+                           **self._init_kwargs)
             except TypeError as e:
-                logger.debug('Got exception when passing input size: ' + str(e))
+                logger.debug('Got exception when passing input size: %s', e)
                 self._init(*self._init_args, **self._init_kwargs)
             for fn in self._fns:
                 super(LazyModule, self)._apply(fn)
@@ -174,7 +173,6 @@ class NoMeta(nn.Module):
     Args:
         module (:class:`~torch.nn.Module`): The module to wrap.
     """
-
     def __init__(self, module):
         super(NoMeta, self).__init__()
         self.module = module
@@ -182,7 +180,8 @@ class NoMeta(nn.Module):
     def forward(self, *args):
         module_args = []
         for arg in args:
-            module_args.append(arg.data if isinstance(arg, AttrTensor) else arg)
+            module_args.append(
+                arg.data if isinstance(arg, AttrTensor) else arg)
 
         results = self.module(*module_args)
 
@@ -190,12 +189,14 @@ class NoMeta(nn.Module):
             return results
         else:
             if not isinstance(results, tuple):
-                results = (results,)
+                results = (results, )
 
-            if len(results) != len(args) and len(results) != 1 and len(args) != 1:
+            if len(results) != len(args) and len(results) != 1 and len(
+                    args) != 1:
                 raise ValueError(
                     'Number of inputs must equal number of outputs, or '
-                    'number of inputs must be 1 or number of outputs must be 1.')
+                    'number of inputs must be 1 or number of outputs must be 1.'
+                )
 
             results_with_meta = []
             for i in range(len(results)):
@@ -232,7 +233,6 @@ class ModuleMap(nn.Module):
                 return y1, y2
 
     """
-
     def __getitem__(self, name):
         return getattr(self, name)
 
@@ -249,12 +249,12 @@ class MultiSequential(nn.Sequential):
     This is an extenstion of PyTorch's :class:`~torch.nn.Sequential` module that allows
     each module to have multiple inputs and / or outputs.
     """
-
     def forward(self, *inputs):
         modules = list(self._modules.values())
         inputs = modules[0](*inputs)
         for module in modules[1:]:
-            if isinstance(inputs, tuple) and not isinstance(inputs, AttrTensor):
+            if isinstance(inputs,
+                          tuple) and not isinstance(inputs, AttrTensor):
                 inputs = module(*inputs)
             else:
                 inputs = module(inputs)
@@ -278,7 +278,6 @@ class LazyModuleFn(LazyModule):
         *kwargs:
             Keyword arguments to the function `fn`.
     """
-
     def _init(self, fn, *args, **kwargs):
         self.module = fn(*args, **kwargs)
 
@@ -396,15 +395,14 @@ class RNN(LazyModule):
         rnn_in_size = input_size
         for g in range(rnn_groups):
             self.rnn_groups.append(
-                self._get_rnn_module(
-                    unit_type,
-                    input_size=rnn_in_size,
-                    hidden_size=hidden_size,
-                    num_layers=layers_per_group,
-                    batch_first=True,
-                    dropout=dropout,
-                    bidirectional=bidirectional,
-                    **kwargs))
+                self._get_rnn_module(unit_type,
+                                     input_size=rnn_in_size,
+                                     hidden_size=hidden_size,
+                                     num_layers=layers_per_group,
+                                     batch_first=True,
+                                     dropout=dropout,
+                                     bidirectional=bidirectional,
+                                     **kwargs))
 
             if g != rnn_groups:
                 self.dropouts.append(nn.Dropout(dropout))
@@ -538,11 +536,13 @@ class AlignmentNetwork(LazyModule):
         elif self.style == 'general':
             return torch.bmm(
                 input,  # batch x len1 x input_size
-                self.transform(context).transpose(1, 2))  # batch x input_size x len2
+                self.transform(context).transpose(
+                    1, 2))  # batch x input_size x len2
         elif self.style == 'decomposable':
             return torch.bmm(
                 self.transform(input),  # batch x hidden_size x len2
-                self.transform(context).transpose(1, 2))  # batch x hidden_size x len2
+                self.transform(context).transpose(
+                    1, 2))  # batch x hidden_size x len2
         # elif self.style in ['concat', 'concat_dot']:
         #     # batch x len1 x 1 x output_size
         #     input_transformed = self.input_transform(input).unsqueeze(2)
@@ -569,7 +569,6 @@ class Lambda(nn.Module):
             more Pytorch :class:`~torch.Tensor` s and return one or more
             :class:`~torch.Tensor` s.
     """
-
     def __init__(self, lambd):
         super(Lambda, self).__init__()
         self.lambd = lambd
@@ -699,7 +698,8 @@ class Pool(LazyModule):
 
         if self.style == 'last':
             lengths = input_with_meta.lengths
-            lasts = Variable(lengths.view(-1, 1, 1).repeat(1, 1, input.size(2))) - 1
+            lasts = Variable(
+                lengths.view(-1, 1, 1).repeat(1, 1, input.size(2))) - 1
             output = torch.gather(input, 1, lasts).squeeze(1).float()
         elif self.style == 'last-simple':
             output = input[:, input.size(1), :]
@@ -729,21 +729,26 @@ class Pool(LazyModule):
                 mask = mask.unsqueeze(2)  # Make it broadcastable.
                 input.data.masked_fill_(~mask, 0)
 
-            lengths = Variable(input_with_meta.lengths.clamp(min=1).unsqueeze(1).float())
+            lengths = Variable(
+                input_with_meta.lengths.clamp(min=1).unsqueeze(1).float())
             if self.style == 'avg':
                 output = input.sum(1) / lengths
             elif self.style == 'divsqrt':
                 output = input.sum(1) / lengths.sqrt()
             elif self.style == 'inv-freq-avg':
-                inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
+                inv_probs = self.alpha / (input_with_meta.word_probs +
+                                          self.alpha)
                 weighted = input * Variable(inv_probs.unsqueeze(2))
                 output = weighted.sum(1) / lengths.sqrt()
             elif self.style == 'sif':
-                inv_probs = self.alpha / (input_with_meta.word_probs + self.alpha)
+                inv_probs = self.alpha / (input_with_meta.word_probs +
+                                          self.alpha)
                 weighted = input * Variable(inv_probs.unsqueeze(2))
                 v = (weighted.sum(1) / lengths.sqrt())
-                pc = Variable(input_with_meta.pc).unsqueeze(0).repeat(v.shape[0], 1)
-                proj_v_on_pc = torch.bmm(v.unsqueeze(1), pc.unsqueeze(2)).squeeze(2) * pc
+                pc = Variable(input_with_meta.pc).unsqueeze(0).repeat(
+                    v.shape[0], 1)
+                proj_v_on_pc = torch.bmm(v.unsqueeze(1),
+                                         pc.unsqueeze(2)).squeeze(2) * pc
                 output = v - proj_v_on_pc
             else:
                 raise NotImplementedError(self.style + ' is not implemented.')
@@ -780,12 +785,20 @@ class Merge(LazyModule):
     """
 
     _style_map = {
-        'concat': lambda *args: torch.cat(args, args[0].dim() - 1),
-        'diff': lambda x, y: x - y,
-        'abs-diff': lambda x, y: torch.abs(x - y),
-        'concat-diff': lambda x, y: torch.cat((x, y, x - y), x.dim() - 1),
-        'concat-abs-diff': lambda x, y: torch.cat((x, y, torch.abs(x - y)), x.dim() - 1),
-        'mul': lambda x, y: torch.mul(x, y)
+        'concat':
+        lambda *args: torch.cat(args, args[0].dim() - 1),
+        'diff':
+        lambda x, y: x - y,
+        'abs-diff':
+        lambda x, y: torch.abs(x - y),
+        'concat-diff':
+        lambda x, y: torch.cat((x, y, x - y),
+                               x.dim() - 1),
+        'concat-abs-diff':
+        lambda x, y: torch.cat((x, y, torch.abs(x - y)),
+                               x.dim() - 1),
+        'mul':
+        lambda x, y: torch.mul(x, y)
     }
 
     @classmethod
@@ -828,7 +841,11 @@ class Bypass(LazyModule):
     def supports_style(cls, style):
         return style.lower() in cls._supported_styles
 
-    def _init(self, style, residual_scale=True, highway_bias=-2, input_size=None):
+    def _init(self,
+              style,
+              residual_scale=True,
+              highway_bias=-2,
+              input_size=None):
         assert self.supports_style(style)
         self.style = style.lower()
         self.residual_scale = residual_scale
@@ -847,12 +864,12 @@ class Bypass(LazyModule):
                 padded = F.pad(raw, (0, tsize - rsize % tsize))
             else:
                 padded = raw
-            adjusted_raw = padded.view(*raw.shape[:-1], -1, tsize).sum(-2) * math.sqrt(
-                tsize / rsize)
+            adjusted_raw = padded.view(
+                *raw.shape[:-1], -1, tsize).sum(-2) * math.sqrt(tsize / rsize)
         elif tsize > rsize:
             multiples = math.ceil(tsize / rsize)
-            adjusted_raw = raw.repeat(*([1] * (raw.dim() - 1)), multiples).narrow(
-                -1, 0, tsize)
+            adjusted_raw = raw.repeat(*([1] * (raw.dim() - 1)),
+                                      multiples).narrow(-1, 0, tsize)
 
         if self.style == 'residual':
             res = transformed + adjusted_raw
@@ -860,7 +877,8 @@ class Bypass(LazyModule):
                 res *= math.sqrt(0.5)
             return res
         elif self.style == 'highway':
-            transform_gate = torch.sigmoid(self.highway_gate(raw) + self.highway_bias)
+            transform_gate = torch.sigmoid(
+                self.highway_gate(raw) + self.highway_bias)
             carry_gate = 1 - transform_gate
             return transform_gate * transformed + carry_gate * adjusted_raw
 
@@ -971,7 +989,8 @@ class Transform(LazyModule):
         self.transforms = nn.ModuleList()
         self.bypass_networks = nn.ModuleList()
 
-        assert (non_linearity is None or self.supports_nonlinearity(non_linearity))
+        assert (non_linearity is None
+                or self.supports_nonlinearity(non_linearity))
         self.non_linearity = non_linearity.lower() if non_linearity else None
 
         transform_in_size = input_size
@@ -979,7 +998,8 @@ class Transform(LazyModule):
         for layer in range(layers):
             if layer == layers - 1:
                 transform_out_size = output_size
-            self.transforms.append(nn.Linear(transform_in_size, transform_out_size))
+            self.transforms.append(
+                nn.Linear(transform_in_size, transform_out_size))
             self.bypass_networks.append(_bypass_module(bypass_network))
             transform_in_size = transform_out_size
 
@@ -1013,8 +1033,10 @@ def _bypass_module(op):
 
 def _transform_module(op, hidden_size, output_size=None):
     output_size = output_size or hidden_size
-    module = _utils.get_module(
-        Transform, op, hidden_size=hidden_size, output_size=output_size)
+    module = _utils.get_module(Transform,
+                               op,
+                               hidden_size=hidden_size,
+                               output_size=output_size)
     if module:
         module.expect_signature('[AxB] -> [AxC]')
         module.expect_signature('[AxBxC] -> [AxBxD]')
@@ -1022,7 +1044,9 @@ def _transform_module(op, hidden_size, output_size=None):
 
 
 def _alignment_module(op, hidden_size):
-    module = _utils.get_module(
-        AlignmentNetwork, op, hidden_size=hidden_size, required=True)
+    module = _utils.get_module(AlignmentNetwork,
+                               op,
+                               hidden_size=hidden_size,
+                               required=True)
     module.expect_signature('[AxBxC, AxDxC] -> [AxBxD]')
     return module

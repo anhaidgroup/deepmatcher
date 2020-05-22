@@ -33,8 +33,11 @@ class SoftNLLLoss(nn.NLLLoss):
             well as** over dimensions. However, if ``False`` the losses are instead
             summed. This is a keyword only parameter.
     """
-
-    def __init__(self, label_smoothing=0, weight=None, num_classes=2, **kwargs):
+    def __init__(self,
+                 label_smoothing=0,
+                 weight=None,
+                 num_classes=2,
+                 **kwargs):
         super(SoftNLLLoss, self).__init__(**kwargs)
         self.label_smoothing = label_smoothing
         self.confidence = 1 - self.label_smoothing
@@ -79,7 +82,6 @@ class Optimizer(object):
         adagrad_accum (float, optional):
             Initialization hyperparameter for adagrad.
     """
-
     def __init__(self,
                  method='adam',
                  lr=0.001,
@@ -126,14 +128,16 @@ class Optimizer(object):
         elif self.method == 'adadelta':
             self.base_optimizer = optim.Adadelta(self.params, lr=self.lr)
         elif self.method == 'adam':
-            self.base_optimizer = optim.Adam(
-                self.params, lr=self.lr, betas=self.betas, eps=1e-9)
+            self.base_optimizer = optim.Adam(self.params,
+                                             lr=self.lr,
+                                             betas=self.betas,
+                                             eps=1e-9)
         else:
             raise RuntimeError("Invalid optim method: " + self.method)
 
     def _set_rate(self, lr):
         for param_group in self.base_optimizer.param_groups:
-            param_group['lr'] = self.lr
+            param_group['lr'] = lr
 
     def step(self):
         """Update the model parameters based on current gradients.
