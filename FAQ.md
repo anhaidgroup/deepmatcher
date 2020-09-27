@@ -15,3 +15,11 @@ This is because during the first time `dm.data.process` is called on a dataset, 
 ### Why do I see a message saying "Loading best model..." at the end of training?
 
 After each epoch of training `deepmatcher` computes the validation set accuracy of the latest model. If the validation accuracy is better than the best validation accuracy seen so far, the model is saved to disk. After some epochs the accuracy may stop improving and instead may start declining. So at the end of training, `deepmatcher` restores the best model from disk. This is done by modifying the model in-place.
+
+### What if i don't have public network access in production env how to install prerequisites wiki.en.bin file.
+
+Run below code to get the wiki.bin.en file under .vector_cache folder.
+.. code-block:: python
+
+   from deepmatcher.data.field import FastTextBinary
+   FastTextBinary(cache="~/.vector_cache\)
