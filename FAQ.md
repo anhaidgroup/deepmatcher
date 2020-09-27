@@ -18,8 +18,9 @@ After each epoch of training `deepmatcher` computes the validation set accuracy 
 
 ### What if i don't have public network access in production env how to install prerequisites wiki.en.bin file.
 
-Run below code to get the wiki.bin.en file under .vector_cache folder.
-.. code-block:: python
+Run below code to get the wiki.bin.en file under .vector_cache folder
 
+```
    from deepmatcher.data.field import FastTextBinary
    FastTextBinary(cache="~/.vector_cache\)
+```
