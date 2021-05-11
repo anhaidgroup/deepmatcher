@@ -68,13 +68,11 @@ There are four main steps in using DeepMatcher:
 Installation
 **************
 
-We currently support only Python versions 3.5 and 3.6. Installing using pip is recommended:
+We currently support only Python versions 3.5+. Installing using pip is recommended:
 
 .. code-block::
 
    pip install deepmatcher
-
-Note that during installation you may see an error message that says "Failed building wheel for fasttextmirror". You can safely ignore this - it does NOT mean that there are any problems with installation.
 
 Tutorials
 **********
