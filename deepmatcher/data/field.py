@@ -8,7 +8,7 @@ import six
 
 import fasttext
 import torch
-from torchtext import data, vocab
+from torchtext.legacy import data, vocab
 from torchtext.utils import download_from_url
 from urllib.request import urlretrieve
 

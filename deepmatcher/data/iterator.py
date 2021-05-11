@@ -2,7 +2,7 @@ from __future__ import division
 
 import logging
 
-from torchtext import data
+from torchtext.legacy import data
 
 from ..batch import MatchingBatch
 

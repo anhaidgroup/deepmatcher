@@ -14,8 +14,8 @@ from sklearn.decomposition import TruncatedSVD
 
 import torch
 import torch.nn as nn
-from torchtext import data
-from torchtext.data.example import Example
+from torchtext.legacy import data
+from torchtext.legacy.data.example import Example
 from torchtext.utils import unicode_csv_reader
 
 from ..models.modules import NoMeta, Pool
