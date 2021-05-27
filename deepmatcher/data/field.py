@@ -45,7 +45,7 @@ class FastTextBinary(vocab.Vectors):
         base = url_base or 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.{}.zip'
         url = base.format(language)
         backup_url = None
-        self.destination = os.path.join(cache, 'wiki.en.zip')
+        self.destination = os.path.join(cache, 'wiki.{}.zip'.format(language))
         if language == 'en' and url_base is None:
             backup_url = url
             self.backup_destination = self.destination
