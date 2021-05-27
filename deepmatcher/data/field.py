@@ -1,5 +1,7 @@
+import gzip
 import logging
 import os
+import shutil
 import tarfile
 import zipfile
 
@@ -19,7 +21,7 @@ class FastText(vocab.Vectors):
 
     def __init__(self,
                  suffix='wiki-news-300d-1M.vec.zip',
-                 url_base='https://s3-us-west-1.amazonaws.com/fasttext-vectors/',
+                 url_base='https://dl.fbaipublicfiles.com/fasttext/vectors-english/',
                  **kwargs):
         url = url_base + suffix
         base, ext = os.path.splitext(suffix)
@@ -40,40 +42,56 @@ class FastTextBinary(vocab.Vectors):
            cache: directory for cached model
          """
         cache = os.path.expanduser(cache)
+        base = url_base or 'https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.{}.zip'
+        url = base.format(language)
+        backup_url = None
+        self.destination = os.path.join(cache, 'wiki.en.zip')
         if language == 'en' and url_base is None:
+            backup_url = url
+            self.backup_destination = self.destination
             url = FastTextBinary._direct_en_url
-            self.destination = os.path.join(cache, 'wiki.' + language + '.bin')
-        else:
-            if url_base is None:
-                url_base = 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki.{}.zip'
-            url = url_base.format(language)
-            self.destination = os.path.join(cache, 'wiki.' + language + '.zip')
+            self.destination = os.path.join(cache, 'wiki.en.bin')
         name = FastTextBinary.name_base.format(language)
 
-        self.cache(name, cache, url=url)
+        self.cache(name, cache, url=url, backup_url=backup_url)
 
     def __getitem__(self, token):
         return torch.Tensor(self.model.get_word_vector(token))
 
-    def cache(self, name, cache, url=None):
+    def cache(self, name, cache, url=None, backup_url=None):
         path = os.path.join(cache, name)
         if not os.path.isfile(path) and url:
-            logger.info('Downloading vectors from {}'.format(url))
-            if not os.path.exists(cache):
-                os.makedirs(cache)
-            if not os.path.isfile(self.destination):
-                if 'drive.google.com' in url:
-                    download_from_url(url, self.destination)
-                else:
-                    urlretrieve(url, self.destination)
+            if not os.path.exists(self.destination):
+                logger.info('Downloading vectors from {} to {}'.format(url, self.destination))
+                if not os.path.exists(cache):
+                    os.makedirs(cache)
+                if not os.path.isfile(self.destination):
+                    if 'drive.google.com' in url:
+                        try:
+                            download_from_url(url, self.destination)
+                        except RuntimeError as err:
+                            if 'quota was exceeded' in str(err):
+                                logger.info('Unable to fetch cached English Word Embeddings'
+                                        ' from {}\nDownloading embeddings from {} to {}'.format(
+                                        url, backup_url, self.backup_destination))
+                                if not os.path.exists(self.backup_destination):
+                                    urlretrieve(backup_url, self.backup_destination)
+                                self.destination = self.backup_destination
+                    else:
+                        urlretrieve(url, self.destination)
             logger.info('Extracting vectors into {}'.format(cache))
             ext = os.path.splitext(self.destination)[1][1:]
             if ext == 'zip':
                 with zipfile.ZipFile(self.destination, "r") as zf:
                     zf.extractall(cache)
             elif ext == 'gz':
-                with tarfile.open(self.destination, 'r:gz') as tar:
-                    tar.extractall(path=cache)
+                try:
+                    with tarfile.open(self.destination, 'r:gz') as tar:
+                        tar.extractall(path=cache)
+                except:
+                    with gzip.open(self.destination, 'rb') as infile:
+                        with open(path, 'wb') as outfile:
+                            shutil.copyfileobj(infile, outfile)
         if not os.path.isfile(path):
             raise RuntimeError('no vectors found at {}'.format(path))
 
