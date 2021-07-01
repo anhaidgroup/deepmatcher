@@ -12,6 +12,7 @@ from test import test_dir_path
 from urllib.parse import urljoin
 from urllib.request import pathname2url
 
+
 class ClassMatchingIteratorTestCases(unittest.TestCase):
     def test_splits_1(self):
         vectors_cache_dir = '.cache'
@@ -32,17 +33,25 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
         url_base = urljoin('file:', pathname2url(pathdir)) + os.path.sep
         ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
 
-        datasets = process(data_dir, train=train_path, validation=valid_path,
-                           test=test_path, cache=cache_file, embeddings=ft,
-                           id_attr='_id', left_prefix='ltable_', right_prefix='rtable_',
-                           embeddings_cache_path='',pca=False)
+        datasets = process(data_dir,
+                           train=train_path,
+                           validation=valid_path,
+                           test=test_path,
+                           cache=cache_file,
+                           embeddings=ft,
+                           id_attr='_id',
+                           left_prefix='ltable_',
+                           right_prefix='rtable_',
+                           embeddings_cache_path='',
+                           pca=False)
 
         splits = MatchingIterator.splits(datasets, batch_size=16)
         self.assertEqual(splits[0].batch_size, 16)
         self.assertEqual(splits[1].batch_size, 16)
         self.assertEqual(splits[2].batch_size, 16)
         splits_sorted = MatchingIterator.splits(datasets,
-                        batch_sizes=[16, 32, 64], sort_in_buckets=False)
+                                                batch_sizes=[16, 32, 64],
+                                                sort_in_buckets=False)
         self.assertEqual(splits_sorted[0].batch_size, 16)
         self.assertEqual(splits_sorted[1].batch_size, 32)
         self.assertEqual(splits_sorted[2].batch_size, 64)
@@ -72,18 +81,27 @@ class ClassMatchingIteratorTestCases(unittest.TestCase):
         url_base = urljoin('file:', pathname2url(pathdir)) + os.path.sep
         ft = FastText(filename, url_base=url_base, cache=vectors_cache_dir)
 
-        datasets = process(data_dir, train=train_path, validation=valid_path,
-                           test=test_path, cache=cache_file, embeddings=ft,
-                           id_attr='_id', left_prefix='ltable_', right_prefix='rtable_',
-                           embeddings_cache_path='',pca=False)
+        datasets = process(data_dir,
+                           train=train_path,
+                           validation=valid_path,
+                           test=test_path,
+                           cache=cache_file,
+                           embeddings=ft,
+                           id_attr='_id',
+                           left_prefix='ltable_',
+                           right_prefix='rtable_',
+                           embeddings_cache_path='',
+                           pca=False)
 
         splits = MatchingIterator.splits(datasets, batch_size=16)
         batch_splits = [split.create_batches() for split in splits]
 
         sorted_splits = MatchingIterator.splits(datasets,
-                        batch_sizes=[16, 32, 64], sort_in_buckets=False)
-        batch_sorted_splits = [sorted_split.create_batches()
-                                for sorted_split in sorted_splits]
+                                                batch_sizes=[16, 32, 64],
+                                                sort_in_buckets=False)
+        batch_sorted_splits = [
+            sorted_split.create_batches() for sorted_split in sorted_splits
+        ]
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 

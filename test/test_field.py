@@ -20,7 +20,6 @@ from urllib.request import pathname2url
 
 
 class ClassFastTextTestCases(unittest.TestCase):
-
     def test_init_1(self):
         vectors_cache_dir = '.cache'
         if os.path.exists(vectors_cache_dir):
@@ -38,7 +37,6 @@ class ClassFastTextTestCases(unittest.TestCase):
 
 
 class ClassFastTextBinaryTestCases(unittest.TestCase):
-
     @raises(RuntimeError)
     def test_init_1(self):
         vectors_cache_dir = '.cache'
@@ -47,8 +45,11 @@ class ClassFastTextBinaryTestCases(unittest.TestCase):
 
         pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec.zip'
-        url_base = urljoin('file:', pathname2url(os.path.join(pathdir, filename)))
-        mftb = FastTextBinary(filename, url_base=url_base, cache=vectors_cache_dir)
+        url_base = urljoin('file:',
+                           pathname2url(os.path.join(pathdir, filename)))
+        mftb = FastTextBinary(filename,
+                              url_base=url_base,
+                              cache=vectors_cache_dir)
 
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
@@ -61,8 +62,11 @@ class ClassFastTextBinaryTestCases(unittest.TestCase):
 
         pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample_not_exist.vec.zip'
-        url_base = urljoin('file:', pathname2url(os.path.join(pathdir, filename)))
-        mftb = FastTextBinary(filename, url_base=url_base, cache=vectors_cache_dir)
+        url_base = urljoin('file:',
+                           pathname2url(os.path.join(pathdir, filename)))
+        mftb = FastTextBinary(filename,
+                              url_base=url_base,
+                              cache=vectors_cache_dir)
 
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
@@ -75,15 +79,17 @@ class ClassFastTextBinaryTestCases(unittest.TestCase):
 
         pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample_not_exist.gz'
-        url_base = urljoin('file:', pathname2url(os.path.join(pathdir, filename)))
-        mftb = FastTextBinary(filename, url_base=url_base, cache=vectors_cache_dir)
+        url_base = urljoin('file:',
+                           pathname2url(os.path.join(pathdir, filename)))
+        mftb = FastTextBinary(filename,
+                              url_base=url_base,
+                              cache=vectors_cache_dir)
 
         if os.path.exists(vectors_cache_dir):
             shutil.rmtree(vectors_cache_dir)
 
 
 class ClassMatchingFieldTestCases(unittest.TestCase):
-
     def test_init_1(self):
         mf = MatchingField()
         self.assertTrue(mf.sequential)
@@ -92,7 +98,8 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
         mf = MatchingField()
         seq = 'Hello, This is a test sequence for tokenizer.'
         tok_seq = [
-            'Hello', ',', 'This', 'is', 'a', 'test', 'sequence', 'for', 'tokenizer', '.'
+            'Hello', ',', 'This', 'is', 'a', 'test', 'sequence', 'for',
+            'tokenizer', '.'
         ]
         self.assertEqual(mf.tokenize(seq), tok_seq)
 
@@ -175,7 +182,12 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
         mf = MatchingField()
         lf = MatchingField(id=True, sequential=False)
         fields = [('id', lf), ('left_a', mf), ('right_a', mf), ('label', lf)]
-        col_naming = {'id': 'id', 'label': 'label', 'left': 'left_', 'right': 'right_'}
+        col_naming = {
+            'id': 'id',
+            'label': 'label',
+            'left': 'left_',
+            'right': 'right_'
+        }
 
         pathdir = os.path.abspath(os.path.join(test_dir_path, 'test_datasets'))
         filename = 'fasttext_sample.vec'
@@ -183,7 +195,8 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
         url_base = urljoin('file:', pathname2url(file))
         vecs = Vectors(name=filename, cache=vectors_cache_dir, url=url_base)
 
-        data_path = os.path.join(test_dir_path, 'test_datasets', 'sample_table_small.csv')
+        data_path = os.path.join(test_dir_path, 'test_datasets',
+                                 'sample_table_small.csv')
         md = MatchingDataset(fields, col_naming, path=data_path)
 
         mf.build_vocab()
@@ -194,7 +207,6 @@ class ClassMatchingFieldTestCases(unittest.TestCase):
 
 
 class TestResetVectorCache(unittest.TestCase):
-
     def test_reset_vector_cache_1(self):
         mf = MatchingField()
         reset_vector_cache()
@@ -202,7 +214,6 @@ class TestResetVectorCache(unittest.TestCase):
 
 
 class ClassMatchingVocabTestCases(unittest.TestCase):
-
     def test_extend_vectors_1(self):
         vectors_cache_dir = '.cache'
         if os.path.exists(vectors_cache_dir):

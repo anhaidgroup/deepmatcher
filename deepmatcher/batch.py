@@ -29,7 +29,6 @@ class AttrTensor(AttrTensor_):
         assert(name_attr.word_probs == word_probs)
         assert(name_attr.pc == pc)
     """
-
     @staticmethod
     def __new__(cls, *args, **kwargs):
         if len(kwargs) == 0:
@@ -47,8 +46,8 @@ class AttrTensor(AttrTensor_):
             word_probs = None
             if 'word_probs' in train_info.metadata:
                 raw_word_probs = train_info.metadata['word_probs'][name]
-                word_probs = torch.Tensor(
-                    [[raw_word_probs[int(w)] for w in b] for b in data.data])
+                word_probs = torch.Tensor([[raw_word_probs[int(w)] for w in b]
+                                           for b in data.data])
                 if data.is_cuda:
                     word_probs = word_probs.cuda()
             pc = None
@@ -86,14 +85,14 @@ class MatchingBatch(object):
         name_attr = mbatch.name
         category_attr = mbatch.category
     """
-
     def __init__(self, input, train_info):
         copy_fields = train_info.all_text_fields
         for name in copy_fields:
-            setattr(self, name,
-                    AttrTensor(
-                        name=name, attr=getattr(input, name),
-                        train_info=train_info))
+            setattr(
+                self, name,
+                AttrTensor(name=name,
+                           attr=getattr(input, name),
+                           train_info=train_info))
         for name in [train_info.label_field, train_info.id_field]:
             if name is not None and hasattr(input, name):
                 setattr(self, name, getattr(input, name))
