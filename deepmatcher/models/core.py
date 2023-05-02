@@ -279,11 +279,14 @@ class MatchingModel(nn.Module):
 
         # Copy over training info from train set for persistent state. But remove actual
         # data examples.
+
+        # What is Bunch? - what if we do this for every epoch?
         self.meta = Bunch(**train_dataset.__dict__)
         if hasattr(self.meta, 'fields'):
             del self.meta.fields
             del self.meta.examples
 
+        # How is this train buffer used? 
         self._register_train_buffer('state_meta', Bunch(**self.meta.__dict__))
         del self.state_meta.metadata  # we only need `self.meta.orig_metadata` for state.
 
@@ -340,10 +343,12 @@ class MatchingModel(nn.Module):
         self.classifier = _utils.get_module(
             Classifier, self.classifier, hidden_size=self.hidden_size)
 
+        # What does this do?
         self._reset_embeddings(train_dataset.vocabs)
 
         # Instantiate all components using a small batch from training set.
         if not init_batch:
+            # does the run_iter depend on train_dataset size?
             run_iter = MatchingIterator(
                 train_dataset,
                 train_dataset,
@@ -352,9 +357,11 @@ class MatchingModel(nn.Module):
                 device='cpu',
                 sort_in_buckets=False)
             init_batch = next(run_iter.__iter__())
+        # Cab we do for every epoch instead? Probably can if training does this only anyway?
         self.forward(init_batch)
 
         # Keep this init_batch for future initializations.
+        # How is this used? What future initializations?
         self.state_meta.init_batch = init_batch
 
         self._initialized = True

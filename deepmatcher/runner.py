@@ -140,6 +140,8 @@ class Runner(object):
 
         return tp, tn, fp, fn
 
+    # This method looks like it is independent of dataset...
+    # We need to see if any model state variables are getting used somewhere indirectly
     @staticmethod
     def _run(run_type,
              model,
@@ -176,6 +178,12 @@ class Runner(object):
             criterion = criterion.to(device)
 
         if train:
+            # this is probably torch train...... 
+            # model.train() tells your model that you are training the model. 
+            # This helps inform layers such as Dropout and BatchNorm, which are designed to behave differently during training and evaluation. 
+            # For instance, in training mode, BatchNorm updates a moving average on each new batch; whereas, for evaluation mode, these updates are frozen.
+
+            # We are mostly okay here...
             model.train()
         else:
             model.eval()
@@ -267,6 +275,7 @@ class Runner(object):
         else:
             return cum_stats.f1()
 
+    # One approach: modify this to take in an unlabeled dataset, and number of active learning iterations. -- this way we dont have to call train multiple times, and instead we can put that logic in here??
     @staticmethod
     def train(model,
               train_dataset,
@@ -295,8 +304,10 @@ class Runner(object):
             float: The best F1 score obtained by the model on the validation dataset.
         """
 
+        # We should be able to re-initialize only the train dataset and ignore rest of the code inside initialize??
         model.initialize(train_dataset)
 
+        # What does this do? If it reinitalizaes some weights, we have to bypass this on re-runs
         model._register_train_buffer('optimizer_state', None)
         model._register_train_buffer('best_score', None)
         model._register_train_buffer('epoch', None)
