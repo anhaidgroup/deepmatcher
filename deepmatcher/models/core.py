@@ -357,7 +357,7 @@ class MatchingModel(nn.Module):
                 device='cpu',
                 sort_in_buckets=False)
             init_batch = next(run_iter.__iter__())
-        # Cab we do for every epoch instead? Probably can if training does this only anyway?
+        # Can we do for every epoch instead? Probably can if training does this only anyway?
         self.forward(init_batch)
 
         # Keep this init_batch for future initializations.
@@ -411,6 +411,7 @@ class MatchingModel(nn.Module):
             return 'concat-abs-diff'
         raise ValueError('Cannot infer attr comparator, please specify.')
 
+    # What does this do?
     def forward(self, input):
         r"""Performs a forward pass through the model.
 
