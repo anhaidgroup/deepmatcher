@@ -68,7 +68,7 @@ def split(table,
         tables[i].columns = table.columns
         tables[i].to_csv(os.path.join(path, prefixes[i]), index=False)
 
-
+# Either we find a way to extend this class to allow append operation or we create new matching dataset everytime :(
 class MatchingDataset(data.Dataset):
     r"""Represents dataset with associated metadata.
 
