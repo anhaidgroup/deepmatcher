@@ -276,6 +276,10 @@ class Runner(object):
             return cum_stats.f1()
 
     # One approach: modify this to take in an unlabeled dataset, and number of active learning iterations. -- this way we dont have to call train multiple times, and instead we can put that logic in here??
+    # Steps:
+    # Move the active learning and prompting portion into this class
+    # For dataset modification, fetch panda df, append to df, convert to csv and then create new matching dataset from that to be able to train model on new dataset
+    # TODO: Thoroughly go over initialize, train and run methods to see if we are missing any state meta data that is affected by changing train dataset
     @staticmethod
     def train(model,
               train_dataset,
