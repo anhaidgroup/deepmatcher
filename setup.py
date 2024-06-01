@@ -38,5 +38,5 @@ setup(
     python_requires='>=3.5',
     install_requires=[
         'torch>=1.0', 'tqdm', 'pyprind', 'six', 'Cython', 'torchtext>=0.9',
-        'nltk>=3.2.5', 'fasttext', 'pandas', 'dill', 'scikit-learn'
+        'nltk>=3.2.5', 'fasttext-wheel', 'pandas', 'dill', 'scikit-learn'
     ])
